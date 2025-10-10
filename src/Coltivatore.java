@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 
 public class Coltivatore extends Utente{
     private String codiceId;
-    private ArrayList<TipoAttività> elencoAttività = new ArrayList<TipoAttività>();
+    private ArrayList<TipoAttivita> elencoAttività = new ArrayList<TipoAttivita>();
     private ArrayList<Notifica> elencoNotifiche = new ArrayList<Notifica>();
     private Date dataInizioContratto;
     private ArrayList<Attività> elencoCosaSaFare = new ArrayList<Attività>();
@@ -14,7 +14,7 @@ public class Coltivatore extends Utente{
 
 
     //COSTRUTTORE:
-    Coltivatore(String nome, String cognome, Date dataNascita, Genere gen, String username, String password, String codiceId, Date dataInizio, TipoAttività typeAttività, boolean disp){
+    Coltivatore(String nome, String cognome, Date dataNascita, Genere gen, String username, String password, String codiceId, Date dataInizio, TipoAttivita typeAttività, boolean disp){
         super(nome, cognome, dataNascita, gen, username, password);
         this.codiceId = codiceId;
         this.dataInizioContratto = dataInizio;
@@ -27,7 +27,7 @@ public class Coltivatore extends Utente{
     public String getCodiceId() {
         return codiceId;
     }
-    public ArrayList<TipoAttività> getElencoAttività() {
+    public ArrayList<TipoAttivita> getElencoAttività() {
         return elencoAttività;
     }
     public ArrayList<Notifica> getElencoNotifiche() {
@@ -42,11 +42,13 @@ public class Coltivatore extends Utente{
     public boolean isDisponibilità() {
         return disponibilità;
     }
+
+
     //SETTERS:
     public void setCodiceId(String codiceId) {
         this.codiceId = codiceId;
     }
-    public void setElencoAttività(ArrayList<TipoAttività> elencoAttività) {
+    public void setElencoAttività(ArrayList<TipoAttivita> elencoAttività) {
         this.elencoAttività = elencoAttività;
     }
     public void setElencoNotifiche(ArrayList<Notifica> elencoNotifiche) {

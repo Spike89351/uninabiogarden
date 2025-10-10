@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TipoAttività {
+public class TipoAttivita {
     private ArrayList<Coltivatore> elencoColt = new ArrayList<Coltivatore>();
     private CondizioneRaccolto condizioneRaccolto;
     private Stato statoEsecuzione;
