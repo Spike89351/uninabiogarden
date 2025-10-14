@@ -8,13 +8,13 @@ import javax.swing.JOptionPane;
 
 public class UtenteDAO {
 	
-//	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
-//  private static final String USER = "postgres";
-//  private static final String PASSWORD = "Informatica1";
+	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
+  private static final String USER = "postgres";
+  private static final String PASSWORD = "Informatica1";
     
     
     public void inserisicUtente(Utente utente) {
-    	String sql = "INSERT INTO Utente (Nome, Cognome, Data_nascita, Genere, Username, Passwd) VALUES(?, ?, ?, ?, ?, ?)";
+    	String sql = "INSERT INTO prguninabiogarden.Utente (Nome, Cognome, Data_nascita, Genere, Username, Passwd) VALUES(?, ?, ?, ?, ?, ?)";
     	
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
