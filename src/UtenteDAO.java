@@ -7,10 +7,9 @@ import javax.swing.JOptionPane;
 
 
 public class UtenteDAO {
-	
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
-  private static final String USER = "postgres";
-  private static final String PASSWORD = "Informatica1";
+	private static final String USER = "postgres";
+	private static final String PASSWORD = "Informatica1";
     
     
     public void inserisicUtente(Utente utente) {
