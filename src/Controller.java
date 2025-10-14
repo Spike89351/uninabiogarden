@@ -46,7 +46,7 @@ public class Controller {
 	
 //METODI:
 	
-	public void creaUtente() {
+	public void creaUtente(Utente u) {
 		
 	}
 	

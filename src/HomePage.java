@@ -61,7 +61,8 @@ public class HomePage extends JFrame {
 		JButton btnAccedi = new JButton("Accedi");
 		btnAccedi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				theController.homePage.setVisible(false);
+				//PAGINA ACCESSO:
 			}
 		});
 		
