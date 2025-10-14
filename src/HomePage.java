@@ -25,7 +25,7 @@ public class HomePage extends JFrame {
 	private JTextField txtPassword;
 
 	public HomePage(Controller c) {
-		//Controller = c;
+		theController = c;
 		
 		setTitle("Accedi");
 		
@@ -68,7 +68,8 @@ public class HomePage extends JFrame {
 		JButton btnRegistrati = new JButton("Registrati");
 		btnRegistrati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				theController.homePage.setVisible(false);
+				theController.paginaRegistrati.setVisible(true);
 			}
 		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
