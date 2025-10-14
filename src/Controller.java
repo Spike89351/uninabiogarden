@@ -46,6 +46,10 @@ public class Controller {
 	
 //METODI:
 	
+	public void creaUtente() {
+		
+	}
+	
 	public void daPaginaRegistratiAProprietario(Utente u) {
 		//ALL'INTERNO DEVI INSERIRE LA PAGINA DEL COLTIVATORE + GLI PASSI L'UTENTE COSI' DA PRENDERE I DATI
 		paginaRegistrati.setVisible(false);

@@ -4,6 +4,15 @@ import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class PaginaRegistraProprietario extends JFrame {
 	private Controller theController;
@@ -11,6 +20,8 @@ public class PaginaRegistraProprietario extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
 
 	
 	public PaginaRegistraProprietario(Utente u, Controller c) {
@@ -18,11 +29,91 @@ public class PaginaRegistraProprietario extends JFrame {
 		
 		setTitle("Pagina per la registrazione del proprietario");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setSize(450, 270);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelTop = new JPanel();
+		contentPane.add(panelTop, BorderLayout.NORTH);
+		
+		JLabel lblWelcome = new JLabel("Completa i campi per completare la registrazione");
+		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		panelTop.add(lblWelcome);
+		
+		JPanel panelCentral = new JPanel();
+		contentPane.add(panelCentral, BorderLayout.CENTER);
+		
+		JLabel lblNewLabel = new JLabel("Email");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblPartitaIva = new JLabel("Partita iva");
+		lblPartitaIva.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPartitaIva.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
+		gl_panelCentral.setHorizontalGroup(
+			gl_panelCentral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addGap(138)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblPartitaIva, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(18)
+							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
+							.addGap(19)
+							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(117, Short.MAX_VALUE))
+		);
+		gl_panelCentral.setVerticalGroup(
+			gl_panelCentral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addGap(32)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblPartitaIva, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(148, Short.MAX_VALUE))
+		);
+		panelCentral.setLayout(gl_panelCentral);
+		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.SOUTH);
+		
+		JButton btnCompleta = new JButton("Completa");
+		
+		JButton btnBack = new JButton("Back");
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addComponent(btnBack)
+					.addPreferredGap(ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
+					.addComponent(btnCompleta))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnCompleta)
+						.addComponent(btnBack)))
+		);
+		panel.setLayout(gl_panel);
 
 	}
-
 }

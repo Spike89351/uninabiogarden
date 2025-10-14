@@ -1,11 +1,16 @@
 import java.awt.EventQueue;
+import java.util.Date;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -16,6 +21,8 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.Period;
 import java.awt.event.ActionEvent;
 
 public class PaginaRegistrati extends JFrame {
@@ -86,25 +93,30 @@ public class PaginaRegistrati extends JFrame {
 		txtPassword = new JTextField();
 		txtPassword.setColumns(10);
 		
-		String[] tipoGenere = {"Maschio", "Femmina", "Non_definito"}; 
+		String[] tipoGenere = {"Maschio", "Femmina", "Non definito"}; 
 		
 		JComboBox comboBox = new JComboBox(tipoGenere);
 		
 		JDateChooser dateChooser = new JDateChooser();
 		
 		JButton btnColtivatore = new JButton("Coltivatore");
+		//btnColtivatore.setEnabled(false);
 		btnColtivatore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//FAI UN IF AFFINCHE' TUTTI I CAMPI SIANO COMPILATI E I PULSANTI SI ATTIVANO;
-				//FUNZIONE CHE PRENDE QUESTI DATI E CHE LI INSERISCE NELLA FUNZIONE + INSERIMENTO DEI DATI SPECIFICI
+				if(control(txtNome, txtCognome, dateChooser, txtUsername, txtPassword)) {	
+					//METODO CHE CREA UN UTENTE + IL PASSAGGIO DELL'UTENTE ALLA PAGINA SUCCESSIVA;
+				}
 				//CLEAR CAMPI
 			}
 		});
 		
 		JButton btnProprietario = new JButton("Proprietario");
+		//btnProprietario.setEnabled(false);
 		btnProprietario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//FUNZIONE CHE PRENDE QUESTI DATI E CHE LI INSERISCE NELLA FUNZIONE + INSERIMENTO DEI DATI SPECIFICI
+				if(control(txtNome, txtCognome, dateChooser, txtUsername, txtPassword)) {
+					//METODO CHE CREA UN UTENTE + IL PASSAGGIO DELL'UTENTE ALLA PAGINA SUCCESSIVA;
+				}
 				//CLEAR CAMPI
 			}
 		});
@@ -189,5 +201,53 @@ public class PaginaRegistrati extends JFrame {
 		});
 		panelBottom.add(btnBack);
 
+	}
+	
+	
+	
+//METODI:
+	public boolean control(JTextField nome, JTextField cognome, JDateChooser data, JTextField username, JTextField password) {
+		 
+		LocalDate oggi = LocalDate.now();
+		 Date dataConv = data.getDate(); 
+		 LocalDate dataDiNascita = new java.sql.Date(dataConv.getDate()).toLocalDate();
+		 Period periodo = Period.between(dataDiNascita, oggi);
+		 
+		 
+		 //DEVE ESSERCI ALMENO UN CARATTERE SPECIALE NELLA PASSWORD:
+		 String regex = "[@#$%^&*()!]";
+	     Pattern pattern = Pattern.compile(regex);
+	     Matcher matcher = pattern.matcher((CharSequence) password);
+		 
+		if(nome.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Il campo nome non può essere vuoto!");
+			return false;
+		}
+		if(cognome.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Il campo cognome non può essere vuoto!");
+			return false;
+		}
+		if(data.getDate() == null) {
+			JOptionPane.showMessageDialog(null, "La data non può essere nullo");
+			return false;
+		}else if(periodo.getYears() < 18) {
+			JOptionPane.showMessageDialog(null, "L'utente per registrarsi non può avere meno di 18 anni!");
+			return false;
+		}
+		if(username.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Il campo Username non può essere vuoto!");
+			return false;
+		}else if(username.getText().length() < 5) {
+			JOptionPane.showMessageDialog(null, "L'username non può avere meno di 5 caratteri!");
+			return false;
+		}
+		if(password.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Il campo Password non può essere vuoto!");
+			return false;
+		}else if( password.getText().length() < 8|| matcher.find()) {
+			JOptionPane.showMessageDialog(null, "Il campo passowrd deve essere lunga almeno 8 caratteri e deve contenere almeno un carattere speciale: !@#$%^&*()\\-_=+{}[\\]:;\"''<>?,./ ");
+			return false;
+		}
+		return true;
 	}
 }
