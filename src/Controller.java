@@ -11,6 +11,7 @@ public class Controller {
 	private Coltivatore coltivaotore;
 	private Progetto progetto;
 	private Terreno terreno;
+	private TerrenoDAO terrenoDAO;
 	private CondizioneRaccolto condizioneRaccolto;
 	private Stato stato;
 	private TipoAttivita tipoAttività;
@@ -49,10 +50,13 @@ public class Controller {
 	
 //METODI:
 	
-	public void inserisciPropreitario(Utente u, String email, String partitaIva) {
+	public void inserisciPropreitario(Utente u, String email, String partitaIva, double superfice, String tip) {
 		utenteDAO.inserisicUtente(u);
 		proprietarioDAO.inserisiciProprietario(u.getUsername(), email, partitaIva);
-		//TerrenoDAO
+		int idProprietario = proprietarioDAO.trovaCodiceProprietario(u.getUsername());
+		if(idProprietario > 0) {
+			terrenoDAO.inserisciTerreno(idProprietario, superfice, tip);
+		}
 	}
 	
 	
