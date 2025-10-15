@@ -2,6 +2,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -10,7 +12,7 @@ public class UtenteDAO {
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
 	private static final String USER = "postgres";
 	private static final String PASSWORD = "Informatica1";
-    
+    private Utente utente;
     
     public void inserisicUtente(Utente utente) {
     	String sql = "INSERT INTO prguninabiogarden.Utente (Nome, Cognome, Data_nascita, Genere, Username, Passwd) VALUES(?, ?, ?, ?, ?, ?)";
@@ -32,12 +34,8 @@ public class UtenteDAO {
     		JOptionPane.showMessageDialog(null, "Errore nell'inserimento del veicolo! (CLASSE AutoDAO), funzione: inserisciAuto" + e);
     	}    	
     	
+    	
     }
-    
-    
-    
-    
-    
     
 }
 
