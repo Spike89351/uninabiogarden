@@ -7,6 +7,7 @@ public class Controller {
 	private UtenteDAO utenteDAO;
 	private Genere genere;
 	private Proprietario proprietario;
+	private ProprietarioDAO proprietarioDAO;
 	private Coltivatore coltivaotore;
 	private Progetto progetto;
 	private Terreno terreno;
@@ -27,6 +28,7 @@ public class Controller {
 	public HomePage homePage;
 	public PaginaRegistrati paginaRegistrati;
 	public PaginaRegistraProprietario paginaRegistraProp;
+	private PaginaRegistraTerreno paginaRegistraTerreno;
 	
 	//MAIN
 	public static void main(String[] args) throws SQLException {
@@ -47,17 +49,27 @@ public class Controller {
 	
 //METODI:
 	
-	public void inserisciUtente(Utente u) {
-		utenteDAO = new UtenteDAO();
-		utenteDAO.inserisicUtente(u);		
+	public void inserisciPropreitario(Utente u, String email, String partitaIva) {
+		utenteDAO.inserisicUtente(u);
+		proprietarioDAO.inserisiciProprietario(u.getUsername(), email, partitaIva);
+		//TerrenoDAO
 	}
 	
+	
+	//PASSAGGIO DALLA PAGINA CREAZIONE UTENTE A QUELLA DELLA REGISTRAZIONE PER IL PROPRIETARIO:
 	public void daPaginaRegistratiAProprietario(Utente u) {
-		//ALL'INTERNO DEVI INSERIRE LA PAGINA DEL COLTIVATORE + GLI PASSI L'UTENTE COSI' DA PRENDERE I DATI
 		paginaRegistrati.setVisible(false);
 		
 		paginaRegistraProp = new PaginaRegistraProprietario(u, this);
 		paginaRegistraProp.setVisible(true);
+	}
+	
+	//PASSAGGIO DALLA PAGINA DELLA REGISTRAZIONE DEL PROPRIETARIO ALLA REGISTRAZIONE DEL TERRENO:
+	public void daPaginaRegistraProprietarioATerreno(Utente u, String email, String partitaIva) {
+		paginaRegistraProp.setVisible(false);
+		
+		paginaRegistraTerreno = new PaginaRegistraTerreno(u, email, partitaIva, this);
+		paginaRegistraTerreno.setVisible(true);		
 	}
 	
 }

@@ -11,14 +11,11 @@ public class Terreno {
 
 
     //COSTRUTTORE:
-    Terreno(String ID_Terreno, Proprietario Prop, double superficie, TipoTerreno TipologiaTerreno, ArrayList<Progetto> Project, ArrayList<TipoAttivita> TipoAttivita, ArrayList<String> StoricoColtura) {
+    Terreno(String ID_Terreno, Proprietario Prop, double superficie, TipoTerreno TipologiaTerreno) {
         this.ID_Terreno = ID_Terreno;
         this.Prop = Prop;
         this.superficie = superficie;
         this.TipologiaTerreno = TipologiaTerreno;
-        this.Project = Project;
-        this.TipoAttivita = TipoAttivita;
-        this.StoricoColtura = StoricoColtura;
     }
 
     //GETTERS:

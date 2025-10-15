@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -61,25 +63,18 @@ public class PaginaRegistraProprietario extends JFrame {
 		
 		txtPartitaIva = new JTextField();
 		txtPartitaIva.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("Aggiungi i dati da compilare per il terreno ");
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addGap(138)
-							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblPartitaIva, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addGap(18)
-							.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
-								.addComponent(txtPartitaIva, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addGap(29)
-							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 307, GroupLayout.PREFERRED_SIZE)))
+					.addGap(138)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblPartitaIva, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(18)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+						.addComponent(txtPartitaIva, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(92, Short.MAX_VALUE))
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -93,20 +88,19 @@ public class PaginaRegistraProprietario extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblPartitaIva, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 						.addComponent(txtPartitaIva, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(38)
-					.addComponent(lblNewLabel_1)
-					.addContainerGap(96, Short.MAX_VALUE))
+					.addContainerGap(148, Short.MAX_VALUE))
 		);
 		panelCentral.setLayout(gl_panelCentral);
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
-		JButton btnCompleta = new JButton("Completa");
-		btnCompleta.addActionListener(new ActionListener() {
+		JButton lblContinua = new JButton("Continua");
+		lblContinua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Proprietario prp = new Proprietario(u.getNome(), u.getCognome(), u.getDataNascita(), u.getGenere(), u.getUsername(), txtEmail.getText(), txtPartitaIva.getText());
-				theController.inserisciUtente(u);
+				if(ctrlString(txtEmail.getText(), txtPartitaIva.getText())) {
+					theController.daPaginaRegistraProprietarioATerreno(u, txtEmail.getText(), txtPartitaIva.getText());
+				}
 			}
 		});
 		
@@ -117,17 +111,43 @@ public class PaginaRegistraProprietario extends JFrame {
 				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 					.addComponent(btnBack)
 					.addPreferredGap(ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
-					.addComponent(btnCompleta))
+					.addComponent(lblContinua))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCompleta)
+						.addComponent(lblContinua)
 						.addComponent(btnBack)))
 		);
 		panel.setLayout(gl_panel);
 
 	}
+	
+	
+//METODI:
+	
+	public boolean  ctrlString(String email, String partitaIva) {
+		//CONTROLLO PER L'EMAIL:
+		if(email.isBlank()) {
+			JOptionPane.showMessageDialog(null, "Mi dispiace ma il campo Eamil non può essere vuoto!");
+			return false;
+		}else if(! email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")){
+			JOptionPane.showMessageDialog(null, "Mi dispiace ma il formato dell'email non è valido, RIPROVA!");
+			return false;
+		}
+		
+		//CONTROLLO PER LA PARTITA IVA:
+		if(partitaIva.isBlank()) {
+			JOptionPane.showMessageDialog(null, "Mi dispiace ma il campo partita iva non può essere vuoto!");
+			return false;
+		}else if( partitaIva.length() != 11) {
+			JOptionPane.showMessageDialog(null, "Il formato della partita iva è errato!");
+			return false;
+		}
+		return true;
+	}
+	
+	
 }
