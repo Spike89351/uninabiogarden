@@ -4,6 +4,7 @@ public class Controller {
 	
 	//INIZIALIZZAZIONI DELLE CLASSI COME ATTIBUTI:
 	private Utente utente;
+	private UtenteDAO utenteDAO;
 	private Genere genere;
 	private Proprietario proprietario;
 	private Coltivatore coltivaotore;
@@ -46,8 +47,9 @@ public class Controller {
 	
 //METODI:
 	
-	public void creaUtente(Utente u) {
-		
+	public void inserisciUtente(Utente u) {
+		utenteDAO = new UtenteDAO();
+		utenteDAO.inserisicUtente(u);		
 	}
 	
 	public void daPaginaRegistratiAProprietario(Utente u) {

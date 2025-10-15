@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PaginaRegistraProprietario extends JFrame {
 	private Controller theController;
@@ -20,8 +22,8 @@ public class PaginaRegistraProprietario extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtEmail;
+	private JTextField txtPartitaIva;
 
 	
 	public PaginaRegistraProprietario(Utente u, Controller c) {
@@ -54,27 +56,31 @@ public class PaginaRegistraProprietario extends JFrame {
 		lblPartitaIva.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPartitaIva.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		txtPartitaIva = new JTextField();
+		txtPartitaIva.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Aggiungi i dati da compilare per il terreno ");
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
-					.addGap(138)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblPartitaIva, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(138)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblPartitaIva, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addGap(18)
-							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
-							.addGap(19)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(117, Short.MAX_VALUE))
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+								.addComponent(txtPartitaIva, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(29)
+							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 307, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(92, Short.MAX_VALUE))
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -82,12 +88,14 @@ public class PaginaRegistraProprietario extends JFrame {
 					.addGap(32)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblPartitaIva, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(148, Short.MAX_VALUE))
+						.addComponent(txtPartitaIva, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(38)
+					.addComponent(lblNewLabel_1)
+					.addContainerGap(96, Short.MAX_VALUE))
 		);
 		panelCentral.setLayout(gl_panelCentral);
 		
@@ -95,6 +103,12 @@ public class PaginaRegistraProprietario extends JFrame {
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
 		JButton btnCompleta = new JButton("Completa");
+		btnCompleta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Proprietario prp = new Proprietario(u.getNome(), u.getCognome(), u.getDataNascita(), u.getGenere(), u.getUsername(), txtEmail.getText(), txtPartitaIva.getText());
+				theController.inserisciUtente(u);
+			}
+		});
 		
 		JButton btnBack = new JButton("Back");
 		GroupLayout gl_panel = new GroupLayout(panel);
