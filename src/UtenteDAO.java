@@ -15,11 +15,14 @@ public class UtenteDAO {
     private Utente utente;
     
     public void inserisicUtente(Utente utente) {
+    	System.out.println("Sono nella funzione inserisci utente:");
     	String sql = "INSERT INTO prguninabiogarden.Utente (Nome, Cognome, Data_nascita, Genere, Username, Passwd) VALUES(?, ?, ?, ?, ?, ?)";
     	
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
-
+    			
+    		System.out.println("Sto nel try-catch");
+    		
                 psmt.setString(1, utente.getNome());
                 psmt.setString(2, utente.getCognome());
                 System.out.println((Date) utente.getDataNascita());
@@ -32,6 +35,7 @@ public class UtenteDAO {
                 
             psmt.executeUpdate();
     	}catch(Exception e) {
+    		System.out.println(e);
     		JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'utente! (CLASSE UtenteDAO), funzione: inserisciUtente" + e);
     	}    	
     	

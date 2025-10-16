@@ -263,8 +263,11 @@ public class PaginaRegistrati extends JFrame {
 		if(password.getText().isBlank()) {
 			JOptionPane.showMessageDialog(null, "Il campo Password non può essere vuoto!");
 			return false;
-		}else if( password.getText().length() < 8|| ! (matcher.find())) {
-			JOptionPane.showMessageDialog(null, "Il campo passowrd deve essere lunga almeno 8 caratteri e deve contenere almeno un carattere speciale: !@#$%^&*()\\-_=+{}[\\]:;\"''<>?,./ ");
+		}else if( password.getText().length() < 8) {
+			JOptionPane.showMessageDialog(null, "Il campo passowrd deve essere lunga almeno 8 caratteri");
+			return false;
+		}else if(! (matcher.find())){
+			JOptionPane.showMessageDialog(null, "La password deve contenere almeno un carattere speciale: !@#$%^&*()\\\\-_=+{}[]:;'<>?,./ \");");
 			return false;
 		}
 		return true;
