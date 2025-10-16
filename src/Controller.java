@@ -1,5 +1,7 @@
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 public class Controller {
 	
 	//INIZIALIZZAZIONI DELLE CLASSI COME ATTIBUTI:
@@ -56,6 +58,8 @@ public class Controller {
 		int idProprietario = proprietarioDAO.trovaCodiceProprietario(u.getUsername());
 		if(idProprietario > 0) {
 			terrenoDAO.inserisciTerreno(idProprietario, superfice, tipo);
+		}else {
+			JOptionPane.showMessageDialog(null, "Errore nella classe controller nella funzione InserisciProprietario!");
 		}
 	}
 	
