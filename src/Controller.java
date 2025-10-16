@@ -53,6 +53,7 @@ public class Controller {
 //METODI:
 	
 	public void inserisciPropreitario(Utente u, String email, String partitaIva, double superfice, TipoTerreno tipo) {
+		utenteDAO = new UtenteDAO();
 		utenteDAO.inserisicUtente(u);
 		proprietarioDAO.inserisiciProprietario(u.getUsername(), email, partitaIva);
 		int idProprietario = proprietarioDAO.trovaCodiceProprietario(u.getUsername());

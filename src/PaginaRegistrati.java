@@ -218,7 +218,7 @@ public class PaginaRegistrati extends JFrame {
 		 //DEVE ESSERCI ALMENO UN CARATTERE SPECIALE NELLA PASSWORD:
 		 String regex = "[@#$%^&*()!]";
 	     Pattern pattern = Pattern.compile(regex);
-	     Matcher matcher = pattern.matcher((CharSequence) password);
+	     Matcher matcher = pattern.matcher((CharSequence) password.getText());
 		 
 		if(nome.getText().isBlank()) {
 			JOptionPane.showMessageDialog(null, "Il campo nome non può essere vuoto!");
