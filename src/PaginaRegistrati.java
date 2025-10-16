@@ -21,10 +21,14 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.time.LocalDate;
 import java.time.Period;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.JCheckBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PaginaRegistrati extends JFrame {
 	private Controller theController;
@@ -124,23 +128,37 @@ public class PaginaRegistrati extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		txtPassword = new JPasswordField();
+		
+		JCheckBox checkBoxMostraPassword = new JCheckBox("Mostra password");
+		checkBoxMostraPassword.addItemListener(e -> {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+                txtPassword.setEchoChar((char) 0);
+                checkBoxMostraPassword.setText("Nascondi password");
+            } else {
+                txtPassword.setEchoChar('*');
+                checkBoxMostraPassword.setText("Mostra password");
+            }
+		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(101)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGroup(gl_panelCentral.createSequentialGroup()
+								.addComponent(btnProprietario)
+								.addGap(44)
+								.addComponent(btnColtivatore)))
 						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(lblDataDiNascita, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(lblNome, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(lblCognome, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(lblGenere, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(lblUsername, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(lblPassword, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addComponent(btnProprietario))
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblPassword, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblDataDiNascita, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblNome, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblCognome, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblGenere, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblUsername, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addGap(33)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
@@ -148,11 +166,10 @@ public class PaginaRegistrati extends JFrame {
 								.addComponent(txtUsername)
 								.addComponent(txtCognome)
 								.addComponent(txtNome)
-								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addGap(11)
-									.addComponent(btnColtivatore))
 								.addComponent(txtPassword))))
-					.addContainerGap(112, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(checkBoxMostraPassword)
+					.addContainerGap(13, Short.MAX_VALUE))
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -179,11 +196,12 @@ public class PaginaRegistrati extends JFrame {
 						.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+						.addComponent(checkBoxMostraPassword)
+						.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnColtivatore)
 						.addComponent(btnProprietario))
