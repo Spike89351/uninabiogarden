@@ -55,9 +55,11 @@ public class Controller {
 	public void inserisciPropreitario(Utente u, String email, String partitaIva, double superfice, TipoTerreno tipo) {
 		utenteDAO = new UtenteDAO();
 		utenteDAO.inserisicUtente(u);
+		proprietarioDAO = new ProprietarioDAO();
 		proprietarioDAO.inserisiciProprietario(u.getUsername(), email, partitaIva);
 		int idProprietario = proprietarioDAO.trovaCodiceProprietario(u.getUsername());
 		if(idProprietario > 0) {
+			terrenoDAO = new TerrenoDAO();
 			terrenoDAO.inserisciTerreno(idProprietario, superfice, tipo);
 		}else {
 			JOptionPane.showMessageDialog(null, "Errore nella classe controller nella funzione InserisciProprietario!");

@@ -22,6 +22,7 @@ public class UtenteDAO {
 
                 psmt.setString(1, utente.getNome());
                 psmt.setString(2, utente.getCognome());
+                System.out.println((Date) utente.getDataNascita());
                 psmt.setDate(3, (Date) utente.getDataNascita());
                 psmt.setObject(4, utente.getGenere());
                 psmt.setString(5, utente.getUsername());
@@ -31,7 +32,7 @@ public class UtenteDAO {
                 
             psmt.executeUpdate();
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento del veicolo! (CLASSE AutoDAO), funzione: inserisciAuto" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'utente! (CLASSE UtenteDAO), funzione: inserisciUtente" + e);
     	}    	
     	
     	
