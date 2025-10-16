@@ -10,7 +10,8 @@ public class TerrenoDAO {
 	private static final String PASSWORD = "Informatica1";
 	
 	
-	public void inserisciTerreno(int codeProprietario, double superficie, String TipologiaTerreno) {
+	public void inserisciTerreno(int codeProprietario, double superficie, TipoTerreno TipologiaTerreno) {
+		String tipoTerreno = String.valueOf(TipologiaTerreno);
 String sql = "INSERT INTO prguninabiogarden.Terreno (Id_proprietario, Superfice, Tipo_terreno) VALUES(?, ?, ?)";
     	
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 

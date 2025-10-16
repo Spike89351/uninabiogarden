@@ -57,9 +57,7 @@ public class PaginaRegistraTerreno extends JFrame {
 		txtSuperfice = new JTextField();
 		txtSuperfice.setColumns(10);
 		
-		String[] tipoTerreno = {" ", "Sabbioso", "Limoso", "Argilloso", "Torboso", "Calcareo", "Franco"};
-		
-		comboBox = new JComboBox(tipoTerreno);
+		comboBox = new JComboBox(TipoTerreno.values());
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -96,8 +94,8 @@ public class PaginaRegistraTerreno extends JFrame {
 		JButton btnCompleta = new JButton("Completa");
 		btnCompleta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(ctrlFields(txtSuperfice.getText(), comboBox.getSelectedItem().toString())) {
-					//theController.inserisciUtente(u)
+				if(ctrlFields(txtSuperfice.getText())) {
+					theController.inserisciPropreitario(u, txtSuperfice.getText(), comboBox.getPrototypeDisplayValue()));
 				}
 			}
 		});
@@ -115,7 +113,7 @@ public class PaginaRegistraTerreno extends JFrame {
 	
 //METODO:
 	
-	public boolean ctrlFields(String superfice, String tipoTerreno) {
+	public boolean ctrlFields(String superfice) {
 		//CONTROLLO SUPERFICE:
 		if(superfice.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Il campo superfice non può essere vuoto!");
@@ -131,11 +129,6 @@ public class PaginaRegistraTerreno extends JFrame {
 				JOptionPane.showMessageDialog(null, "C'è stato un errore nella conversione del valore!");
 				return false;
 			}
-		}
-		//CONTROLLO TIPOLOGIA TERRENO:
-		if(tipoTerreno.isBlank()) {
-			JOptionPane.showMessageDialog(null, "Mi dispaice ma il campo tipo terreno non può essere vuoto!");
-			return false;
 		}
 		return true;
 	}

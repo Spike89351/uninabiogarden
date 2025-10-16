@@ -50,12 +50,12 @@ public class Controller {
 	
 //METODI:
 	
-	public void inserisciPropreitario(Utente u, String email, String partitaIva, double superfice, String tip) {
+	public void inserisciPropreitario(Utente u, String email, String partitaIva, double superfice, TipoTerreno tipo) {
 		utenteDAO.inserisicUtente(u);
 		proprietarioDAO.inserisiciProprietario(u.getUsername(), email, partitaIva);
 		int idProprietario = proprietarioDAO.trovaCodiceProprietario(u.getUsername());
 		if(idProprietario > 0) {
-			terrenoDAO.inserisciTerreno(idProprietario, superfice, tip);
+			terrenoDAO.inserisciTerreno(idProprietario, superfice, tipo);
 		}
 	}
 	
