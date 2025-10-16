@@ -26,7 +26,7 @@ public class PaginaRegistraTerreno extends JFrame {
 	private JTextField txtSuperfice;
 	private JComboBox comboBox;
 	
-	public PaginaRegistraTerreno(Utente u, String email, String partitaIva,Controller c) {
+	public PaginaRegistraTerreno(Utente u, String email, String partitaIva, Controller c) {
 		theController = c;
 		
 		
@@ -95,7 +95,9 @@ public class PaginaRegistraTerreno extends JFrame {
 		btnCompleta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ctrlFields(txtSuperfice.getText())) {
-					theController.inserisciPropreitario(u, txtSuperfice.getText(), comboBox.getPrototypeDisplayValue()));
+					TipoTerreno typ = (TipoTerreno) comboBox.getPrototypeDisplayValue();
+					double sup = Double.valueOf(txtSuperfice.getText());
+					theController.inserisciPropreitario(u, email, partitaIva, sup, typ);
 				}
 			}
 		});
