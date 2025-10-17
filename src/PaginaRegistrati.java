@@ -18,6 +18,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import com.toedter.calendar.JDateChooser;
+
+//import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
+
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -40,13 +43,15 @@ public class PaginaRegistrati extends JFrame {
 	private JTextField txtCognome;
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
+	private Genere gen;
 
 	public PaginaRegistrati(Controller c) {
 		theController = c;
 		
 		setTitle("Registrati");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 425, 412);
+		setSize(425, 412);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -115,8 +120,25 @@ public class PaginaRegistrati extends JFrame {
 		btnProprietario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(control(txtNome, txtCognome, dateChooser, txtUsername, txtPassword)) {
-					//METODO CHE CREA UN UTENTE + IL PASSAGGIO DELL'UTENTE ALLA PAGINA SUCCESSIVA;
-					Utente u = new Utente(txtNome.getText(), txtCognome.getText(), (java.sql.Date) dateChooser.getDate(), comboBoxGenere.getPrototypeDisplayValue(), txtUsername.getText(), txtPassword.getText());
+					//FACCIO IL CAST DELLA DATA:
+					java.sql.Date data = new java.sql.Date(dateChooser.getDate().getTime());
+					
+					//CASTO ANCHE IL LA VIARIABILE DI TIPO GENERE:
+					try{
+						gen = (Genere) comboBoxGenere.getSelectedItem();
+						if(gen == null) {
+							System.out.println("Sono vuoto! ");
+						}else {
+							System.out.println(""+gen);
+						}
+					}catch(Exception x) {
+						System.out.println(x);
+					}
+					
+					//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE:
+					Utente u = new Utente(txtNome.getText(), txtCognome.getText(), data, gen, txtUsername.getText(), txtPassword.getText());
+					
+					//CHIAMO LA FUNZIONE CHE MI PERMETTE DI PASSARE A UN'ALTRA PAGINA:
 					theController.daPaginaRegistratiAProprietario(u);
 				}
 				//CLEAR CAMPI

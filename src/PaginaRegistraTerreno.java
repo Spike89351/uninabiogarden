@@ -58,18 +58,26 @@ public class PaginaRegistraTerreno extends JFrame {
 		txtSuperfice.setColumns(10);
 		
 		comboBox = new JComboBox(TipoTerreno.values());
+		
+		JLabel lblFertilità = new JLabel("Fertilità");
+		lblFertilità.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JComboBox comboBoxFertilità = new JComboBox(Fertilità.values());
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
-			gl_panelCentral.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
+			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addContainerGap(132, Short.MAX_VALUE)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblTipoTerreno)
-						.addComponent(lblSuperfice))
+						.addComponent(lblSuperfice)
+						.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
 					.addGap(28)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(txtSuperfice))
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addComponent(comboBoxFertilità, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(txtSuperfice)))
 					.addGap(130))
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -83,7 +91,11 @@ public class PaginaRegistraTerreno extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTipoTerreno, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(140, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBoxFertilità, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(113, Short.MAX_VALUE))
 		);
 		panelCentral.setLayout(gl_panelCentral);
 		
@@ -95,9 +107,10 @@ public class PaginaRegistraTerreno extends JFrame {
 		btnCompleta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ctrlFields(txtSuperfice.getText())) {
-					TipoTerreno typ = (TipoTerreno) comboBox.getPrototypeDisplayValue();
 					double sup = Double.valueOf(txtSuperfice.getText());
-					theController.inserisciPropreitario(u, email, partitaIva, sup, typ);
+					TipoTerreno typ = (TipoTerreno) comboBox.getPrototypeDisplayValue();
+					Fertilità fert = (Fertilità) comboBoxFertilità.getPrototypeDisplayValue();
+					theController.inserisciPropreitario(u, email, partitaIva, sup, typ, fert);
 				}
 			}
 		});

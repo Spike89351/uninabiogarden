@@ -1,3 +1,5 @@
 public enum Genere {
-    Maschio, Femmina, Non_definito;
+    Maschio, 
+    Femmina, 
+    Non_definito;
 }

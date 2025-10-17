@@ -15,19 +15,19 @@ public class UtenteDAO {
     private Utente utente;
     
     public void inserisicUtente(Utente utente) {
-    	System.out.println("Sono nella funzione inserisci utente:");
     	String sql = "INSERT INTO prguninabiogarden.Utente (Nome, Cognome, Data_nascita, Genere, Username, Passwd) VALUES(?, ?, ?, ?, ?, ?)";
     	
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
-    			
-    		System.out.println("Sto nel try-catch");
+    		
+    		//CASTO IL TIPO GENERE IN STRING PERCHE' IL DB NON ACCETTA IL TIPO Object:
+    		String gen = String.valueOf(utente.getGenere());
+    		
     		
                 psmt.setString(1, utente.getNome());
                 psmt.setString(2, utente.getCognome());
-                System.out.println(utente.getDataNascita());
-                psmt.setDate(3,utente.getDataNascita());
-                psmt.setObject(4, utente.getGenere());
+                psmt.setDate(3, utente.getDataNascita());
+               	psmt.setString(4, gen);
                 psmt.setString(5, utente.getUsername());
                 psmt.setString(6, utente.getPassword());
                 
