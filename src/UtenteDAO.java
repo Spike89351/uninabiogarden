@@ -98,6 +98,40 @@ public class UtenteDAO {
         }
     }
 
+    //CONTROLLO SE E' UN PROPRIETARIO O COLTIVATORE:
+    public int controlloTipoUtente(String username) {
+    	String sql = "SELECT\r\n"
+    			+ "  CASE\r\n"
+    			+ "    WHEN P.username IS NOT NULL THEN 1  -- È un Proprietario\r\n"
+    			+ "    WHEN C.username IS NOT NULL THEN 2  -- È un Coltivatore\r\n"
+    			+ "    ELSE 0                                -- (Non dovrebbe mai accadere, ma gestito per sicurezza)\r\n"
+    			+ "  END AS tipo_utente\r\n"
+    			+ "FROM prguninabiogarden.Utente AS U\r\n"
+    			+ "LEFT JOIN prguninabiogarden.Proprietario AS P ON U.username = P.username\r\n"
+    			+ "LEFT JOIN prguninabiogarden.Coltivatore AS C ON U.username = C.username\r\n"
+    			+ "WHERE U.username = ?";
+    	
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement psmt = conn.prepareStatement(sql)) {
+
+               psmt.setString(1, username);
+               ResultSet rs = psmt.executeQuery();
+
+               if (rs.next()) {
+                   int tipoUtente = rs.getInt("tipo_utente");
+                   // tipoUtente sarà 1 (Proprietario), 2 (Cliente) o 0 (Errore)
+                   return tipoUtente;
+               } else {
+                   return 0; // Utente non trovato
+               }
+               
+           } catch (Exception e) {
+               System.out.println(e);
+               JOptionPane.showMessageDialog(null, "Errore nel controllo della tipologia di utente! funzione controlloTipoUtente, calsse UtenteDAO");
+               return 0;
+           }
+    	
+    }
     
 }
 

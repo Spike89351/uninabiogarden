@@ -31,7 +31,9 @@ public class Controller {
 	public HomePage homePage;
 	public PaginaRegistrati paginaRegistrati;
 	public PaginaRegistraProprietario paginaRegistraProp;
-	private PaginaRegistraTerreno paginaRegistraTerreno;
+	public PaginaRegistraTerreno paginaRegistraTerreno;
+	public PaginaProprietario paginaProprietario;
+	public PaginaColtivatore paginaColtivatore;
 	
 	//MAIN
 	public static void main(String[] args) throws SQLException {
@@ -72,9 +74,19 @@ public class Controller {
 		System.out.println("Sto nella funzione che si trova nel controller:");
 		utenteDAO = new UtenteDAO();
 		if(utenteDAO.ctrlUsername(username)) {
-			System.out.println("Sto nel primo if, cioè quello del controllo dell'username:");
 			if(utenteDAO.ctrlPassword(username, password)) {
-				JOptionPane.showMessageDialog(null, "Il tuo account esiste!");
+				if(utenteDAO.controlloTipoUtente(username) == 1) {
+					//VAI ALLA PAGINA DEL PROPRIETARIO:
+					daHomePageAccessoAProprietario(username);
+					System.out.println("Proprietariooooooo");
+				}else if(utenteDAO.controlloTipoUtente(username) == 2) {
+					//VAI ALLA PAGINA DEL COLTIVATORE:
+					daHomePageAccessoAColtivatore(username);
+					System.out.println("Coltivatore");
+				}else if(utenteDAO.controlloTipoUtente(username) == 0){
+					//MESSAGGIO DI ERRORE!
+					JOptionPane.showMessageDialog(null, "Errore nella funzione tipoUtente classe CController");
+				}
 			}else {
 				JOptionPane.showMessageDialog(null, "L'account non esiste, RIPROVA!");
 			}
@@ -106,14 +118,32 @@ public class Controller {
 		paginaRegistraTerreno.setVisible(true);		
 	}
 	
+	//PASSAGGIO DALLA REGISTRAZIONE DEL TERRENO ALLA PAGINA REGISTRA PROPRIETARIO:
 	public void daRegistraTerrenoARegistraProprietario() {
 		paginaRegistraTerreno.setVisible(false);
 		paginaRegistraProp.setVisible(true);
 	}
 	
+	//UNA VOLTA COMPLETATO LA REGISTRAZIONE VAI ALLA HOME PAGE:
 	public void daTerrenoAHomePage() {
 		paginaRegistraTerreno.setVisible(false);
 		homePage.setVisible(true);
+	}
+	
+	//UNA VOLTA FATTO L'ACCESSO IL PROPRIETARIO ENTRERA' NELLA SUA PAGINA:
+		//VENGONO UTILIZZATE NEL METODO ALLA LINEA DI CODICE 73;
+	private void daHomePageAccessoAProprietario(String username) {
+		homePage.setVisible(false);
+		
+		paginaProprietario = new PaginaProprietario(username, this);
+		paginaProprietario.setVisible(true);
+	}
+	
+	private void daHomePageAccessoAColtivatore(String u) {
+		homePage.setVisible(false);
+		
+		paginaColtivatore = new PaginaColtivatore(u, this);
+		paginaColtivatore.setVisible(true);
 	}
 	
 }
