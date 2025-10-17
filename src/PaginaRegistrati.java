@@ -126,13 +126,9 @@ public class PaginaRegistrati extends JFrame {
 					//CASTO ANCHE IL LA VIARIABILE DI TIPO GENERE:
 					try{
 						gen = (Genere) comboBoxGenere.getSelectedItem();
-						if(gen == null) {
-							System.out.println("Sono vuoto! ");
-						}else {
-							System.out.println(""+gen);
-						}
 					}catch(Exception x) {
 						System.out.println(x);
+						JOptionPane.showMessageDialog(null, "Errore nel cast del genere dell'utente");
 					}
 					
 					//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE:
