@@ -75,7 +75,8 @@ public class Controller {
 		paginaRegistraProp.setVisible(true);
 	}
 	
-	public void daPaginaProprietarioARegistraUtente() {
+	public void daPaginaProprietarioARegistraUtente(Utente u) {
+		u = null;
 		paginaRegistraProp.setVisible(false);
 		paginaRegistrati.setVisible(true);
 	}
@@ -86,6 +87,11 @@ public class Controller {
 		
 		paginaRegistraTerreno = new PaginaRegistraTerreno(u, email, partitaIva, this);
 		paginaRegistraTerreno.setVisible(true);		
+	}
+	
+	public void daTerrenoAHomePage() {
+		paginaRegistraTerreno.setVisible(false);
+		homePage.setVisible(true);
 	}
 	
 }

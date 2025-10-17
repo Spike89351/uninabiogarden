@@ -111,6 +111,9 @@ public class PaginaRegistraTerreno extends JFrame {
 					TipoTerreno typ = (TipoTerreno) comboBox.getSelectedItem();
 					Fertilità fert = (Fertilità) comboBoxFertilità.getSelectedItem();
 					theController.inserisciPropreitario(u, email, partitaIva, sup, typ, fert);
+					JOptionPane.showMessageDialog(null, "Perfetto hai completato la registrazione!");
+					clearField(txtSuperfice);
+					theController.daTerrenoAHomePage();
 				}
 			}
 		});
@@ -119,11 +122,10 @@ public class PaginaRegistraTerreno extends JFrame {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				clearField(txtSuperfice);
 			}
 		});
 		panelBottom.add(btnBack, BorderLayout.WEST);
-
 	}
 	
 //METODO:
@@ -146,5 +148,10 @@ public class PaginaRegistraTerreno extends JFrame {
 			}
 		}
 		return true;
+	}
+	
+	
+	private void clearField(JTextField superfice) {
+		superfice.setText(null);
 	}
 }
