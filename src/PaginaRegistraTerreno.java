@@ -123,6 +123,7 @@ public class PaginaRegistraTerreno extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearField(txtSuperfice);
+				//BISOGNA AGGIUNGERE UNA FUNZIONE CHE FACCIA RITORNARE INDIETRO:
 			}
 		});
 		panelBottom.add(btnBack, BorderLayout.WEST);
