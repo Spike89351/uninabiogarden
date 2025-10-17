@@ -110,7 +110,6 @@ public class PaginaRegistraTerreno extends JFrame {
 					double sup = Double.valueOf(txtSuperfice.getText());
 					TipoTerreno typ = (TipoTerreno) comboBox.getSelectedItem();
 					Fertilità fert = (Fertilità) comboBoxFertilità.getSelectedItem();
-					System.out.println(sup +""+ typ + "" + fert);
 					theController.inserisciPropreitario(u, email, partitaIva, sup, typ, fert);
 				}
 			}
