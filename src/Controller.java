@@ -89,6 +89,11 @@ public class Controller {
 		paginaRegistraTerreno.setVisible(true);		
 	}
 	
+	public void daRegistraTerrenoARegistraProprietario() {
+		paginaRegistraTerreno.setVisible(false);
+		paginaRegistraProp.setVisible(true);
+	}
+	
 	public void daTerrenoAHomePage() {
 		paginaRegistraTerreno.setVisible(false);
 		homePage.setVisible(true);
