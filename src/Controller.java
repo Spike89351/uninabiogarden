@@ -66,6 +66,17 @@ public class Controller {
 		}
 	}
 	
+	
+	//QUESTO METODO SERVE PER IL LOGIN:
+	public void ctrlExist(String username, String password) {
+		utenteDAO = new UtenteDAO();
+		if(utenteDAO.ctrlUsername(username)) {
+			
+		}else {
+			JOptionPane.showMessageDialog(null, "L'username che hai inserito non esiste!");
+		}
+	}
+	
 
 	//PASSAGGIO DALLA PAGINA CREAZIONE UTENTE A QUELLA DELLA REGISTRAZIONE PER IL PROPRIETARIO:
 	public void daPaginaRegistratiAProprietario(Utente u) {

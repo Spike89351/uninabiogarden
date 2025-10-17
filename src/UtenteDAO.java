@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import org.mindrot.jbcrypt.BCrypt;
 
 
+
+
 public class UtenteDAO {
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
 	private static final String USER = "postgres";
@@ -34,11 +36,7 @@ public class UtenteDAO {
                	psmt.setString(4, gen);
                 psmt.setString(5, utente.getUsername());
                 psmt.setString(6, hashedPassword);
-                
-              
-
-                
-                
+                                
                 
             psmt.executeUpdate();
     	}catch(Exception e) {
@@ -49,27 +47,46 @@ public class UtenteDAO {
     
     //MI SERVE PER CAPIRE SE L'USERNAME INSERITO E' CORRETTO:
     public boolean ctrlUsername(String Username) {
-    	String sql = "SELECT * FROM prguninabiogarden.Utente WHERE username = ? LIMIT 1";
+    	String sql = "SELECT 1 FROM prguninabiogarden.Utente WHERE username = ?";
     	
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
     		
+    		
     		psmt.setString(1, Username);
-    		
-    		
-    		
-    		return true;
+            ResultSet rs = psmt.executeQuery();
+
+            return rs.next(); // Se c'è almeno una riga, l'username esiste
     		
     	}catch(Exception e) {
     		System.out.println(e);
-    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'utente! (CLASSE UtenteDAO), funzione: inserisciUtente");
+    		JOptionPane.showMessageDialog(null, "Errore nella classe UteneteDAO, funzione: ctrlUsrname");
     		return false;
-    	}  
-    	
+    	}
     }
+    	
     
     //MI SERVE PER CONTROLLARE LA PASSWORD INSERITA SE E' CORRETTA:
-    public void ctrlPassword() {
+    public boolean ctrlPassword(String username, String password) {
+    	String sql = "SELECT 1 FROM prguninabiogarden.Utente WHERE username = ? AND Passwd = ?";
+    	
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+    		
+    		
+    		String hashedPassword = BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt());
+    		
+    		psmt.setString(1, username);
+    		psmt.setString(2, hashedPassword);
+            ResultSet rs = psmt.executeQuery();
+
+            return rs.next(); // Se c'è almeno una riga, l'username esiste
+    		
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		JOptionPane.showMessageDialog(null, "Errore nella classe UteneteDAO, funzione: ctrlUsrname");
+    		return false;
+    	}
     	
     }
     
