@@ -69,7 +69,7 @@ public class UtenteDAO {
     
     //MI SERVE PER CONTROLLARE LA PASSWORD INSERITA SE E' CORRETTA:
     public boolean ctrlPassword(String username, String password) {
-        // 1. Recupera l'hash salvato nel database per questo username
+        // 1.RECUPER L'HASH SALVATO PER QUESTO UTENTE:
         String sql = "SELECT Passwd FROM prguninabiogarden.Utente WHERE username = ?";
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -80,7 +80,7 @@ public class UtenteDAO {
 
             if (rs.next()) {
                 String hashedPasswordFromDB = rs.getString("Passwd");
-                // 2. Confronta la password inserita con l'hash salvato usando BCrypt.checkpw()
+                // 2. CONFRONTA LA PASSWORD(IN HASH) CON LA PASSOWRD PRESA DAL DB(IN HASH) BCrypt.checkpw()
                 boolean isPasswordCorrect = BCrypt.checkpw(password, hashedPasswordFromDB);
                 if (isPasswordCorrect) {
                     return true;
