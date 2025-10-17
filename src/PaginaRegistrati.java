@@ -98,6 +98,7 @@ public class PaginaRegistrati extends JFrame {
 		txtCognome.setColumns(10);
 		
 		txtUsername = new JTextField();
+		txtUsername.setToolTipText("L'username deve essere lungo almeno 5 caratteri");
 		txtUsername.setColumns(10);
 				
 		JComboBox<Genere> comboBoxGenere = new JComboBox(Genere.values());
@@ -146,6 +147,7 @@ public class PaginaRegistrati extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		txtPassword = new JPasswordField();
+		txtPassword.setToolTipText("Inserisci una password lunga almeno 8 caratteri e che contenga caratteri speciali come: '!$%&/(=?'^*[]'");
 		
 		JCheckBox checkBoxMostraPassword = new JCheckBox("Mostra password");
 		checkBoxMostraPassword.addItemListener(e -> {
@@ -233,7 +235,9 @@ public class PaginaRegistrati extends JFrame {
 		JButton btnBack = new JButton("BACK");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TORNO NELLA PAGINA PRECEDENTE, CIOE' L'HOME;
+				clearField(txtNome, txtCognome, dateChooser, txtUsername, txtPassword);
+				theController.paginaRegistrati.setVisible(false);
+				theController.homePage.setVisible(true);
 			}
 		});
 		panelBottom.add(btnBack);
@@ -243,7 +247,7 @@ public class PaginaRegistrati extends JFrame {
 	
 	
 //METODI:
-	public boolean control(JTextField nome, JTextField cognome, JDateChooser data, JTextField username, JTextField password) {
+	private boolean control(JTextField nome, JTextField cognome, JDateChooser data, JTextField username, JTextField password) {
 		 
 		LocalDate oggi = LocalDate.now();
 		 Date dataConv = data.getDate(); 
@@ -290,4 +294,15 @@ public class PaginaRegistrati extends JFrame {
 		}
 		return true;
 	}
+	
+	
+	private void clearField(JTextField nome, JTextField cognome, JDateChooser data, JTextField username, JTextField password) {
+		nome.setText(null);
+		cognome.setText(null);
+		data.setDate(null);
+		username.setText(null);
+		password.setText(null);
+	}
+	
+	
 }
