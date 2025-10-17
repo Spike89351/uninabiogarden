@@ -3,14 +3,14 @@ import java.util.Date;
 public class Utente {
     private String nome;
     private String cognome;
-    private Date dataNascita;
+    private java.sql.Date dataNascita;
     private Genere genere;
     private String username;
     private String password;
 
 
 
-    Utente(String nome, String cognome, Date dataNascita, Genere gen, String username, String password){
+    Utente(String nome, String cognome, java.sql.Date dataNascita, Genere gen, String username, String password){
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
@@ -27,7 +27,7 @@ public class Utente {
     public String getCognome() {
         return cognome;
     }
-    public Date getDataNascita() {
+    public java.sql.Date getDataNascita() {
         return dataNascita;
     }
     public Genere getGenere() {
@@ -48,7 +48,7 @@ public class Utente {
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
-    public void setDataNascita(Date dataNascita) {
+    public void setDataNascita(java.sql.Date dataNascita) {
         this.dataNascita = dataNascita;
     }
     public void setGenere(Genere genere) {

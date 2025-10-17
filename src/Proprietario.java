@@ -9,7 +9,7 @@ public class Proprietario extends Utente {
     private ArrayList<Progetto> elencoProgetti = new ArrayList<Progetto>();
 
 
-    Proprietario(String nome, String cognome, Date dataNascita, Genere gen, String username, String password, String codiceId, String email, String partitaIva, Terreno lotto) {
+    Proprietario(String nome, String cognome, java.sql.Date dataNascita, Genere gen, String username, String password, String codiceId, String email, String partitaIva, Terreno lotto) {
         super(nome, cognome, dataNascita, gen, username, password);
         this.codiceId = codiceId;
         this.email = email;

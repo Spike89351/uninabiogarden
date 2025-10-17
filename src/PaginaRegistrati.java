@@ -116,7 +116,7 @@ public class PaginaRegistrati extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(control(txtNome, txtCognome, dateChooser, txtUsername, txtPassword)) {
 					//METODO CHE CREA UN UTENTE + IL PASSAGGIO DELL'UTENTE ALLA PAGINA SUCCESSIVA;
-					Utente u = new Utente(txtNome.getText(), txtCognome.getText(), dateChooser.getDate(), comboBoxGenere.getPrototypeDisplayValue(), txtUsername.getText(), txtPassword.getText());
+					Utente u = new Utente(txtNome.getText(), txtCognome.getText(), (java.sql.Date) dateChooser.getDate(), comboBoxGenere.getPrototypeDisplayValue(), txtUsername.getText(), txtPassword.getText());
 					theController.daPaginaRegistratiAProprietario(u);
 				}
 				//CLEAR CAMPI

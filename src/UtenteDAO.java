@@ -25,8 +25,8 @@ public class UtenteDAO {
     		
                 psmt.setString(1, utente.getNome());
                 psmt.setString(2, utente.getCognome());
-                System.out.println((Date) utente.getDataNascita());
-                psmt.setDate(3, (Date) utente.getDataNascita());
+                System.out.println(utente.getDataNascita());
+                psmt.setDate(3,utente.getDataNascita());
                 psmt.setObject(4, utente.getGenere());
                 psmt.setString(5, utente.getUsername());
                 psmt.setString(6, utente.getPassword());
