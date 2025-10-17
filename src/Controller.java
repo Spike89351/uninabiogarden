@@ -66,13 +66,18 @@ public class Controller {
 		}
 	}
 	
-	
+
 	//PASSAGGIO DALLA PAGINA CREAZIONE UTENTE A QUELLA DELLA REGISTRAZIONE PER IL PROPRIETARIO:
 	public void daPaginaRegistratiAProprietario(Utente u) {
 		paginaRegistrati.setVisible(false);
 		
 		paginaRegistraProp = new PaginaRegistraProprietario(u, this);
 		paginaRegistraProp.setVisible(true);
+	}
+	
+	public void daPaginaProprietarioARegistraUtente() {
+		paginaRegistraProp.setVisible(false);
+		paginaRegistrati.setVisible(true);
 	}
 	
 	//PASSAGGIO DALLA PAGINA DELLA REGISTRAZIONE DEL PROPRIETARIO ALLA REGISTRAZIONE DEL TERRENO:

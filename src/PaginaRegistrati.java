@@ -138,7 +138,6 @@ public class PaginaRegistrati extends JFrame {
 					//CHIAMO LA FUNZIONE CHE MI PERMETTE DI PASSARE A UN'ALTRA PAGINA:
 					theController.daPaginaRegistratiAProprietario(u);
 				}
-				//CLEAR CAMPI
 			}
 		});
 		
@@ -241,7 +240,6 @@ public class PaginaRegistrati extends JFrame {
 			}
 		});
 		panelBottom.add(btnBack);
-
 	}
 	
 	
