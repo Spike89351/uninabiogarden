@@ -14,7 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
+import javax.swing.JCheckBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class HomePage extends JFrame {
 	private Controller theController;
@@ -22,7 +27,7 @@ public class HomePage extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtUsername;
-	private JTextField txtPassword;
+	private JPasswordField txtPassword;
 
 	public HomePage(Controller c) {
 		theController = c;
@@ -30,7 +35,7 @@ public class HomePage extends JFrame {
 		setTitle("Accedi");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(450, 300);
+		setSize(466, 287);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,14 +61,11 @@ public class HomePage extends JFrame {
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		txtPassword = new JTextField();
-		txtPassword.setColumns(10);
-		
 		JButton btnAccedi = new JButton("Accedi");
 		btnAccedi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				theController.homePage.setVisible(false);
-				//PAGINA ACCESSO:
+				theController.accediAllaPiattaforma(txtUsername.getText(), txtPassword.getText());
 			}
 		});
 		
@@ -73,6 +75,19 @@ public class HomePage extends JFrame {
 				theController.homePage.setVisible(false);
 				theController.paginaRegistrati.setVisible(true);
 			}
+		});
+		
+		txtPassword = new JPasswordField();
+		
+		JCheckBox cehckBoxMostraONon = new JCheckBox("Mostra Password");
+		cehckBoxMostraONon.addItemListener(e -> {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+                txtPassword.setEchoChar((char) 0);
+                cehckBoxMostraONon.setText("Nascondi password");
+            } else {
+                txtPassword.setEchoChar('*');
+                cehckBoxMostraONon.setText("Mostra password");
+            }
 		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
@@ -91,8 +106,10 @@ public class HomePage extends JFrame {
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(160, Short.MAX_VALUE))
+							.addComponent(txtPassword)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(cehckBoxMostraONon)
+					.addContainerGap(49, Short.MAX_VALUE))
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -101,10 +118,11 @@ public class HomePage extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblUsername)
 						.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+					.addGap(21)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(cehckBoxMostraONon))
 					.addPreferredGap(ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAccedi)

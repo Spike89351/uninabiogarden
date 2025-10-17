@@ -54,10 +54,11 @@ public class UtenteDAO {
     		
     		
     		psmt.setString(1, Username);
-            ResultSet rs = psmt.executeQuery();
-
-            return rs.next(); // Se c'è almeno una riga, l'username esiste
     		
+    		ResultSet rs = psmt.executeQuery();
+            
+            return rs.next();
+              		
     	}catch(Exception e) {
     		System.out.println(e);
     		JOptionPane.showMessageDialog(null, "Errore nella classe UteneteDAO, funzione: ctrlUsrname");
@@ -68,27 +69,35 @@ public class UtenteDAO {
     
     //MI SERVE PER CONTROLLARE LA PASSWORD INSERITA SE E' CORRETTA:
     public boolean ctrlPassword(String username, String password) {
-    	String sql = "SELECT 1 FROM prguninabiogarden.Utente WHERE username = ? AND Passwd = ?";
-    	
-    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
-    			PreparedStatement psmt = conn.prepareStatement(sql)) {
-    		
-    		
-    		String hashedPassword = BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt());
-    		
-    		psmt.setString(1, username);
-    		psmt.setString(2, hashedPassword);
+        // 1. Recupera l'hash salvato nel database per questo username
+        String sql = "SELECT Passwd FROM prguninabiogarden.Utente WHERE username = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement psmt = conn.prepareStatement(sql)) {
+
+            psmt.setString(1, username);
             ResultSet rs = psmt.executeQuery();
 
-            return rs.next(); // Se c'è almeno una riga, l'username esiste
-    		
-    	}catch(Exception e) {
-    		System.out.println(e);
-    		JOptionPane.showMessageDialog(null, "Errore nella classe UteneteDAO, funzione: ctrlUsrname");
-    		return false;
-    	}
-    	
+            if (rs.next()) {
+                String hashedPasswordFromDB = rs.getString("Passwd");
+                // 2. Confronta la password inserita con l'hash salvato usando BCrypt.checkpw()
+                boolean isPasswordCorrect = BCrypt.checkpw(password, hashedPasswordFromDB);
+                if (isPasswordCorrect) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Username non trovato.");
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Errore nel controllo della password.");
+            return false;
+        }
     }
+
     
 }
 

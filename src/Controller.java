@@ -68,10 +68,16 @@ public class Controller {
 	
 	
 	//QUESTO METODO SERVE PER IL LOGIN:
-	public void ctrlExist(String username, String password) {
+	public void accediAllaPiattaforma(String username, String password) {
+		System.out.println("Sto nella funzione che si trova nel controller:");
 		utenteDAO = new UtenteDAO();
 		if(utenteDAO.ctrlUsername(username)) {
-			
+			System.out.println("Sto nel primo if, cioè quello del controllo dell'username:");
+			if(utenteDAO.ctrlPassword(username, password)) {
+				JOptionPane.showMessageDialog(null, "Il tuo account esiste!");
+			}else {
+				JOptionPane.showMessageDialog(null, "L'account non esiste, RIPROVA!");
+			}
 		}else {
 			JOptionPane.showMessageDialog(null, "L'username che hai inserito non esiste!");
 		}
