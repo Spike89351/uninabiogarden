@@ -124,7 +124,7 @@ public class PaginaRegistrati extends JFrame {
 						theController.daPaginaRegistratiAColtivatore(u);
 						
 					}catch(Exception x) {
-						JOptionPane.showMessageDialog(null, "Errore nel cast del genere dell'utente");
+						JOptionPane.showMessageDialog(null, "Errore nel blocco try-catch di coltivatore");
 					}
 				}
 			}
@@ -149,7 +149,7 @@ public class PaginaRegistrati extends JFrame {
 						theController.daPaginaRegistratiAProprietario(u);
 						
 					}catch(Exception x) {
-						JOptionPane.showMessageDialog(null, "Errore nel cast del genere dell'utente");
+						JOptionPane.showMessageDialog(null, "Errore nel blocco try-catch dell'utente");
 					}
 				}
 			}

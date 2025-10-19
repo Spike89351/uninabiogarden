@@ -64,16 +64,22 @@ public class HomePage extends JFrame {
 		JButton btnAccedi = new JButton("Accedi");
 		btnAccedi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//ACCESSO ALLA PAGINA DEL SOGGETTO:
 				theController.homePage.setVisible(false);
 				theController.accediAllaPiattaforma(txtUsername.getText(), txtPassword.getText());
+				//PULIZIA DEI CAMPI DI TESTO:
+				clearFields(txtUsername, txtPassword);
 			}
 		});
 		
 		JButton btnRegistrati = new JButton("Registrati");
 		btnRegistrati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//ACCESSO ALLA PAGINA DI REGISTRAZIONE:
 				theController.homePage.setVisible(false);
 				theController.paginaRegistrati.setVisible(true);
+				//PULIZIA DEI CAMPI DI TESTO:
+				clearFields(txtUsername, txtPassword);
 			}
 		});
 		
@@ -131,5 +137,11 @@ public class HomePage extends JFrame {
 		);
 		panelCentral.setLayout(gl_panelCentral);
 
+	}
+	
+	//METODI:
+	public void clearFields(JTextField username, JPasswordField password) {
+		username.setText(null);
+		password.setText(null);
 	}
 }

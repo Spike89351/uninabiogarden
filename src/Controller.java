@@ -71,14 +71,12 @@ public class Controller {
 	
 	//QUESTO METODO SERVE PER IL LOGIN:
 	public void accediAllaPiattaforma(String username, String password) {
-		System.out.println("Sto nella funzione che si trova nel controller:");
 		utenteDAO = new UtenteDAO();
 		if(utenteDAO.ctrlUsername(username)) {
 			if(utenteDAO.ctrlPassword(username, password)) {
 				if(utenteDAO.controlloTipoUtente(username) == 1) {
 					//VAI ALLA PAGINA DEL PROPRIETARIO:
 					daHomePageAccessoAProprietario(username);
-					System.out.println("Proprietariooooooo");
 				}else if(utenteDAO.controlloTipoUtente(username) == 2) {
 					//VAI ALLA PAGINA DEL COLTIVATORE:
 					daHomePageAccessoAColtivatore(username);
@@ -89,9 +87,11 @@ public class Controller {
 				}
 			}else {
 				JOptionPane.showMessageDialog(null, "L'account non esiste, RIPROVA!");
+				homePage.setVisible(true);
 			}
 		}else {
 			JOptionPane.showMessageDialog(null, "L'username che hai inserito non esiste!");
+			homePage.setVisible(true);
 		}
 	}
 	
