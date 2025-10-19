@@ -117,6 +117,11 @@ public class PaginaRegistrati extends JFrame {
 						//CASTO ANCHE LA VIARIABILE DI TIPO GENERE:
 						gen = (Genere) comboBoxGenere.getSelectedItem();
 						
+						//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE PER POI PASSARLA ALLA PAGGINA SUCCESSIVA:
+						Utente u = new Utente(txtNome.getText(), txtCognome.getText(), data, gen, txtUsername.getText(), txtPassword.getText());
+						
+						//CHIAMO LA FUNZIONE CHE MI PERMETTE DI PASSARE A UN'ALTRA PAGINA:
+						theController.daPaginaRegistratiAColtivatore(u);
 						
 					}catch(Exception x) {
 						JOptionPane.showMessageDialog(null, "Errore nel cast del genere dell'utente");
@@ -137,7 +142,7 @@ public class PaginaRegistrati extends JFrame {
 						//CASTO ANCHE LA VIARIABILE DI TIPO GENERE:
 						gen = (Genere) comboBoxGenere.getSelectedItem();
 						
-						//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE:
+						//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE PER POI PASSARLA ALLA PAGGINA SUCCESSIVA:
 						Utente u = new Utente(txtNome.getText(), txtCognome.getText(), data, gen, txtUsername.getText(), txtPassword.getText());
 						
 						//CHIAMO LA FUNZIONE CHE MI PERMETTE DI PASSARE A UN'ALTRA PAGINA:

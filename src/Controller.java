@@ -139,11 +139,19 @@ public class Controller {
 		paginaProprietario.setVisible(true);
 	}
 	
-	private void daHomePageAccessoAColtivatore(String u) {
+	private void daHomePageAccessoAColtivatore(String username) {
 		homePage.setVisible(false);
 		
-		paginaColtivatore = new PaginaColtivatore(u, this);
+		paginaColtivatore = new PaginaColtivatore(username, this);
 		paginaColtivatore.setVisible(true);
+	}
+	
+	//PASSAGGIO DALLA PAGINA CREAZIONE UTENTE A QUELLA DELLA REGISTRAZIONE PER DEL COLTIVATORE:
+	public void daPaginaRegistratiAColtivatore(Utente u) {
+		paginaRegistrati.setVisible(false);
+		
+//		paginaRegistraColtivatore = new PaginaRegistraColtivatore();
+//		paginaRegistraColtivatore.setVisible(true);
 	}
 	
 }
