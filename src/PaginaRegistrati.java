@@ -110,9 +110,18 @@ public class PaginaRegistrati extends JFrame {
 		btnColtivatore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(control(txtNome, txtCognome, dateChooser, txtUsername, txtPassword)) {	
-					//METODO CHE CREA UN UTENTE + IL PASSAGGIO DELL'UTENTE ALLA PAGINA SUCCESSIVA;
+					try{
+						//FACCIO IL CAST DELLA DATA:
+						java.sql.Date data = new java.sql.Date(dateChooser.getDate().getTime());
+						
+						//CASTO ANCHE LA VIARIABILE DI TIPO GENERE:
+						gen = (Genere) comboBoxGenere.getSelectedItem();
+						
+						
+					}catch(Exception x) {
+						JOptionPane.showMessageDialog(null, "Errore nel cast del genere dell'utente");
+					}
 				}
-				//CLEAR CAMPI
 			}
 		});
 		
@@ -121,22 +130,22 @@ public class PaginaRegistrati extends JFrame {
 		btnProprietario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(control(txtNome, txtCognome, dateChooser, txtUsername, txtPassword)) {
-					//FACCIO IL CAST DELLA DATA:
-					java.sql.Date data = new java.sql.Date(dateChooser.getDate().getTime());
-					
-					//CASTO ANCHE IL LA VIARIABILE DI TIPO GENERE:
 					try{
+						//FACCIO IL CAST DELLA DATA:
+						java.sql.Date data = new java.sql.Date(dateChooser.getDate().getTime());
+						
+						//CASTO ANCHE LA VIARIABILE DI TIPO GENERE:
 						gen = (Genere) comboBoxGenere.getSelectedItem();
+						
+						//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE:
+						Utente u = new Utente(txtNome.getText(), txtCognome.getText(), data, gen, txtUsername.getText(), txtPassword.getText());
+						
+						//CHIAMO LA FUNZIONE CHE MI PERMETTE DI PASSARE A UN'ALTRA PAGINA:
+						theController.daPaginaRegistratiAProprietario(u);
+						
 					}catch(Exception x) {
-						System.out.println(x);
 						JOptionPane.showMessageDialog(null, "Errore nel cast del genere dell'utente");
 					}
-					
-					//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE:
-					Utente u = new Utente(txtNome.getText(), txtCognome.getText(), data, gen, txtUsername.getText(), txtPassword.getText());
-					
-					//CHIAMO LA FUNZIONE CHE MI PERMETTE DI PASSARE A UN'ALTRA PAGINA:
-					theController.daPaginaRegistratiAProprietario(u);
 				}
 			}
 		});
