@@ -73,8 +73,9 @@ public class Controller {
 	//INSERIMENTO DEL COLTIVATORE:
 	public void inserisciColtivatore(Utente u) {
 		utenteDAO = new UtenteDAO();
-		utenteDAO.inserisicUtente(u);
-		coltivatoreDAO
+		utenteDAO.inserisicUtente(u);//INSERIMENTO NELLA TABELLA UTENTE;
+		coltivatoreDAO = new ColtivatoreDAO();
+		coltivatoreDAO.inserisciColtivatore(u.getUsername());//INSERIMENTO NELLA TABELLA COLTIVATORE;
 	}
 	
 	
