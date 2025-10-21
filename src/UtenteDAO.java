@@ -127,8 +127,41 @@ public class UtenteDAO {
                
            } catch (Exception e) {
                System.out.println(e);
-               JOptionPane.showMessageDialog(null, "Errore nel controllo della tipologia di utente! funzione controlloTipoUtente, calsse UtenteDAO");
+               JOptionPane.showMessageDialog(null, "Errore nel controllo della tipologia di utente! funzione controlloTipoUtente, classe UtenteDAO");
                return 0;
+           }
+    	
+    }
+    
+    //MI SERVE PER PRENDERE I DATI DELL'UTENTE:
+    public Utente pendiDatiUtente(String Username) {
+    	String sql = "SELECT Nome, Cognome, data_nascita, genere, username, passwd FROM prguninabiogarden.Utente WHERE username = ?";
+    	
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement psmt = conn.prepareStatement(sql)) {
+
+               psmt.setString(1, Username);
+               ResultSet rs = psmt.executeQuery();
+
+               if (rs.next()) {
+            	   String nome = rs.getString(1);
+            	   String cognome = rs.getString(2);
+            	   Date dataNascita = rs.getDate(3);
+            	   String genere = rs.getString(4);
+            	   String username = rs.getString(5);
+            	   String password = rs.getString(6);
+            	   
+            	   //CAST DEL GENERE:
+            	   Genere genCast = Genere.valueOf(genere);
+            	   
+            	   Utente u = new Utente(nome, cognome, dataNascita, genCast, username, password);
+            	   
+               } else {
+            	   
+               }
+               
+           } catch (Exception e) {
+               JOptionPane.showMessageDialog(null, "Errore nell'estrazione dei dati dell'utente! funzione prendiDatiUtente, classe UtenteDAO");
            }
     	
     }

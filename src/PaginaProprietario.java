@@ -1,5 +1,6 @@
 import java.awt.EventQueue;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,6 +10,8 @@ import java.awt.Font;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PaginaProprietario extends JFrame {
 	private Controller theController;
@@ -20,7 +23,7 @@ public class PaginaProprietario extends JFrame {
 	public PaginaProprietario(String username, Controller c) {
 		theController = c;
 		
-		setTitle("La tua pagina");
+		setTitle("La tua pagina - Proprietario ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(450, 300);
 		setLocationRelativeTo(null);
@@ -28,14 +31,56 @@ public class PaginaProprietario extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("Menù ");
-		menuBar.add(mnNewMenu);
+		JMenu menuProgetti = new JMenu("Progetti");
+		menuBar.add(menuProgetti);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
-		mnNewMenu.add(mntmNewMenuItem);
+		JMenuItem menuItemVisualizzaProgetti = new JMenuItem("Visualizza progetti");
+		menuItemVisualizzaProgetti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		menuProgetti.add(menuItemVisualizzaProgetti);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("New menu item");
-		mnNewMenu.add(mntmNewMenuItem_1);
+		JMenu menùTerreni = new JMenu("Terreni");
+		menùTerreni.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//PAGINA CHE FA VISUALIZZARE TUTTI I TERRENI:
+			}
+		});
+		menuBar.add(menùTerreni);
+		
+		JMenuItem menùItemAggiungiTerreni = new JMenuItem("Aggiungi terreno");
+		menùItemAggiungiTerreni.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//PAGINA DOVE POTER AGGIUNGERE UN TERRENO:
+			}
+		});
+		menùTerreni.add(menùItemAggiungiTerreni);
+		
+		JMenuItem menuItemVisualizzaTerreni = new JMenuItem("Visualizza terreni");
+		menùTerreni.add(menuItemVisualizzaTerreni);
+		
+		JMenu menùDatiUtente = new JMenu("Dati utente");
+		menuBar.add(menùDatiUtente);
+		
+		JMenuItem menuModificaDatiUtente = new JMenuItem("Modifica dati");
+		menuModificaDatiUtente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//MODIFICA DATI UTENTE CHE HA FATTO L'ACCESSO:
+			}
+		});
+		menùDatiUtente.add(menuModificaDatiUtente);
+		
+		JMenuItem menuItemisualizzaDati = new JMenuItem("Visualizza dati utente");
+		menuItemisualizzaDati.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//VISUALIZZA I DATI DELL'UTENTE:
+				JDialog finestraDatiUtente = new JDialog();
+				finestraDatiUtente.setVisible(true);
+			}
+		});
+		menùDatiUtente.add(menuItemisualizzaDati);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -44,12 +89,21 @@ public class PaginaProprietario extends JFrame {
 		JPanel panelTop = new JPanel();
 		contentPane.add(panelTop, BorderLayout.NORTH);
 		
+		JLabel lblWelcome = new JLabel("Questa è la tua pagina");
+		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		panelTop.add(lblWelcome);
+		
 		JPanel panelCentral = new JPanel();
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 
+	}
+	
+//METODI:
+	public JDialog creaFinsetraDialogo() {
+		
 	}
 
 }
