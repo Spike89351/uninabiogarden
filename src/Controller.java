@@ -92,7 +92,7 @@ public class Controller {
 					daHomePageAccessoAColtivatore(username);
 				}else if(utenteDAO.controlloTipoUtente(username) == 0){
 					//MESSAGGIO DI ERRORE!
-					JOptionPane.showMessageDialog(null, "Errore nella funzione tipoUtente classe CController");
+					JOptionPane.showMessageDialog(null, "Errore nella funzione tipoUtente classe Controller");
 				}
 			}else {
 				JOptionPane.showMessageDialog(null, "L'account non esiste, RIPROVA!");
