@@ -266,7 +266,7 @@ public class PaginaRegistrati extends JFrame {
 		JButton btnBack = new JButton("BACK");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				clearField(txtNome, txtCognome, dateChooser, txtUsername, txtPassword);
+				clearFields(txtNome, txtCognome, dateChooser, txtUsername, txtPassword);
 				theController.paginaRegistrati.setVisible(false);
 				theController.homePage.setVisible(true);
 			}
