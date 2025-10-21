@@ -120,6 +120,26 @@ public class PaginaRegistrati extends JFrame {
 						//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE PER POI PASSARLA ALLA PAGGINA SUCCESSIVA:
 						Utente u = new Utente(txtNome.getText(), txtCognome.getText(), data, gen, txtUsername.getText(), txtPassword.getText());
 						
+						//FACCIAMO CONFERMARE ALL'UTENTE LA REGISTRAZIONE COSI' DA ESSERE SICURI CHE NON ABBIA SBAGLIATO A CLICCARE:
+						int risposta = JOptionPane.showConfirmDialog(
+					            null, // Nessuna finestra padre (verrà mostrato al centro dello schermo)
+					            "Sei sicuro di voler continuare?",
+					            "Conferma",
+					            JOptionPane.YES_NO_OPTION
+					        );
+						
+						if(risposta == JOptionPane.YES_OPTION) {
+							//CHIAMATA DELLA FUNZIONE CHE CREA IL COLTIVATORE:
+							theController.inserisciColtivatore(u);
+							JOptionPane.showMessageDialog(null, "La registrazione è avvenuta con successo!");
+							
+							//PULIAMO I CAMPI:
+							clearFields(txtNome, txtCognome, dateChooser, txtUsername, txtPassword);
+							
+							//TORNIAMO ALL'HOMEPAGE:
+							theController.paginaRegistrati.setVisible(false);
+							theController.homePage.setVisible(true);
+						}
 						
 					}catch(Exception x) {
 						JOptionPane.showMessageDialog(null, "Errore nel blocco try-catch di coltivatore");
@@ -306,7 +326,7 @@ public class PaginaRegistrati extends JFrame {
 	}
 	
 	
-	private void clearField(JTextField nome, JTextField cognome, JDateChooser data, JTextField username, JTextField password) {
+	private void clearFields(JTextField nome, JTextField cognome, JDateChooser data, JTextField username, JTextField password) {
 		nome.setText(null);
 		cognome.setText(null);
 		data.setDate(null);

@@ -22,7 +22,7 @@ String sql = "INSERT INTO prguninabiogarden.Coltivatore (Username) VALUES(?)";
                 
             psmt.executeUpdate();
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento del Proprietario! (CLASSE ProprietarioDAO), funzione: inserisciProprietario" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento del Coltivatore! (CLASSE ColtivatoreDAO), funzione: inserisciColtivatore" + e);
     	}   
 	}
 }
