@@ -14,12 +14,12 @@ public class Coltivatore extends Utente{
 
 
     //COSTRUTTORE:
-    Coltivatore(String nome, String cognome, java.sql.Date dataNascita, Genere gen, String username, String password, String codiceId, Date dataInizio, TipoAttivita typeAttività, boolean disp){
+    Coltivatore(String nome, String cognome, java.sql.Date dataNascita, Genere gen, String username, String password){
         super(nome, cognome, dataNascita, gen, username, password);
-        this.codiceId = codiceId;
-        this.dataInizioContratto = dataInizio;
-        elencoAttività.add(typeAttività); // QUI BISOGNA AGGIUNGERE IL TIPO DI ATTIVITA', GUARDA DIAGRAMMA.
-        this.disponibilità = disp;
+//        this.codiceId = codiceId;
+//        this.dataInizioContratto = dataInizio;
+//        elencoAttività.add(typeAttività); // QUI BISOGNA AGGIUNGERE IL TIPO DI ATTIVITA', GUARDA DIAGRAMMA.
+//        this.disponibilità = disp;
 
     }
 

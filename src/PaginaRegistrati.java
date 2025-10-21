@@ -120,8 +120,6 @@ public class PaginaRegistrati extends JFrame {
 						//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE PER POI PASSARLA ALLA PAGGINA SUCCESSIVA:
 						Utente u = new Utente(txtNome.getText(), txtCognome.getText(), data, gen, txtUsername.getText(), txtPassword.getText());
 						
-						//CHIAMO LA FUNZIONE CHE MI PERMETTE DI PASSARE A UN'ALTRA PAGINA:
-						theController.daPaginaRegistratiAColtivatore(u);
 						
 					}catch(Exception x) {
 						JOptionPane.showMessageDialog(null, "Errore nel blocco try-catch di coltivatore");

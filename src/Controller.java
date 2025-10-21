@@ -11,6 +11,7 @@ public class Controller {
 	private Proprietario proprietario;
 	private ProprietarioDAO proprietarioDAO;
 	private Coltivatore coltivaotore;
+	private ColtivatoreDAO coltivatoreDAO;
 	private Progetto progetto;
 	private Terreno terreno;
 	private TerrenoDAO terrenoDAO;
@@ -54,6 +55,7 @@ public class Controller {
 	
 //METODI:
 	
+	//INSERIMENTO DEL PROPRIETARIO:
 	public void inserisciPropreitario(Utente u, String email, String partitaIva, double superfice, TipoTerreno tipoTerreno, Fertilità tipoFertilità) {
 		utenteDAO = new UtenteDAO();
 		utenteDAO.inserisicUtente(u);
@@ -66,6 +68,13 @@ public class Controller {
 		}else {
 			JOptionPane.showMessageDialog(null, "Errore nella classe controller nella funzione InserisciProprietario!");
 		}
+	}
+	
+	//INSERIMENTO DEL COLTIVATORE:
+	public void inserisciColtivatore(Utente u) {
+		utenteDAO = new UtenteDAO();
+		utenteDAO.inserisicUtente(u);
+		coltivatoreDAO
 	}
 	
 	
