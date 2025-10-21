@@ -90,7 +90,6 @@ public class Controller {
 				}else if(utenteDAO.controlloTipoUtente(username) == 2) {
 					//VAI ALLA PAGINA DEL COLTIVATORE:
 					daHomePageAccessoAColtivatore(username);
-					System.out.println("Coltivatore");
 				}else if(utenteDAO.controlloTipoUtente(username) == 0){
 					//MESSAGGIO DI ERRORE!
 					JOptionPane.showMessageDialog(null, "Errore nella funzione tipoUtente classe CController");
