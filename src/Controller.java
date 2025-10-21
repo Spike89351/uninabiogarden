@@ -146,12 +146,6 @@ public class Controller {
 		paginaColtivatore.setVisible(true);
 	}
 	
-	//PASSAGGIO DALLA PAGINA CREAZIONE UTENTE A QUELLA DELLA REGISTRAZIONE PER DEL COLTIVATORE:
-	public void daPaginaRegistratiAColtivatore(Utente u) {
-		paginaRegistrati.setVisible(false);
-		
-//		paginaRegistraColtivatore = new PaginaRegistraColtivatore();
-//		paginaRegistraColtivatore.setVisible(true);
-	}
+	
 	
 }
