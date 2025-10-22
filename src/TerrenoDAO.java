@@ -47,14 +47,16 @@ public class TerrenoDAO {
                 psmt.setString(1, username);
                
                 if(rs.next()) {
-                	Terreno terreno = new Terreno(rs.getInt(3), rs.getDouble(4), rs.getDouble(5), TipoTerreno.valueOf(rs.getString(6)), Fertilità.valueOf(rs.getString(7)));
+                	Terreno terreno = new Terreno(p, rs.getDouble(4), TipoTerreno.valueOf(rs.getString(5)), Fertilità.valueOf(rs.getString(6)));
+                	listaTerreni.add(terreno);
                 }
+                
+                return listaTerreni;
             
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella CLASSE TerrenoDAO, funzione: risaliTerreni" + e);
+    		return null;
     	} 
-		
-		
 	}
 	
 	
