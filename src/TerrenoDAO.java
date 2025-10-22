@@ -48,6 +48,7 @@ public class TerrenoDAO {
                
                 if(rs.next()) {
                 	Terreno terreno = new Terreno(p, rs.getDouble(4), TipoTerreno.valueOf(rs.getString(5)), Fertilità.valueOf(rs.getString(6)));
+                	terreno.setID_Terreno(rs.getInt(3));
                 	listaTerreni.add(terreno);
                 }
                 

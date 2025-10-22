@@ -8,7 +8,7 @@ public class Terreno {
     private Fertilità fertTerreno;
     private ArrayList<Progetto> Project = new ArrayList<Progetto>();
     private ArrayList<TipoAttivita> TipoAttivita = new ArrayList<TipoAttivita>();
-    private ArrayList<String> StoricoColtura = new ArrayList<String>();
+   // private ArrayList<String> StoricoColtura = new ArrayList<String>();
 
 
     //COSTRUTTORE:
@@ -20,7 +20,9 @@ public class Terreno {
     }
 
     //GETTERS:
-
+    public int getID_Terreno() {
+    	return ID_Terreno;
+    }
    
     public Proprietario getProp() {
         return Prop;
@@ -37,14 +39,17 @@ public class Terreno {
     public ArrayList<Progetto> getProject() {
         return Project;
     }
-    public ArrayList<String> getStoricoColtura() {
-        return StoricoColtura;
-    }
+//    public ArrayList<String> getStoricoColtura() {
+//        return StoricoColtura;
+//    }
     public ArrayList<TipoAttivita> getTipoAttivita() {
         return TipoAttivita;
     }
 
     //SETTERS:
+    public void setID_Terreno(int idTerr) {
+    	this.ID_Terreno = idTerr;
+    }
     public void setProp(Proprietario Prop) {
         this.Prop = Prop;
     }
@@ -60,9 +65,9 @@ public class Terreno {
     public void setProject(ArrayList<Progetto> Project) {
         this.Project = Project;
     }
-    public void setStoricoColtura(ArrayList<String> StoricoColtura) {
-        this.StoricoColtura = StoricoColtura;
-    }
+//    public void setStoricoColtura(ArrayList<String> StoricoColtura) {
+//        this.StoricoColtura = StoricoColtura;
+//    }
     public void setTipoAttivita(ArrayList<TipoAttivita> TipoAttivita) {
         this.TipoAttivita = TipoAttivita;
     }

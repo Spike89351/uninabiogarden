@@ -1,6 +1,8 @@
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Controller {
 	
@@ -171,6 +173,18 @@ public class Controller {
 		finestraDatiProprietario.requestFocus();
 		paginaProprietario.setEnabled(false);
 		
+	}
+	
+	
+//MI SERVE PER LA PAGINA DEI TERRENI IN PROPRIETARIO:
+	public void popolaTabellaTerreni(ArrayList<Terreno> listaTerre, DefaultTableModel modelTab) {
+		if(listaTerre.size() <= 0) {
+			JOptionPane.showMessageDialog(null, "La tua lista di terre è vuote");//IMPOSSIBILE!
+		}else {
+			for(Terreno terr : listaTerre) {
+				modelTab.addRow(new Object[]{ terr.getID_Terreno(), terr.getSuperficie(), terr.getTipologiaTerreno(), terr.getfertTerreno()});
+			}
+		}
 	}
 	
 }
