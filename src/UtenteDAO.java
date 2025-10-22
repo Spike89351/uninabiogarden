@@ -170,7 +170,6 @@ public class UtenteDAO {
     }
     
 //QUESTI METODI SERVIRANNO PER LA MODIFICA DEI DATI DI UN UTENTE:
-    
     //MODIFICA IL NOME:
     public void modificaNome(String username, String newNome) {
     	String sql = "UPDATE prguninabiogarden.Utente SET Nome = ? WHERE Username = ?";
@@ -204,8 +203,14 @@ public class UtenteDAO {
            } catch (Exception e) {
                System.out.println(e);
                JOptionPane.showMessageDialog(null, "Errore nella modifica del cognome utente! funzione modificaNome, classe UtenteDAO");
-           }     	
-    }
+           }         	
+    }   
+    
+  //MODIFICA DATA DI NASCITA:
+	public void modificaDataNascita(String username, Date x) {
+		String sql = "";
+	}
+	
     
     
 }
