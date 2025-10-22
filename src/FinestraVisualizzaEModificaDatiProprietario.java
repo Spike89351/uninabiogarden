@@ -180,6 +180,11 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		});
 		
 		JButton btnSalva = new JButton("Salva");
+		btnSalva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		GroupLayout gl_panelBottom = new GroupLayout(panelBottom);
 		gl_panelBottom.setHorizontalGroup(
 			gl_panelBottom.createParallelGroup(Alignment.LEADING)
@@ -222,6 +227,13 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		dateChooser.setEnabled(true);
 		comboBoxGenere.setEnabled(true);
 		txtUsername.setEnabled(true);
+	}
+	
+	//CONTROLLO SE I CAMPI SONO STATI MODIFICATI:
+	public void ctrlModificaCampi(Utente u) {
+		if(txtNome.getText().equals(u.getNome())) {
+			
+		}
 	}
 	
 }

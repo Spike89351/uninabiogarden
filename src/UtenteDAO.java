@@ -151,11 +151,10 @@ public class UtenteDAO {
             	   String username = rs.getString(5);
             	   String password = rs.getString(6);
             	   
-            	   String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
             	   //CAST DEL GENERE:
             	   Genere genCast = Genere.valueOf(genere);
             	   
-            	   Utente u = new Utente(nome, cognome, dataNascita, genCast, username, hashedPassword);
+            	   Utente u = new Utente(nome, cognome, dataNascita, genCast, username, password);
             	   
             	   return u;
             	   
@@ -169,6 +168,45 @@ public class UtenteDAO {
            }
     	return null;    	
     }
+    
+//QUESTI METODI SERVIRANNO PER LA MODIFICA DEI DATI DI UN UTENTE:
+    
+    //MODIFICA IL NOME:
+    public void modificaNome(String username, String newNome) {
+    	String sql = "UPDATE prguninabiogarden.Utente SET Nome = ? WHERE Username = ?";
+    	
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement psmt = conn.prepareStatement(sql)) {
+    		
+    		
+    		psmt.setString(1, newNome);
+            psmt.setString(2, username);
+               
+            psmt.executeUpdate();
+           } catch (Exception e) {
+               System.out.println(e);
+               JOptionPane.showMessageDialog(null, "Errore nella modifica del nome utente! funzione modificaNome, classe UtenteDAO");
+           }    	
+    }
+    
+    //MODIFICA IL COGNOME:
+    public void modificaCognome(String username, String newCognome) {
+    	String sql = "UPDATE prguninabiogarden.Utente SET Cognome = ? WHERE Username = ?";
+    	
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement psmt = conn.prepareStatement(sql)) {
+    		
+    		
+    		psmt.setString(1, newCognome);
+            psmt.setString(2, username);
+               
+            psmt.executeUpdate();
+           } catch (Exception e) {
+               System.out.println(e);
+               JOptionPane.showMessageDialog(null, "Errore nella modifica del cognome utente! funzione modificaNome, classe UtenteDAO");
+           }     	
+    }
+    
     
 }
 
