@@ -36,7 +36,9 @@ public class Controller {
 	public PaginaProprietario paginaProprietario;
 	public PaginaColtivatore paginaColtivatore;
 	
-	//MAIN
+	//FINESTRE:
+	private FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
+	//MAIN:
 	public static void main(String[] args) throws SQLException {
 			Controller theController = new Controller();
 	}
@@ -156,11 +158,16 @@ public class Controller {
 	}
 
 //METODO CHE MI SERVE PER LA FINSETRA DI DIALOGO PER VISUALIZZARE I DATI DI UN UTENTE:
-	public Utente visualizzaDatiUtente(String username) {
+	public Utente prendiDatiUtente(String username) {
 		utenteDAO = new UtenteDAO();
 		Utente u = null;
 		return u = utenteDAO.prendiDatiUtente(username);
 	}
 	
+	//SERVE PER LA FINESTRA DEI DATI DELL'UTENTE:
+	public void daPaginaProprietarioAFinestraDatiUtente(Utente u) {
+		finestraDatiProprietario = new FinestraVisualizzaEModificaDatiProprietario(this, u);
+		finestraDatiProprietario.setVisible(true);
+	}
 	
 }

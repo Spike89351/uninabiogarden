@@ -77,18 +77,11 @@ public class PaginaProprietario extends JFrame {
 		JMenu menùDatiUtente = new JMenu("Dati utente");
 		menuBar.add(menùDatiUtente);
 		
-		JMenuItem menuModificaDatiUtente = new JMenuItem("Modifica dati");
-		menuModificaDatiUtente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//MODIFICA DATI UTENTE CHE HA FATTO L'ACCESSO:
-			}
-		});
-		menùDatiUtente.add(menuModificaDatiUtente);
-		
-		JMenuItem menuItemisualizzaDati = new JMenuItem("Visualizza dati utente");
+		JMenuItem menuItemisualizzaDati = new JMenuItem("Visualizza e modifica dati utente");
 		menuItemisualizzaDati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//FINESTRA CHE TI PORTA A VISUALIZZARE I DATI DELL'UTENTE;
+				//PRENDO I DATI DELL'UTENTE E LI PORTO NELL'ALTRA FINESTRA COSS' DA POTER INSERIRLI NEI CAMPI DI TESTO
+				theController.daPaginaProprietarioAFinestraDatiUtente(theController.prendiDatiUtente(username));
 			}
 		});
 		menùDatiUtente.add(menuItemisualizzaDati);

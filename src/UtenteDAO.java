@@ -151,10 +151,11 @@ public class UtenteDAO {
             	   String username = rs.getString(5);
             	   String password = rs.getString(6);
             	   
+            	   String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
             	   //CAST DEL GENERE:
             	   Genere genCast = Genere.valueOf(genere);
             	   
-            	   Utente u = new Utente(nome, cognome, dataNascita, genCast, username, password);
+            	   Utente u = new Utente(nome, cognome, dataNascita, genCast, username, hashedPassword);
             	   
             	   return u;
             	   
