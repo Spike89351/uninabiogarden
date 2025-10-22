@@ -1,12 +1,25 @@
 import java.awt.EventQueue;
 
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+
+import com.toedter.calendar.JDateChooser;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.GridLayout;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -75,9 +88,7 @@ public class PaginaProprietario extends JFrame {
 		JMenuItem menuItemisualizzaDati = new JMenuItem("Visualizza dati utente");
 		menuItemisualizzaDati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//VISUALIZZA I DATI DELL'UTENTE:
-				JDialog finestraDatiUtente = new JDialog();
-				finestraDatiUtente.setVisible(true);
+				//FINESTRA CHE TI PORTA A VISUALIZZARE I DATI DELL'UTENTE;
 			}
 		});
 		menùDatiUtente.add(menuItemisualizzaDati);
@@ -102,8 +113,5 @@ public class PaginaProprietario extends JFrame {
 	}
 	
 //METODI:
-	public JDialog creaFinsetraDialogo() {
-		
-	}
 
 }

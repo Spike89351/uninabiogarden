@@ -159,7 +159,7 @@ public class UtenteDAO {
             	   return u;
             	   
                } else {
-            	   
+            	   JOptionPane.showMessageDialog(null, "Mi dispiace ma c'è stato un'errore nella ricerca dell'utente");
                }
                
            } catch (Exception e) {

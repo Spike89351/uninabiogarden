@@ -154,7 +154,13 @@ public class Controller {
 		paginaColtivatore = new PaginaColtivatore(username, this);
 		paginaColtivatore.setVisible(true);
 	}
-	
+
+//METODO CHE MI SERVE PER LA FINSETRA DI DIALOGO PER VISUALIZZARE I DATI DI UN UTENTE:
+	public Utente visualizzaDatiUtente(String username) {
+		utenteDAO = new UtenteDAO();
+		Utente u = null;
+		return u = utenteDAO.prendiDatiUtente(username);
+	}
 	
 	
 }
