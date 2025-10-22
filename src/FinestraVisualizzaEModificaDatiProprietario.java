@@ -15,6 +15,8 @@ import javax.swing.SwingConstants;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 	private Controller theController;
@@ -31,7 +33,6 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 	
 	public FinestraVisualizzaEModificaDatiProprietario(Controller c, Utente u) {
 		theController = c;
-		
 		
 		
 		setBounds(100, 100, 450, 300);
@@ -78,7 +79,7 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 			lblGenere.setHorizontalAlignment(SwingConstants.CENTER);
 			lblGenere.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			
-			comboBoxGenere = new JComboBox();
+			comboBoxGenere = new JComboBox(Genere.values());
 			comboBoxGenere.setEnabled(false);
 			
 			txtUsername = new JTextField();
@@ -91,6 +92,12 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 			lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			
 			JButton btnSbloccaModifoche = new JButton("Sblocca modifica");
+			btnSbloccaModifoche.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//SBLOCCO I CAMPI DI TESTO PER UN'EVENUTALE MODIFICA:
+					sbloccaCampiDiTesto();
+				}
+			});
 			GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 			gl_panelCentral.setHorizontalGroup(
 				gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -166,6 +173,11 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		contentPanel.add(panelBottom, BorderLayout.SOUTH);
 		
 		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				theController.paginaProprietario.setEnabled(true);
+			}
+		});
 		
 		JButton btnSalva = new JButton("Salva");
 		GroupLayout gl_panelBottom = new GroupLayout(panelBottom);
@@ -187,15 +199,29 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 						.addComponent(btnSalva)))
 		);
 		panelBottom.setLayout(gl_panelBottom);
+		
+		//COMPILA I CAMPI DI TESTO CON I DATI DELL'UTENTE:
+		compilaCampi(u, txtNome, txtCognome, dateChooser, comboBoxGenere, txtUsername);
 	}
 	
 //METODO:
-	private void compilaCampi(Utente u, JTextField txtNome, JTextField txtCognome, JDateChooser date, JComboBox genere, JTextField txtUsername, JTextField txtPassword) {
+	//METODO PER COMPILARE I CAMPI DI TESTO CON I DATI DELL'UTENTE CHE HA FATTO L'ACCESSO:
+	private void compilaCampi(Utente u, JTextField txtNome, JTextField txtCognome, JDateChooser date, JComboBox genere, JTextField txtUsername) {
 		txtNome.setText(u.getNome());
 		txtCognome.setText(u.getCognome());
 		date.setDate(u.getDataNascita());
-		genere.setSelectedItem(u.getGenere().toString());
+		genere.setSelectedItem(u.getGenere());
 		txtUsername.setText(u.getUsername());
 		//txtPassword.setText(u.getPassword()); LA PASSWORD NON LA MOSTRIAMO PERCHE' E' COMPLICATO
 	}
+	
+	//SERVE E SBLOCCARE I DATI PER MODIFICARLI:
+	public void sbloccaCampiDiTesto() {
+		txtNome.setEnabled(true);
+		txtCognome.setEnabled(true);
+		dateChooser.setEnabled(true);
+		comboBoxGenere.setEnabled(true);
+		txtUsername.setEnabled(true);
+	}
+	
 }

@@ -168,6 +168,9 @@ public class Controller {
 	public void daPaginaProprietarioAFinestraDatiUtente(Utente u) {
 		finestraDatiProprietario = new FinestraVisualizzaEModificaDatiProprietario(this, u);
 		finestraDatiProprietario.setVisible(true);
+		finestraDatiProprietario.requestFocus();
+		paginaProprietario.setEnabled(false);
+		
 	}
 	
 }
