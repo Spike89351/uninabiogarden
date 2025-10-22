@@ -134,7 +134,7 @@ public class UtenteDAO {
     }
     
     //MI SERVE PER PRENDERE I DATI DELL'UTENTE:
-    public Utente pendiDatiUtente(String Username) {
+    public Utente prendiDatiUtente(String Username) {
     	String sql = "SELECT Nome, Cognome, data_nascita, genere, username, passwd FROM prguninabiogarden.Utente WHERE username = ?";
     	
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -156,14 +156,17 @@ public class UtenteDAO {
             	   
             	   Utente u = new Utente(nome, cognome, dataNascita, genCast, username, password);
             	   
+            	   return u;
+            	   
                } else {
             	   
                }
                
            } catch (Exception e) {
                JOptionPane.showMessageDialog(null, "Errore nell'estrazione dei dati dell'utente! funzione prendiDatiUtente, classe UtenteDAO");
+               return null;
            }
-    	
+    	return null;    	
     }
     
 }
