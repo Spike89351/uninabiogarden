@@ -1,20 +1,22 @@
 import java.util.ArrayList;
 
 public class Terreno {
-    private String ID_Terreno;
+    private int ID_Terreno;
     private Proprietario Prop;
     private double superficie;
     private TipoTerreno TipologiaTerreno;
+    private Fertilità fertTerreno;
     private ArrayList<Progetto> Project = new ArrayList<Progetto>();
     private ArrayList<TipoAttivita> TipoAttivita = new ArrayList<TipoAttivita>();
     private ArrayList<String> StoricoColtura = new ArrayList<String>();
 
 
     //COSTRUTTORE:
-    Terreno(Proprietario Prop, double superficie, TipoTerreno TipologiaTerreno) {
+    Terreno(Proprietario Prop, double superficie, TipoTerreno TipologiaTerreno, Fertilità fertTerr) {
         this.Prop = Prop;
         this.superficie = superficie;
         this.TipologiaTerreno = TipologiaTerreno;
+        this.fertTerreno = fertTerr;
     }
 
     //GETTERS:
@@ -28,6 +30,9 @@ public class Terreno {
     }
     public TipoTerreno getTipologiaTerreno() {
         return TipologiaTerreno;
+    }
+    public Fertilità getfertTerreno() {
+    	return fertTerreno;
     }
     public ArrayList<Progetto> getProject() {
         return Project;
@@ -48,6 +53,9 @@ public class Terreno {
     }
     public void setTipologiaTerreno(TipoTerreno TipologiaTerreno) {
         this.TipologiaTerreno = TipologiaTerreno;
+    }
+    public void setfertTerreno(Fertilità ferTerr) {
+    	this.fertTerreno = ferTerr;
     }
     public void setProject(ArrayList<Progetto> Project) {
         this.Project = Project;

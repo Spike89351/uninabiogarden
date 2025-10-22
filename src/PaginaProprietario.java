@@ -72,6 +72,11 @@ public class PaginaProprietario extends JFrame {
 		menùTerreni.add(menùItemAggiungiTerreni);
 		
 		JMenuItem menuItemVisualizzaTerreni = new JMenuItem("Visualizza terreni");
+		menuItemVisualizzaTerreni.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//FUNZIONE CHE DA' LA LISTA DI TERRENI:
+			}
+		});
 		menùTerreni.add(menuItemVisualizzaTerreni);
 		
 		JMenu menùDatiUtente = new JMenu("Dati utente");

@@ -1,6 +1,8 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -31,6 +33,28 @@ public class TerrenoDAO {
     		JOptionPane.showMessageDialog(null, "Errore nell'inserimento del Terreno! (CLASSE TerrenoDAO), funzione: inserisciTerreno" + e);
     	}    	
     	
+	}
+	
+	public ArrayList<Terreno> risaliTerreni(Proprietario p, String username) {
+		ArrayList<Terreno> listaTerreni = new ArrayList<Terreno>();
+		
+		String sql = "SELECT * FROM prguninabiogarden.Terreno AS T JOIN Proprietario AS P ON T.id_proprietario = P.id_proprietario WHERE P.Username = ?";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				ResultSet rs = psmt.executeQuery();
+    		
+                psmt.setString(1, username);
+               
+                if(rs.next()) {
+                	Terreno terreno = new Terreno(rs.getInt(3), rs.getDouble(4), rs.getDouble(5), TipoTerreno.valueOf(rs.getString(6)), Fertilità.valueOf(rs.getString(7)));
+                }
+            
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella CLASSE TerrenoDAO, funzione: risaliTerreni" + e);
+    	} 
+		
+		
 	}
 	
 	
