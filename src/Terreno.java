@@ -11,8 +11,7 @@ public class Terreno {
 
 
     //COSTRUTTORE:
-    Terreno(String ID_Terreno, Proprietario Prop, double superficie, TipoTerreno TipologiaTerreno) {
-        this.ID_Terreno = ID_Terreno;
+    Terreno(Proprietario Prop, double superficie, TipoTerreno TipologiaTerreno) {
         this.Prop = Prop;
         this.superficie = superficie;
         this.TipologiaTerreno = TipologiaTerreno;
@@ -20,9 +19,7 @@ public class Terreno {
 
     //GETTERS:
 
-    public String getID_Terreno() {
-        return ID_Terreno;
-    }
+   
     public Proprietario getProp() {
         return Prop;
     }
@@ -43,10 +40,6 @@ public class Terreno {
     }
 
     //SETTERS:
-
-    public void setID_Terreno(String ID_Terreno) {
-        this.ID_Terreno = ID_Terreno;
-    }
     public void setProp(Proprietario Prop) {
         this.Prop = Prop;
     }
