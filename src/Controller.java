@@ -173,7 +173,6 @@ public class Controller {
 	//SEERVE PER LA MODIFICA DEI DATI DI UN UTENTE:
 	public void modificaDati(Utente u, String nome, String cognome, java.sql.Date data, Genere genere) {
 		//CONTROLLO SE I CAMPI DI TESTO SONO UGUALI AI DATI DELL'UTENTE, IN TAL CASO NON MODIFICO QUEL DATO:
-		System.out.println("Sto nella funzione");
 		try {
 			if(! u.getNome().equals(nome)) {
 				u.setNome(nome);
@@ -183,7 +182,6 @@ public class Controller {
 				u.setCognome(cognome);
 				utenteDAO.modificaCognome(u.getUsername(), cognome);
 			}
-			System.out.println("Sto prima dell'IF");
 			if(! u.getDataNascita().equals(data)) {
 				u.setDataNascita(data);
 				utenteDAO.modificaDataNascita(u.getUsername(), data);

@@ -199,7 +199,6 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 					
 					//FACCIO IL CAST:
 					Genere gen = (Genere) comboBoxGenere.getSelectedItem();
-					
 					java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
 					
 					//MODIFICO I DATI DELL'UTENTE:
