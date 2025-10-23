@@ -1,8 +1,12 @@
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import com.toedter.calendar.JDateChooser;
 
 public class Controller {
 	
@@ -164,6 +168,14 @@ public class Controller {
 		utenteDAO = new UtenteDAO();
 		Utente u = null;
 		return u = utenteDAO.prendiDatiUtente(username);
+	}
+	
+	//SEERVE PER LA MODIFICA DEI DATI DI UN UTENTE:
+	public void modificaDati(Utente u, String nome, JTextField cognome, JDateChooser data, JComboBox genere, String username) {
+		//CONTROLLO SE I CAMPI DI TESTO SONO UGUALI AI DATI DELL'UTENTE, IN TAL CASO NON MODIFICO QUEL DATO:
+		if(u.getNome().equals(nome)) {
+			
+		}
 	}
 	
 	//SERVE PER LA FINESTRA DEI DATI DELL'UTENTE:

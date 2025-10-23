@@ -10,14 +10,19 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.awt.event.ActionEvent;
-
+import java.awt.Color;
 public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 	private Controller theController;
 	
@@ -53,6 +58,7 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 			contentPanel.add(panelCentral, BorderLayout.CENTER);
 			
 			txtNome = new JTextField();
+			txtNome.setForeground(Color.BLACK);
 			txtNome.setEnabled(false);
 			txtNome.setColumns(10);
 			
@@ -128,7 +134,7 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 										.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))))
 							.addGroup(gl_panelCentral.createSequentialGroup()
 								.addGap(155)
-								.addComponent(btnSbloccaModifoche, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(btnSbloccaModifoche)))
 						.addContainerGap(111, Short.MAX_VALUE))
 			);
 			gl_panelCentral.setVerticalGroup(
@@ -162,9 +168,9 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 								.addGap(1)
 								.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 							.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+						.addGap(33)
 						.addComponent(btnSbloccaModifoche)
-						.addGap(31))
+						.addContainerGap(31, Short.MAX_VALUE))
 			);
 			panelCentral.setLayout(gl_panelCentral);
 		}
@@ -176,6 +182,9 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				theController.paginaProprietario.setEnabled(true);
+			
+				//BLOCCA I CAMPI:
+				bloccaCampiDiTesto();
 			}
 		});
 		
@@ -239,11 +248,34 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		txtUsername.setEnabled(false);
 	}
 	
-	//CONTROLLO SE I CAMPI SONO STATI MODIFICATI:
-//	private void ctrlModificaCampi(Utente u) {
-//		if(! txtNome.getText().equals(u.getNome())) {
-//			
-//		}
-//	}
+	//CONTROLLO SE I CAMPI SONO STATI MODIFICATI RISPETTANO DELLE REGOLE:
+	private void ctrlModificaCampi(Utente u) {
+		if(txtNome.getText().length() == 0) {
+			JOptionPane.showMessageDialog(null, "Mi dispiace ma il campo di testo 'Nome' non può essere vuoto! Per tanto sarà compilato con lo stesso testo di prima!");
+			txtNome.setText(u.getNome());
+		}
+		if(txtCognome.getText().length() == 0) {
+			JOptionPane.showMessageDialog(null, "Mi dispiace il campo di testo 'Cognome' non può essere vuoto, per tanto sarà compilato con lo stesso testo di prima!");
+			txtCognome.setText(u.getCognome());
+		}
+		try {
+			//CAST DELLA DATA:
+			LocalDate dateConvert = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			
+			//CALCOLO IL PERIODO:
+			Period età = Period.between(dateConvert, LocalDate.now());
+			
+			//CONTROLLO SULL'ETA':
+			if(età.getYears() < 18) {
+				JOptionPane.showMessageDialog(null, "Mi dispiace ma l'età non può essere minore di 18 anni, per tanto verrà rimessa l'età che ha messo nella registrazione!");
+				dateChooser.setDate(u.getDataNascita());
+			}
+			
+		}catch(Exception xxx) {
+			JOptionPane.showMessageDialog(null, "C'è stato un'errore nella conversione della data!");
+		}
+		//USERNAME:
+		
+	}
 	
 }
