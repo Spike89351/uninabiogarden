@@ -45,11 +45,11 @@ public class Proprietario extends Utente {
     public void setPartitaIva(String partitaIva) {
         this.partitaIva = partitaIva;
     }
-    public void setLottiPosseduti(ArrayList<Terreno> lottiPosseduti) {
-        this.lottiPosseduti = lottiPosseduti;
+    public void setLottiPosseduti(Terreno lotto) {
+        lottiPosseduti.add(lotto);
     }
-    public void setElencoProgetti(ArrayList<Progetto> elencoProgetti) {
-        this.elencoProgetti = elencoProgetti;
+    public void setElencoProgetti(Progetto progetto) {
+    	elencoProgetti.add(progetto);
     }
 
 

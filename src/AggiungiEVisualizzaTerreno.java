@@ -79,7 +79,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 				//POSSIBILITA' DI AGGIUNGERE UN TERRENO E AGGIORNARE LA TABELLA!
 				
 				//-----------------
-				//theController.popolaTabellaTerreni(null, modelTerreno);
+				//theController.popolaTabellaTerreni(, modelTerreno);
 			}
 		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
