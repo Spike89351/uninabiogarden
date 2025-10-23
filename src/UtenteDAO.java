@@ -245,7 +245,7 @@ public class UtenteDAO {
     
 	
 	//MODIFICA USERNAME:
-	public void modificaUsername() {
+	public void modificaUsername(String username, String newUsername) {
 		
 	}
     

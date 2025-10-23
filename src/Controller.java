@@ -171,11 +171,23 @@ public class Controller {
 	}
 	
 	//SEERVE PER LA MODIFICA DEI DATI DI UN UTENTE:
-	public void modificaDati(Utente u, String nome, JTextField cognome, JDateChooser data, JComboBox genere, String username) {
+	public void modificaDati(Utente u, String nome, String cognome, java.sql.Date data, Genere genere) {
 		//CONTROLLO SE I CAMPI DI TESTO SONO UGUALI AI DATI DELL'UTENTE, IN TAL CASO NON MODIFICO QUEL DATO:
-		if(u.getNome().equals(nome)) {
-			
+		if(! u.getNome().equals(nome)) {
+			utenteDAO.modificaNome(u.getUsername(), nome);
 		}
+		if(! u.getCognome().equals(cognome)) {
+			utenteDAO.modificaCognome(u.getUsername(), cognome);
+		}
+		if(! u.getDataNascita().equals(data)) {
+			utenteDAO.modificaDataNascita(u.getUsername(), data);
+		}
+		if(! u.getGenere().equals(genere)) {
+			utenteDAO.modificaGenere(u.getUsername(), genere);
+		}
+//		if(! u.getUsername().equals(newUsername)) {
+//			utenteDAO.modificaUsername(u.getUsername(), newUsername);
+//		}
 	}
 	
 	//SERVE PER LA FINESTRA DEI DATI DELL'UTENTE:

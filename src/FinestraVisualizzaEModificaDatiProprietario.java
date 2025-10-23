@@ -191,6 +191,11 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		JButton btnSalva = new JButton("Salva");
 		btnSalva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//CONTROLLO SE SONO STATI MODIFICATI I CAMPI, NEL CASO SETTA I DATI COM'ERANO:
+				ctrlModificaCampi(u);
+				
+				//
+				
 				
 				//BLOCCA I CAMPI:
 				bloccaCampiDiTesto();				
