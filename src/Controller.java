@@ -173,21 +173,31 @@ public class Controller {
 	//SEERVE PER LA MODIFICA DEI DATI DI UN UTENTE:
 	public void modificaDati(Utente u, String nome, String cognome, java.sql.Date data, Genere genere) {
 		//CONTROLLO SE I CAMPI DI TESTO SONO UGUALI AI DATI DELL'UTENTE, IN TAL CASO NON MODIFICO QUEL DATO:
-		if(! u.getNome().equals(nome)) {
-			utenteDAO.modificaNome(u.getUsername(), nome);
+		System.out.println("Sto nella funzione");
+		try {
+			if(! u.getNome().equals(nome)) {
+				u.setNome(nome);
+				utenteDAO.modificaNome(u.getUsername(), nome);
+			}
+			if(! u.getCognome().equals(cognome)) {
+				u.setCognome(cognome);
+				utenteDAO.modificaCognome(u.getUsername(), cognome);
+			}
+			System.out.println("Sto prima dell'IF");
+			if(! u.getDataNascita().equals(data)) {
+				u.setDataNascita(data);
+				utenteDAO.modificaDataNascita(u.getUsername(), data);
+			}
+			if(! u.getGenere().equals(genere)) {
+				u.setGenere(genere);
+				utenteDAO.modificaGenere(u.getUsername(), genere);
+			}
+//			if(! u.getUsername().equals(newUsername)) {
+//				utenteDAO.modificaUsername(u.getUsername(), newUsername);
+//			}
+		}catch(Exception x){
+			JOptionPane.showMessageDialog(null, "Errore nella funzione nella classe controller, funzione modificaDati");
 		}
-		if(! u.getCognome().equals(cognome)) {
-			utenteDAO.modificaCognome(u.getUsername(), cognome);
-		}
-		if(! u.getDataNascita().equals(data)) {
-			utenteDAO.modificaDataNascita(u.getUsername(), data);
-		}
-		if(! u.getGenere().equals(genere)) {
-			utenteDAO.modificaGenere(u.getUsername(), genere);
-		}
-//		if(! u.getUsername().equals(newUsername)) {
-//			utenteDAO.modificaUsername(u.getUsername(), newUsername);
-//		}
 	}
 	
 	//SERVE PER LA FINESTRA DEI DATI DELL'UTENTE:

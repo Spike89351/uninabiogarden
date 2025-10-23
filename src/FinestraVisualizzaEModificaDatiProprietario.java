@@ -18,6 +18,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -40,7 +41,8 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		theController = c;
 		
 		
-		setBounds(100, 100, 450, 300);
+		setSize(480, 310);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -191,14 +193,23 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		JButton btnSalva = new JButton("Salva");
 		btnSalva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//CONTROLLO SE SONO STATI MODIFICATI I CAMPI, NEL CASO SETTA I DATI COM'ERANO:
-				ctrlModificaCampi(u);
-				
-				//
-				
-				
-				//BLOCCA I CAMPI:
-				bloccaCampiDiTesto();				
+				try {
+					//CONTROLLO SE SONO STATI MODIFICATI I CAMPI, NEL CASO SETTA I DATI COM'ERANO:
+					ctrlModificaCampi(u);
+					
+					//FACCIO IL CAST:
+					Genere gen = (Genere) comboBoxGenere.getSelectedItem();
+					
+					java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
+					
+					//MODIFICO I DATI DELL'UTENTE:
+					theController.modificaDati(u, txtNome.getText(), txtCognome.getText(), sqlDate, gen);
+					
+					//BLOCCA I CAMPI:
+					bloccaCampiDiTesto();
+				}catch(Exception eq) {
+					System.out.println("problema nella pagina: "+eq);
+				}
 			}
 		});
 		GroupLayout gl_panelBottom = new GroupLayout(panelBottom);

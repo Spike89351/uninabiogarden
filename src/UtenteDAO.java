@@ -225,13 +225,13 @@ public class UtenteDAO {
 	
 	//MODIFICA DEL GENERE:
 	public void modificaGenere(String username, Genere gen) {
-		String sql = "UPDATE prguninabiogarden.Utente SET genere = ? WHERE = ?";
+		String sql = "UPDATE prguninabiogarden.Utente SET genere = ? WHERE username = ?";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement psmt = conn.prepareStatement(sql)) {
     		
 			//CAST DEL GENERE IN STRING:
-			String genereInString = String.valueOf(gen);
+			String genereInString = String.valueOf(gen.toString());
 			
     		psmt.setString(1, genereInString);
             psmt.setString(2, username);
