@@ -63,21 +63,13 @@ public class PaginaProprietario extends JFrame {
 		});
 		menuBar.add(menùTerreni);
 		
-		JMenuItem menùItemAggiungiTerreni = new JMenuItem("Aggiungi terreno");
+		JMenuItem menùItemAggiungiTerreni = new JMenuItem("Aggiungi e visualizza terreni");
 		menùItemAggiungiTerreni.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//PAGINA DOVE POTER AGGIUNGERE UN TERRENO:
 			}
 		});
 		menùTerreni.add(menùItemAggiungiTerreni);
-		
-		JMenuItem menuItemVisualizzaTerreni = new JMenuItem("Visualizza terreni");
-		menuItemVisualizzaTerreni.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//FUNZIONE CHE DA' LA LISTA DI TERRENI:
-			}
-		});
-		menùTerreni.add(menuItemVisualizzaTerreni);
 		
 		JMenu menùDatiUtente = new JMenu("Dati utente");
 		menuBar.add(menùDatiUtente);
