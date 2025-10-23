@@ -183,6 +183,8 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		btnSalva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				//BLOCCA I CAMPI:
+				bloccaCampiDiTesto();				
 			}
 		});
 		GroupLayout gl_panelBottom = new GroupLayout(panelBottom);
@@ -221,7 +223,7 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 	}
 	
 	//SERVE E SBLOCCARE I DATI PER MODIFICARLI:
-	public void sbloccaCampiDiTesto() {
+	private void sbloccaCampiDiTesto() {
 		txtNome.setEnabled(true);
 		txtCognome.setEnabled(true);
 		dateChooser.setEnabled(true);
@@ -229,11 +231,19 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		txtUsername.setEnabled(true);
 	}
 	
-	//CONTROLLO SE I CAMPI SONO STATI MODIFICATI:
-	public void ctrlModificaCampi(Utente u) {
-		if(txtNome.getText().equals(u.getNome())) {
-			
-		}
+	private void bloccaCampiDiTesto() {
+		txtNome.setEnabled(false);
+		txtCognome.setEnabled(false);
+		dateChooser.setEnabled(false);
+		comboBoxGenere.setEnabled(false);
+		txtUsername.setEnabled(false);
 	}
+	
+	//CONTROLLO SE I CAMPI SONO STATI MODIFICATI:
+//	private void ctrlModificaCampi(Utente u) {
+//		if(! txtNome.getText().equals(u.getNome())) {
+//			
+//		}
+//	}
 	
 }

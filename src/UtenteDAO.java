@@ -208,10 +208,46 @@ public class UtenteDAO {
     
   //MODIFICA DATA DI NASCITA:
 	public void modificaDataNascita(String username, Date x) {
-		String sql = "";
+		String sql = "UPDATE prguninabiogarden.Utente SET data_nascita = ? WHERE username = ?";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement psmt = conn.prepareStatement(sql)) {
+    		
+    		psmt.setDate(1, x);
+            psmt.setString(2, username);
+               
+            psmt.executeUpdate();
+           } catch (Exception e) {
+               System.out.println(e);
+               JOptionPane.showMessageDialog(null, "Errore nella modifica della data di nascita dell'utente! funzione modificaDataDiNascita, classe UtenteDAO");
+           }  
 	}
 	
+	//MODIFICA DEL GENERE:
+	public void modificaGenere(String username, Genere gen) {
+		String sql = "UPDATE prguninabiogarden.Utente SET genere = ? WHERE = ?";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement psmt = conn.prepareStatement(sql)) {
+    		
+			//CAST DEL GENERE IN STRING:
+			String genereInString = String.valueOf(gen);
+			
+    		psmt.setString(1, genereInString);
+            psmt.setString(2, username);
+               
+            psmt.executeUpdate();
+           } catch (Exception e) {
+               System.out.println(e);
+               JOptionPane.showMessageDialog(null, "Errore nella modifica del genere dell'utente! funzione modificaGenere, classe UtenteDAO");
+           }  		
+	}
     
+	
+	//MODIFICA USERNAME:
+	public void modificaUsername() {
+		
+	}
     
 }
 
