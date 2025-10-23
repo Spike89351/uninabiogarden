@@ -24,6 +24,8 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 	private Controller theController;
 	
@@ -38,6 +40,14 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 	private JDateChooser dateChooser;
 	
 	public FinestraVisualizzaEModificaDatiProprietario(Controller c, Utente u) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				theController.paginaProprietario.setEnabled(true);
+			}
+		});
+		
+		
 		theController = c;
 		
 		
@@ -184,7 +194,8 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				theController.paginaProprietario.setEnabled(true);
-			
+				setVisible(false);
+				
 				//BLOCCA I CAMPI:
 				bloccaCampiDiTesto();
 			}
