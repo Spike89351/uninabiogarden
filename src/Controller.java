@@ -217,7 +217,10 @@ public class Controller {
 		paginaProprietario.setEnabled(false);
 	}
 	
-	
+	//SERVE A TROVARE IL PROPRIETARIO TRAMITE USERNAME:
+//	public Proprietario prendiDatiProprietario(String username) {
+//		String sql = "SELECT nome, cognome, data_nascita, genere, username, passwd ";
+//	}
 	
 	//SERVE PER POPOLARE LA TABELLA CON I VARI TERRENI CHE APPARTENGONO ALL'UTENTE:
 	public void popolaTabellaTerreni(ArrayList<Terreno> listaTerre, DefaultTableModel modelTab) {

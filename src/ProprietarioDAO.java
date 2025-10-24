@@ -57,37 +57,37 @@ public class ProprietarioDAO {
     }
     
     
-//    public Proprietario prendiDatiProprietario(String Username) {
-//    	String sql = "SELECT Nome, Cognome, data_nascita, genere, username, passwd FROM prguninabiogarden.Proprietario WHERE username = ?";
-//    	
-//    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//                PreparedStatement psmt = conn.prepareStatement(sql)) {
-//
-//               psmt.setString(1, Username);
-//               ResultSet rs = psmt.executeQuery();
-//
-//               if (rs.next()) {
-//            	   String cognome = rs.getString(2);
-//            	   String emaeil = rs.getString(3);
-//            	   String partitaIva = rs.getString(4);
-//            	   
-//            	   //CAST DEL GENERE:
-////            	   Genere genCast = Genere.valueOf(genere);
-//            	   
-////            	   Utente u = new Utente(nome, cognome, dataNascita, genCast, username, password);
-//            	   
-//            	   return u;
-//            	   
-//               } else {
-//            	   JOptionPane.showMessageDialog(null, "Mi dispiace ma c'è stato un'errore nella ricerca dell'utente");
-//               }
-//               
-//           } catch (Exception e) {
-//               JOptionPane.showMessageDialog(null, "Errore nell'estrazione dei dati dell'utente! funzione prendiDatiUtente, classe UtenteDAO");
-//               return null;
-//           }
-//    	return null;    	
-//    }
+    public Proprietario ritornaProprietario(String username) {
+    	String sql = "SELECT nome, cognome, data_nascita, genere, username, passwd, id_proprietario, email, partita_iva WHERE Username = ?";
+    	
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+    		 ResultSet rs = psmt.executeQuery();
+    		 
+    		 	
+    		if (rs.next()) {
+         	   String nome = rs.getString(1);
+         	   String cognome = rs.getString(2);
+         	   Date dataNascita = rs.getDate(3);
+         	   String genere = rs.getString(4);
+         	   String password = rs.getString(6); //GLI DIAMO LA PASSWORD HASHATA
+         	   int idProp = rs.getInt(7);
+         	   String email = rs.getString(8);
+         	   String partitaIva = rs.getString(9);
+         	   
+         	   //CAST DEL GENERE:
+         	   Genere genCast = Genere.valueOf(genere);
+         	   
+         	  Proprietario p = new Proprietario(nome, cognome, dataNascita, genCast, username, password, idProp, email, partitaIva);
+         	   
+         	   return p;
+         	   
+            }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento del Proprietario! (CLASSE ProprietarioDAO), funzione: inserisciProprietario" + e);
+    	}   
+    	
+    }
     
     
 }
