@@ -224,10 +224,9 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 				int row = table.rowAtPoint(e.getPoint());			
 				if(row >= 0) {
 					try {
-						System.out.println("Ciaooo");
 						idTerrenoSelezioanto = String.valueOf(table.getValueAt(row, 0)) ;
-						System.out.println(idTerrenoSelezioanto);
 						lblTerrenoSelezionato.setVisible(true);
+						
 						lblTerrenoId.setText(idTerrenoSelezioanto);
 						lblTerrenoId.setForeground(Color.BLUE);
 						
