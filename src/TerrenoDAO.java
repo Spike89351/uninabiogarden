@@ -35,13 +35,16 @@ public class TerrenoDAO {
     	
 	}
 	
-	public ArrayList<Terreno> risaliTerreni(Proprietario p, String username) {
+	public ArrayList<Terreno> risaliTerreni(String username) {
 		ArrayList<Terreno> listaTerreni = new ArrayList<Terreno>();
 		
-		String sql = "SELECT * FROM prguninabiogarden.Terreno AS T JOIN Proprietario AS P ON T.id_proprietario = P.id_proprietario WHERE P.Username = ?";
+		String sql = "SELECT * FROM prguninabiogarden.Terreno AS T JOIN prguninabiogarden.Proprietario AS P ON T.id_proprietario = P.id_proprietario WHERE P.Username = ?";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setString(1, username);
+				
 				ResultSet rs = psmt.executeQuery();
     		
                 psmt.setString(1, username);

@@ -34,6 +34,9 @@ public class Controller {
 	private Attrezzo attrezzo;
 	private StatoAttrezzo statoAttrezzo;
 	
+	//VARIABILI CHE SERVONO A MEMORIZZARE I DATI DAL DB COSI' DA AVERLI A PORTATA DI MANO:
+	//private ArrayList<Terreno> listaTerre;
+	
 	//INIZIALIZZAZIONE DELLE PAGINE: (ALCUNE)
 	public HomePage homePage;
 	public PaginaRegistrati paginaRegistrati;
@@ -214,13 +217,11 @@ public class Controller {
 		paginaProprietario.setEnabled(false);
 	}
 	
-	//SERVE A TROVARE IL PROPRIETARIO TRAMITE USERNAME:
-//	public Proprietario prendiDatiProprietario(String username) {
-//		String sql = "SELECT nome, cognome, data_nascita, genere, username, passwd ";
-//	}
-	
 	//SERVE PER POPOLARE LA TABELLA CON I VARI TERRENI CHE APPARTENGONO ALL'UTENTE:
-	public void popolaTabellaTerreni(ArrayList<Terreno> listaTerre, DefaultTableModel modelTab) {
+	public void popolaTabellaTerreni(String username,DefaultTableModel modelTab) {
+		modelTab.setRowCount(0);
+		terrenoDAO = new TerrenoDAO();
+		ArrayList<Terreno> listaTerre = terrenoDAO.risaliTerreni(username);
 		if(listaTerre.size() <= 0) {
 			JOptionPane.showMessageDialog(null, "La tua lista di terre è vuote");//IMPOSSIBILE!
 		}else {

@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
@@ -75,11 +77,11 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		
 		JButton btnAggiungiTerreno = new JButton("Aggiungi");
 		btnAggiungiTerreno.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//POSSIBILITA' DI AGGIUNGERE UN TERRENO E AGGIORNARE LA TABELLA!
+			public void actionPerformed(ActionEvent e) {				
+				//POSSIBILITA' DI AGGIUNGERE UN TERRENO:
 				
-				//-----------------
-				//theController.popolaTabellaTerreni(, modelTerreno);
+				//AGGIORNA LA TABELLA:
+				//theController.popolaTabellaTerreni(u.getUsername(), modelTerreno);
 			}
 		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
@@ -188,6 +190,12 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panelBottom.setLayout(gl_panelBottom);
+		
+		try {
+			theController.popolaTabellaTerreni(u.getUsername(), modelTerreno);
+		}catch(Exception xxx) {
+			JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei terreni: "+ xxx);
+		}
 
 	}
 }
