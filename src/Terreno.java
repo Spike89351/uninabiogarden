@@ -12,8 +12,7 @@ public class Terreno {
 
 
     //COSTRUTTORE:
-    Terreno(Proprietario Prop, double superficie, TipoTerreno TipologiaTerreno, Fertilità fertTerr) {
-        this.Prop = Prop;
+    Terreno(double superficie, TipoTerreno TipologiaTerreno, Fertilità fertTerr) {
         this.superficie = superficie;
         this.TipologiaTerreno = TipologiaTerreno;
         this.fertTerreno = fertTerr;

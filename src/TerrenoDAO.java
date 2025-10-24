@@ -35,30 +35,30 @@ public class TerrenoDAO {
     	
 	}
 	
-	public ArrayList<Terreno> risaliTerreni(Proprietario p, String username) {
-		ArrayList<Terreno> listaTerreni = new ArrayList<Terreno>();
-		
-		String sql = "SELECT * FROM prguninabiogarden.Terreno AS T JOIN Proprietario AS P ON T.id_proprietario = P.id_proprietario WHERE P.Username = ?";
-		
-		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
-    			PreparedStatement psmt = conn.prepareStatement(sql)) {
-				ResultSet rs = psmt.executeQuery();
-    		
-                psmt.setString(1, username);
-               
-                if(rs.next()) {
-                	Terreno terreno = new Terreno(p, rs.getDouble(4), TipoTerreno.valueOf(rs.getString(5)), Fertilità.valueOf(rs.getString(6)));
-                	terreno.setID_Terreno(rs.getInt(3));
-                	listaTerreni.add(terreno);
-                }
-                
-                return listaTerreni;
-            
-    	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella CLASSE TerrenoDAO, funzione: risaliTerreni" + e);
-    		return null;
-    	} 
-	}
+//	public ArrayList<Terreno> risaliTerreni(Proprietario p, String username) {
+//		ArrayList<Terreno> listaTerreni = new ArrayList<Terreno>();
+//		
+//		String sql = "SELECT * FROM prguninabiogarden.Terreno AS T JOIN Proprietario AS P ON T.id_proprietario = P.id_proprietario WHERE P.Username = ?";
+//		
+//		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+//    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+//				ResultSet rs = psmt.executeQuery();
+//    		
+//                psmt.setString(1, username);
+//               
+//                if(rs.next()) {
+//                	Terreno terreno = new Terreno(p, rs.getDouble(4), TipoTerreno.valueOf(rs.getString(5)), Fertilità.valueOf(rs.getString(6)));
+//                	terreno.setID_Terreno(rs.getInt(3));
+//                	listaTerreni.add(terreno);
+//                }
+//                
+//                return listaTerreni;
+//            
+//    	}catch(Exception e) {
+//    		JOptionPane.showMessageDialog(null, "Errore nella CLASSE TerrenoDAO, funzione: risaliTerreni" + e);
+//    		return null;
+//    	} 
+//	}
 	
 	
 	

@@ -11,7 +11,6 @@ public class ProprietarioDAO {
 	private static final String USER = "postgres";
 	private static final String PASSWORD = "Informatica1";
     
-	private Proprietario p;
     
     public void inserisiciProprietario(String Username, String email, String partitaIva) {
     	String sql = "INSERT INTO prguninabiogarden.Proprietario (Username, email, partita_iva) VALUES(?, ?, ?)";
@@ -57,12 +56,15 @@ public class ProprietarioDAO {
     
     
 //    public Proprietario ritornaProprietario(String username) {
-//    	String sql = "SELECT nome, cognome, data_nascita, genere, username, passwd, id_proprietario, email, partita_iva WHERE Username = ?";
+//    	String sql = "SELECT nome, cognome, data_nascita, genere, username, passwd, id_proprietario, email, partita_iva, id_proprietario, id_terreno, superfice, tipo_terreno, fertilità FROM prguninabiogarden.Proprietario AS P JOIN "
+//    			+ "	prguninabiogarden.Terreno AS T ON P.username = T.username  WHERE Username = ?";
 //    	
 //    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
 //    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+//    		
+//    		psmt.setString(1, username);
+//    			
 //    		 ResultSet rs = psmt.executeQuery();
-//    		 
 //    		 	
 //    		if (rs.next()) {
 //         	   String nome = rs.getString(1);
@@ -73,11 +75,20 @@ public class ProprietarioDAO {
 //         	   int idProp = rs.getInt(7);
 //         	   String email = rs.getString(8);
 //         	   String partitaIva = rs.getString(9);
+//         	   int id_proprietario = rs.getInt(10);
+//         	   int id_terreno = rs.getInt(11);
+//         	   double superfice = rs.getDouble(12);
+//         	   String tipoTerrString = rs.getString(13);
+//         	   String fertString = rs.getString(14);
 //         	   
-//         	   //CAST DEL GENERE:
+//         	   //CAST:
 //         	   Genere genCast = Genere.valueOf(genere);
+//         	   TipoTerreno tipTerra = TipoTerreno.valueOf(tipoTerrString);
+//         	   Fertilità fertTerr = Fertilità.valueOf(fertString);
 //         	   
-////         	  p = new Proprietario(nome, cognome, dataNascita, genCast, username, password, idProp, email, partitaIva);
+//         	   
+//         	   
+//         	  Proprietario p = new Proprietario(nome, cognome, dataNascita, genCast, username, password, idProp, email, partitaIva);
 //         	   
 //         	   return p;
 //         	   
