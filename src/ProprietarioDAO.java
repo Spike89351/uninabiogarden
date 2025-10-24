@@ -57,5 +57,37 @@ public class ProprietarioDAO {
     }
     
     
+//    public Proprietario prendiDatiProprietario(String Username) {
+//    	String sql = "SELECT Nome, Cognome, data_nascita, genere, username, passwd FROM prguninabiogarden.Proprietario WHERE username = ?";
+//    	
+//    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+//                PreparedStatement psmt = conn.prepareStatement(sql)) {
+//
+//               psmt.setString(1, Username);
+//               ResultSet rs = psmt.executeQuery();
+//
+//               if (rs.next()) {
+//            	   String cognome = rs.getString(2);
+//            	   String emaeil = rs.getString(3);
+//            	   String partitaIva = rs.getString(4);
+//            	   
+//            	   //CAST DEL GENERE:
+////            	   Genere genCast = Genere.valueOf(genere);
+//            	   
+////            	   Utente u = new Utente(nome, cognome, dataNascita, genCast, username, password);
+//            	   
+//            	   return u;
+//            	   
+//               } else {
+//            	   JOptionPane.showMessageDialog(null, "Mi dispiace ma c'è stato un'errore nella ricerca dell'utente");
+//               }
+//               
+//           } catch (Exception e) {
+//               JOptionPane.showMessageDialog(null, "Errore nell'estrazione dei dati dell'utente! funzione prendiDatiUtente, classe UtenteDAO");
+//               return null;
+//           }
+//    	return null;    	
+//    }
+    
     
 }

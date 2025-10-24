@@ -166,7 +166,7 @@ public class Controller {
 	}
 
 //METODO CHE MI SERVE PER LA FINSETRA DI DIALOGO PER VISUALIZZARE I DATI DI UN UTENTE:
-	public Utente prendiDatiUtente(String username) {
+	public Utente prendiDatiUtente(String username) {//DA MODIFICARE:
 		utenteDAO = new UtenteDAO();
 		Utente u = null;
 		return u = utenteDAO.prendiDatiUtente(username);

@@ -69,6 +69,7 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 			contentPanel.add(panelCentral, BorderLayout.CENTER);
 			
 			txtNome = new JTextField();
+			txtNome.setText(u.getNome());
 			txtNome.setForeground(Color.BLACK);
 			txtNome.setEnabled(false);
 			txtNome.setColumns(10);
@@ -82,10 +83,12 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 			lblCognome.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			
 			txtCognome = new JTextField();
+			txtCognome.setText(u.getCognome());
 			txtCognome.setEnabled(false);
 			txtCognome.setColumns(10);
 			
 			dateChooser = new JDateChooser();
+			dateChooser.setDate(u.getDataNascita());
 			dateChooser.setEnabled(false);
 			
 			JLabel lblDataDiNascita = new JLabel("Data di nascita");
@@ -97,6 +100,7 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 			lblGenere.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			
 			comboBoxGenere = new JComboBox(Genere.values());
+			comboBoxGenere.setSelectedItem(u.getGenere());
 			comboBoxGenere.setEnabled(false);
 			
 			JButton btnSbloccaModifoche = new JButton("Sblocca modifica");
