@@ -274,8 +274,8 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		}catch(Exception xxx) {
 			JOptionPane.showMessageDialog(null, "C'è stato un'errore nella conversione della data!");
 		}
-		//USERNAME:
-		
 	}
+	
+	
 	
 }
