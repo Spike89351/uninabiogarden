@@ -6,6 +6,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -20,6 +22,8 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AggiungiEVisualizzaTerreno extends JFrame {
 	private Controller theController;
@@ -31,6 +35,9 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 	private JComboBox comboBoxTipoTerreno;
 	private JComboBox comboBoxFertilità;
 	
+	
+	//ATTRIBUTI:
+	private String idTerrenoSelezioanto;
 	
 	
 	public AggiungiEVisualizzaTerreno(Controller c, Utente u) {
@@ -101,13 +108,29 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 				}
 			}
 		});
+		
+		JButton btnVisualizzaTerreno = new JButton("Visualizza terreno");
+		btnVisualizzaTerreno.setEnabled(false);
+		btnVisualizzaTerreno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TERRENO SELEZIONATO:
+				
+			}
+		});
+		
+		JLabel lblTerrenoSelezionato = new JLabel("L'id del terreno selezioanto è");
+		lblTerrenoSelezionato.setVisible(false);
+		lblTerrenoSelezionato.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblTerrenoId = new JLabel("");
+		lblTerrenoId.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
-			gl_panelCentral.createParallelGroup(Alignment.LEADING)
+			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(45)
 					.addComponent(lblAggiungiTerreno)
-					.addPreferredGap(ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
 					.addComponent(lblVisualizzaTerreni)
 					.addGap(139))
 				.addGroup(gl_panelCentral.createSequentialGroup()
@@ -130,9 +153,18 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(46)
 							.addComponent(btnAggiungiTerreno)))
-					.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addComponent(lblTerrenoSelezionato)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblTerrenoId, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addContainerGap(381, Short.MAX_VALUE)
+					.addComponent(btnVisualizzaTerreno)
+					.addGap(109))
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -165,7 +197,14 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 							.addComponent(btnAggiungiTerreno))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))))
+							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblTerrenoSelezionato)
+								.addComponent(lblTerrenoId, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))))
+					.addGap(13)
+					.addComponent(btnVisualizzaTerreno)
+					.addContainerGap(38, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
@@ -178,6 +217,27 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 			);;
 		
 		table = new JTable(modelTerreno);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//TERRENO SELEZIONATO:
+				int row = table.rowAtPoint(e.getPoint());			
+				if(row >= 0) {
+					try {
+						System.out.println("Ciaooo");
+						idTerrenoSelezioanto = String.valueOf(table.getValueAt(row, 0)) ;
+						System.out.println(idTerrenoSelezioanto);
+						lblTerrenoSelezionato.setVisible(true);
+						lblTerrenoId.setText(idTerrenoSelezioanto);
+						lblTerrenoId.setForeground(Color.BLUE);
+						
+						btnVisualizzaTerreno.setEnabled(true);
+					}catch(Exception es) {
+						JOptionPane.showMessageDialog(null, "oooooo");
+					}
+				}
+			}
+		});
 		scrollPane.setColumnHeaderView(table);
 		scrollPane.setViewportView(table);
 		panelCentral.setLayout(gl_panelCentral);
@@ -189,6 +249,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
+				theController.paginaProprietario.setEnabled(true);
 			}
 		});
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -232,6 +293,4 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		}
 		return true;
 	}
-	
-	
 }
