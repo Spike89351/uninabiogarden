@@ -35,7 +35,6 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 	
 	private JTextField txtNome;
 	private JTextField txtCognome;
-	private JTextField txtUsername;
 	private JComboBox comboBoxGenere;
 	private JDateChooser dateChooser;
 	
@@ -51,7 +50,7 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		theController = c;
 		
 		
-		setSize(480, 310);
+		setSize(480, 312);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -100,15 +99,6 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 			comboBoxGenere = new JComboBox(Genere.values());
 			comboBoxGenere.setEnabled(false);
 			
-			txtUsername = new JTextField();
-			txtUsername.setToolTipText("L'username deve essere lungo almeno 5 caratteri");
-			txtUsername.setEnabled(false);
-			txtUsername.setColumns(10);
-			
-			JLabel lblUsername = new JLabel("Username");
-			lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
-			lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 13));
-			
 			JButton btnSbloccaModifoche = new JButton("Sblocca modifica");
 			btnSbloccaModifoche.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -139,15 +129,11 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 									.addGroup(gl_panelCentral.createSequentialGroup()
 										.addComponent(lblGenere, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
 										.addGap(33)
-										.addComponent(comboBoxGenere, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
-									.addGroup(gl_panelCentral.createSequentialGroup()
-										.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
-										.addGap(33)
-										.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))))
+										.addComponent(comboBoxGenere, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))))
 							.addGroup(gl_panelCentral.createSequentialGroup()
-								.addGap(155)
+								.addGap(154)
 								.addComponent(btnSbloccaModifoche)))
-						.addContainerGap(111, Short.MAX_VALUE))
+						.addContainerGap(141, Short.MAX_VALUE))
 			);
 			gl_panelCentral.setVerticalGroup(
 				gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -174,15 +160,9 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 								.addGap(1)
 								.addComponent(lblGenere, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 							.addComponent(comboBoxGenere, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-						.addGap(11)
-						.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_panelCentral.createSequentialGroup()
-								.addGap(1)
-								.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-							.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGap(33)
 						.addComponent(btnSbloccaModifoche)
-						.addContainerGap(31, Short.MAX_VALUE))
+						.addContainerGap(62, Short.MAX_VALUE))
 			);
 			panelCentral.setLayout(gl_panelCentral);
 		}
@@ -241,9 +221,6 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 						.addComponent(btnSalva)))
 		);
 		panelBottom.setLayout(gl_panelBottom);
-		
-		//COMPILA I CAMPI DI TESTO CON I DATI DELL'UTENTE:
-		compilaCampi(u, txtNome, txtCognome, dateChooser, comboBoxGenere, txtUsername);
 	}
 	
 //METODO:
@@ -253,7 +230,6 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		txtCognome.setText(u.getCognome());
 		date.setDate(u.getDataNascita());
 		genere.setSelectedItem(u.getGenere());
-		txtUsername.setText(u.getUsername());
 		//txtPassword.setText(u.getPassword()); LA PASSWORD NON LA MOSTRIAMO PERCHE' E' COMPLICATO
 	}
 	
@@ -263,7 +239,6 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		txtCognome.setEnabled(true);
 		dateChooser.setEnabled(true);
 		comboBoxGenere.setEnabled(true);
-		txtUsername.setEnabled(true);
 	}
 	
 	private void bloccaCampiDiTesto() {
@@ -271,7 +246,6 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 		txtCognome.setEnabled(false);
 		dateChooser.setEnabled(false);
 		comboBoxGenere.setEnabled(false);
-		txtUsername.setEnabled(false);
 	}
 	
 	//CONTROLLO SE I CAMPI SONO STATI MODIFICATI RISPETTANO DELLE REGOLE:
