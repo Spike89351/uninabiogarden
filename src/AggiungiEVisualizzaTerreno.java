@@ -167,6 +167,11 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 		
 		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		GroupLayout gl_panelBottom = new GroupLayout(panelBottom);
 		gl_panelBottom.setHorizontalGroup(

@@ -170,7 +170,7 @@ public class Controller {
 		return u = utenteDAO.prendiDatiUtente(username);
 	}
 	
-	//SEERVE PER LA MODIFICA DEI DATI DI UN UTENTE:
+	//SERVE PER LA MODIFICA DEI DATI DI UN UTENTE:
 	public void modificaDati(Utente u, String nome, String cognome, java.sql.Date data, Genere genere) {
 		//CONTROLLO SE I CAMPI DI TESTO SONO UGUALI AI DATI DELL'UTENTE, IN TAL CASO NON MODIFICO QUEL DATO:
 		try {
