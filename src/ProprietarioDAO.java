@@ -18,9 +18,10 @@ public class ProprietarioDAO {
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 
-               
+           
+            
                 psmt.setString(1, Username);
-                psmt.setString(2, email);
+                psmt.setString(2,  email.toLowerCase());
                 psmt.setString(3, partitaIva);
                 
                 

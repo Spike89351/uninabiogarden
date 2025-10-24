@@ -74,13 +74,7 @@ public class Controller {
 		utenteDAO.inserisicUtente(u);
 		proprietarioDAO = new ProprietarioDAO();
 		proprietarioDAO.inserisiciProprietario(u.getUsername(), email, partitaIva);
-		int idProprietario = proprietarioDAO.trovaCodiceProprietario(u.getUsername());
-		if(idProprietario > 0) {
-			terrenoDAO = new TerrenoDAO();
-			terrenoDAO.inserisciTerreno(idProprietario, superfice, tipoTerreno, tipoFertilità);
-		}else {
-			JOptionPane.showMessageDialog(null, "Errore nella classe controller nella funzione InserisciProprietario!");
-		}
+		aggiungiTerreno(u.getUsername(), superfice, tipoTerreno, tipoFertilità);
 	}
 	
 	//INSERIMENTO DEL COLTIVATORE:
@@ -231,7 +225,17 @@ public class Controller {
 		}
 	}
 	
-	
-	
-	
+	//SERVE AD AGGIUNGERE UN TERRENO AL PROPRIETARIO: (NEL CASO BISOGNEREBBE AGGIORNARE ANCHE L'ARRAYLIST)
+	public void aggiungiTerreno(String username, double superfice, TipoTerreno tipoTerreno, Fertilità tipoFertilità) {
+		//TROVA IL CODICE DEL PROPRIETARIO:
+		proprietarioDAO = new ProprietarioDAO();
+		int codeProp = proprietarioDAO.trovaCodiceProprietario(username);
+		if(codeProp > 0) {
+			//CREA UN NUOVO TERRENO:
+			terrenoDAO = new TerrenoDAO();
+			terrenoDAO.inserisciTerreno(codeProp, superfice, tipoTerreno, tipoFertilità);
+		}else {
+			JOptionPane.showMessageDialog(null, "Errore nel codice del proprietario, funzione aggiungiTerreno (Controller)");
+		}
+	}
 }
