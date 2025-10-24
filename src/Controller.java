@@ -205,7 +205,6 @@ public class Controller {
 		finestraDatiProprietario = new FinestraVisualizzaEModificaDatiProprietario(this, u);
 		finestraDatiProprietario.setVisible(true);
 		paginaProprietario.setEnabled(false);
-		
 	}
 	
 	

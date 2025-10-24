@@ -12,6 +12,8 @@ import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -25,6 +27,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PaginaProprietario extends JFrame {
 	private Controller theController;
@@ -32,13 +38,15 @@ public class PaginaProprietario extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTable table;
+	private DefaultTableModel elencoAttributiPrg;
 
 	public PaginaProprietario(String username, Controller c) {
 		theController = c;
 		
 		setTitle("La tua pagina - Proprietario ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(450, 300);
+		setSize(790, 326);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -47,7 +55,7 @@ public class PaginaProprietario extends JFrame {
 		JMenu menuProgetti = new JMenu("Progetti");
 		menuBar.add(menuProgetti);
 		
-		JMenuItem menuItemVisualizzaProgetti = new JMenuItem("Visualizza progetti");
+		JMenuItem menuItemVisualizzaProgetti = new JMenuItem("");
 		menuItemVisualizzaProgetti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -94,11 +102,88 @@ public class PaginaProprietario extends JFrame {
 		JPanel panelCentral = new JPanel();
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		
+		JLabel lblElencoProgetti = new JLabel("Elenco progetti");
+		lblElencoProgetti.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JLabel lblAggiungiProgetto = new JLabel("Aggiungi progetto");
+		lblAggiungiProgetto.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JPanel panel = new JPanel();
+		
+		JButton btnVisualizzaProgetto = new JButton("Visualizza progetto");
+		btnVisualizzaProgetto.setEnabled(false);
+		btnVisualizzaProgetto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//VISUALIZZA PROGETTO:
+				
+			}
+		});
+		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
+		gl_panelCentral.setHorizontalGroup(
+			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panelCentral.createSequentialGroup()
+								.addComponent(lblAggiungiProgetto)
+								.addPreferredGap(ComponentPlacement.RELATED, 405, Short.MAX_VALUE)
+								.addComponent(lblElencoProgetti)
+								.addGap(152))
+							.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 371, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap()))
+						.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
+							.addComponent(btnVisualizzaProgetto)
+							.addGap(147))))
+		);
+		gl_panelCentral.setVerticalGroup(
+			gl_panelCentral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblAggiungiProgetto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblElencoProgetti))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnVisualizzaProgetto)
+					.addContainerGap(33, Short.MAX_VALUE))
+		);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane, BorderLayout.CENTER);
+		
+		DefaultTableModel elencoAttributiPrg  = new DefaultTableModel(
+				new Object[][]{},
+				new String[]{ "id progetto", "Nome progetto", "id terreno", "data inizio"}
+			);;
+		
+		table = new JTable(elencoAttributiPrg);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// una volta cliccato su un progetto si sblocca il tasto visualizza progetto:
+				btnVisualizzaProgetto.setEnabled(true);
+				
+			}
+		});
+		scrollPane.setColumnHeaderView(table);
+		scrollPane.setViewportView(table);
+		panelCentral.setLayout(gl_panelCentral);
+		
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//LOGOUT
+				
+			}
+		});
+		panelBottom.add(btnBack);
 
 	}
-	
-//METODI:
-
 }
