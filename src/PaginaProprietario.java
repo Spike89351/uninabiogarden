@@ -56,17 +56,14 @@ public class PaginaProprietario extends JFrame {
 		menuProgetti.add(menuItemVisualizzaProgetti);
 		
 		JMenu menùTerreni = new JMenu("Terreni");
-		menùTerreni.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//PAGINA CHE FA VISUALIZZARE TUTTI I TERRENI:
-			}
-		});
 		menuBar.add(menùTerreni);
 		
 		JMenuItem menùItemAggiungiTerreni = new JMenuItem("Aggiungi e visualizza terreni");
 		menùItemAggiungiTerreni.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//PAGINA DOVE POTER AGGIUNGERE UN TERRENO:
+				Utente u = theController.prendiDatiUtente(username);
+				theController.daPaginaProprietarioAFinestraTerreni(u);
 			}
 		});
 		menùTerreni.add(menùItemAggiungiTerreni);

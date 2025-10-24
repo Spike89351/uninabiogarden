@@ -27,7 +27,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 	private DefaultTableModel modelTerreno;
 	private JTextField txtSuperfice;
 
-	public AggiungiEVisualizzaTerreno(Controller c, String Username) {
+	public AggiungiEVisualizzaTerreno(Controller c, Utente u) {
 		theController = c;
 		
 		

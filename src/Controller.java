@@ -43,7 +43,9 @@ public class Controller {
 	public PaginaColtivatore paginaColtivatore;
 	
 	//FINESTRE:
-	private FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
+	public FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
+	public AggiungiEVisualizzaTerreno AggEVisualizzaTerre;
+	
 	//MAIN:
 	public static void main(String[] args) throws SQLException {
 			Controller theController = new Controller();
@@ -202,13 +204,23 @@ public class Controller {
 	public void daPaginaProprietarioAFinestraDatiUtente(Utente u) {
 		finestraDatiProprietario = new FinestraVisualizzaEModificaDatiProprietario(this, u);
 		finestraDatiProprietario.setVisible(true);
-		finestraDatiProprietario.requestFocus();
 		paginaProprietario.setEnabled(false);
 		
 	}
 	
 	
 //MI SERVE PER LA PAGINA DEI TERRENI IN PROPRIETARIO:
+	
+	//SERVE PER LA FINESTRA DEI TERRENI DEL PROPRIETARIO:
+	public void daPaginaProprietarioAFinestraTerreni(Utente u) {
+		AggEVisualizzaTerre	= new AggiungiEVisualizzaTerreno(this, u);
+		AggEVisualizzaTerre.setVisible(true);
+		paginaProprietario.setEnabled(false);
+	}
+	
+	
+	
+	//SERVE PER POPOLARE LA TABELLA CON I VARI TERRENI CHE APPARTENGONO ALL'UTENTE:
 	public void popolaTabellaTerreni(ArrayList<Terreno> listaTerre, DefaultTableModel modelTab) {
 		if(listaTerre.size() <= 0) {
 			JOptionPane.showMessageDialog(null, "La tua lista di terre è vuote");//IMPOSSIBILE!
