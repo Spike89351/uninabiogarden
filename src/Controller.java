@@ -192,9 +192,6 @@ public class Controller {
 				u.setGenere(genere);
 				utenteDAO.modificaGenere(u.getUsername(), genere);
 			}
-//			if(! u.getUsername().equals(newUsername)) {
-//				utenteDAO.modificaUsername(u.getUsername(), newUsername);
-//			}
 		}catch(Exception x){
 			JOptionPane.showMessageDialog(null, "Errore nella funzione nella classe controller, funzione modificaDati");
 		}
