@@ -24,6 +24,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AggiungiEVisualizzaTerreno extends JFrame {
 	private Controller theController;
@@ -41,6 +43,16 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 	
 	
 	public AggiungiEVisualizzaTerreno(Controller c, Utente u) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				theController.paginaProprietario.setEnabled(true);
+			}
+			@Override
+			public void windowActivated(WindowEvent e) {
+				theController.paginaProprietario.setEnabled(false);
+			}
+		});
 		theController = c;
 		
 		
