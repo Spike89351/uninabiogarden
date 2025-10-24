@@ -48,8 +48,8 @@ public class TerrenoDAO {
 				ResultSet rs = psmt.executeQuery();
     		
                 psmt.setString(1, username);
-               
-                if(rs.next()) {
+
+               while(rs.next()) {
                 	Terreno terreno = new Terreno(rs.getDouble(4), TipoTerreno.valueOf(rs.getString(5)), Fertilità.valueOf(rs.getString(6)));
                 	terreno.setID_Terreno(rs.getInt(3));
                 	listaTerreni.add(terreno);

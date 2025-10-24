@@ -28,7 +28,11 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 	private JTable table;
 	private DefaultTableModel modelTerreno;
 	private JTextField txtSuperfice;
-
+	private JComboBox comboBoxTipoTerreno;
+	private JComboBox comboBoxFertilità;
+	
+	
+	
 	public AggiungiEVisualizzaTerreno(Controller c, Utente u) {
 		theController = c;
 		
@@ -68,20 +72,33 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		JLabel lblTipoTerreno = new JLabel("Tipo terreno");
 		lblTipoTerreno.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JComboBox comboBoxTipoTerreno = new JComboBox(TipoTerreno.values());
+		comboBoxTipoTerreno = new JComboBox(TipoTerreno.values());
 		
 		JLabel lblFertilità = new JLabel("Fertilità");
 		lblFertilità.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JComboBox comboBoxFertilità = new JComboBox(Fertilità.values());
+		comboBoxFertilità = new JComboBox(Fertilità.values());
 		
 		JButton btnAggiungiTerreno = new JButton("Aggiungi");
 		btnAggiungiTerreno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
-				//POSSIBILITA' DI AGGIUNGERE UN TERRENO:
-				
-				//AGGIORNA LA TABELLA:
-				//theController.popolaTabellaTerreni(u.getUsername(), modelTerreno);
+				if(ctrlFieldSuperfice()){
+					try {
+						//VARI CAST:
+						double supConv = Double.valueOf(txtSuperfice.getText().trim());
+						TipoTerreno tipoTerrString = (TipoTerreno) comboBoxTipoTerreno.getSelectedItem();
+						Fertilità fert = (Fertilità) comboBoxFertilità.getSelectedItem();
+						
+						//AGGIUNGI UN TERRENO:
+						theController.aggiungiTerreno(u.getUsername(), supConv, tipoTerrString, fert);
+						
+						//AGGIORNA LA TABELLA:
+						theController.popolaTabellaTerreni(u.getUsername(), modelTerreno);
+						
+					}catch(Exception x) {
+						JOptionPane.showMessageDialog(null, "Errore nel cast delle variabili per aggiungere un nuovo terreno");
+					}
+				}
 			}
 		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
@@ -198,4 +215,23 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		}
 
 	}
+	
+//METODI:
+	//CONTROLLO VARIABILI PER AGGIUNGERE UN TERRENO:
+	private boolean ctrlFieldSuperfice() {
+		//CONTROLLO DEL CAMPO DI TESTO DELLA SUPERFICE:
+		if(txtSuperfice.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Il campo superfice non può essere vuoto!");
+			return false;
+		}else {
+			double supConv = Double.valueOf(txtSuperfice.getText().trim());
+			if(supConv <= 0) {
+				JOptionPane.showMessageDialog(null, "Il valore della superfice non può essere minore o uguale a zero");
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	
 }
