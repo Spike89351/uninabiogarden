@@ -56,49 +56,27 @@ public class ProprietarioDAO {
     }
     
     
-//    public Proprietario ritornaProprietario(String username) {
-//    	String sql = "SELECT nome, cognome, data_nascita, genere, username, passwd, id_proprietario, email, partita_iva, id_proprietario, id_terreno, superfice, tipo_terreno, fertilità FROM prguninabiogarden.Proprietario AS P JOIN "
-//    			+ "	prguninabiogarden.Terreno AS T ON P.username = T.username  WHERE Username = ?";
-//    	
-//    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
-//    			PreparedStatement psmt = conn.prepareStatement(sql)) {
-//    		
-//    		psmt.setString(1, username);
-//    			
-//    		 ResultSet rs = psmt.executeQuery();
-//    		 	
-//    		if (rs.next()) {
-//         	   String nome = rs.getString(1);
-//         	   String cognome = rs.getString(2);
-//         	   Date dataNascita = rs.getDate(3);
-//         	   String genere = rs.getString(4);
-//         	   String password = rs.getString(6); //GLI DIAMO LA PASSWORD HASHATA
-//         	   int idProp = rs.getInt(7);
-//         	   String email = rs.getString(8);
-//         	   String partitaIva = rs.getString(9);
-//         	   int id_proprietario = rs.getInt(10);
-//         	   int id_terreno = rs.getInt(11);
-//         	   double superfice = rs.getDouble(12);
-//         	   String tipoTerrString = rs.getString(13);
-//         	   String fertString = rs.getString(14);
-//         	   
-//         	   //CAST:
-//         	   Genere genCast = Genere.valueOf(genere);
-//         	   TipoTerreno tipTerra = TipoTerreno.valueOf(tipoTerrString);
-//         	   Fertilità fertTerr = Fertilità.valueOf(fertString);
-//         	   
-//         	   
-//         	   
-//         	  Proprietario p = new Proprietario(nome, cognome, dataNascita, genCast, username, password, idProp, email, partitaIva);
-//         	   
-//         	   return p;
-//         	   
-//            }
-//    	}catch(Exception e) {
-//    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento del Proprietario! (CLASSE ProprietarioDAO), funzione: inserisciProprietario" + e);
-//    	}   
-//    	
-//    }
+    //MI SERVE PER TROVARE IL CODICE DEL PROPRIETARIO TRAMITE USERNAME:
+    public int trovaCodiceTramiteUsernameProprietario(String username) {
+    	String sql = "SELECT id_proprietario "
+    			+ "FROM prguninabiogarden.Proprietario"
+    			+ "WHERE username = ? ";
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+    		
+                psmt.setString(1, username);
+                
+                ResultSet rs = psmt.executeQuery();
+                
+                if (rs.next()) {
+                	return rs.getInt("id_proprietario");
+                }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento del Proprietario! (CLASSE ProprietarioDAO), funzione: inserisciProprietario" + e);
+    		return 0;
+    	}  
+    	return 0;
+    }
     
     
 }

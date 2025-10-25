@@ -131,6 +131,12 @@ public class PaginaProprietario extends JFrame {
 		txtAreaDescrizione.setToolTipText("Inserisci la descrizione del progetto (NON E' OBBLIGATORIO)");
 		
 		JButton btnCreaProgetto = new JButton("Crea progetto");
+		btnCreaProgetto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//FUNZIONE CHE PERMETTE LA CREAZIONE DI UN PROGETTO:
+				theController.inserisciProgetto(idTerreno, username, null, username);
+			}
+		});
 		
 		JLabel lblIdTerreno = new JLabel("id terreno");
 		lblIdTerreno.setFont(new Font("Tahoma", Font.PLAIN, 13));
