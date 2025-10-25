@@ -54,7 +54,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		JPanel panelCentral = new JPanel();
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		
-		JLabel lblVisualizzaProgetti = new JLabel("Progetti");
+		JLabel lblVisualizzaProgetti = new JLabel("Elenco progetti");
 		lblVisualizzaProgetti.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JLabel lblDatiTerrenoSelezionato = new JLabel("Dati terreno selezionato");
@@ -85,12 +85,12 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelCentral.createSequentialGroup()
+				.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
 					.addGap(66)
 					.addComponent(lblDatiTerrenoSelezionato)
-					.addPreferredGap(ComponentPlacement.RELATED, 381, Short.MAX_VALUE)
-					.addComponent(lblVisualizzaProgetti, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-					.addGap(93))
+					.addPreferredGap(ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
+					.addComponent(lblVisualizzaProgetti)
+					.addGap(137))
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -112,8 +112,8 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblVisualizzaProgetti)
-						.addComponent(lblDatiTerrenoSelezionato, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblDatiTerrenoSelezionato, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblVisualizzaProgetti))
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
