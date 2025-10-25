@@ -37,8 +37,8 @@ public class ProgettoDAO {
 				prgProv.setStatoProgetto(StatoProgetto.valueOf(rs.getString("stato_prg")));
 				listaProvProgetti.add(prgProv);
 				
-				return listaProvProgetti;
 			} 
+			return listaProvProgetti;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione trovaTerreno, nella classe TerrenoDAO" + e);
     		return null;
