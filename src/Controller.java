@@ -249,4 +249,6 @@ public class Controller {
 		AggEVisualizzaTerre.setVisible(false);
 		paginaProprietario.setVisible(false);
 	}
+	
+	
 }
