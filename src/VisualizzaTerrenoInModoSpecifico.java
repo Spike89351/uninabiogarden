@@ -3,6 +3,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private Controller theController;
@@ -21,6 +24,20 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelTop = new JPanel();
+		contentPane.add(panelTop, BorderLayout.NORTH);
+		
+		JLabel lblWelcome = new JLabel("Il terreno che stai visualizzando è"+idTerreno);
+		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		panelTop.add(lblWelcome);
+		
+		JPanel panelCentral = new JPanel();
+		contentPane.add(panelCentral, BorderLayout.CENTER);
+		
+		JPanel panelBottom = new JPanel();
+		contentPane.add(panelBottom, BorderLayout.SOUTH);
 
 	}
 

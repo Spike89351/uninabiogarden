@@ -126,7 +126,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		btnVisualizzaTerreno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TERRENO SELEZIONATO:
-				
+				theController.daPaginaAggiungiEVisualizzaTerrenoAVisualizzaTerrenoSpecifico(idTerrenoSelezioanto);
 			}
 		});
 		
