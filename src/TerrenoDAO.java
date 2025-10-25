@@ -37,21 +37,21 @@ public class TerrenoDAO {
 	//MI SERVE PER TROVARE IL TERRENO:
 	public Terreno trovaTerreno(String idTerreno) {
 		String sql = "SELECT superfice, tipo_terreno, fertilità FROM prguninabiogarden.Terreno WHERE id_terreno = ?";
-		System.out.println("Sto nella funzione TerrenoDAO");
+
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
-			System.out.println("Sto nel try-catch TerrenoDAO");
 			
-			psmt.setString(1, idTerreno);
-    		
+			int idTerr = Integer.valueOf(idTerreno.trim());
+			
+			psmt.setInt(1, idTerr);
+			
 			ResultSet rs = psmt.executeQuery();
 			
-			System.out.println(rs.getDouble(3));
 			if(rs.next()) {
-				Terreno terProv = new Terreno(rs.getDouble(3), TipoTerreno.valueOf(rs.getString(4)), Fertilità.valueOf(rs.getString(5)));
+				System.out.println("Sto nell'IF");
+				Terreno terProv = new Terreno(rs.getDouble("superfice"), TipoTerreno.valueOf(rs.getString("tipo_terreno")), Fertilità.valueOf(rs.getString("fertilità")));
 				return terProv;
 			} 
-                
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione trovaTerreno, nella classe TerrenoDAO" + e);
     		return null;

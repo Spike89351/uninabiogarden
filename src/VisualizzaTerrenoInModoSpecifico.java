@@ -31,7 +31,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		theController = c;
 		
 		terrSelezionato = theController.trovaTerreno(idTerreno);
-		System.out.println(terrSelezionato);
+		
 		
 		setTitle("Terreno Selezionato");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
