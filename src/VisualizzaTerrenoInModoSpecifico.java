@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -160,7 +162,13 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 			}
 		});
 		panelBottom.add(btnBack);
-
+		
+		try {
+			theController.popolaTabellaProgettiPerTerreno(idTerreno);
+		}catch(Exception x) {
+			JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei progetti, nella pagina visualizzaTerrenoInMododSpecifico"+ x);
+		}
+		
 	}
 	
 //METODI:

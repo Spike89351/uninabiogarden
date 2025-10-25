@@ -259,7 +259,7 @@ public class Controller {
 	}
 	
 	//SERVE PER VISUALIZZARE TUTTI I PROGETTI PER UN TERRENO: (DEVI PRIMA POTERLI INSERIRE)
-	public void xxx(String idTerreno) {
+	public void popolaTabellaProgettiPerTerreno(String idTerreno) {
 		Terreno ter = trovaTerreno(idTerreno);
 		progettoDAO = new ProgettoDAO();
 		progettoDAO.listaDiProgettiPerTerreno(Integer.valueOf(idTerreno), ter);
