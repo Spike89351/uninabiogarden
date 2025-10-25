@@ -279,4 +279,14 @@ public class Controller {
 			JOptionPane.showMessageDialog(null, "Errore nel trovare il codice del proprietario, classe controller, funzione inserisciprogetto");
 		}
 	}
+	
+	
+	public int trovaProprietarioTramiteUsername(String username) {
+		proprietarioDAO = new ProprietarioDAO();
+		proprietarioDAO.tro
+	}
+	
+	
+	
+	
 }

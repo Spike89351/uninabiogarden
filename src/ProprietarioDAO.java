@@ -56,27 +56,4 @@ public class ProprietarioDAO {
     }
     
     
-    //MI SERVE PER TROVARE IL CODICE DEL PROPRIETARIO TRAMITE USERNAME:
-    public int trovaCodiceTramiteUsernameProprietario(String username) {
-    	String sql = "SELECT id_proprietario "
-    			+ "FROM prguninabiogarden.Proprietario"
-    			+ "WHERE username = ? ";
-    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
-    			PreparedStatement psmt = conn.prepareStatement(sql)) {
-    		
-                psmt.setString(1, username);
-                
-                ResultSet rs = psmt.executeQuery();
-                
-                if (rs.next()) {
-                	return rs.getInt("id_proprietario");
-                }
-    	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento del Proprietario! (CLASSE ProprietarioDAO), funzione: inserisciProprietario" + e);
-    		return 0;
-    	}  
-    	return 0;
-    }
-    
-    
 }

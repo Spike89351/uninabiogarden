@@ -43,9 +43,13 @@ public class PaginaProprietario extends JFrame {
 	private DefaultTableModel elencoAttributiPrg;
 	private JTextField txtNomeProgetto;
 	private JTextField txtIdTerreno;
-
+	private int idProprietario;
+	
+	
 	public PaginaProprietario(String username, Controller c) {
 		theController = c;
+		
+//		idProprietario = theController
 		
 		setTitle("La tua pagina - Proprietario ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
