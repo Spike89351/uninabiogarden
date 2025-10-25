@@ -34,6 +34,7 @@ import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import javax.swing.JTextArea;
@@ -59,7 +60,7 @@ public class PaginaProprietario extends JFrame {
 		
 		setTitle("La tua pagina - Proprietario ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(790, 326);
+		setSize(880, 326);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -150,7 +151,14 @@ public class PaginaProprietario extends JFrame {
 						txtAreaDescrizione.setText(null);
 					}
 					//FUNZIONE CHE PERMETTE LA CREAZIONE DI UN PROGETTO:
-					theController.inserisciProgetto(idProprietario, Integer.valueOf(txtIdTerreno.getText()), txtNomeProgetto.getText().trim(), (java.sql.Date) dataInizioChooser.getDate(), txtAreaDescrizione.getText());
+					try {
+						//CAST: 
+						java.sql.Date sqlDate = new java.sql.Date(dataInizioChooser.getDate().getTime());
+						
+						theController.inserisciProgetto(idProprietario, Integer.valueOf(txtIdTerreno.getText()), txtNomeProgetto.getText().trim(), sqlDate, txtAreaDescrizione.getText());
+					}catch(Exception ss) {
+						JOptionPane.showMessageDialog(null, "Errore nel cast della data");
+					}
 				}
 			}
 		});
@@ -281,13 +289,20 @@ public class PaginaProprietario extends JFrame {
 			return false;
 		}
 		//COVERSIONE + CONTROLLO CHE LA DATA DI INIZIO NON SIA PRIMA DELLA DATA CORRENTE:
-		LocalDate oggi = LocalDate.now();
-		java.sql.Date oggiSql  = java.sql.Date.valueOf(oggi);
-		java.sql.Date dataConvert = (java.sql.Date) dataInizioChooser.getDate();
-		if(dataConvert.before(oggiSql)) {
-			JOptionPane.showMessageDialog(null, "La data di inizio del progetto non può essere una data precedente alla data corrente");
+		try {
+			LocalDate oggi = LocalDate.now();
+			
+		    LocalDate dataScelta = dataInizioChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		    if (dataScelta.isBefore(oggi)) {
+				JOptionPane.showMessageDialog(null, "La data di inizio del progetto non può essere una data precedente alla data corrente");
+				return false;
+			}else {
+				return true;
+			}
+		}catch(Exception x) {
+			JOptionPane.showMessageDialog(null, "Errore nella conversione della data");
 			return false;
 		}
-		return true;
 	}
 }
