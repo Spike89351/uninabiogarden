@@ -35,8 +35,8 @@ public class ProgettoDAO {
 				prgProv.setDataFine(rs.getDate("data_fine"));
 				prgProv.setCodeProgetto(rs.getInt("codice_prg"));
 				prgProv.setStatoProgetto(StatoProgetto.valueOf(rs.getString("stato_prg")));
-				listaProvProgetti.add(prgProv);
 				
+				listaProvProgetti.add(prgProv);
 			} 
 			return listaProvProgetti;
     	}catch(Exception e) {
