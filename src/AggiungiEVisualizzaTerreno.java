@@ -34,8 +34,8 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 	private JTable table;
 	private DefaultTableModel modelTerreno;
 	private JTextField txtSuperfice;
-	private JComboBox comboBoxTipoTerreno;
-	private JComboBox comboBoxFertilità;
+	private JComboBox<TipoTerreno> comboBoxTipoTerreno;
+	private JComboBox<Fertilità> comboBoxFertilità;
 	
 	
 	//ATTRIBUTI:

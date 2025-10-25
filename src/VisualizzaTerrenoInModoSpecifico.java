@@ -3,6 +3,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -12,12 +14,17 @@ import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JProgressBar;
 
 public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private Controller theController;
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTable table;
+	private DefaultTableModel modelProgetto;
 
 	
 	public VisualizzaTerrenoInModoSpecifico(Controller c, String idTerreno) {
@@ -48,19 +55,19 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		JLabel lblDatiTerrenoSelezionato = new JLabel("Dati terreno selezionato");
 		lblDatiTerrenoSelezionato.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JPanel panel = new JPanel();
+		JPanel panelTable = new JPanel();
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
-			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
+			gl_panelCentral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(66)
 					.addComponent(lblDatiTerrenoSelezionato)
-					.addPreferredGap(ComponentPlacement.RELATED, 333, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
 					.addComponent(lblVisualizzaProgetti, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 					.addGap(93))
-				.addGroup(gl_panelCentral.createSequentialGroup()
-					.addContainerGap(414, Short.MAX_VALUE)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
+				.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
+					.addContainerGap(338, Short.MAX_VALUE)
+					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -71,9 +78,22 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 						.addComponent(lblVisualizzaProgetti)
 						.addComponent(lblDatiTerrenoSelezionato, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(55, Short.MAX_VALUE))
+					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(41, Short.MAX_VALUE))
 		);
+		panelTable.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panelTable.add(scrollPane, BorderLayout.CENTER);
+		
+		modelProgetto = new DefaultTableModel(
+				new Object[][]{},
+				new String[]{ "id Progetto", "Nome", "Data inizio", "Id terreno", "Stato"}
+			);;
+		
+		table = new JTable(modelProgetto);
+		scrollPane.setColumnHeaderView(table);
+		scrollPane.setViewportView(table);
 		panelCentral.setLayout(gl_panelCentral);
 		
 		JPanel panelBottom = new JPanel();
