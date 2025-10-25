@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Progetto {
+	private int codeProgetto;
     private String NomeProgetto;
     private java.sql.Date DataFine;
     private java.sql.Date DataInizio;
@@ -12,15 +13,17 @@ public class Progetto {
     
     
     
-	public Progetto(String nomeProgetto,  java.sql.Date dataInizio, String descrizioneProgetto, Terreno terreno) {
+	public Progetto(String nomeProgetto,  java.sql.Date dataInizio, Terreno terreno) {
 		NomeProgetto = nomeProgetto;
 		DataInizio = dataInizio;
 		Terreno = terreno;
-		StatoProgetto = StatoProgetto.Pianificato;
 		}
 	
 	
 //GETTERS:    
+	public int getCodeProgetto() {
+		return codeProgetto;
+	}
 	public String getNomeProgetto() {
 		return NomeProgetto;
 	}
@@ -45,6 +48,9 @@ public class Progetto {
 	
 	
 //SETTERS:
+	public void setCodeProgetto(int code) {
+		codeProgetto = code;
+	}
 	public void setNomeProgetto(String nomeProgetto) {
 		NomeProgetto = nomeProgetto;
 	}
