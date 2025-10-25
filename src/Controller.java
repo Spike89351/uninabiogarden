@@ -44,6 +44,8 @@ public class Controller {
 	public PaginaRegistraTerreno paginaRegistraTerreno;
 	public PaginaProprietario paginaProprietario;
 	public PaginaColtivatore paginaColtivatore;
+	public VisualizzaTerrenoInModoSpecifico paginaTerrenoSpecifico;
+	
 	
 	//FINESTRE:
 	public FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
@@ -237,5 +239,14 @@ public class Controller {
 		}else {
 			JOptionPane.showMessageDialog(null, "Errore nel codice del proprietario, funzione aggiungiTerreno (Controller)");
 		}
+	}
+	
+	//SERVE PER ANDARE NELLA PAGINA TERRENO E VISUALIZZARE UN TERRENO SELEZIONATO PI' APPROFONDITAMENTE:
+	public void daPaginaAggiungiEVisualizzaTerrenoAVisualizzaTerrenoSpecifico(String idTerreno) {
+		paginaTerrenoSpecifico = new VisualizzaTerrenoInModoSpecifico(this, idTerreno);
+		paginaTerrenoSpecifico.setVisible(true);
+		
+		AggEVisualizzaTerre.setVisible(false);
+		paginaProprietario.setVisible(false);
 	}
 }
