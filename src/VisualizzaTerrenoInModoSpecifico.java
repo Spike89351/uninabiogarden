@@ -25,10 +25,13 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel modelProgetto;
-
+	private Terreno terrSelezionato;
 	
 	public VisualizzaTerrenoInModoSpecifico(Controller c, String idTerreno) {
 		theController = c;
+		
+		terrSelezionato = theController.trovaTerreno(idTerreno);
+		System.out.println(terrSelezionato);
 		
 		setTitle("Terreno Selezionato");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,18 +59,32 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		lblDatiTerrenoSelezionato.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JPanel panelTable = new JPanel();
+		
+		JLabel lblSuperfice = new JLabel("La superfice è "+terrSelezionato.getSuperficie());
+		lblSuperfice.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblTipoTerreno = new JLabel("Il tipo di terreno è "+terrSelezionato.getTipologiaTerreno().toString());
+		lblTipoTerreno.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblFertilità = new JLabel("La fertilità del terreno è "+terrSelezionato.getfertTerreno().toString());
+		lblFertilità.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
-			gl_panelCentral.createParallelGroup(Alignment.LEADING)
+			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(66)
 					.addComponent(lblDatiTerrenoSelezionato)
-					.addPreferredGap(ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 333, Short.MAX_VALUE)
 					.addComponent(lblVisualizzaProgetti, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 					.addGap(93))
-				.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
-					.addContainerGap(338, Short.MAX_VALUE)
-					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(lblTipoTerreno, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+						.addComponent(lblSuperfice, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -77,8 +94,17 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblVisualizzaProgetti)
 						.addComponent(lblDatiTerrenoSelezionato, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(15)
+							.addComponent(lblSuperfice)
+							.addGap(18)
+							.addComponent(lblTipoTerreno, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(41, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
@@ -88,7 +114,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		
 		modelProgetto = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "id Progetto", "Nome", "Data inizio", "Stato", "Id terreno"}
+				new String[]{ "id Progetto", "Nome progetto", "Data inizio", "Stato progetto"}
 			);;
 		
 		table = new JTable(modelProgetto);

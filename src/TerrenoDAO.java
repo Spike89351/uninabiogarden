@@ -11,7 +11,7 @@ public class TerrenoDAO {
 	private static final String USER = "postgres";
 	private static final String PASSWORD = "Informatica1";
 	
-	
+	//SERVE PER INSERIRE UN TERRENO:
 	public void inserisciTerreno(int codeProprietario, double superficie, TipoTerreno TipologiaTerreno, Fertilità tipoFertilità) {
 		String sql = "INSERT INTO prguninabiogarden.Terreno (Id_proprietario, Superfice, Tipo_terreno, Fertilità) VALUES(?, ?, ?, ?)";
     	
@@ -32,9 +32,34 @@ public class TerrenoDAO {
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nell'inserimento del Terreno! (CLASSE TerrenoDAO), funzione: inserisciTerreno" + e);
     	}    	
-    	
 	}
 	
+	//MI SERVE PER TROVARE IL TERRENO:
+	public Terreno trovaTerreno(String idTerreno) {
+		String sql = "SELECT superfice, tipo_terreno, fertilità FROM prguninabiogarden.Terreno WHERE id_terreno = ?";
+		System.out.println("Sto nella funzione TerrenoDAO");
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+			System.out.println("Sto nel try-catch TerrenoDAO");
+			
+			psmt.setString(1, idTerreno);
+    		
+			ResultSet rs = psmt.executeQuery();
+			
+			System.out.println(rs.getDouble(3));
+			if(rs.next()) {
+				Terreno terProv = new Terreno(rs.getDouble(3), TipoTerreno.valueOf(rs.getString(4)), Fertilità.valueOf(rs.getString(5)));
+				return terProv;
+			} 
+                
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione trovaTerreno, nella classe TerrenoDAO" + e);
+    		return null;
+    	}  
+		return null;
+	}
+	
+	//SERVE PER RISALIRE ALLA LISTA DEI TERRENI DI UN PROPRIETARIO:
 	public ArrayList<Terreno> risaliTerreni(String username) {
 		ArrayList<Terreno> listaTerreni = new ArrayList<Terreno>();
 		
@@ -47,8 +72,6 @@ public class TerrenoDAO {
 				
 				ResultSet rs = psmt.executeQuery();
     		
-                psmt.setString(1, username);
-
                while(rs.next()) {
                 	Terreno terreno = new Terreno(rs.getDouble(4), TipoTerreno.valueOf(rs.getString(5)), Fertilità.valueOf(rs.getString(6)));
                 	terreno.setID_Terreno(rs.getInt(3));
@@ -62,8 +85,6 @@ public class TerrenoDAO {
     		return null;
     	} 
 	}
-	
-	
 	
 	
 }

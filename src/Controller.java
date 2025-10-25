@@ -250,5 +250,10 @@ public class Controller {
 		paginaProprietario.setVisible(false);
 	}
 	
-	
+//METODI CHE SERVONO PER LA PAGINA VISUALIZZA TERRENO SPECIFICO:
+	public Terreno trovaTerreno(String idTerreno) {
+		terrenoDAO = new TerrenoDAO();
+		Terreno ter = terrenoDAO.trovaTerreno(idTerreno);
+		return ter;
+	}
 }

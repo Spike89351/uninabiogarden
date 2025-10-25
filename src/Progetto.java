@@ -48,10 +48,10 @@ public class Progetto {
 	public void setNomeProgetto(String nomeProgetto) {
 		NomeProgetto = nomeProgetto;
 	}
-	public void setDataFine(Date dataFine) {
+	public void setDataFine(java.sql.Date dataFine) {
 		DataFine = dataFine;
 	}
-	public void setDataInizio(Date dataInizio) {
+	public void setDataInizio(java.sql.Date dataInizio) {
 		DataInizio = dataInizio;
 	}
 	public void setDescrizioneProgetto(String descrizioneProgetto) {
