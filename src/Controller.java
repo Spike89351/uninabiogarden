@@ -267,8 +267,16 @@ public class Controller {
 	}
 	
 //METODI CHE SERVONO PER LA PAGINA DEL PROPRIETARIO PER INSERIRE UN PROGETTO:
-	public void inserisciProgetto(int idTerreno) {
-		//TROVA IL CODICE DEL PROPRIETARIO;
-		//AGGIUNGI IL TERRENO;
+	public void inserisciProgetto(int idTerreno, String nomePrg, java.sql.Date dataInizio, String desc) {
+		//TROVA IL CODICE DEL PROPRIETARIO:
+		terrenoDAO = new TerrenoDAO();
+		int codiceProp = terrenoDAO.trovaProprietarioTramiteTerreno(idTerreno);
+		if(codiceProp > 0) {
+			//AGGIUNGI IL TERRENO:
+			progettoDAO = new ProgettoDAO();
+			progettoDAO.inserisciProgetto(codiceProp, idTerreno, nomePrg, dataInizio, desc);
+		}else {
+			JOptionPane.showMessageDialog(null, "Errore nel trovare il codice del proprietario, classe controller, funzione inserisciprogetto");
+		}
 	}
 }

@@ -87,7 +87,25 @@ public class TerrenoDAO {
 	public int trovaProprietarioTramiteTerreno(int idTerreno) {
 		String sql = "SELECT T.id_proprietario "
 				+ "FROM prguninabiogarden.Terreno AS T "
-				+ "JOIN prguninabiogarden.Proprietrio AS P ON T.id_proprietario = P.id_proprietario";
+				+ "JOIN prguninabiogarden.Proprietrio AS P ON T.id_proprietario = P.id_proprietario"
+				+ "WHERE T.id_terreno = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setInt(1, idTerreno);
+				
+				ResultSet rs = psmt.executeQuery();
+    		
+               if(rs.next()) {
+                	int val = rs.getInt("id_proprietario");
+                	return val;
+                }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella CLASSE TerrenoDAO, funzione: risaliTerreni" + e);
+    		return 0;
+    	} 
+		return 0;
 	}
 	
 }
