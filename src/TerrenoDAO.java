@@ -41,9 +41,7 @@ public class TerrenoDAO {
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 			
-			int idTerr = Integer.valueOf(idTerreno.trim());
-			
-			psmt.setInt(1, idTerr);
+			psmt.setInt(1, Integer.valueOf(idTerreno.trim()));
 			
 			ResultSet rs = psmt.executeQuery();
 			
