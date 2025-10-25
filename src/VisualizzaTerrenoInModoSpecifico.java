@@ -6,6 +6,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -60,30 +62,48 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		
 		JPanel panelTable = new JPanel();
 		
-		JLabel lblSuperfice = new JLabel("La superfice è "+terrSelezionato.getSuperficie());
+		JLabel lblSuperfice = new JLabel("La superfice è");
 		lblSuperfice.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JLabel lblTipoTerreno = new JLabel("Il tipo di terreno è "+terrSelezionato.getTipologiaTerreno().toString());
+		JLabel lblTipoTerreno = new JLabel("Il tipo di terreno è ");
 		lblTipoTerreno.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JLabel lblFertilità = new JLabel("La fertilità del terreno è "+terrSelezionato.getfertTerreno().toString());
+		JLabel lblFertilità = new JLabel("La fertilità del terreno è ");
 		lblFertilità.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblFertiliàComparsa = new JLabel(""+terrSelezionato.getfertTerreno().toString());
+		lblFertiliàComparsa.setForeground(Color.RED);
+		lblFertiliàComparsa.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblTipoTerrenoComparsa = new JLabel(""+terrSelezionato.getTipologiaTerreno().toString());
+		lblTipoTerrenoComparsa.setForeground(Color.RED);
+		lblTipoTerrenoComparsa.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblSuperficeComparsa = new JLabel(""+terrSelezionato.getSuperficie());
+		lblSuperficeComparsa.setForeground(Color.RED);
+		lblSuperficeComparsa.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(66)
 					.addComponent(lblDatiTerrenoSelezionato)
-					.addPreferredGap(ComponentPlacement.RELATED, 333, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 381, Short.MAX_VALUE)
 					.addComponent(lblVisualizzaProgetti, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 					.addGap(93))
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblTipoTerreno, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-						.addComponent(lblSuperfice, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(lblSuperfice, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblTipoTerreno, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 112, Short.MAX_VALUE)))
+					.addGap(18)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblFertiliàComparsa, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblTipoTerrenoComparsa, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSuperficeComparsa, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
 					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
@@ -100,11 +120,17 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(15)
-							.addComponent(lblSuperfice)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblSuperfice)
+								.addComponent(lblSuperficeComparsa))
 							.addGap(18)
-							.addComponent(lblTipoTerreno, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblTipoTerreno, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTipoTerrenoComparsa))
 							.addGap(18)
-							.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblFertiliàComparsa))))
 					.addContainerGap(41, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
