@@ -29,7 +29,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		JPanel panelTop = new JPanel();
 		contentPane.add(panelTop, BorderLayout.NORTH);
 		
-		JLabel lblWelcome = new JLabel("Il terreno che stai visualizzando è"+idTerreno);
+		JLabel lblWelcome = new JLabel("L'id del terreno che stai visualizzando è "+idTerreno);
 		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panelTop.add(lblWelcome);
 		
