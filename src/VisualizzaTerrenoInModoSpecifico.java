@@ -22,7 +22,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		
 		setTitle("Terreno Selezionato");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(450, 300);
+		setSize(618, 300);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
