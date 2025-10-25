@@ -42,15 +42,15 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TORNA INDIETRO:
 				setVisible(false);
 				daPaginaVisualizzaTerrenoA();				
 			}
 		});
-		panelBottom.add(btnNewButton);
+		panelBottom.add(btnBack);
 
 	}
 	
