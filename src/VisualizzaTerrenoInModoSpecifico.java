@@ -9,6 +9,9 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private Controller theController;
@@ -39,6 +42,40 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		JPanel panelCentral = new JPanel();
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		
+		JLabel lblVisualizzaProgetti = new JLabel("Progetti");
+		lblVisualizzaProgetti.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblDatiTerrenoSelezionato = new JLabel("Dati terreno selezionato");
+		lblDatiTerrenoSelezionato.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JPanel panel = new JPanel();
+		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
+		gl_panelCentral.setHorizontalGroup(
+			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
+					.addGap(66)
+					.addComponent(lblDatiTerrenoSelezionato)
+					.addPreferredGap(ComponentPlacement.RELATED, 333, Short.MAX_VALUE)
+					.addComponent(lblVisualizzaProgetti, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+					.addGap(93))
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addContainerGap(414, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		gl_panelCentral.setVerticalGroup(
+			gl_panelCentral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblVisualizzaProgetti)
+						.addComponent(lblDatiTerrenoSelezionato, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(55, Short.MAX_VALUE))
+		);
+		panelCentral.setLayout(gl_panelCentral);
+		
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 		
@@ -62,5 +99,4 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		theController.paginaProprietario.setVisible(true);
 		theController.AggEVisualizzaTerre.setVisible(true);		
 	}
-
 }
