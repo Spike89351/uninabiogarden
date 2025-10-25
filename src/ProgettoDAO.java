@@ -29,11 +29,14 @@ public class ProgettoDAO {
 			
 			ResultSet rs = psmt.executeQuery();
 			
-			while(rs.next()) {//String nomeProgetto,  java.sql.Date dataInizio, Terreno terreno
+			while(rs.next()) {
 				Progetto prgProv = new Progetto(rs.getString("Nome_prg"), rs.getDate("data_inizio"), terr);
 				prgProv.setDescrizioneProgetto(rs.getString("desc_prg"));
 				prgProv.setDataFine(rs.getDate("data_fine"));
-
+				prgProv.setCodeProgetto(rs.getInt("codice_prg"));
+				prgProv.setStatoProgetto(StatoProgetto.valueOf(rs.getString("stato_prg")));
+				listaProvProgetti.add(prgProv);
+				
 				return listaProvProgetti;
 			} 
     	}catch(Exception e) {

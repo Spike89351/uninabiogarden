@@ -256,4 +256,9 @@ public class Controller {
 		Terreno ter = terrenoDAO.trovaTerreno(idTerreno);
 		return ter;
 	}
+	
+	public void xxx(String idTerreno) {
+		Terreno ter = trovaTerreno(idTerreno);
+		
+	}
 }
