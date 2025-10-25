@@ -48,7 +48,6 @@ public class TerrenoDAO {
 			ResultSet rs = psmt.executeQuery();
 			
 			if(rs.next()) {
-				System.out.println("Sto nell'IF");
 				Terreno terProv = new Terreno(rs.getDouble("superfice"), TipoTerreno.valueOf(rs.getString("tipo_terreno")), Fertilità.valueOf(rs.getString("fertilità")));
 				return terProv;
 			} 
