@@ -25,12 +25,17 @@ import java.awt.GridLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.util.Date;
+
 import javax.swing.JTextArea;
 
 public class PaginaProprietario extends JFrame {
@@ -43,13 +48,14 @@ public class PaginaProprietario extends JFrame {
 	private DefaultTableModel elencoAttributiPrg;
 	private JTextField txtNomeProgetto;
 	private JTextField txtIdTerreno;
+	private JDateChooser dataInizioChooser;
 	private int idProprietario;
 	
 	
 	public PaginaProprietario(String username, Controller c) {
 		theController = c;
 		
-//		idProprietario = theController
+		idProprietario = theController.trovaProprietarioTramiteUsername(username);
 		
 		setTitle("La tua pagina - Proprietario ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -128,7 +134,7 @@ public class PaginaProprietario extends JFrame {
 		txtNomeProgetto.setToolTipText("Inserisici il nome del progetto");
 		txtNomeProgetto.setColumns(10);
 		
-		JDateChooser dataInizioChooser = new JDateChooser();
+		dataInizioChooser = new JDateChooser();
 		dataInizioChooser.setToolTipText("Inserisci la data di inizio del progetto");
 		
 		JTextArea txtAreaDescrizione = new JTextArea();
@@ -137,8 +143,15 @@ public class PaginaProprietario extends JFrame {
 		JButton btnCreaProgetto = new JButton("Crea progetto");
 		btnCreaProgetto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//FUNZIONE CHE PERMETTE LA CREAZIONE DI UN PROGETTO:
-				theController.inserisciProgetto(idTerreno, username, null, username);
+				//CONTROLLO CHE I CAMPI SIANO OK:
+				if(ctrlFields()){
+					//SE LA DESCRIIZION E' VUOTA ALLORA SET A NULL:
+					if(txtAreaDescrizione.getText().isBlank()) {
+						txtAreaDescrizione.setText(null);
+					}
+					//FUNZIONE CHE PERMETTE LA CREAZIONE DI UN PROGETTO:
+					theController.inserisciProgetto(idProprietario, Integer.valueOf(txtIdTerreno.getText()), txtNomeProgetto.getText().trim(), (java.sql.Date) dataInizioChooser.getDate(), txtAreaDescrizione.getText());
+				}
 			}
 		});
 		
@@ -255,5 +268,26 @@ public class PaginaProprietario extends JFrame {
 		});
 		panelBottom.add(btnBack);
 
+	}
+	
+//METODI:
+	private boolean ctrlFields() {
+		if(txtNomeProgetto.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Mi dispiace ma il campo nome progetto non può essere vuoto!");
+			return false;
+		}
+		if(txtIdTerreno.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Mi dispiace ma il campo id terreno non può essere vuoto!");
+			return false;
+		}
+		//COVERSIONE + CONTROLLO CHE LA DATA DI INIZIO NON SIA PRIMA DELLA DATA CORRENTE:
+		LocalDate oggi = LocalDate.now();
+		java.sql.Date oggiSql  = java.sql.Date.valueOf(oggi);
+		java.sql.Date dataConvert = (java.sql.Date) dataInizioChooser.getDate();
+		if(dataConvert.before(oggiSql)) {
+			JOptionPane.showMessageDialog(null, "La data di inizio del progetto non può essere una data precedente alla data corrente");
+			return false;
+		}
+		return true;
 	}
 }
