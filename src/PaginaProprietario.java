@@ -52,17 +52,6 @@ public class PaginaProprietario extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu menuProgetti = new JMenu("Progetti");
-		menuBar.add(menuProgetti);
-		
-		JMenuItem menuItemVisualizzaProgetti = new JMenuItem("");
-		menuItemVisualizzaProgetti.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		menuProgetti.add(menuItemVisualizzaProgetti);
-		
 		JMenu menùTerreni = new JMenu("Terreni");
 		menuBar.add(menùTerreni);
 		
