@@ -20,6 +20,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class HomePage extends JFrame {
 	private Controller theController;
@@ -84,6 +86,15 @@ public class HomePage extends JFrame {
 		});
 		
 		txtPassword = new JPasswordField();
+		txtPassword.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				//ALLA PRESSIONE DEL TASTO INVIO SIMULA IL CLICK DEL PULSANTE:
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btnAccedi.doClick();
+				}
+			}
+		});
 		
 		JCheckBox cehckBoxMostraONon = new JCheckBox("Mostra Password");
 		cehckBoxMostraONon.addItemListener(e -> {
