@@ -280,10 +280,10 @@ public class Controller {
 		}
 	}
 	
-	
+	//MI SERVE PER LA PAGINA PROPRIETARIO PER TROVARE IL CODICE TRAMITE USERNAME:
 	public int trovaProprietarioTramiteUsername(String username) {
 		proprietarioDAO = new ProprietarioDAO();
-		proprietarioDAO.tro
+		return proprietarioDAO.trovaCodiceProprietario(username);
 	}
 	
 	
