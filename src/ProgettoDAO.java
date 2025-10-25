@@ -24,7 +24,6 @@ public class ProgettoDAO {
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 		
-			
 			psmt.setInt(1, idTerreno);
 			
 			ResultSet rs = psmt.executeQuery();
@@ -43,7 +42,6 @@ public class ProgettoDAO {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione trovaTerreno, nella classe TerrenoDAO" + e);
     		return null;
     	}  
-		
 	}
 	
 }
