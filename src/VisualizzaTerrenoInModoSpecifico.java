@@ -88,7 +88,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		
 		modelProgetto = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "id Progetto", "Nome", "Data inizio", "Id terreno", "Stato"}
+				new String[]{ "id Progetto", "Nome", "Data inizio", "Stato", "Id terreno"}
 			);;
 		
 		table = new JTable(modelProgetto);
