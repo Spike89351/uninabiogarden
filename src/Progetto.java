@@ -18,6 +18,8 @@ public class Progetto {
 		Terreno = terreno;
 		StatoProgetto = StatoProgetto.Pianificato;
 		}
+	
+	
 //GETTERS:    
 	public String getNomeProgetto() {
 		return NomeProgetto;
