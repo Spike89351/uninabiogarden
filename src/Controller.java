@@ -19,6 +19,7 @@ public class Controller {
 	private Coltivatore coltivaotore;
 	private ColtivatoreDAO coltivatoreDAO;
 	private Progetto progetto;
+	private ProgettoDAO progettoDAO;
 	private Terreno terreno;
 	private TerrenoDAO terrenoDAO;
 	private CondizioneRaccolto condizioneRaccolto;
@@ -257,8 +258,11 @@ public class Controller {
 		return ter;
 	}
 	
+	//SERVE PER VISUALIZZARE TUTTI I PROGETTI PER UN TERRENO: (DEVI PRIMA POTERLI INSERIRE)
 	public void xxx(String idTerreno) {
 		Terreno ter = trovaTerreno(idTerreno);
+		progettoDAO = new ProgettoDAO();
+		progettoDAO.listaDiProgettiPerTerreno(Integer.valueOf(idTerreno), ter);
 		
 	}
 }
