@@ -12,6 +12,26 @@ public class ProgettoDAO {
 	private static final String PASSWORD = "Informatica1";
 	
 	
+	//FUNZIONE CHE SERVE PER LA CREAZIONE DI UN PROGETTO:
+	public void inserisciProgetto(int idProprietario, int idTerreno, String nomePrg, java.sql.Date dataInizio, String desc) {
+		String sql = "INSERT INTO prguninabiogarden.Progetto (id_proprietario, id_terreno, nome_prg, data_inizio, desc_prg)"
+				+ "VALUES(?, ?, ?, ?, ?)";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(1, idProprietario);
+			psmt.setInt(2, idTerreno);
+			psmt.setString(3, nomePrg);	
+			psmt.setDate(4, dataInizio);
+			psmt.setString(5, desc);			
+			
+			psmt.executeUpdate();
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione trovaTerreno, nella classe TerrenoDAO" + e);
+    	}  
+	}
+	
 	//FUNZIONE CHE SERVE PER RISALIRE AI PROGETTI:
 	public ArrayList<Progetto> listaDiProgettiPerTerreno(int idTerreno, Terreno terr){
 		String sql = "SELECT    "

@@ -31,6 +31,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextArea;
 
 public class PaginaProprietario extends JFrame {
 	private Controller theController;
@@ -40,6 +41,8 @@ public class PaginaProprietario extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel elencoAttributiPrg;
+	private JTextField txtNomeProgetto;
+	private JTextField txtIdTerreno;
 
 	public PaginaProprietario(String username, Controller c) {
 		theController = c;
@@ -107,37 +110,105 @@ public class PaginaProprietario extends JFrame {
 				
 			}
 		});
+		
+		JLabel lblNomeProgetto = new JLabel("Nome progetto");
+		lblNomeProgetto.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblDataInizioProgetto = new JLabel("Data inizio");
+		lblDataInizioProgetto.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblDescrizione = new JLabel("Descrizione");
+		lblDescrizione.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		txtNomeProgetto = new JTextField();
+		txtNomeProgetto.setToolTipText("Inserisici il nome del progetto");
+		txtNomeProgetto.setColumns(10);
+		
+		JDateChooser dataInizioChooser = new JDateChooser();
+		dataInizioChooser.setToolTipText("Inserisci la data di inizio del progetto");
+		
+		JTextArea txtAreaDescrizione = new JTextArea();
+		txtAreaDescrizione.setToolTipText("Inserisci la descrizione del progetto (NON E' OBBLIGATORIO)");
+		
+		JButton btnCreaProgetto = new JButton("Crea progetto");
+		
+		JLabel lblIdTerreno = new JLabel("id terreno");
+		lblIdTerreno.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		txtIdTerreno = new JTextField();
+		txtIdTerreno.setToolTipText("Inserisci l'id del terreno dove vuoi che il progetto si svolga");
+		txtIdTerreno.setColumns(10);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addContainerGap()
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addComponent(lblNomeProgetto)
+							.addGap(18)
+							.addComponent(txtNomeProgetto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addComponent(lblDataInizioProgetto, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(dataInizioChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_panelCentral.createSequentialGroup()
-								.addComponent(lblAggiungiProgetto)
-								.addPreferredGap(ComponentPlacement.RELATED, 405, Short.MAX_VALUE)
-								.addComponent(lblElencoProgetti)
-								.addGap(152))
-							.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
-								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 371, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap()))
-						.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
-							.addComponent(btnVisualizzaProgetto)
-							.addGap(147))))
+						.addComponent(lblDescrizione, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblIdTerreno, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addComponent(txtIdTerreno, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+						.addComponent(txtAreaDescrizione, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+					.addGap(10)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 371, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addGap(69)
+					.addComponent(lblAggiungiProgetto)
+					.addPreferredGap(ComponentPlacement.RELATED, 376, Short.MAX_VALUE)
+					.addComponent(lblElencoProgetti)
+					.addGap(152))
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addGap(168)
+					.addComponent(btnCreaProgetto)
+					.addPreferredGap(ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
+					.addComponent(btnVisualizzaProgetto)
+					.addGap(123))
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAggiungiProgetto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblElencoProgetti))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnVisualizzaProgetto)
-					.addContainerGap(33, Short.MAX_VALUE))
+						.addComponent(lblElencoProgetti)
+						.addComponent(lblAggiungiProgetto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(20)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNomeProgetto)
+								.addComponent(txtNomeProgetto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDescrizione, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+									.addComponent(lblIdTerreno, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+									.addComponent(txtIdTerreno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(dataInizioChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDataInizioProgetto, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))))
+					.addGap(28)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnVisualizzaProgetto)
+						.addComponent(btnCreaProgetto))
+					.addContainerGap())
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addGap(39)
+					.addComponent(txtAreaDescrizione, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+					.addGap(125))
 		);
 		panel.setLayout(new BorderLayout(0, 0));
 		

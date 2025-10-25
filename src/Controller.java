@@ -265,4 +265,10 @@ public class Controller {
 		progettoDAO.listaDiProgettiPerTerreno(Integer.valueOf(idTerreno), ter);
 		
 	}
+	
+//METODI CHE SERVONO PER LA PAGINA DEL PROPRIETARIO PER INSERIRE UN PROGETTO:
+	public void inserisciProgetto(int idTerreno) {
+		//TROVA IL CODICE DEL PROPRIETARIO;
+		//AGGIUNGI IL TERRENO;
+	}
 }

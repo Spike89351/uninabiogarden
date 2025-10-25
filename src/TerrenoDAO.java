@@ -83,5 +83,11 @@ public class TerrenoDAO {
     	} 
 	}
 	
+	//SERVE A RISALIRE AL PROPRIETARIO DEL TERRENO TRAMITE L'ID DEL TERRENO:
+	public int trovaProprietarioTramiteTerreno(int idTerreno) {
+		String sql = "SELECT T.id_proprietario "
+				+ "FROM prguninabiogarden.Terreno AS T "
+				+ "JOIN prguninabiogarden.Proprietrio AS P ON T.id_proprietario = P.id_proprietario";
+	}
 	
 }
