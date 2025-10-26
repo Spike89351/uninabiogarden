@@ -14,7 +14,7 @@ public class ProgettoDAO {
 	
 	//FUNZIONE CHE SERVE PER LA CREAZIONE DI UN PROGETTO:
 	public void inserisciProgetto(int idProprietario, int idTerreno, String nomePrg, java.sql.Date dataInizio, String desc) {
-		String sql = "INSERT INTO prguninabiogarden.Progetto (id_proprietario, id_terreno, nome_prg, data_inizio, desc_prg)"
+		String sql = "INSERT INTO prguninabiogarden.Progetto (id_proprietario, codice_prg, nome_prg, data_inizio, desc_prg)"
 				+ "VALUES(?, ?, ?, ?, ?)";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
