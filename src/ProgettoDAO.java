@@ -28,16 +28,16 @@ public class ProgettoDAO {
 			
 			psmt.executeUpdate();
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione trovaTerreno, nella classe TerrenoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione InserisciProgetto, nella classe ProgettoDAO" + e);
     	}  
 	}
 	
 	//FUNZIONE CHE SERVE PER RISALIRE AI PROGETTI:
 	public ArrayList<Progetto> listaDiProgettiPerTerreno(int idTerreno, Terreno terr){
-		String sql = "SELECT    "
-				+ "FROM prguninabiogarden.Progetto AS P"
-				+ "JOIN prguninabiogarden.Terreno AS T ON P.codice_prg = T.codice_prg"
-				+ "WHERE id_terreno = ?";
+		String sql = "SELECT * "
+		           + "FROM prguninabiogarden.Progetto AS P "
+		           + "JOIN prguninabiogarden.Terreno AS T ON P.codice_prg = T.codice_prg "
+		           + "WHERE T.id_terreno = ?";
 		
 		ArrayList<Progetto> listaProvProgetti = new ArrayList<Progetto>();
 		
@@ -47,8 +47,8 @@ public class ProgettoDAO {
 			psmt.setInt(1, idTerreno);
 			
 			ResultSet rs = psmt.executeQuery();
-			
 			while(rs.next()) {
+				System.out.println("Sto nel while");
 				Progetto prgProv = new Progetto(rs.getString("Nome_prg"), rs.getDate("data_inizio"), terr);
 				prgProv.setDescrizioneProgetto(rs.getString("desc_prg"));
 				prgProv.setDataFine(rs.getDate("data_fine"));
@@ -59,7 +59,7 @@ public class ProgettoDAO {
 			} 
 			return listaProvProgetti;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione trovaTerreno, nella classe TerrenoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaDiPorgettiPerTerreno, nella classe TerrenoDAO" + e);
     		return null;
     	}  
 	}
