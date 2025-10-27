@@ -281,10 +281,13 @@ public class PaginaProprietario extends JFrame {
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 		
-		JButton btnBack = new JButton("Back");
+		JButton btnBack = new JButton("Logout");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//LOGOUT
+				//PULISCI I CAMPI:
+				clearFields();
+				
+				//FAI IL LOGOUT:
 				
 			}
 		});
