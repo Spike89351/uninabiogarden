@@ -267,10 +267,10 @@ public class Controller {
 	}
 	
 //METODI CHE SERVONO PER LA PAGINA DEL PROPRIETARIO PER INSERIRE UN PROGETTO:
-	public void inserisciProgetto(int codiceProp, int idTerreno, String nomePrg, java.sql.Date dataInizio, String desc) {
+	public boolean inserisciProgetto(int codiceProp, int idTerreno, String nomePrg, java.sql.Date dataInizio, String desc) {
 		//AGGIUNGI IL PROGETTO:
 		progettoDAO = new ProgettoDAO();
-		progettoDAO.inserisciProgetto(codiceProp, idTerreno, nomePrg, dataInizio, desc);
+		 return progettoDAO.inserisciProgetto(codiceProp, idTerreno, nomePrg, dataInizio, desc);
 	}
 	
 	//MI SERVE PER LA PAGINA PROPRIETARIO PER TROVARE IL CODICE TRAMITE USERNAME:

@@ -13,22 +13,24 @@ public class ProgettoDAO {
 	
 	
 	//FUNZIONE CHE SERVE PER LA CREAZIONE DI UN PROGETTO:
-	public void inserisciProgetto(int idProprietario, int codicePrg, String nomePrg, java.sql.Date dataInizio, String desc) {
-		String sql = "INSERT INTO prguninabiogarden.Progetto (id_proprietario, codice_prg, nome_prg, data_inizio, desc_prg)"
+	public boolean inserisciProgetto(int idProprietario, int idTerreno, String nomePrg, java.sql.Date dataInizio, String desc) {
+		String sql = "INSERT INTO prguninabiogarden.Progetto (id_proprietario, id_terreno, nome_prg, data_inizio, desc_prg)"
 				+ "VALUES(?, ?, ?, ?, ?)";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 		
 			psmt.setInt(1, idProprietario);
-			psmt.setInt(2, codicePrg);
+			psmt.setInt(2, idTerreno);
 			psmt.setString(3, nomePrg);	
 			psmt.setDate(4, dataInizio);
 			psmt.setString(5, desc);			
 			
 			psmt.executeUpdate();
+			return true;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione InserisciProgetto, nella classe ProgettoDAO" + e);
+    		return false;
     	}  
 	}
 	

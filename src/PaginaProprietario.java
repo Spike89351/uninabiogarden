@@ -155,7 +155,12 @@ public class PaginaProprietario extends JFrame {
 						//CAST: 
 						java.sql.Date sqlDate = new java.sql.Date(dataInizioChooser.getDate().getTime());
 						
-						theController.inserisciProgetto(idProprietario, Integer.valueOf(txtIdTerreno.getText()), txtNomeProgetto.getText().trim(), sqlDate, txtAreaDescrizione.getText());
+						//CREAZIONE DEL PROGETTO:
+						if(theController.inserisciProgetto(idProprietario, Integer.valueOf(txtIdTerreno.getText()), txtNomeProgetto.getText().trim(), sqlDate, txtAreaDescrizione.getText())) {
+							JOptionPane.showMessageDialog(null, "Il progetto è stato inserito correttamente!");
+						}else {
+							JOptionPane.showMessageDialog(null, "Il progetto NON è stato inserito correttamente!");							
+						}
 					}catch(Exception ss) {
 						JOptionPane.showMessageDialog(null, "Errore nel cast della data");
 					}
