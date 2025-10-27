@@ -50,6 +50,7 @@ public class PaginaProprietario extends JFrame {
 	private JTextField txtNomeProgetto;
 	private JTextField txtIdTerreno;
 	private JDateChooser dataInizioChooser;
+	private JTextArea txtAreaDescrizione;
 	private int idProprietario;
 	
 	
@@ -138,7 +139,7 @@ public class PaginaProprietario extends JFrame {
 		dataInizioChooser = new JDateChooser();
 		dataInizioChooser.setToolTipText("Inserisci la data di inizio del progetto");
 		
-		JTextArea txtAreaDescrizione = new JTextArea();
+		txtAreaDescrizione = new JTextArea();
 		txtAreaDescrizione.setToolTipText("Inserisci la descrizione del progetto (NON E' OBBLIGATORIO)");
 		
 		JButton btnCreaProgetto = new JButton("Crea progetto");
@@ -155,21 +156,19 @@ public class PaginaProprietario extends JFrame {
 						//CAST: 
 						java.sql.Date sqlDate = new java.sql.Date(dataInizioChooser.getDate().getTime());
 						
-						
 						//CONTROLLO CHE IL PROPIETARIO DEL TERRENO SIA LO STESSO:
 						 int varId_proprietario_Trovato = theController.ctrlSulProprietarioDelTerreno(Integer.valueOf(txtIdTerreno.getText()));
 						 if(varId_proprietario_Trovato == idProprietario) {
 							//CREAZIONE DEL PROGETTO:
 							if(theController.inserisciProgetto(idProprietario, Integer.valueOf(txtIdTerreno.getText()), txtNomeProgetto.getText().trim(), sqlDate, txtAreaDescrizione.getText())) {
 								JOptionPane.showMessageDialog(null, "Il progetto è stato inserito correttamente!");
+								clearFields();
 							}else {
 								JOptionPane.showMessageDialog(null, "Il progetto NON è stato inserito correttamente!");							
 							}
 						 }else {
 							 JOptionPane.showMessageDialog(null, "Mi dispiace ma NON è stato trovato nessun terreno con i codice "+Integer.valueOf(txtIdTerreno.getText()));
 						 }
-						
-						
 					}catch(Exception ss) {
 						JOptionPane.showMessageDialog(null, "Errore nel cast della data");
 					}
@@ -319,5 +318,14 @@ public class PaginaProprietario extends JFrame {
 			JOptionPane.showMessageDialog(null, "Errore nella conversione della data");
 			return false;
 		}
+	}
+	
+//METODI:
+	//SERVE PER PULIRE I CAMPI UNA VOLTA CHE IL PROGETTO E' STATO INSERITO:
+	private void clearFields() {
+		txtNomeProgetto.setText(null);
+		txtIdTerreno.setText(null);
+		txtAreaDescrizione.setText(null);
+		dataInizioChooser.setDate(null);
 	}
 }
