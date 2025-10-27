@@ -279,6 +279,9 @@ public class Controller {
 		return proprietarioDAO.trovaCodiceProprietario(username);
 	}
 	
-	
+	//MI SERVE A POPOLARE LA TABELLA CON I PROGETTI, (TUTTI):
+	public void popolaTabellaProgetti() {
+		
+	}
 	
 }
