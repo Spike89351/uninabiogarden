@@ -284,4 +284,10 @@ public class Controller {
 		
 	}
 	
+	//MI SERVE PER CONTROLLARE SE PRIMA DI INSERIRE IL PROGETTO IL TERRENO E' DEL PROPRIETARIO CHE HA FATTO L'ACCESSO:
+	public int ctrlSulProprietarioDelTerreno(int idTerreno) {
+		terrenoDAO = new TerrenoDAO();
+		 return terrenoDAO.trovaProprietarioTramiteTerreno(idTerreno);
+	}
+	
 }

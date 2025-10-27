@@ -155,12 +155,21 @@ public class PaginaProprietario extends JFrame {
 						//CAST: 
 						java.sql.Date sqlDate = new java.sql.Date(dataInizioChooser.getDate().getTime());
 						
-						//CREAZIONE DEL PROGETTO:
-						if(theController.inserisciProgetto(idProprietario, Integer.valueOf(txtIdTerreno.getText()), txtNomeProgetto.getText().trim(), sqlDate, txtAreaDescrizione.getText())) {
-							JOptionPane.showMessageDialog(null, "Il progetto è stato inserito correttamente!");
-						}else {
-							JOptionPane.showMessageDialog(null, "Il progetto NON è stato inserito correttamente!");							
-						}
+						
+						//CONTROLLO CHE IL PROPIETARIO DEL TERRENO SIA LO STESSO:
+						 int varId_proprietario_Trovato = theController.ctrlSulProprietarioDelTerreno(Integer.valueOf(txtIdTerreno.getText()));
+						 if(varId_proprietario_Trovato == idProprietario) {
+							//CREAZIONE DEL PROGETTO:
+							if(theController.inserisciProgetto(idProprietario, Integer.valueOf(txtIdTerreno.getText()), txtNomeProgetto.getText().trim(), sqlDate, txtAreaDescrizione.getText())) {
+								JOptionPane.showMessageDialog(null, "Il progetto è stato inserito correttamente!");
+							}else {
+								JOptionPane.showMessageDialog(null, "Il progetto NON è stato inserito correttamente!");							
+							}
+						 }else {
+							 JOptionPane.showMessageDialog(null, "Mi dispiace ma NON è stato trovato nessun terreno con i codice "+Integer.valueOf(txtIdTerreno.getText()));
+						 }
+						
+						
 					}catch(Exception ss) {
 						JOptionPane.showMessageDialog(null, "Errore nel cast della data");
 					}

@@ -87,7 +87,7 @@ public class TerrenoDAO {
 	public int trovaProprietarioTramiteTerreno(int idTerreno) {
 		String sql = "SELECT T.id_proprietario "
 				+ "FROM prguninabiogarden.Terreno AS T "
-				+ "JOIN prguninabiogarden.Proprietrio AS P ON T.id_proprietario = P.id_proprietario"
+				+ "JOIN prguninabiogarden.Proprietario AS P ON T.id_proprietario = P.id_proprietario "
 				+ "WHERE T.id_terreno = ? ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
