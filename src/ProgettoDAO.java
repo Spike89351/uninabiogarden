@@ -13,7 +13,7 @@ public class ProgettoDAO {
 	
 	
 	//FUNZIONE CHE SERVE PER LA CREAZIONE DI UN PROGETTO:
-	public void inserisciProgetto(int idProprietario, int idTerreno, String nomePrg, java.sql.Date dataInizio, String desc) {
+	public void inserisciProgetto(int idProprietario, int codicePrg, String nomePrg, java.sql.Date dataInizio, String desc) {
 		String sql = "INSERT INTO prguninabiogarden.Progetto (id_proprietario, codice_prg, nome_prg, data_inizio, desc_prg)"
 				+ "VALUES(?, ?, ?, ?, ?)";
 		
@@ -21,7 +21,7 @@ public class ProgettoDAO {
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 		
 			psmt.setInt(1, idProprietario);
-			psmt.setInt(2, idTerreno);
+			psmt.setInt(2, codicePrg);
 			psmt.setString(3, nomePrg);	
 			psmt.setDate(4, dataInizio);
 			psmt.setString(5, desc);			
