@@ -200,12 +200,12 @@ public class PaginaProprietario extends JFrame {
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelCentral.createSequentialGroup()
+				.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
 					.addGap(168)
 					.addComponent(btnCreaProgetto)
-					.addPreferredGap(ComponentPlacement.RELATED, 489, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
 					.addComponent(btnVisualizzaProgetto)
-					.addGap(123))
+					.addGap(217))
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_panelCentral.createSequentialGroup()
@@ -271,8 +271,8 @@ public class PaginaProprietario extends JFrame {
 							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)))
 					.addGap(28)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnVisualizzaProgetto)
-						.addComponent(btnCreaProgetto))
+						.addComponent(btnCreaProgetto)
+						.addComponent(btnVisualizzaProgetto))
 					.addContainerGap())
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
