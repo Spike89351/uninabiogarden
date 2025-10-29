@@ -53,6 +53,8 @@ public class PaginaProprietario extends JFrame {
 	private int idProprietario;
 	private JComboBox comboBoxStatoProgetto;
 	private JTextField txtDescrizione;
+	private int idProgettoSelezionato;
+	
 	
 	public PaginaProprietario(String username, Controller c) {
 		theController = c;
@@ -119,7 +121,7 @@ public class PaginaProprietario extends JFrame {
 		btnVisualizzaProgetto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//VISUALIZZA PROGETTO:
-				
+				theController.daProprietarioToPaginaVisualizzaProgetto(idProgettoSelezionato);
 			}
 		});
 		
@@ -282,16 +284,26 @@ public class PaginaProprietario extends JFrame {
 		
 		elencoAttributiPrg  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "Id progetto", "Nome progetto", /*"Id terreno",*/ "Data inizio", "Data fine", "Stato progetto"}
+				new String[]{ "Id progetto", "Nome progetto", "Data inizio", "Data fine", "Stato progetto"}
 			);;
 		
 		table = new JTable(elencoAttributiPrg);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// una volta cliccato su un progetto si sblocca il tasto visualizza progetto:
-				btnVisualizzaProgetto.setEnabled(true);
+				int selectedRow = table.rowAtPoint(e.getPoint());
+				if (selectedRow != -1) {
+					try {
+						//CAST DEL VALORE DELLA RIGA SELEZIONATA:
+						String idProgettoString = String.valueOf(table.getValueAt(selectedRow, 0));
+						idProgettoSelezionato = Integer.valueOf(idProgettoString);
+					}catch(ClassCastException x) {
+						JOptionPane.showMessageDialog(null, "Errore nel cast dell'id del progetto");
+					}
+				}
 				
+				//SBLOCCA IL PULSANTE PER VISUALIZZARE I DETTAGLI DEL PROGETTO:
+				btnVisualizzaProgetto.setEnabled(true);
 			}
 		});
 		scrollPane.setColumnHeaderView(table);

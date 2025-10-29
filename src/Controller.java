@@ -46,7 +46,7 @@ public class Controller {
 	public PaginaProprietario paginaProprietario;
 	public PaginaColtivatore paginaColtivatore;
 	public VisualizzaTerrenoInModoSpecifico paginaTerrenoSpecifico;
-	
+	public PaginaVisualizzaDettagliProgetto paginaDettagliProgetto;
 	
 	//FINESTRE:
 	public FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
@@ -298,6 +298,14 @@ public class Controller {
 		}else {
 			JOptionPane.showMessageDialog(null, "Mi dispiace ma non ci sono progetti con lo stato progetto che ha inserito");
 		}
+	}
+	
+	//MI SERVE PER ANDARE NELLA PAGINA DOVE POSSO VISUALIZZARE UN PROGETTO IN MODO SPECIFICO E FARE MODIFICHE NEL CASO:
+	public void daProprietarioToPaginaVisualizzaProgetto(int idProgetto) {
+		paginaProprietario.setVisible(false);
+		
+		paginaDettagliProgetto = new PaginaVisualizzaDettagliProgetto(this, idProgetto);
+		paginaDettagliProgetto.setVisible(true);
 	}
 	
 //PER IL LOGOUT:
