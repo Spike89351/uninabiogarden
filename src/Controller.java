@@ -204,7 +204,6 @@ public class Controller {
 		paginaProprietario.setEnabled(false);
 	}
 	
-	
 //MI SERVE PER LA PAGINA DEI TERRENI IN PROPRIETARIO:
 	
 	//SERVE PER LA FINESTRA DEI TERRENI DEL PROPRIETARIO:
