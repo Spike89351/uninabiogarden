@@ -6,6 +6,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JToggleButton;
 
 public class PaginaVisualizzaDettagliProgetto extends JFrame {
 	private Controller theController;
@@ -37,9 +40,27 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 		JPanel panelCentral = new JPanel();
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		
+		JLabel lblNewLabel = new JLabel("Dettagli del progetto selezionato");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
+		gl_panelCentral.setHorizontalGroup(
+			gl_panelCentral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblNewLabel)
+					.addContainerGap(216, Short.MAX_VALUE))
+		);
+		gl_panelCentral.setVerticalGroup(
+			gl_panelCentral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblNewLabel)
+					.addContainerGap(191, Short.MAX_VALUE))
+		);
+		panelCentral.setLayout(gl_panelCentral);
+		
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 
 	}
-
 }
