@@ -317,7 +317,6 @@ public class PaginaProprietario extends JFrame {
 		//POPOLIAMO LA TABELLA CON TUTTI I PROGETTI:
 		try {
 			theController.popolaTabellaProgetti(idProprietario, String.valueOf(comboBoxStatoProgetto.getSelectedItem()), elencoAttributiPrg);
-			System.out.println("la combo box seelezionato è: "+String.valueOf(comboBoxStatoProgetto.getSelectedItem()));
 		}catch(Exception e) {
 			JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella nell'apertura della pagina" + e);
 		}
