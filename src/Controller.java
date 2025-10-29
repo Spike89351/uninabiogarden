@@ -287,11 +287,16 @@ public class Controller {
 	
 	//SERVE PER VISUALIZZARE, IN BASE ALLO STATO DI UN PROGETTO, I PROGETTI DI UN PROPRIETARIO:
 	public void  popolaTabellaProgetti(int idProp, String statoPrg, DefaultTableModel modelTab){
+		modelTab.setRowCount(0);
 		progettoDAO = new ProgettoDAO();
 		ArrayList<Progetto> listaProgetti;
 		listaProgetti = progettoDAO.listaProgettiPerProprietario(idProp, statoPrg);
-		for(Progetto prg : listaProgetti) {
-			//modelTab.addRow(new Object[]{prg.getCodeProgetto(), prg.getNomeProgetto(), prg.getIdTerreno(), prg.getDataInizio(), prg.getDataFine(), prg.getStatoProgetto()});
+		if(! listaProgetti.isEmpty()) {
+			for(Progetto prg : listaProgetti) {
+				modelTab.addRow(new Object[]{prg.getCodeProgetto(), prg.getNomeProgetto(), /*prg.getIdTerreno(),*/ prg.getDataInizio(), prg.getDataFine(), prg.getStatoProgetto()});
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "Mi dispiace ma non ci sono progetti con lo stato progetto che ha inserito");
 		}
 	}
 	

@@ -73,7 +73,7 @@ public class ProgettoDAO {
 		if(statoProgetto.equalsIgnoreCase("Pianificato")) {
 			return listaProgettiPianificati(idProprietario);
 		}
-		if(statoProgetto.equalsIgnoreCase("in_corso")) {
+		if(statoProgetto.equalsIgnoreCase("in corso")) {
 			return listaProgettiInCorso(idProprietario);
 		}
 		if(statoProgetto.equalsIgnoreCase("Completato")) {
@@ -119,11 +119,11 @@ public class ProgettoDAO {
     	} 		
 	}
 	
-	//PIANIFCATO:
+	//PIANIFCATO: 
 	private ArrayList<Progetto> listaProgettiPianificati(int idProp){
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Progetto AS PROG "
-				+ "JOIN prguninabiogarden.Proprietario AS P "
+				+ "JOIN prguninabiogarden.Proprietario AS P ON PROG.id_proprietario = P.id_proprietario "
 				+ "WHERE PROG.id_proprietario = ? AND PROG.stato_prg = 'Pianificato' ";
 		
 		ArrayList<Progetto> listaProvProgetti = new ArrayList<Progetto>();
@@ -154,7 +154,7 @@ public class ProgettoDAO {
 	private ArrayList<Progetto> listaProgettiInCorso(int idProp){
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Progetto AS PROG "
-				+ "JOIN prguninabiogarden.Proprietario AS P "
+				+ "JOIN prguninabiogarden.Proprietario AS P ON PROG.id_proprietario = P.id_proprietario "
 				+ "WHERE PROG.id_proprietario = ? AND PROG.stato_prg = 'In corso' ";
 		
 		ArrayList<Progetto> listaProvProgetti = new ArrayList<Progetto>();
@@ -171,7 +171,11 @@ public class ProgettoDAO {
 				prgProv.setDataFine(rs.getDate("data_fine"));
 				prgProv.setCodeProgetto(rs.getInt("codice_prg"));
 				prgProv.setStatoProgetto(StatoProgetto.In_Corso);
-				
+
+				if(listaProvProgetti.size() == 0) {
+					System.out.println("ERROREEEEEEEEEEEEEEEEEEEEEEEEE");
+					return null;
+				}
 				listaProvProgetti.add(prgProv);
 			} 
 			return listaProvProgetti;
@@ -185,7 +189,7 @@ public class ProgettoDAO {
 	private ArrayList<Progetto> listaProgettiCompletati(int idProp){
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Progetto AS PROG "
-				+ "JOIN prguninabiogarden.Proprietario AS P "
+				+ "JOIN prguninabiogarden.Proprietario AS P ON PROG.id_proprietario = P.id_proprietario "
 				+ "WHERE PROG.id_proprietario = ? AND PROG.stato_prg = 'Completato' ";
 		
 		ArrayList<Progetto> listaProvProgetti = new ArrayList<Progetto>();

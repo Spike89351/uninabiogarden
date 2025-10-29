@@ -200,7 +200,7 @@ public class PaginaProprietario extends JFrame {
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(168)
 					.addComponent(btnCreaProgetto)
-					.addPreferredGap(ComponentPlacement.RELATED, 405, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 489, Short.MAX_VALUE)
 					.addComponent(btnVisualizzaProgetto)
 					.addGap(123))
 				.addGroup(gl_panelCentral.createSequentialGroup()
@@ -228,14 +228,14 @@ public class PaginaProprietario extends JFrame {
 							.addGap(69)
 							.addComponent(lblAggiungiProgetto)))
 					.addGap(27)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addComponent(panelTable, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(lblElencoProgetti)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
 							.addComponent(lblCercaPerStatoProgetto)
 							.addGap(18)
-							.addComponent(comboBoxStatoProgetto, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
+							.addComponent(comboBoxStatoProgetto, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -283,7 +283,7 @@ public class PaginaProprietario extends JFrame {
 		
 		elencoAttributiPrg  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "Id progetto", "Nome progetto", "Id terreno", "Data inizio", "Data fine", "Stato progetto"}
+				new String[]{ "Id progetto", "Nome progetto", /*"Id terreno",*/ "Data inizio", "Data fine", "Stato progetto"}
 			);;
 		
 		table = new JTable(elencoAttributiPrg);
