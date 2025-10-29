@@ -150,7 +150,7 @@ public class Controller {
 	}
 	
 	//UNA VOLTA FATTO L'ACCESSO IL PROPRIETARIO ENTRERA' NELLA SUA PAGINA:
-		//VENGONO UTILIZZATE NEL METODO ALLA LINEA DI CODICE 73;
+		//VENGONO UTILIZZATE NEL METODO ALLA LINEA DI CODICE 99;
 	private void daHomePageAccessoAProprietario(String username) {
 		homePage.setVisible(false);
 		
