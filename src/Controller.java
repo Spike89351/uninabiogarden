@@ -157,7 +157,7 @@ public class Controller {
 		paginaProprietario = new PaginaProprietario(username, this);
 		paginaProprietario.setVisible(true);
 	}
-	
+		
 	private void daHomePageAccessoAColtivatore(String username) {
 		homePage.setVisible(false);
 		
@@ -298,6 +298,12 @@ public class Controller {
 		}else {
 			JOptionPane.showMessageDialog(null, "Mi dispiace ma non ci sono progetti con lo stato progetto che ha inserito");
 		}
+	}
+	
+//PER IL LOGOUT:
+	public void logout() {
+		paginaProprietario.setVisible(false);
+		homePage.setVisible(true);
 	}
 	
 }

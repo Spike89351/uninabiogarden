@@ -55,7 +55,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		});
 		theController = c;
 		
-		
+			
 		setTitle("Registra e visualizza terreni");
 		setSize(597, 350);
 		setLocationRelativeTo(null);

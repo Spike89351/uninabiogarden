@@ -161,6 +161,8 @@ public class PaginaProprietario extends JFrame {
 						 if(varId_proprietario_Trovato == idProprietario) {
 							//CREAZIONE DEL PROGETTO:
 							if(theController.inserisciProgetto(idProprietario, Integer.valueOf(txtIdTerreno.getText()), txtNomeProgetto.getText().trim(), sqlDate, txtAreaDescrizione.getText())) {
+								//AGGIORNA TABELLA:
+								theController.popolaTabellaProgetti(idProprietario, String.valueOf(comboBoxStatoProgetto.getSelectedItem()), elencoAttributiPrg);
 								JOptionPane.showMessageDialog(null, "Il progetto è stato inserito correttamente!");
 								clearFields();
 							}else {
@@ -309,7 +311,7 @@ public class PaginaProprietario extends JFrame {
 				clearFields();
 				
 				//FAI IL LOGOUT:
-				
+				theController.logout();
 			}
 		});
 		panelBottom.add(btnBack);
@@ -357,5 +359,6 @@ public class PaginaProprietario extends JFrame {
 		txtIdTerreno.setText(null);
 		txtAreaDescrizione.setText(null);
 		dataInizioChooser.setDate(null);
+		
 	}
 }
