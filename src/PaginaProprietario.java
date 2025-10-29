@@ -63,7 +63,7 @@ public class PaginaProprietario extends JFrame {
 		
 		setTitle("La tua pagina - Proprietario ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1026, 329);
+		setSize(1026, 340);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
