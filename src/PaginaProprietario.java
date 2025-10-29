@@ -52,7 +52,7 @@ public class PaginaProprietario extends JFrame {
 	private JDateChooser dataInizioChooser;
 	private JTextArea txtAreaDescrizione;
 	private int idProprietario;
-	
+	private JComboBox comboBoxStatoProgetto;
 	
 	public PaginaProprietario(String username, Controller c) {
 		theController = c;
@@ -61,7 +61,7 @@ public class PaginaProprietario extends JFrame {
 		
 		setTitle("La tua pagina - Proprietario ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(942, 326);
+		setSize(1026, 329);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -185,7 +185,12 @@ public class PaginaProprietario extends JFrame {
 		
 		String[] statoProgetto = {"", "Pianificato", "In corso", "Completato"};
 		
-		JComboBox comboBoxStatoProgetto = new JComboBox(statoProgetto);
+		comboBoxStatoProgetto = new JComboBox(statoProgetto);
+		comboBoxStatoProgetto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				theController.popolaTabellaProgetti(idProprietario, String.valueOf(comboBoxStatoProgetto.getSelectedItem()), elencoAttributiPrg);
+			}
+		});
 		
 		JLabel lblCercaPerStatoProgetto = new JLabel("Cerca per stato del progetto");
 		lblCercaPerStatoProgetto.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -222,15 +227,15 @@ public class PaginaProprietario extends JFrame {
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(69)
 							.addComponent(lblAggiungiProgetto)))
-					.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+					.addGap(27)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(lblElencoProgetti)
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(lblCercaPerStatoProgetto)
 							.addGap(18)
 							.addComponent(comboBoxStatoProgetto, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panelTable, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -276,9 +281,9 @@ public class PaginaProprietario extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		panelTable.add(scrollPane, BorderLayout.CENTER);
 		
-		DefaultTableModel elencoAttributiPrg  = new DefaultTableModel(
+		elencoAttributiPrg  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "Id progetto", "Nome progetto", "Id terreno", "Data inizio", "Data fine"}
+				new String[]{ "Id progetto", "Nome progetto", "Id terreno", "Data inizio", "Data fine", "Stato progetto"}
 			);;
 		
 		table = new JTable(elencoAttributiPrg);
@@ -309,6 +314,14 @@ public class PaginaProprietario extends JFrame {
 		});
 		panelBottom.add(btnBack);
 
+		//POPOLIAMO LA TABELLA CON TUTTI I PROGETTI:
+		try {
+			theController.popolaTabellaProgetti(idProprietario, String.valueOf(comboBoxStatoProgetto.getSelectedItem()), elencoAttributiPrg);
+			System.out.println("la combo box seelezionato è: "+String.valueOf(comboBoxStatoProgetto.getSelectedItem()));
+		}catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella nell'apertura della pagina" + e);
+		}
+		
 	}
 	
 //METODI:
@@ -339,7 +352,6 @@ public class PaginaProprietario extends JFrame {
 		}
 	}
 	
-//METODI:
 	//SERVE PER PULIRE I CAMPI UNA VOLTA CHE IL PROGETTO E' STATO INSERITO:
 	private void clearFields() {
 		txtNomeProgetto.setText(null);

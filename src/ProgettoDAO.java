@@ -60,7 +60,7 @@ public class ProgettoDAO {
 			} 
 			return listaProvProgetti;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaDiPorgettiPerTerreno, nella classe TerrenoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaDiPorgettiPerTerreno, nella classe ProgettoDAO" + e);
     		return null;
     	}  
 	}
@@ -87,8 +87,8 @@ public class ProgettoDAO {
 	private ArrayList<Progetto> listaTuttiProgetti(int idProprietario){
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Progetto AS PROG "
-				+ "JOIN prguninabiogarden.Proprietario AS P "
-				+ "WHERE PROG.id_proprietario = ? ";
+				+ "JOIN prguninabiogarden.Proprietario AS P ON PROG.id_proprietario = P.id_proprietario "
+				+ "WHERE PROG.id_proprietario = ?";
 		
 		ArrayList<Progetto> listaProvProgetti = new ArrayList<Progetto>();
 
@@ -98,6 +98,7 @@ public class ProgettoDAO {
 			psmt.setInt(1, idProprietario);
 			
 			ResultSet rs = psmt.executeQuery();
+			
 			while(rs.next()) {
 				Progetto prgProv = new Progetto(rs.getString("Nome_prg"), rs.getDate("data_inizio"), null);
 				prgProv.setDescrizioneProgetto(rs.getString("desc_prg"));
@@ -109,12 +110,11 @@ public class ProgettoDAO {
 					prgProv.setStatoProgetto(StatoProgetto.valueOf(rs.getString("stato_prg")));
 				}
 				
-				
 				listaProvProgetti.add(prgProv);
 			} 
 			return listaProvProgetti;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaTuttiProgetti, nella classe TerrenoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaTuttiProgetti, nella classe ProgettoDAO" + e);
     		return null;
     	} 		
 	}
@@ -145,7 +145,7 @@ public class ProgettoDAO {
 			} 
 			return listaProvProgetti;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiPianificati, nella classe TerrenoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiPianificati, nella classe ProgettoDAO" + e);
     		return null;
     	} 
 	}
@@ -176,7 +176,7 @@ public class ProgettoDAO {
 			} 
 			return listaProvProgetti;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiInCorso, nella classe TerrenoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiInCorso, nella classe ProgettoDAO" + e);
     		return null;
     	} 		
 	}
@@ -207,7 +207,7 @@ public class ProgettoDAO {
 			} 
 			return listaProvProgetti;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiCompletati, nella classe TerrenoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiCompletati, nella classe ProgettoDAO" + e);
     		return null;
     	} 	
 	}

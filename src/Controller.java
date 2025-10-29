@@ -215,7 +215,7 @@ public class Controller {
 	}
 	
 	//SERVE PER POPOLARE LA TABELLA CON I VARI TERRENI CHE APPARTENGONO ALL'UTENTE:
-	public void popolaTabellaTerreni(String username,DefaultTableModel modelTab) {
+	public void popolaTabellaTerreni(String username, DefaultTableModel modelTab) {
 		modelTab.setRowCount(0);
 		terrenoDAO = new TerrenoDAO();
 		ArrayList<Terreno> listaTerre = terrenoDAO.risaliTerreni(username);
@@ -286,9 +286,13 @@ public class Controller {
 	}
 	
 	//SERVE PER VISUALIZZARE, IN BASE ALLO STATO DI UN PROGETTO, I PROGETTI DI UN PROPRIETARIO:
-	public ArrayList<Progetto> popolaTabellaProgetti(int idProp, String statoPrg){
+	public void  popolaTabellaProgetti(int idProp, String statoPrg, DefaultTableModel modelTab){
 		progettoDAO = new ProgettoDAO();
-		return progettoDAO.listaProgettiPerProprietario(idProp, statoPrg);
+		ArrayList<Progetto> listaProgetti;
+		listaProgetti = progettoDAO.listaProgettiPerProprietario(idProp, statoPrg);
+		for(Progetto prg : listaProgetti) {
+			//modelTab.addRow(new Object[]{prg.getCodeProgetto(), prg.getNomeProgetto(), prg.getIdTerreno(), prg.getDataInizio(), prg.getDataFine(), prg.getStatoProgetto()});
+		}
 	}
 	
 }
