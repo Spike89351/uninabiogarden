@@ -50,9 +50,9 @@ public class PaginaProprietario extends JFrame {
 	private JTextField txtNomeProgetto;
 	private JTextField txtIdTerreno;
 	private JDateChooser dataInizioChooser;
-	private JTextArea txtAreaDescrizione;
 	private int idProprietario;
 	private JComboBox comboBoxStatoProgetto;
+	private JTextField txtDescrizione;
 	
 	public PaginaProprietario(String username, Controller c) {
 		theController = c;
@@ -139,17 +139,14 @@ public class PaginaProprietario extends JFrame {
 		dataInizioChooser = new JDateChooser();
 		dataInizioChooser.setToolTipText("Inserisci la data di inizio del progetto");
 		
-		txtAreaDescrizione = new JTextArea();
-		txtAreaDescrizione.setToolTipText("Inserisci la descrizione del progetto (NON E' OBBLIGATORIO)");
-		
 		JButton btnCreaProgetto = new JButton("Crea progetto");
 		btnCreaProgetto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//CONTROLLO CHE I CAMPI SIANO OK:
 				if(ctrlFields()){
 					//SE LA DESCRIIZION E' VUOTA ALLORA SET A NULL:
-					if(txtAreaDescrizione.getText().isBlank()) {
-						txtAreaDescrizione.setText(null);
+					if(txtDescrizione.getText().isBlank()) {
+						txtDescrizione.setText(null);
 					}
 					//FUNZIONE CHE PERMETTE LA CREAZIONE DI UN PROGETTO:
 					try {
@@ -160,7 +157,7 @@ public class PaginaProprietario extends JFrame {
 						 int varId_proprietario_Trovato = theController.ctrlSulProprietarioDelTerreno(Integer.valueOf(txtIdTerreno.getText()));
 						 if(varId_proprietario_Trovato == idProprietario) {
 							//CREAZIONE DEL PROGETTO:
-							if(theController.inserisciProgetto(idProprietario, Integer.valueOf(txtIdTerreno.getText()), txtNomeProgetto.getText().trim(), sqlDate, txtAreaDescrizione.getText())) {
+							if(theController.inserisciProgetto(idProprietario, Integer.valueOf(txtIdTerreno.getText()), txtNomeProgetto.getText().trim(), sqlDate, txtDescrizione.getText())) {
 								//AGGIORNA TABELLA:
 								theController.popolaTabellaProgetti(idProprietario, String.valueOf(comboBoxStatoProgetto.getSelectedItem()), elencoAttributiPrg);
 								JOptionPane.showMessageDialog(null, "Il progetto è stato inserito correttamente!");
@@ -196,6 +193,10 @@ public class PaginaProprietario extends JFrame {
 		
 		JLabel lblCercaPerStatoProgetto = new JLabel("Cerca per stato del progetto");
 		lblCercaPerStatoProgetto.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		txtDescrizione = new JTextField();
+		txtDescrizione.setToolTipText("Inserisci una breve descrizione");
+		txtDescrizione.setColumns(10);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
@@ -206,7 +207,7 @@ public class PaginaProprietario extends JFrame {
 					.addComponent(btnVisualizzaProgetto)
 					.addGap(123))
 				.addGroup(gl_panelCentral.createSequentialGroup()
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
@@ -224,8 +225,8 @@ public class PaginaProprietario extends JFrame {
 								.addComponent(lblIdTerreno, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(txtAreaDescrizione, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtIdTerreno, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(txtDescrizione)
+								.addComponent(txtIdTerreno, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(69)
 							.addComponent(lblAggiungiProgetto)))
@@ -252,16 +253,12 @@ public class PaginaProprietario extends JFrame {
 							.addComponent(lblCercaPerStatoProgetto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addGap(20)
-									.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblNomeProgetto)
-										.addComponent(txtNomeProgetto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblDescrizione, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)))
-								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addGap(11)
-									.addComponent(txtAreaDescrizione, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)))
+							.addGap(20)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNomeProgetto)
+								.addComponent(txtNomeProgetto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDescrizione, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtDescrizione, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(14)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
@@ -357,7 +354,7 @@ public class PaginaProprietario extends JFrame {
 	private void clearFields() {
 		txtNomeProgetto.setText(null);
 		txtIdTerreno.setText(null);
-		txtAreaDescrizione.setText(null);
+		txtDescrizione.setText(null);
 		dataInizioChooser.setDate(null);
 		
 	}
