@@ -103,7 +103,12 @@ public class ProgettoDAO {
 				prgProv.setDescrizioneProgetto(rs.getString("desc_prg"));
 				prgProv.setDataFine(rs.getDate("data_fine"));
 				prgProv.setCodeProgetto(rs.getInt("codice_prg"));
-				prgProv.setStatoProgetto(StatoProgetto.valueOf(rs.getString("stato_prg")));
+				if(rs.getString("stato_prg").equalsIgnoreCase("in corso")) {
+					prgProv.setStatoProgetto(StatoProgetto.In_Corso);
+				}else {
+					prgProv.setStatoProgetto(StatoProgetto.valueOf(rs.getString("stato_prg")));
+				}
+				
 				
 				listaProvProgetti.add(prgProv);
 			} 

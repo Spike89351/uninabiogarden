@@ -279,15 +279,16 @@ public class Controller {
 		return proprietarioDAO.trovaCodiceProprietario(username);
 	}
 	
-	//MI SERVE A POPOLARE LA TABELLA CON I PROGETTI, (TUTTI):
-	public void popolaTabellaProgetti() {
-		
-	}
-	
 	//MI SERVE PER CONTROLLARE SE PRIMA DI INSERIRE IL PROGETTO IL TERRENO E' DEL PROPRIETARIO CHE HA FATTO L'ACCESSO:
 	public int ctrlSulProprietarioDelTerreno(int idTerreno) {
 		terrenoDAO = new TerrenoDAO();
 		 return terrenoDAO.trovaProprietarioTramiteTerreno(idTerreno);
+	}
+	
+	//SERVE PER VISUALIZZARE, IN BASE ALLO STATO DI UN PROGETTO, I PROGETTI DI UN PROPRIETARIO:
+	public ArrayList<Progetto> popolaTabellaProgetti(int idProp, String statoPrg){
+		progettoDAO = new ProgettoDAO();
+		return progettoDAO.listaProgettiPerProprietario(idProp, statoPrg);
 	}
 	
 }

@@ -61,7 +61,7 @@ public class PaginaProprietario extends JFrame {
 		
 		setTitle("La tua pagina - Proprietario ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(880, 326);
+		setSize(942, 326);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -112,7 +112,7 @@ public class PaginaProprietario extends JFrame {
 		JLabel lblAggiungiProgetto = new JLabel("Aggiungi progetto");
 		lblAggiungiProgetto.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JPanel panel = new JPanel();
+		JPanel panelTable = new JPanel();
 		
 		JButton btnVisualizzaProgetto = new JButton("Visualizza progetto");
 		btnVisualizzaProgetto.setEnabled(false);
@@ -182,55 +182,68 @@ public class PaginaProprietario extends JFrame {
 		txtIdTerreno = new JTextField();
 		txtIdTerreno.setToolTipText("Inserisci l'id del terreno dove vuoi che il progetto si svolga");
 		txtIdTerreno.setColumns(10);
+		
+		String[] statoProgetto = {"", "Pianificato", "In corso", "Completato"};
+		
+		JComboBox comboBoxStatoProgetto = new JComboBox(statoProgetto);
+		
+		JLabel lblCercaPerStatoProgetto = new JLabel("Cerca per stato del progetto");
+		lblCercaPerStatoProgetto.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
-			gl_panelCentral.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelCentral.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addComponent(lblNomeProgetto)
-							.addGap(18)
-							.addComponent(txtNomeProgetto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addComponent(lblDataInizioProgetto, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(dataInizioChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblDescrizione, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblIdTerreno, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(txtAreaDescrizione)
-						.addComponent(txtIdTerreno, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
-					.addGap(46)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 371, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-				.addGroup(gl_panelCentral.createSequentialGroup()
-					.addGap(69)
-					.addComponent(lblAggiungiProgetto)
-					.addPreferredGap(ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
-					.addComponent(lblElencoProgetti)
-					.addGap(152))
+			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(168)
 					.addComponent(btnCreaProgetto)
-					.addPreferredGap(ComponentPlacement.RELATED, 343, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 405, Short.MAX_VALUE)
 					.addComponent(btnVisualizzaProgetto)
 					.addGap(123))
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(gl_panelCentral.createSequentialGroup()
+									.addComponent(lblNomeProgetto)
+									.addGap(18)
+									.addComponent(txtNomeProgetto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panelCentral.createSequentialGroup()
+									.addComponent(lblDataInizioProgetto, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(dataInizioChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblDescrizione, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblIdTerreno, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(txtAreaDescrizione, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtIdTerreno, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(69)
+							.addComponent(lblAggiungiProgetto)))
+					.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addComponent(lblElencoProgetti)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblCercaPerStatoProgetto)
+							.addGap(18)
+							.addComponent(comboBoxStatoProgetto, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panelTable, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblElencoProgetti)
-						.addComponent(lblAggiungiProgetto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblAggiungiProgetto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblElencoProgetti)
+							.addComponent(comboBoxStatoProgetto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblCercaPerStatoProgetto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panelCentral.createSequentialGroup()
@@ -248,21 +261,24 @@ public class PaginaProprietario extends JFrame {
 									.addComponent(lblIdTerreno, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 									.addComponent(txtIdTerreno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addComponent(dataInizioChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDataInizioProgetto, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(lblDataInizioProgetto, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)))
 					.addGap(28)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnVisualizzaProgetto)
 						.addComponent(btnCreaProgetto))
 					.addContainerGap())
 		);
-		panel.setLayout(new BorderLayout(0, 0));
+		panelTable.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		panel.add(scrollPane, BorderLayout.CENTER);
+		panelTable.add(scrollPane, BorderLayout.CENTER);
 		
 		DefaultTableModel elencoAttributiPrg  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "id progetto", "Nome progetto", "id terreno", "data inizio"}
+				new String[]{ "Id progetto", "Nome progetto", "Id terreno", "Data inizio", "Data fine"}
 			);;
 		
 		table = new JTable(elencoAttributiPrg);
