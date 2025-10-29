@@ -50,7 +50,6 @@ public class ProgettoDAO {
 			
 			ResultSet rs = psmt.executeQuery();
 			while(rs.next()) {
-				System.out.println("Sto nel while");
 				Progetto prgProv = new Progetto(rs.getString("Nome_prg"), rs.getDate("data_inizio"), terr);
 				prgProv.setDescrizioneProgetto(rs.getString("desc_prg"));
 				prgProv.setDataFine(rs.getDate("data_fine"));
@@ -65,5 +64,152 @@ public class ProgettoDAO {
     		return null;
     	}  
 	}
+	
+	//SERVE PER VISUALIZZARE I PROGETTI PER PROPRIETARIO:
+	public ArrayList<Progetto> listaProgettiPerProprietario(int idProprietario, String statoProgetto) {
+		if(statoProgetto.isBlank()) {
+			return listaTuttiProgetti(idProprietario);
+		}
+		if(statoProgetto.equalsIgnoreCase("Pianificato")) {
+			return listaProgettiPianificati(idProprietario);
+		}
+		if(statoProgetto.equalsIgnoreCase("in_corso")) {
+			return listaProgettiInCorso(idProprietario);
+		}
+		if(statoProgetto.equalsIgnoreCase("Completato")) {
+			return listaProgettiCompletati(idProprietario);
+		}
+		return null;
+	}
+	
+//METODI CHE SERVONO PER RICERCARE I PROGETTI IN BASE ALLO STATO DEL PROGETTO:
+	//TUTTI I PROGETTI:
+	private ArrayList<Progetto> listaTuttiProgetti(int idProprietario){
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Progetto AS PROG "
+				+ "JOIN prguninabiogarden.Proprietario AS P "
+				+ "WHERE PROG.id_proprietario = ? ";
+		
+		ArrayList<Progetto> listaProvProgetti = new ArrayList<Progetto>();
+
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(1, idProprietario);
+			
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				Progetto prgProv = new Progetto(rs.getString("Nome_prg"), rs.getDate("data_inizio"), null);
+				prgProv.setDescrizioneProgetto(rs.getString("desc_prg"));
+				prgProv.setDataFine(rs.getDate("data_fine"));
+				prgProv.setCodeProgetto(rs.getInt("codice_prg"));
+				prgProv.setStatoProgetto(StatoProgetto.valueOf(rs.getString("stato_prg")));
+				
+				listaProvProgetti.add(prgProv);
+			} 
+			return listaProvProgetti;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaTuttiProgetti, nella classe TerrenoDAO" + e);
+    		return null;
+    	} 		
+	}
+	
+	//PIANIFCATO:
+	private ArrayList<Progetto> listaProgettiPianificati(int idProp){
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Progetto AS PROG "
+				+ "JOIN prguninabiogarden.Proprietario AS P "
+				+ "WHERE PROG.id_proprietario = ? AND PROG.stato_prg = 'Pianificato' ";
+		
+		ArrayList<Progetto> listaProvProgetti = new ArrayList<Progetto>();
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(1, idProp);
+			
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				Progetto prgProv = new Progetto(rs.getString("Nome_prg"), rs.getDate("data_inizio"), null);
+				prgProv.setDescrizioneProgetto(rs.getString("desc_prg"));
+				prgProv.setDataFine(rs.getDate("data_fine"));
+				prgProv.setCodeProgetto(rs.getInt("codice_prg"));
+				prgProv.setStatoProgetto(StatoProgetto.valueOf(rs.getString("stato_prg")));
+				
+				listaProvProgetti.add(prgProv);
+			} 
+			return listaProvProgetti;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiPianificati, nella classe TerrenoDAO" + e);
+    		return null;
+    	} 
+	}
+	
+	//IN CORSO:
+	private ArrayList<Progetto> listaProgettiInCorso(int idProp){
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Progetto AS PROG "
+				+ "JOIN prguninabiogarden.Proprietario AS P "
+				+ "WHERE PROG.id_proprietario = ? AND PROG.stato_prg = 'In corso' ";
+		
+		ArrayList<Progetto> listaProvProgetti = new ArrayList<Progetto>();
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(1, idProp);
+			
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				Progetto prgProv = new Progetto(rs.getString("Nome_prg"), rs.getDate("data_inizio"), null);
+				prgProv.setDescrizioneProgetto(rs.getString("desc_prg"));
+				prgProv.setDataFine(rs.getDate("data_fine"));
+				prgProv.setCodeProgetto(rs.getInt("codice_prg"));
+				prgProv.setStatoProgetto(StatoProgetto.In_Corso);
+				
+				listaProvProgetti.add(prgProv);
+			} 
+			return listaProvProgetti;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiInCorso, nella classe TerrenoDAO" + e);
+    		return null;
+    	} 		
+	}
+	
+	//COMPLETATI:
+	private ArrayList<Progetto> listaProgettiCompletati(int idProp){
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Progetto AS PROG "
+				+ "JOIN prguninabiogarden.Proprietario AS P "
+				+ "WHERE PROG.id_proprietario = ? AND PROG.stato_prg = 'Completato' ";
+		
+		ArrayList<Progetto> listaProvProgetti = new ArrayList<Progetto>();
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(1, idProp);
+			
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				Progetto prgProv = new Progetto(rs.getString("Nome_prg"), rs.getDate("data_inizio"), null);
+				prgProv.setDescrizioneProgetto(rs.getString("desc_prg"));
+				prgProv.setDataFine(rs.getDate("data_fine"));
+				prgProv.setCodeProgetto(rs.getInt("codice_prg"));
+				prgProv.setStatoProgetto(StatoProgetto.valueOf(rs.getString("stato_prg")));
+				
+				listaProvProgetti.add(prgProv);
+			} 
+			return listaProvProgetti;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiCompletati, nella classe TerrenoDAO" + e);
+    		return null;
+    	} 	
+	}
+	
+//MODIFICA DELLO STATO DEL PROGETTO:
+	//RICORDA CHE NEL DB VA' SEGNATO in corso, INVECE NELLA CLASSE ENUM E' in_corso;
+	
+	
 	
 }
