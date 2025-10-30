@@ -92,6 +92,12 @@ public class ProgettoDAO {
 		
 		ArrayList<Progetto> listaProvProgetti = new ArrayList<Progetto>();
 
+		//elementi prova per capire se posso risalire all'id del progetto:
+		Double prov = 10D;
+		TipoTerreno prov2 = TipoTerreno.Calcareo;
+		Fertilità prov3 =  Fertilità.Bassa;
+		
+		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 		
@@ -100,7 +106,9 @@ public class ProgettoDAO {
 			ResultSet rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				Progetto prgProv = new Progetto(rs.getString("Nome_prg"), rs.getDate("data_inizio"), null);
+				Terreno terr = new Terreno(prov, prov2, prov3);
+				terr.setID_Terreno(rs.getInt("id_terreno"));
+				Progetto prgProv = new Progetto(rs.getString("Nome_prg"), rs.getDate("data_inizio"), terr);
 				prgProv.setDescrizioneProgetto(rs.getString("desc_prg"));
 				prgProv.setDataFine(rs.getDate("data_fine"));
 				prgProv.setCodeProgetto(rs.getInt("codice_prg"));
@@ -110,6 +118,7 @@ public class ProgettoDAO {
 					prgProv.setStatoProgetto(StatoProgetto.valueOf(rs.getString("stato_prg")));
 				}
 				
+				System.out.println("L'id del terreno associato al progetto di codice"+ prgProv.getCodeProgetto()+" è "+terr.getID_Terreno());
 				listaProvProgetti.add(prgProv);
 			} 
 			return listaProvProgetti;
