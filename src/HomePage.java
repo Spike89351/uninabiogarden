@@ -30,6 +30,7 @@ public class HomePage extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
+	private JCheckBox cehckBoxMostraONon;
 
 	public HomePage(Controller c) {
 		theController = c;
@@ -71,6 +72,13 @@ public class HomePage extends JFrame {
 				theController.accediAllaPiattaforma(txtUsername.getText(), txtPassword.getText());
 				//PULIZIA DEI CAMPI DI TESTO:
 				clearFields(txtUsername, txtPassword);
+				
+				//NEL CASO LO SI FOSSE DIMENTICATO:
+				 txtPassword.setEchoChar('*');
+
+			    // 2. Deseleziona la checkbox e reimposta il testo
+			    cehckBoxMostraONon.setSelected(false);
+			    cehckBoxMostraONon.setText("Mostra password");
 			}
 		});
 		
@@ -96,7 +104,7 @@ public class HomePage extends JFrame {
 			}
 		});
 		
-		JCheckBox cehckBoxMostraONon = new JCheckBox("Mostra Password");
+		cehckBoxMostraONon = new JCheckBox("Mostra Password");
 		cehckBoxMostraONon.addItemListener(e -> {
 			if (e.getStateChange() == ItemEvent.SELECTED) {
                 txtPassword.setEchoChar((char) 0);
