@@ -172,10 +172,6 @@ public class ProgettoDAO {
 				prgProv.setCodeProgetto(rs.getInt("codice_prg"));
 				prgProv.setStatoProgetto(StatoProgetto.In_Corso);
 
-				if(listaProvProgetti.size() == 0) {
-					System.out.println("ERROREEEEEEEEEEEEEEEEEEEEEEEEE");
-					return null;
-				}
 				listaProvProgetti.add(prgProv);
 			} 
 			return listaProvProgetti;
