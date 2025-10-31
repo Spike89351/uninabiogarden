@@ -52,28 +52,38 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 		JPanel panelCentral = new JPanel();
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		
-		JLabel lblNewLabel = new JLabel("Dettagli del progetto selezionato");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		JLabel lblDettagliProgetto = new JLabel("Dettagli del progetto selezionato");
+		lblDettagliProgetto.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JPanel panelTable = new JPanel();
+		
+		JLabel lblModificaAggiungiDatiProgetto = new JLabel("Modifica o Aggiungi dei dati al progetto");
+		lblModificaAggiungiDatiProgetto.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
-					.addContainerGap()
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
-						.addComponent(lblNewLabel))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+								.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
+								.addComponent(lblDettagliProgetto)))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(272)
+							.addComponent(lblModificaAggiungiDatiProgetto)))
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblNewLabel)
+					.addComponent(lblDettagliProgetto)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(124, Short.MAX_VALUE))
+					.addGap(18)
+					.addComponent(lblModificaAggiungiDatiProgetto)
+					.addContainerGap(92, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
