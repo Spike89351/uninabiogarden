@@ -31,7 +31,7 @@ public class ProgettoDAO {
 			psmt.executeUpdate();
 			return true;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione InserisciProgetto, nella classe ProgettoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione InserisciProgetto, nella classe ProgettoDAO " + e);
     		return false;
     	}  
 	}
@@ -62,7 +62,7 @@ public class ProgettoDAO {
 			} 
 			return listaProvProgetti;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaDiPorgettiPerTerreno, nella classe ProgettoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaDiPorgettiPerTerreno, nella classe ProgettoDAO " + e);
     		return null;
     	}  
 	}
@@ -91,14 +91,6 @@ public class ProgettoDAO {
 				+ "JOIN prguninabiogarden.Terreno AS T ON PROG.id_terreno = T.id_terreno "
 				+ "WHERE T.id_proprietario = ? ";
 		
-		ArrayList<Progetto> listaProvProgetti = new ArrayList<Progetto>();
-
-		//elementi prova per capire se posso risalire all'id del progetto:
-		Double prov = 10D;
-		TipoTerreno prov2 = TipoTerreno.Calcareo;
-		Fertilità prov3 =  Fertilità.Bassa;
-		
-		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 		
@@ -110,7 +102,7 @@ public class ProgettoDAO {
 				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getInt("Id_terreno")});
 			} 
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaTuttiProgetti, nella classe ProgettoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaTuttiProgetti, nella classe ProgettoDAO " + e);
     	} 		
 	}
 	
@@ -131,7 +123,7 @@ public class ProgettoDAO {
 				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getInt("Id_terreno")});
 			} 
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiPianificati, nella classe ProgettoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiPianificati, nella classe ProgettoDAO " + e);
     	} 
 	}
 	
@@ -152,7 +144,7 @@ public class ProgettoDAO {
 				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getInt("Id_terreno")});
 			} 
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiInCorso, nella classe ProgettoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiInCorso, nella classe ProgettoDAO " + e);
     	} 		
 	}
 	
@@ -173,8 +165,30 @@ public class ProgettoDAO {
 				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getInt("Id_terreno")});
 			} 
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiCompletati, nella classe ProgettoDAO" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiCompletati, nella classe ProgettoDAO " + e);
     	} 	
+	}
+	
+	
+//MI SERVE PER LA 'PaginaVisualizzaDettagliProgetto':
+	public void tuplaDettagliprogetto(int idProgetto, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Progetto AS P "
+				+ "JOIN prguninabiogarden.Terreno AS T ON P.id_terreno = T.id_terreno "
+				+ "WHERE P.codice_prg = ?";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(1, idProgetto);
+			
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getInt("Id_terreno"), rs.getDouble("superfice"), rs.getString("tipo_terreno"), rs.getString("fertilità")});
+			} 
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione tuplaDettagliprogetto, nella classe ProgettoDAO " + e);
+    	} 
 	}
 	
 //MODIFICA DELLO STATO DEL PROGETTO:
