@@ -15,10 +15,15 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JToggleButton;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+
 
 public class PaginaVisualizzaDettagliProgetto extends JFrame {
 	private Controller theController;
@@ -28,6 +33,11 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel colonneName;
+	private String statoPrg;
+	private JComboBox comboBoxNewStatoPrg;
+	private JTextField txtNewNomeProgetto;
+	private java.sql.Date dataInizioPrg;
+	
 	
 	public PaginaVisualizzaDettagliProgetto(Controller c, int idProgetto) {
 		theController = c;
@@ -59,19 +69,47 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 		
 		JLabel lblModificaAggiungiDatiProgetto = new JLabel("Modifica o Aggiungi dei dati al progetto");
 		lblModificaAggiungiDatiProgetto.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblNewLabel = new JLabel("Aggiorna stato progetto");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JLabel lblInserisciLaData = new JLabel("Inserisci la data di fine");
+		lblInserisciLaData.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JDateChooser dateChooser = new JDateChooser();
+		
+		String[] tipoStato = {" ", "In corso", "Completato"};
+		
+		comboBoxNewStatoPrg = new JComboBox(tipoStato);
+		
+		JLabel lblModificaNome = new JLabel("Modifica nome ");
+		lblModificaNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		txtNewNomeProgetto = new JTextField();
+		txtNewNomeProgetto.setColumns(10);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
+						.addComponent(lblDettagliProgetto)
 						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addContainerGap()
+							.addComponent(lblNewLabel)
+							.addGap(18)
+							.addComponent(comboBoxNewStatoPrg, 0, 106, Short.MAX_VALUE)
+							.addGap(37)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-								.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
-								.addComponent(lblDettagliProgetto)))
-						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addGap(272)
-							.addComponent(lblModificaAggiungiDatiProgetto)))
+								.addGroup(gl_panelCentral.createSequentialGroup()
+									.addComponent(lblModificaNome)
+									.addGap(18)
+									.addComponent(txtNewNomeProgetto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(34)
+									.addComponent(lblInserisciLaData, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+								.addComponent(lblModificaAggiungiDatiProgetto))))
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -83,7 +121,16 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(lblModificaAggiungiDatiProgetto)
-					.addContainerGap(92, Short.MAX_VALUE))
+					.addGap(18)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblNewLabel)
+							.addComponent(comboBoxNewStatoPrg, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblModificaNome, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+							.addComponent(txtNewNomeProgetto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblInserisciLaData, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
+						.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(51, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
@@ -111,7 +158,31 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 			}
 		});
 		btnBack.setToolTipText("Premi per tornare indietro");
-		panelBottom.add(btnBack);
+		
+		JButton btnNewButton = new JButton("Modifica");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//CONTROLLO DEI CAMPI + ALTRI CONTROLLI:
+				
+			}
+		});
+		GroupLayout gl_panelBottom = new GroupLayout(panelBottom);
+		gl_panelBottom.setHorizontalGroup(
+			gl_panelBottom.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panelBottom.createSequentialGroup()
+					.addComponent(btnBack)
+					.addPreferredGap(ComponentPlacement.RELATED, 624, Short.MAX_VALUE)
+					.addComponent(btnNewButton))
+		);
+		gl_panelBottom.setVerticalGroup(
+			gl_panelBottom.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelBottom.createSequentialGroup()
+					.addGap(5)
+					.addGroup(gl_panelBottom.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnNewButton)
+						.addComponent(btnBack)))
+		);
+		panelBottom.setLayout(gl_panelBottom);
 		
 		//POPOLA LA TABELLA CON LA TUPLA:
 		try {
@@ -119,6 +190,30 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Errore nell'inserimento della tupla nella tabella");
 		}
+		
+		//PRENDI LO STATO DEL PROGETTO + LA DATA DI INIZIO:
+		if (table.getRowCount() > 0) {
+		    table.setRowSelectionInterval(0, 0); // SELEZIONA LA PRIMA RIGA
+		    int selectedRow = table.getSelectedRow();
+		    if (selectedRow != -1) {
+		        try {
+		        	statoPrg = String.valueOf(table.getValueAt(selectedRow, 4)); //PRENDI LO STATO DEL PROGETTO
+		        	dataInizioPrg = (java.sql.Date) table.getValueAt(selectedRow, 2); //PRENDI LA DATA DI INIZIO DEL PROGETTO
+		        } catch (Exception e) {
+		            JOptionPane.showMessageDialog(null, "Errore nel prelevare lo stato del progetto: " + e);
+		        }
+		    }
+		}
+		
+		
 
+	}
+
+//MEOTDI
+	private boolean ctrlFields() {
+		Date dataOdierna = new Date();
+		java.sql.Date dataCorrenteSql = new java.sql.Date(dataOdierna.getTime());
+		//DEVI PRENDERE ANCHE LA DATA INIZIO PER CONFRONTARLA:
+		return true;
 	}
 }
