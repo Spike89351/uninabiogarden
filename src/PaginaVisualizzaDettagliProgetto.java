@@ -82,7 +82,7 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 		
 		colonneName = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "Id progetto", "Nome progetto", "Data inizio", "Data fine", "Stato progetto", "Id terreno", "Superfice", "Tipo terreno", "Fertilità"}
+				new String[]{ "Id progetto", "Nome", "Data inizio", "Data fine", "Stato progetto", "Id terreno", "Superfice", "Tipo terreno", "Fertilità"}
 			);;
 		
 		table = new JTable(colonneName);
