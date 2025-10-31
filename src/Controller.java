@@ -288,15 +288,7 @@ public class Controller {
 	public void  popolaTabellaProgetti(int idProp, String statoPrg, DefaultTableModel modelTab){
 		modelTab.setRowCount(0);
 		progettoDAO = new ProgettoDAO();
-		ArrayList<Progetto> listaProgetti;
-		listaProgetti = progettoDAO.listaProgettiPerProprietario(idProp, statoPrg);
-		if(! listaProgetti.isEmpty()) {
-			for(Progetto prg : listaProgetti) {
-				modelTab.addRow(new Object[]{prg.getCodeProgetto(), prg.getNomeProgetto(), /*prg.getIdTerreno(),*/ prg.getDataInizio(), prg.getDataFine(), prg.getStatoProgetto()});
-			}
-		}else {
-			JOptionPane.showMessageDialog(null, "Mi dispiace ma non ci sono progetti con lo stato progetto che ha inserito");
-		}
+		progettoDAO.listaProgettiPerProprietario(idProp, statoPrg, modelTab);
 	}
 	
 	//MI SERVE PER ANDARE NELLA PAGINA DOVE POSSO VISUALIZZARE UN PROGETTO IN MODO SPECIFICO E FARE MODIFICHE NEL CASO:

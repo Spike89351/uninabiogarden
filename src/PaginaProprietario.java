@@ -184,7 +184,7 @@ public class PaginaProprietario extends JFrame {
 		txtIdTerreno.setToolTipText("Inserisci l'id del terreno dove vuoi che il progetto si svolga");
 		txtIdTerreno.setColumns(10);
 		
-		String[] statoProgetto = {"", "Pianificato", "In corso", "Completato"};
+		String[] statoProgetto = {"Tutti", "Pianificato", "In corso", "Completato"};
 		
 		comboBoxStatoProgetto = new JComboBox(statoProgetto);
 		comboBoxStatoProgetto.addActionListener(new ActionListener() {
@@ -284,7 +284,7 @@ public class PaginaProprietario extends JFrame {
 		
 		elencoAttributiPrg  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "Id progetto", "Nome progetto", "Data inizio", "Data fine", "Stato progetto"}
+				new String[]{ "Id progetto", "Nome progetto", "Data inizio", "Data fine", "Stato progetto", "Id terreno"}
 			);;
 		
 		table = new JTable(elencoAttributiPrg);
