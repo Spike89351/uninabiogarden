@@ -261,6 +261,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				btnVisualizzaTerreno.setEnabled(false);
+				theController.paginaProprietario.setVisible(true);
 				theController.paginaProprietario.setEnabled(true);
 			}
 		});
