@@ -33,6 +33,7 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel colonneName;
+	private JDateChooser dateChooser;
 	private String statoPrg;
 	private JComboBox comboBoxNewStatoPrg;
 	private JTextField txtNewNomeProgetto;
@@ -76,7 +77,7 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 		JLabel lblInserisciLaData = new JLabel("Inserisci la data di fine");
 		lblInserisciLaData.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JDateChooser dateChooser = new JDateChooser();
+		dateChooser = new JDateChooser();
 		
 		String[] tipoStato = {" ", "In corso", "Completato"};
 		
@@ -211,8 +212,19 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 
 //MEOTDI
 	private boolean ctrlFields() {
+		//CONTROLLO DELLA DATA FINE DEL PROGETTO:
 		Date dataOdierna = new Date();
 		java.sql.Date dataCorrenteSql = new java.sql.Date(dataOdierna.getTime());
+		if(dateChooser.getDate().compareTo(dataCorrenteSql) <= 0) {
+			JOptionPane.showMessageDialog(null, "Errore, la data di fine del progetto non può essere prima, o uguale, alla data corrente!");
+			return false;
+		}
+		//CONTROLLO DELLO STATO DEL PROGETTO:
+		if(statoPrg.equals(String.valueOf(comboBoxNewStatoPrg.getSelectedItem()))) {
+			
+		}
+		
+		
 		//DEVI PRENDERE ANCHE LA DATA INIZIO PER CONFRONTARLA:
 		return true;
 	}
