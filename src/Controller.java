@@ -317,7 +317,7 @@ public class Controller {
 		//DATA:
 		progettoDAO.inserisciDataFine(dataFinePrg, codiceProgetto);
 		//STATO:
-		
+		progettoDAO.modificaStatoProgetto(statoProgetto, codiceProgetto);
 	}
 	
 //PER IL LOGOUT:
