@@ -191,6 +191,7 @@ public class ProgettoDAO {
     	} 
 	}
 	
+//METODI CHE SERVONO PER LA MODIFICA DI UN PROGETTO:
 	//AGGIUNTA DELLA DATA DI FINE:
 	public void inserisciDataFine(java.sql.Date dataFine, int codicePrg) {
 		String sql = "UPDATE prguninabiogarden.Progetto "
@@ -207,12 +208,43 @@ public class ProgettoDAO {
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione inserisciDataFine, nella classe ProgettoDAO " + e);
     	} 
-		
 	}
 	
+	//MODIFICA DEL NOME DI UN PROGETTO:
+	public void modificaNomeProgetto(String newNomeProgetto, int codicePrg) {
+		String sql = "UPDATE prguninabiogarden.Progetto "
+				+ "SET nome_prg = ? "
+				+ "WHERE codice_prg = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setString(1, newNomeProgetto);
+			psmt.setInt(2, codicePrg);
+			
+			psmt.executeUpdate();
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione modificaNomeProgetto, nella classe ProgettoDAO " + e);
+    	} 
+	}
 //MODIFICA DELLO STATO DEL PROGETTO:
 	//RICORDA CHE NEL DB VA' SEGNATO in corso, INVECE NELLA CLASSE ENUM E' in_corso;
-	
+	public void modificaStatoProgetto(String newStatoPorgetto, int codicePrg) {
+		String sql = "UPDATE prguninabiogarden.Progetto "
+				+ "SET stato_prg = ? "
+				+ "WHERE codice_prg = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setString(1, newStatoPorgetto);
+			psmt.setInt(2, codicePrg);
+			
+			psmt.executeUpdate();
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione modificaStatoProgetto, nella classe ProgettoDAO " + e);
+    	}
+	}
 	
 	
 }

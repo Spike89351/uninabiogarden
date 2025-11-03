@@ -32,9 +32,9 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
-	private DefaultTableModel colonneName;
+	private DefaultTableModel modelTable;
 	private JDateChooser dateChooser;
-	private String statoPrg;
+	private String statoAttPrg;
 	private JComboBox comboBoxNewStatoPrg;
 	private JTextField txtNewNomeProgetto;
 	private java.sql.Date dataInizioPrg;
@@ -138,12 +138,12 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		panelTable.add(scrollPane, BorderLayout.CENTER);
 		
-		colonneName = new DefaultTableModel(
+		modelTable = new DefaultTableModel(
 				new Object[][]{},
 				new String[]{ "Id progetto", "Nome", "Data inizio", "Data fine", "Stato progetto", "Id terreno", "Superfice", "Tipo terreno", "Fertilità"}
 			);;
 		
-		table = new JTable(colonneName);
+		table = new JTable(modelTable);
 		scrollPane.setColumnHeaderView(table);
 		scrollPane.setViewportView(table);
 		panelCentral.setLayout(gl_panelCentral);
@@ -156,6 +156,8 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				theController.paginaProprietario.setVisible(true);
+				//PULISCI I CAMPI: 
+				clearFields();
 			}
 		});
 		btnBack.setToolTipText("Premi per tornare indietro");
@@ -164,7 +166,13 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//CONTROLLO DEI CAMPI + ALTRI CONTROLLI:
-				
+				if(ctrlFields()) {
+					theController.modificaDatiProgetto(idProgetto, txtNewNomeProgetto.getText(),(java.sql.Date) dateChooser.getDate(), String.valueOf(comboBoxNewStatoPrg.getSelectedItem()));
+				}
+				//AGGIORNA TABELLA CON I DATI DELLA TUPLA:
+				theController.inserisciInTabellaLaTuplaDaVisualizzare(idProgetto, modelTable);
+				//PULISCI I CAMPI:
+				clearFields();
 			}
 		});
 		GroupLayout gl_panelBottom = new GroupLayout(panelBottom);
@@ -187,7 +195,7 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 		
 		//POPOLA LA TABELLA CON LA TUPLA:
 		try {
-			theController.inserisciINTabellaLaTuplaDaVisualizzare(idProgetto, colonneName);
+			theController.inserisciInTabellaLaTuplaDaVisualizzare(idProgetto, modelTable);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Errore nell'inserimento della tupla nella tabella");
 		}
@@ -198,10 +206,13 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 		    int selectedRow = table.getSelectedRow();
 		    if (selectedRow != -1) {
 		        try {
-		        	statoPrg = String.valueOf(table.getValueAt(selectedRow, 4)); //PRENDI LO STATO DEL PROGETTO
+		        	//SELEZIONO LO STATO ATTUALE DEL PROGETTO:
+		        	statoAttPrg = String.valueOf(table.getValueAt(selectedRow, 4)); //PRENDI LO STATO DEL PROGETTO
+		        	
+		        	//SELZIONO LA DATA DI INIZIO DEL PROGETTO:
 		        	dataInizioPrg = (java.sql.Date) table.getValueAt(selectedRow, 2); //PRENDI LA DATA DI INIZIO DEL PROGETTO
 		        } catch (Exception e) {
-		            JOptionPane.showMessageDialog(null, "Errore nel prelevare lo stato del progetto: " + e);
+		            JOptionPane.showMessageDialog(null, "Errore nel prelevare i dati del progetto: " + e);
 		        }
 		    }
 		}
@@ -219,14 +230,35 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 			JOptionPane.showMessageDialog(null, "Errore, la data di fine del progetto non può essere prima, o uguale, alla data corrente!");
 			return false;
 		}
-		//CONTROLLO DELLO STATO DEL PROGETTO:
-		if(statoPrg.equals(String.valueOf(comboBoxNewStatoPrg.getSelectedItem())) && dateChooser.getDate() != null) {
-			JOptionPane.showMessageDialog(null, "Errore, non puoi cambiare lo stato del progetto e inserire la data di fine del progetto");
+		if(dateChooser.getDate().compareTo(dataInizioPrg) <= 0) {
+			JOptionPane.showMessageDialog(null, "Errore, la data di fine del progetto selezionato non può essere uguale o precedente alla data di inizio del progetto!");
 			return false;
 		}
-		
-		
-		//DEVI PRENDERE ANCHE LA DATA INIZIO PER CONFRONTARLA:
+		//CONTROLLO DELLO STATO DEL PROGETTO + OMBINAZIONI:
+		if(String.valueOf(comboBoxNewStatoPrg.getSelectedItem()).equals(statoAttPrg)) {			
+			JOptionPane.showMessageDialog(null, "Errore, lo stato inserito del prgetto non può essere uguale allo stato attuale!");
+			return false;
+		}
+		if(String.valueOf(comboBoxNewStatoPrg.getSelectedItem()).equalsIgnoreCase("In corso") && dateChooser.getDate() != null) {
+			JOptionPane.showMessageDialog(null, "Errore, non puoi avere lo stato del progetto in 'in corso' e aggiungere una data di fine del progetto");
+			return false;
+		}
+		if(String.valueOf(comboBoxNewStatoPrg.getSelectedItem()).isBlank() && dateChooser.getDate() != null) {
+			JOptionPane.showMessageDialog(null, "Errore, non puoi inserire la data di fine del progetto senza cambiare lo stato in 'Completato'! ");
+			return false;
+		}
+		if(String.valueOf(comboBoxNewStatoPrg.getSelectedItem()).equalsIgnoreCase("Completato") && dateChooser.getDate() == null) {
+			JOptionPane.showMessageDialog(null, "Errore, non puoi inserire lo stato progetto  'Completato' senza avdr inserito una data di fine!");
+			return false;
+		}
 		return true;
 	}
+	
+	//PULISCI I CAMPI:
+	public void clearFields() {
+		txtNewNomeProgetto.setText(null);
+		dateChooser.setDate(null);
+		comboBoxNewStatoPrg.setSelectedItem(null);
+	}
+	
 }

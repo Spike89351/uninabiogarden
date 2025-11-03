@@ -298,11 +298,26 @@ public class Controller {
 		paginaDettagliProgetto = new PaginaVisualizzaDettagliProgetto(this, idProgetto);
 		paginaDettagliProgetto.setVisible(true);
 	}
-	
+
+//METODI CHE SERVONO PER LA PAGINA DOVE SI VUOLE MODIFICARE UN PROGETTO:
 	//POPOLA TABELLA:
 	public void inserisciInTabellaLaTuplaDaVisualizzare(int idProgetto, DefaultTableModel model) {
 		progettoDAO = new ProgettoDAO();
 		progettoDAO.tuplaDettagliprogetto(idProgetto, model);
+	}
+	
+	//MODIFICA DI ALCUNI DATI DEL PROGETTO:
+	public void modificaDatiProgetto(int codiceProgetto, String newNomeProgetto, java.sql.Date dataFinePrg, String statoProgetto) {
+		progettoDAO = new ProgettoDAO();
+		//MODIFICA DEL NOME DEL PROGETTO SE E SOLO SE LA STRINGA INSERITA NON E' VUOTA:
+		if(! newNomeProgetto.isBlank()) {
+			progettoDAO.modificaNomeProgetto(newNomeProgetto, codiceProgetto);
+		}
+		//INSERIMENTO ALTRI DATI GIA' CONTROLLATI:
+		//DATA:
+		progettoDAO.inserisciDataFine(dataFinePrg, codiceProgetto);
+		//STATO:
+		
 	}
 	
 //PER IL LOGOUT:
