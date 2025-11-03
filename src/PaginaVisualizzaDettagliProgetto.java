@@ -220,8 +220,9 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 			return false;
 		}
 		//CONTROLLO DELLO STATO DEL PROGETTO:
-		if(statoPrg.equals(String.valueOf(comboBoxNewStatoPrg.getSelectedItem()))) {
-			
+		if(statoPrg.equals(String.valueOf(comboBoxNewStatoPrg.getSelectedItem())) && dateChooser.getDate() != null) {
+			JOptionPane.showMessageDialog(null, "Errore, non puoi cambiare lo stato del progetto e inserire la data di fine del progetto");
+			return false;
 		}
 		
 		
