@@ -300,7 +300,7 @@ public class Controller {
 	}
 	
 	//POPOLA TABELLA:
-	public void inserisciINTabellaLaTuplaDaVisualizzare(int idProgetto, DefaultTableModel model) {
+	public void inserisciInTabellaLaTuplaDaVisualizzare(int idProgetto, DefaultTableModel model) {
 		progettoDAO = new ProgettoDAO();
 		progettoDAO.tuplaDettagliprogetto(idProgetto, model);
 	}
