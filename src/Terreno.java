@@ -9,13 +9,14 @@ public class Terreno {
     private ArrayList<Progetto> Project = new ArrayList<Progetto>();
     private ArrayList<TipoAttivita> TipoAttivita = new ArrayList<TipoAttivita>();
    // private ArrayList<String> StoricoColtura = new ArrayList<String>();
-
+    private Deposito deposito;
 
     //COSTRUTTORE:
-    Terreno(double superficie, TipoTerreno TipologiaTerreno, Fertilità fertTerr) {
+    Terreno(double superficie, TipoTerreno TipologiaTerreno, Fertilità fertTerr, Deposito dep) {
         this.superficie = superficie;
         this.TipologiaTerreno = TipologiaTerreno;
         this.fertTerreno = fertTerr;
+        this.deposito = dep;
     }
 
     //GETTERS:

@@ -265,7 +265,7 @@ public class Controller {
 		
 	}
 
-	//METODO CHE SERVE PER PASSARE DALLA VISUALIZZAZIONE DEL TERRENO SPECIFICO ALLA APGINA 'ALTRI DETTAGLI':
+	//METODO CHE SERVE PER PASSARE DALLA VISUALIZZAZIONE DEL TERRENO SPECIFICO ALLA PAGINA 'ALTRI DETTAGLI':
 	public void daPaginaVisualizzaDettagliTerrenoToAltriDettagli(int idTerreno) {
 		
 	}
@@ -339,7 +339,9 @@ public class Controller {
 	}
 	
 //METODI CHE SERVONO PER LA PAGINA DEPOSITO:
-	
+	public void daPaginaProprietarioToPaginaDeposito() {
+		
+	}
 	
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	
