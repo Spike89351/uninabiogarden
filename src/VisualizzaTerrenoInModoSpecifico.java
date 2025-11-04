@@ -30,6 +30,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private JTable table;
 	private DefaultTableModel modelProgetto;
 	private Terreno terrSelezionato;
+	private final JButton btnVisualizzaAltriDettagli = new JButton("Altri dettagli");
 	
 	public VisualizzaTerrenoInModoSpecifico(Controller c, String idTerreno) {
 		theController = c;
@@ -161,7 +162,15 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 				daPaginaVisualizzaTerrenoA();				
 			}
 		});
-		panelBottom.add(btnBack);
+		panelBottom.setLayout(new BorderLayout(0, 0));
+		panelBottom.add(btnBack, BorderLayout.WEST);
+		btnVisualizzaAltriDettagli.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//DEVO POTER VISUALIZZARE IL TIPO DI ATTIVITA' CHE SI STA FACENDO:
+				
+			}
+		});
+		panelBottom.add(btnVisualizzaAltriDettagli, BorderLayout.EAST);
 		
 		try {
 			theController.popolaTabellaProgettiPerTerreno(idTerreno);

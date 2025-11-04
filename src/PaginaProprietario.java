@@ -107,6 +107,12 @@ public class PaginaProprietario extends JFrame {
 			}
 		});
 		menùDatiUtente.add(menuItemisualizzaDati);
+		
+		JMenu menuDeposito = new JMenu("Deposito");
+		menuBar.add(menuDeposito);
+		
+		JMenuItem menuVisualizzaEAggiungiDeposito = new JMenuItem("Visualizza e aggiungi deposito");
+		menuDeposito.add(menuVisualizzaEAggiungiDeposito);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
