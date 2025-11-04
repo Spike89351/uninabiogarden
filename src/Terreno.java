@@ -23,7 +23,6 @@ public class Terreno {
     public int getID_Terreno() {
     	return ID_Terreno;
     }
-   
     public Proprietario getProp() {
         return Prop;
     }
@@ -39,9 +38,6 @@ public class Terreno {
     public ArrayList<Progetto> getProject() {
         return Project;
     }
-//    public ArrayList<String> getStoricoColtura() {
-//        return StoricoColtura;
-//    }
     public ArrayList<TipoAttivita> getTipoAttivita() {
         return TipoAttivita;
     }
