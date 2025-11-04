@@ -46,7 +46,8 @@ public class TerrenoDAO {
 			ResultSet rs = psmt.executeQuery();
 			
 			if(rs.next()) {
-				Terreno terProv = new Terreno(rs.getDouble("superfice"), TipoTerreno.valueOf(rs.getString("tipo_terreno")), Fertilità.valueOf(rs.getString("fertilità")));
+				Deposito dep = null;
+				Terreno terProv = new Terreno(rs.getDouble("superfice"), TipoTerreno.valueOf(rs.getString("tipo_terreno")), Fertilità.valueOf(rs.getString("fertilità")), dep);
 				return terProv;
 			} 
     	}catch(Exception e) {
@@ -56,7 +57,9 @@ public class TerrenoDAO {
 		return null;
 	}
 	
-	//SERVE PER RISALIRE ALLA LISTA DEI TERRENI DI UN PROPRIETARIO:
+//	SERVE PER RISALIRE ALLA LISTA DEI TERRENI DI UN PROPRIETARIO: 
+	
+	//FORSE DEVI USARE UN MODEL DIRETTAMENTE SENZA USARE L'ARRAYLIST:
 	public ArrayList<Terreno> risaliTerreni(String username) {
 		ArrayList<Terreno> listaTerreni = new ArrayList<Terreno>();
 		
@@ -70,7 +73,8 @@ public class TerrenoDAO {
 				ResultSet rs = psmt.executeQuery();
     		
                while(rs.next()) {
-                	Terreno terreno = new Terreno(rs.getDouble(4), TipoTerreno.valueOf(rs.getString(5)), Fertilità.valueOf(rs.getString(6)));
+            	   	Deposito dep = null;
+                	Terreno terreno = new Terreno(rs.getDouble(4), TipoTerreno.valueOf(rs.getString(5)), Fertilità.valueOf(rs.getString(6)), dep);
                 	terreno.setID_Terreno(rs.getInt(3));
                 	listaTerreni.add(terreno);
                 }

@@ -9,10 +9,13 @@ public class Deposito {
     private Fertilizzante fertilizzante;
     private ArrayList<Coltura> elencoColture = new ArrayList<Coltura>();
     private ArrayList<Attrezzo> elencoAttrezzi = new ArrayList<Attrezzo>();
-
-    Deposito(String indirizzo, Double dimensione){
+    private Proprietario prop;
+    
+    
+    Deposito(String indirizzo, Double dimensione, Proprietario prop){
     	this.indirizzo = indirizzo;
     	this.dimDeposito = dimensione;
+    	this.prop = prop;
     }
 
 //GETTERS:
