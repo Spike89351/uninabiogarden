@@ -167,7 +167,13 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//CONTROLLO DEI CAMPI + ALTRI CONTROLLI:
 				if(ctrlFields()) {
-					theController.modificaDatiProgetto(idProgetto, txtNewNomeProgetto.getText(),(java.sql.Date) dateChooser.getDate(), String.valueOf(comboBoxNewStatoPrg.getSelectedItem()));
+					try {
+						//CAST:
+						java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
+						theController.modificaDatiProgetto(idProgetto, txtNewNomeProgetto.getText(), sqlDate, String.valueOf(comboBoxNewStatoPrg.getSelectedItem()));
+					}catch(Exception xxx) {
+						System.out.println("Errore nel try catch nella pagina per visualizzare i deettagli del progetto");
+					}
 				}
 				//AGGIORNA TABELLA CON I DATI DELLA TUPLA:
 				theController.inserisciInTabellaLaTuplaDaVisualizzare(idProgetto, modelTable);
@@ -226,13 +232,15 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 		//CONTROLLO DELLA DATA FINE DEL PROGETTO:
 		Date dataOdierna = new Date();
 		java.sql.Date dataCorrenteSql = new java.sql.Date(dataOdierna.getTime());
-		if(dateChooser.getDate().compareTo(dataCorrenteSql) <= 0) {
-			JOptionPane.showMessageDialog(null, "Errore, la data di fine del progetto non può essere prima, o uguale, alla data corrente!");
-			return false;
-		}
-		if(dateChooser.getDate().compareTo(dataInizioPrg) <= 0) {
-			JOptionPane.showMessageDialog(null, "Errore, la data di fine del progetto selezionato non può essere uguale o precedente alla data di inizio del progetto!");
-			return false;
+		if(dateChooser.getDate() != null) {
+			if(dateChooser.getDate().compareTo(dataCorrenteSql) <= 0) {
+				JOptionPane.showMessageDialog(null, "Errore, la data di fine del progetto non può essere prima, o uguale, alla data corrente!");
+				return false;
+			}
+			if(dateChooser.getDate().compareTo(dataInizioPrg) <= 0) {
+				JOptionPane.showMessageDialog(null, "Errore, la data di fine del progetto selezionato non può essere uguale o precedente alla data di inizio del progetto!");
+				return false;
+			}
 		}
 		//CONTROLLO DELLO STATO DEL PROGETTO + OMBINAZIONI:
 		if(String.valueOf(comboBoxNewStatoPrg.getSelectedItem()).equals(statoAttPrg)) {			

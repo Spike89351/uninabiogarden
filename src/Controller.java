@@ -302,6 +302,7 @@ public class Controller {
 //METODI CHE SERVONO PER LA PAGINA DOVE SI VUOLE MODIFICARE UN PROGETTO:
 	//POPOLA TABELLA:
 	public void inserisciInTabellaLaTuplaDaVisualizzare(int idProgetto, DefaultTableModel model) {
+		model.setRowCount(0);
 		progettoDAO = new ProgettoDAO();
 		progettoDAO.tuplaDettagliprogetto(idProgetto, model);
 	}
@@ -318,6 +319,12 @@ public class Controller {
 		progettoDAO.inserisciDataFine(dataFinePrg, codiceProgetto);
 		//STATO:
 		progettoDAO.modificaStatoProgetto(statoProgetto, codiceProgetto);
+	}
+	
+	//CONTROLLO LO STATO DEL PROGETTO:
+	public String ctrlStatoProgetto(int idTerreno) {
+		progettoDAO = new ProgettoDAO();
+		return progettoDAO.ctrlStatoProgetto(idTerreno);
 	}
 	
 //PER IL LOGOUT:

@@ -246,5 +246,27 @@ public class ProgettoDAO {
     	}
 	}
 	
+	//CONTROLLO DELLO STATO DEL PROGETTO:
+	public String ctrlStatoProgetto(int idTerreno) {
+		String sql = "SELECT PROG.stato_prg "
+				+ "FROM prguninabiogarden.Progetto AS PROG "
+				+ "JOIN prguninabiogarden.Terreno AS T ON PROG.id_terreno = T.id_terreno "
+				+ "WHERE T.id_terreno = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(1, idTerreno);
+			
+			ResultSet rs = psmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString("stato_prg");
+			}
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione ctrlStatoProgetto, nella classe ProgettoDAO " + e);
+    		return "";
+    	}	
+		return "";
+	}
 	
 }
