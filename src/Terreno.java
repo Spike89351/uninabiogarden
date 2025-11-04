@@ -61,9 +61,6 @@ public class Terreno {
     public void setProject(ArrayList<Progetto> Project) {
         this.Project = Project;
     }
-//    public void setStoricoColtura(ArrayList<String> StoricoColtura) {
-//        this.StoricoColtura = StoricoColtura;
-//    }
     public void setTipoAttivita(ArrayList<TipoAttivita> TipoAttivita) {
         this.TipoAttivita = TipoAttivita;
     }
