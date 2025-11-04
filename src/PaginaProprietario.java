@@ -307,7 +307,6 @@ public class PaginaProprietario extends JFrame {
 						JOptionPane.showMessageDialog(null, "Errore nel cast dell'id del progetto");
 					}
 				}
-				
 				//SBLOCCA IL PULSANTE PER VISUALIZZARE I DETTAGLI DEL PROGETTO:
 				btnVisualizzaProgetto.setEnabled(true);
 			}
