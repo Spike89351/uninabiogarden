@@ -38,6 +38,8 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import javax.swing.JTextArea;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class PaginaProprietario extends JFrame {
 	private Controller theController;
@@ -58,6 +60,18 @@ public class PaginaProprietario extends JFrame {
 	
 	public PaginaProprietario(String username, Controller c) {
 		theController = c;
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				//POPOLIAMO LA TABELLA CON TUTTI I PROGETTI:
+				try {
+					theController.popolaTabellaProgetti(idProprietario, String.valueOf(comboBoxStatoProgetto.getSelectedItem()), elencoAttributiPrg);
+				}catch(Exception x) {
+					JOptionPane.showMessageDialog(null, "Errore nell'aggiornamento della pagina" + x);
+				}
+			}
+		});
 		
 		idProprietario = theController.trovaProprietarioTramiteUsername(username);
 		
