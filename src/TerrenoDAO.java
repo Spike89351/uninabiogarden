@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class TerrenoDAO {
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
@@ -58,13 +59,12 @@ public class TerrenoDAO {
 		return null;
 	}
 	
-//	SERVE PER RISALIRE ALLA LISTA DEI TERRENI DI UN PROPRIETARIO: 
-	
-	//FORSE DEVI USARE UN MODEL DIRETTAMENTE SENZA USARE L'ARRAYLIST:
-	public ArrayList<Terreno> risaliTerreni(String username) {
-		ArrayList<Terreno> listaTerreni = new ArrayList<Terreno>();
-		
-		String sql = "SELECT * FROM prguninabiogarden.Terreno AS T JOIN prguninabiogarden.Proprietario AS P ON T.id_proprietario = P.id_proprietario WHERE P.Username = ?";
+//SERVE PER RISALIRE ALLA LISTA DEI TERRENI DI UN PROPRIETARIO: 
+	public void risaliTerreni(String username, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Terreno AS T "
+				+ "JOIN prguninabiogarden.Proprietario AS P ON T.id_proprietario = P.id_proprietario "
+				+ "WHERE P.Username = ? ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -72,19 +72,12 @@ public class TerrenoDAO {
 				psmt.setString(1, username);
 				
 				ResultSet rs = psmt.executeQuery();
-    		
-               while(rs.next()) {
-            	   	Deposito dep = null;
-                	Terreno terreno = new Terreno(rs.getDouble(4), TipoTerreno.valueOf(rs.getString(5)), Fertilità.valueOf(rs.getString(6)), dep);
-                	terreno.setID_Terreno(rs.getInt(3));
-                	listaTerreni.add(terreno);
+				
+				while(rs.next()) {
+					model.addRow(new Object[]{rs.getInt("id_terreno"), rs.getDouble("superfice"), rs.getString("tipo_terreno"), rs.getString("fertilità")});
                 }
-                
-                return listaTerreni;
-            
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella CLASSE TerrenoDAO, funzione: risaliTerreni" + e);
-    		return null;
     	} 
 	}
 	

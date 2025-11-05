@@ -233,14 +233,7 @@ public class Controller {
 	public void popolaTabellaTerreni(String username, DefaultTableModel modelTab) {
 		modelTab.setRowCount(0);
 		terrenoDAO = new TerrenoDAO();
-		ArrayList<Terreno> listaTerre = terrenoDAO.risaliTerreni(username);
-		if(listaTerre.size() <= 0) {
-			JOptionPane.showMessageDialog(null, "La tua lista di terre è vuote");//IMPOSSIBILE!
-		}else {
-			for(Terreno terr : listaTerre) {
-				modelTab.addRow(new Object[]{ terr.getID_Terreno(), terr.getSuperficie(), terr.getTipologiaTerreno(), terr.getfertTerreno()});
-			}
-		}
+		terrenoDAO.risaliTerreni(username, modelTab);
 	}
 	
 	//SERVE AD AGGIUNGERE UN TERRENO AL PROPRIETARIO: (NEL CASO BISOGNEREBBE AGGIORNARE ANCHE L'ARRAYLIST)
