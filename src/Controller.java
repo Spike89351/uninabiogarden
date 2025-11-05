@@ -30,6 +30,7 @@ public class Controller {
 	private StatoNotifica statoNotifica;
 	private Importanza importanza;
 	private Deposito depposito;
+	private DepositoDAO depositoDAO;
 	private Fertilizzante fertilizzanti;
 	private Coltura coltura;
 	private Attrezzo attrezzo;
@@ -47,6 +48,7 @@ public class Controller {
 	public PaginaColtivatore paginaColtivatore;
 	public VisualizzaTerrenoInModoSpecifico paginaTerrenoSpecifico;
 	public PaginaVisualizzaDettagliProgetto paginaDettagliProgetto;
+	public PaginaDeposito paginaDeposito;
 	
 	//FINESTRE:
 	public FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
@@ -339,9 +341,27 @@ public class Controller {
 	}
 	
 //METODI CHE SERVONO PER LA PAGINA DEPOSITO:
-	public void daPaginaProprietarioToPaginaDeposito() {
-		
+	public void daPaginaProprietarioToPaginaDeposito(int idProprietario) {
+		paginaProprietario.setVisible(false);
+
+		paginaDeposito = new PaginaDeposito(this, idProprietario);
+		paginaDeposito.setVisible(true);
 	}
+	
+	//MI SERVE PER LA CREAZIONE DI UN DEPOSITO:
+	public void creaDeposito(int idProp, String indirizzo, double dimensione) {
+		depositoDAO = new DepositoDAO();
+		depositoDAO.creaDeposito(idProp, indirizzo, dimensione);
+	}
+	
+	//POPOLA TABELLA CON I DEPOSITI:
+	public void popolaTabellaDepositi(int idPropr, DefaultTableModel model) {
+		model.setRowCount(0);
+		depositoDAO = new DepositoDAO();
+		depositoDAO.popolaTabellaDepositi( idPropr, model);
+	}
+	
+	
 	
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	

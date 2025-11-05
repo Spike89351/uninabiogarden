@@ -3,14 +3,22 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.BorderLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PaginaDeposito extends JFrame {
 	private Controller theController;
@@ -18,6 +26,9 @@ public class PaginaDeposito extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
+	private JTextField txtDimensione;
+	private JTextField txtIndirizzo;
+	private DefaultTableModel model;
 
 	
 	public PaginaDeposito(Controller c, int idProprietario) {
@@ -49,17 +60,58 @@ public class PaginaDeposito extends JFrame {
 		
 		JLabel lblAggiungiDeposito = new JLabel("Aggiungi un deposito");
 		lblAggiungiDeposito.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblIndirizzo = new JLabel("Indirizzo");
+		lblIndirizzo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblDimensione = new JLabel("Dimensione");
+		lblDimensione.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		txtDimensione = new JTextField();
+		txtDimensione.setColumns(10);
+		
+		txtIndirizzo = new JTextField();
+		txtIndirizzo.setColumns(10);
+		
+		JButton btnAggiungiDeposito = new JButton("Crea Deposito");
+		btnAggiungiDeposito.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(ctrlText()) {
+					//CREAZIONE DI UN DEPOSITO:
+					theController.creaDeposito(idProprietario, txtIndirizzo.getText(), Double.valueOf(txtDimensione.getText()));
+					
+					//AGGIORNAMENTO DELLA TABELLA DEI DEPOSITI:
+					theController.popolaTabellaDepositi(idProprietario, model);
+					
+					//PULIZIA DEI CAMPI:
+					clearFields();
+				}
+			}
+		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
-			gl_panelCentral.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
+			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(58)
 					.addComponent(lblAggiungiDeposito)
 					.addPreferredGap(ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
 					.addComponent(lblElencoDepositi)
 					.addGap(98))
-				.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
-					.addContainerGap(282, Short.MAX_VALUE)
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblIndirizzo)
+								.addComponent(lblDimensione))
+							.addGap(18)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+								.addComponent(txtDimensione, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(45)
+							.addComponent(btnAggiungiDeposito)))
+					.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
 					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
@@ -70,8 +122,21 @@ public class PaginaDeposito extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblElencoDepositi)
 						.addComponent(lblAggiungiDeposito, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(14)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblIndirizzo)
+								.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblDimensione, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtDimensione, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(btnAggiungiDeposito)))
 					.addContainerGap(70, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
@@ -79,12 +144,71 @@ public class PaginaDeposito extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		panelTable.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
+		model  = new DefaultTableModel(
+				new Object[][]{},
+				new String[]{"Id deposito", "Indirizzo", "Dimensione"}
+			);
+		
+		table = new JTable(model);
 		scrollPane.setColumnHeaderView(table);
+		scrollPane.setViewportView(table);
 		panelCentral.setLayout(gl_panelCentral);
 		
 		JPanel paneBottom = new JPanel();
 		contentPane.add(paneBottom, BorderLayout.SOUTH);
+		paneBottom.setLayout(new BorderLayout(0, 0));
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//PULISCI I CAMPI:
+				clearFields();
+			}
+		});
+		paneBottom.add(btnBack, BorderLayout.WEST);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//PULISCI I CAMPI:
+				clearFields();
+			}
+		});
+		paneBottom.add(btnNewButton_1, BorderLayout.EAST);
+		
+		//POPOLA TABELLA CON I DEPOSITI:
+		try {
+			theController.popolaTabellaDepositi(idProprietario, model);
+		}catch(Exception x) {
+			JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei depositi!");
+		}
+		
+	}
 
+//METODI:
+	//PULISICI I CAMPI DI TESTO:
+	private void clearFields() {
+		txtIndirizzo.setText(null);
+		txtDimensione.setText(null);
+	}
+	
+	private boolean ctrlText() {
+		//CONTROLLO SE L'INDIRIZZO E' DI UN CERTO FORMATO:
+		if(txtIndirizzo.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Errore, il campo di testo indirizzo non può essere vuoto!");
+			return false;
+		}else {
+			if(! txtIndirizzo.getText().matches("^[A-Za-z\\s]+,\\s\\d{1,4}[A-Za-z]?,\\s\\d{5}\\s[A-Za-z\\s]+\\s\\([A-Z]{2}\\)$")) {
+				JOptionPane.showMessageDialog(null, "Errore il formato dell'indirizzo è errato!");
+				return false;
+			}
+		}
+		if(Double.valueOf(txtDimensione.getText()) <= 0) {
+			JOptionPane.showMessageDialog(null, "Errore, la dimensione del deposito non può essere minore o uguale a 0!");
+			return false;
+		}
+		return true;
 	}
 }
