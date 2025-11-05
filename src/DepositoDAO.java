@@ -14,7 +14,7 @@ public class DepositoDAO {
 	
 	//SERVE PER LA CREAZIONE DI UN DEPOSITO:
 	public void creaDeposito(int idProprietario, String indirizzo, Double dimensione) {
-		String sql = "INSERRT INTO prguninbiogarden.Deposito(id_terreno, indirizzo_deposito, dim_deposito)"
+		String sql = "INSERT INTO prguninbiogarden.Deposito(id_terreno, indirizzo_deposito, dim_deposito)"
 				+ "VALUES(?, ?, ?)";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
