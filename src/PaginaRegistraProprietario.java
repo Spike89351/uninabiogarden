@@ -99,7 +99,7 @@ public class PaginaRegistraProprietario extends JFrame {
 		lblContinua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ctrlString(txtEmail.getText(), txtPartitaIva.getText())) {
-					theController.daPaginaRegistraProprietarioATerreno(u, txtEmail.getText(), txtPartitaIva.getText());
+					theController.daPaginaRegistraProprietarioATerreno(u, txtEmail.getText().trim(), txtPartitaIva.getText().trim());
 				}
 			}
 		});

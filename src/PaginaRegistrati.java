@@ -161,7 +161,7 @@ public class PaginaRegistrati extends JFrame {
 						gen = (Genere) comboBoxGenere.getSelectedItem();
 						
 						//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE PER POI PASSARLA ALLA PAGGINA SUCCESSIVA:
-						Utente u = new Utente(txtNome.getText(), txtCognome.getText(), data, gen, txtUsername.getText(), txtPassword.getText());
+						Utente u = new Utente(txtNome.getText().trim(), txtCognome.getText().trim(), data, gen, txtUsername.getText().trim(), txtPassword.getText().trim());
 						
 						//CHIAMO LA FUNZIONE CHE MI PERMETTE DI PASSARE A UN'ALTRA PAGINA:
 						theController.daPaginaRegistratiAProprietario(u);
