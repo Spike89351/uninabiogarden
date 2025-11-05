@@ -26,7 +26,7 @@ public class PaginaRegistraTerreno extends JFrame {
 	private JTextField txtSuperfice;
 	private JComboBox comboBox;
 	
-	public PaginaRegistraTerreno(Utente u, String email, String partitaIva, Controller c) {
+	public PaginaRegistraTerreno(Utente u, String email, String partitaIva, Deposito dep, Controller c) {
 		theController = c;
 		
 		
@@ -107,10 +107,10 @@ public class PaginaRegistraTerreno extends JFrame {
 		btnCompleta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ctrlFields(txtSuperfice.getText())) {
-					double sup = Double.valueOf(txtSuperfice.getText().trim());
+					double superfice = Double.valueOf(txtSuperfice.getText().trim());
 					TipoTerreno typ = (TipoTerreno) comboBox.getSelectedItem();
 					Fertilità fert = (Fertilità) comboBoxFertilità.getSelectedItem();
-					theController.inserisciPropreitario(u, email, partitaIva, sup, typ, fert);
+					theController.inserisciPropreitario(u, email, partitaIva, dep, superfice, typ, fert);
 					JOptionPane.showMessageDialog(null, "Perfetto hai completato la registrazione!");
 					clearField(txtSuperfice);
 					theController.daTerrenoAHomePage();

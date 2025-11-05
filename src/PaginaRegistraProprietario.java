@@ -95,11 +95,12 @@ public class PaginaRegistraProprietario extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
-		JButton lblContinua = new JButton("Continua");
+		JButton lblContinua = new JButton("Avanti");
 		lblContinua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ctrlString(txtEmail.getText(), txtPartitaIva.getText())) {
-					theController.daPaginaRegistraProprietarioATerreno(u, txtEmail.getText().trim(), txtPartitaIva.getText().trim());
+//					theController.daPaginaRegistraProprietarioATerreno(u, txtEmail.getText().trim(), txtPartitaIva.getText().trim());
+					theController.daPaginaRegistraProprietarioAPaginaRegistraDeposito(u, txtEmail.getText().trim(), txtPartitaIva.getText().trim());
 				}
 			}
 		});

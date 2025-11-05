@@ -43,6 +43,7 @@ public class Controller {
 	public HomePage homePage;
 	public PaginaRegistrati paginaRegistrati;
 	public PaginaRegistraProprietario paginaRegistraProp;
+	public PaginaRegistraDeposito paginaRegistraDeposito;
 	public PaginaRegistraTerreno paginaRegistraTerreno;
 	public PaginaProprietario paginaProprietario;
 	public PaginaColtivatore paginaColtivatore;
@@ -74,12 +75,16 @@ public class Controller {
 //METODI:
 	
 	//INSERIMENTO DEL PROPRIETARIO:
-	public void inserisciPropreitario(Utente u, String email, String partitaIva, double superfice, TipoTerreno tipoTerreno, Fertilità tipoFertilità) {
+	public void inserisciPropreitario(Utente u, String email, String partitaIva, Deposito dep, double superfice, TipoTerreno tipoTerreno, Fertilità tipoFertilità) {
 		utenteDAO = new UtenteDAO();
 		utenteDAO.inserisicUtente(u);
 		proprietarioDAO = new ProprietarioDAO();
 		proprietarioDAO.inserisiciProprietario(u.getUsername(), email, partitaIva);
-		aggiungiTerreno(u.getUsername(), superfice, tipoTerreno, tipoFertilità);
+		int codeProp = proprietarioDAO.trovaCodiceProprietario(u.getUsername());
+		creaDeposito(codeProp, dep.getIndirizzo(), dep.getDimDeposito());
+		depositoDAO = new DepositoDAO();
+		int idDep = depositoDAO.trovaIdDeposito(codeProp);
+		aggiungiTerreno(u.getUsername(), superfice, tipoTerreno, tipoFertilità, idDep);
 	}
 	
 	//INSERIMENTO DEL COLTIVATORE:
@@ -125,17 +130,26 @@ public class Controller {
 		paginaRegistraProp.setVisible(true);
 	}
 	
+	//SERVE A TORANARE INDIETRO:
 	public void daPaginaProprietarioARegistraUtente(Utente u) {
 		u = null;
 		paginaRegistraProp.setVisible(false);
 		paginaRegistrati.setVisible(true);
 	}
 	
-	//PASSAGGIO DALLA PAGINA DELLA REGISTRAZIONE DEL PROPRIETARIO ALLA REGISTRAZIONE DEL TERRENO:
-	public void daPaginaRegistraProprietarioATerreno(Utente u, String email, String partitaIva) {
+	//PSSAGGIO DA PROPRIETARIO A DEPOSITO:
+	public void daPaginaRegistraProprietarioAPaginaRegistraDeposito(Utente u, String email, String pIva) {
 		paginaRegistraProp.setVisible(false);
 		
-		paginaRegistraTerreno = new PaginaRegistraTerreno(u, email, partitaIva, this);
+		paginaRegistraDeposito = new PaginaRegistraDeposito(u, email, pIva, this);
+		paginaRegistraDeposito.setVisible(true);
+	}
+	
+	//PASSAGGIO DALLA PAGINA DELLA REGISTRAZIONE DEL PROPRIETARIO ALLA REGISTRAZIONE DEL TERRENO:
+	public void daPaginaRegistraDepositoARegistraTerreno(Utente u, String email, String partitaIva, Deposito dep) {
+		paginaRegistraDeposito.setVisible(false);
+		
+		paginaRegistraTerreno = new PaginaRegistraTerreno(u, email, partitaIva, dep, this);
 		paginaRegistraTerreno.setVisible(true);		
 	}
 	
@@ -230,18 +244,19 @@ public class Controller {
 	}
 	
 	//SERVE AD AGGIUNGERE UN TERRENO AL PROPRIETARIO: (NEL CASO BISOGNEREBBE AGGIORNARE ANCHE L'ARRAYLIST)
-	public void aggiungiTerreno(String username, double superfice, TipoTerreno tipoTerreno, Fertilità tipoFertilità) {
+	public void aggiungiTerreno(String username, double superfice, TipoTerreno tipoTerreno, Fertilità tipoFertilità, int idDep) {
 		//TROVA IL CODICE DEL PROPRIETARIO:
 		proprietarioDAO = new ProprietarioDAO();
 		int codeProp = proprietarioDAO.trovaCodiceProprietario(username);
 		if(codeProp > 0) {
 			//CREA UN NUOVO TERRENO:
 			terrenoDAO = new TerrenoDAO();
-			terrenoDAO.inserisciTerreno(codeProp, superfice, tipoTerreno, tipoFertilità);
+			terrenoDAO.inserisciTerreno(codeProp, superfice, tipoTerreno, tipoFertilità, idDep);
 		}else {
 			JOptionPane.showMessageDialog(null, "Errore nel codice del proprietario, funzione aggiungiTerreno (Controller)");
 		}
 	}
+	
 	
 	//SERVE PER ANDARE NELLA PAGINA TERRENO E VISUALIZZARE UN TERRENO SELEZIONATO PI' APPROFONDITAMENTE:
 	public void daPaginaAggiungiEVisualizzaTerrenoAVisualizzaTerrenoSpecifico(String idTerreno) {
@@ -361,6 +376,10 @@ public class Controller {
 		depositoDAO.popolaTabellaDepositi( idPropr, model);
 	}
 	
+	public int trovaIdDeposito(int idProp) {
+		depositoDAO = new DepositoDAO();
+		return depositoDAO.trovaIdDeposito(idProp);
+	}
 	
 	
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:

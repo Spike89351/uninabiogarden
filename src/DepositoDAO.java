@@ -14,7 +14,7 @@ public class DepositoDAO {
 	
 	//SERVE PER LA CREAZIONE DI UN DEPOSITO:
 	public void creaDeposito(int idProprietario, String indirizzo, Double dimensione) {
-		String sql = "INSERT INTO prguninbiogarden.Deposito(id_terreno, indirizzo_deposito, dim_deposito)"
+		String sql = "INSERT INTO prguninabiogarden.Deposito(id_proprietario, indirizzo_deposito, dim_deposito)"
 				+ "VALUES(?, ?, ?)";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
@@ -51,7 +51,28 @@ public class DepositoDAO {
     	} 
 	}
 	
-	
+	//TROVA L'ID DEL DEPOSITO:
+	public int trovaIdDeposito(int idProp) {
+		String sql = "SELECT id_deposito "
+				+ "FROM prguninabiogarden.Deposito "
+				+ "WHERE id_proprietario = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(1, idProp);
+			
+			ResultSet rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt("id_deposito");
+			}
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione trovaIdDeposito, nella classe DepositoDAO " + e);
+    		return 0;
+    	} 
+		return 0;
+	}
 	
 	
 }

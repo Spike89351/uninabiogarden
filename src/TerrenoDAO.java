@@ -12,8 +12,8 @@ public class TerrenoDAO {
 	private static final String PASSWORD = "Informatica1";
 	
 	//SERVE PER INSERIRE UN TERRENO:
-	public void inserisciTerreno(int codeProprietario, double superficie, TipoTerreno TipologiaTerreno, Fertilità tipoFertilità) {
-		String sql = "INSERT INTO prguninabiogarden.Terreno (Id_proprietario, Superfice, Tipo_terreno, Fertilità) VALUES(?, ?, ?, ?)";
+	public void inserisciTerreno(int codeProprietario, double superficie, TipoTerreno TipologiaTerreno, Fertilità tipoFertilità, int idDep) {
+		String sql = "INSERT INTO prguninabiogarden.Terreno (Id_proprietario, id_deposito, Superfice, Tipo_terreno, Fertilità) VALUES(?, ?, ?, ?, ?)";
     	
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -23,9 +23,10 @@ public class TerrenoDAO {
     		String Fertilità = String.valueOf(tipoFertilità);
     		
                 psmt.setInt(1, codeProprietario);
-                psmt.setDouble(2, superficie);
-                psmt.setString(3, tipoTerreno);
-                psmt.setString(4, Fertilità);
+                psmt.setInt(2, idDep);
+                psmt.setDouble(3, superficie);
+                psmt.setString(4, tipoTerreno);
+                psmt.setString(5, Fertilità);
                 
                 
             psmt.executeUpdate();
