@@ -69,7 +69,7 @@ public class HomePage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//ACCESSO ALLA PAGINA DEL SOGGETTO:
 				theController.homePage.setVisible(false);
-				theController.accediAllaPiattaforma(txtUsername.getText(), txtPassword.getText());
+				theController.accediAllaPiattaforma(txtUsername.getText().trim(), txtPassword.getText().trim());
 				//PULIZIA DEI CAMPI DI TESTO:
 				clearFields(txtUsername, txtPassword);
 				
