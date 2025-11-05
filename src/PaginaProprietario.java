@@ -112,6 +112,12 @@ public class PaginaProprietario extends JFrame {
 		menuBar.add(menuDeposito);
 		
 		JMenuItem menuVisualizzaEAggiungiDeposito = new JMenuItem("Visualizza e aggiungi deposito");
+		menuVisualizzaEAggiungiDeposito.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//VADO NELLA PAGINA DEDICATA AI DEPOSITI:
+				theController.daPaginaProprietarioAPaginaDeposito(idProprietario);
+			}
+		});
 		menuDeposito.add(menuVisualizzaEAggiungiDeposito);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

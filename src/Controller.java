@@ -341,7 +341,7 @@ public class Controller {
 	}
 	
 //METODI CHE SERVONO PER LA PAGINA DEPOSITO:
-	public void daPaginaProprietarioToPaginaDeposito(int idProprietario) {
+	public void daPaginaProprietarioAPaginaDeposito(int idProprietario) {
 		paginaProprietario.setVisible(false);
 
 		paginaDeposito = new PaginaDeposito(this, idProprietario);
