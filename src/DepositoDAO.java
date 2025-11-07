@@ -125,7 +125,7 @@ public class DepositoDAO {
     	} 
 	}
 	
-	//MODIFICA DATI DEL DEPOSITO:
+//MODIFICA DATI DEL DEPOSITO:
 	//MODIFICA DATI DEL RACCOLTO:
 	public void modificaDatiRaccolto(int idDep, double newRaccolto) {
 		String sql = "UPDATE prguninabiogarden.Deposito "
@@ -160,6 +160,24 @@ public class DepositoDAO {
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione modificaIndirizzo, nella classe DepositoDAO " + e);
     	} 
+	}
+	
+	//MODIFICA DELLA DIMENSIONE DEL DEPOSITO:
+	public void modificaDimensione(int idDep, double newDimensione) {
+		String sql = "UPDATE prguninabiogarden.Deposito "
+				+ "SET dimensione_deposito = ? "
+				+ "WHERE id_deposito = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(2, idDep);
+			psmt.setDouble(1, newDimensione);
+			
+			psmt.executeQuery();
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione modificaDimensione, nella classe DepositoDAO " + e);
+    	}
 	}
 	
 }

@@ -35,6 +35,9 @@ public class PaginaDettagliDeposito extends JFrame {
 	private DefaultTableModel model;
 	private JTextField txtIndirizzo;
 	private JTextField txtQuantitàRaccolto;
+	private JTextField txtDimensione;
+	private JButton btnModifica;
+	
 	
 	public PaginaDettagliDeposito(Controller c, int idDeposito) {
 		theController = c;
@@ -53,7 +56,7 @@ public class PaginaDettagliDeposito extends JFrame {
 				
 		setTitle("Dettagli deposito");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(750, 305);
+		setSize(750, 297);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -109,26 +112,47 @@ public class PaginaDettagliDeposito extends JFrame {
 		
 		txtQuantitàRaccolto = new JTextField();
 		txtQuantitàRaccolto.setColumns(10);
+		
+		JLabel lblDimensione = new JLabel("Dimensione");
+		lblDimensione.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		txtDimensione = new JTextField();
+		txtDimensione.setColumns(10);
+		
+		JButton btnAbilitaModifica = new JButton("Abilita modifica");
+		btnAbilitaModifica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//ABILITA LA MODIFICA:
+				btnModifica.setEnabled(true);
+				
+			}
+		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
-			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
+			gl_panelCentral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
-						.addComponent(lblModificaDati, GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
 						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addGap(10)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addComponent(lblQuantitàRaccolto, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(txtQuantitàRaccolto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
+								.addComponent(lblModificaDati, GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
 								.addGroup(gl_panelCentral.createSequentialGroup()
 									.addComponent(lblNewLabel_1)
 									.addGap(18)
-									.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-					.addContainerGap())
+									.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+									.addComponent(lblDimensione)
+									.addGap(18)
+									.addComponent(txtDimensione, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+									.addGap(101)
+									.addComponent(lblQuantitàRaccolto, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(txtQuantitàRaccolto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addContainerGap())
+						.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
+							.addComponent(btnAbilitaModifica)
+							.addGap(297))))
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -138,14 +162,19 @@ public class PaginaDettagliDeposito extends JFrame {
 					.addGap(18)
 					.addComponent(lblModificaDati)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_1)
-						.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblQuantitàRaccolto, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtQuantitàRaccolto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(38, Short.MAX_VALUE))
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblNewLabel_1)
+							.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(txtQuantitàRaccolto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblQuantitàRaccolto, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(2)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtDimensione, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDimensione, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))))
+					.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+					.addComponent(btnAbilitaModifica))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
@@ -174,13 +203,24 @@ public class PaginaDettagliDeposito extends JFrame {
 				setVisible(false);
 				theController.paginaDeposito.setVisible(true);
 				
+				//IL PULSANTE SI DISATTIVA
+				btnModifica.setEnabled(false);
 				
 			}
 		});
 		panelBottom.add(btnBack, BorderLayout.WEST);
 		
-		JButton btnAvanti = new JButton("Avanti");
-		panelBottom.add(btnAvanti, BorderLayout.EAST);
+		btnModifica = new JButton("Modifica");
+		btnModifica.setEnabled(false);
+		btnModifica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//MODIFICA DATI:
+				if(ctrlTextFields()) {
+					
+				}
+			}
+		});
+		panelBottom.add(btnModifica, BorderLayout.EAST);
 		
 	}
 	
@@ -192,9 +232,17 @@ public class PaginaDettagliDeposito extends JFrame {
 			JOptionPane.showMessageDialog(null, "Mi dispiace ma il formato dell'inidirzzo non è corretto!");
 			return false;
 		}
-		if(Double.valueOf(txtQuantitàRaccolto.getText().trim()) < 0) {
-			JOptionPane.showMessageDialog(null, "Mi dispiace ma la quantità raccolta non può essere minore di 0");
+		if(Double.valueOf(txtDimensione.getText().trim()) <= 0) {
+			JOptionPane.showMessageDialog(null, "Mi dispiace ma la dimensione del deposito non può essere minore o uguale a 0!");
 			return false;
+		}
+		if(txtQuantitàRaccolto.getText().isBlank()) {
+			
+		}else {
+			if(Double.valueOf(txtQuantitàRaccolto.getText().trim()) < 0) {
+				JOptionPane.showMessageDialog(null, "Mi dispiace ma la quantità raccolta non può essere minore di 0");
+				return false;
+			}
 		}
 		return true;
 	}
