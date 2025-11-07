@@ -104,5 +104,28 @@ public class DepositoDAO {
 		return false;
 	}
 	
+	//POPOLA TABELLA CON I DATI DI UN SINGOLO DEPOSITO:
+	public void popolaTabellaConUnDeposito(int idDep, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Deposito "
+				+ "WHERE id_deposito = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(1, idDep);
+
+			ResultSet rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				model.addRow(new Object[]{rs.getString("id_deposito"), rs.getString("indirizzo_deposito"), rs.getString("dim_Deposito"), rs.getDouble("quantità_raccolto")});
+			}
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione popolaTabellaConUnDeposito, nella classe DepositoDAO " + e);
+    	} 
+	}
+	
+	//MODIFICA DATI DEL DEPOSITO:
+	
 	
 }

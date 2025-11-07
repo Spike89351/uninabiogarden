@@ -377,11 +377,13 @@ public class Controller {
 		depositoDAO.popolaTabellaDepositi( idPropr, model);
 	}
 	
+	//TROVA L'ID DEL DEPOSITO:
 	public int trovaIdDeposito(int idProp) {
 		depositoDAO = new DepositoDAO();
 		return depositoDAO.trovaIdDeposito(idProp);
 	}
 	
+	//SERVE PER PASSARE DA paginaDeposito A paginaDettagliDeposito:
 	public void daPaginaDepositoAPaginaDettagliDeposito(int idDeposito) {
 		paginaDeposito.setVisible(false);
 		
@@ -389,6 +391,11 @@ public class Controller {
 		paginaDettagliDeposito.setVisible(true);
 	}
 	
+	//MI SERVE PER POPOLARE LA TABELLA CON UN DEPOSITO:
+	public void popolaTabellaDepositoConUnaTupla(int idDep, DefaultTableModel model) {
+		depositoDAO = new DepositoDAO();
+		depositoDAO.popolaTabellaConUnDeposito(idDep, model);
+	}
 	
 	
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
