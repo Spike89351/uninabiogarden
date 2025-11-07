@@ -398,17 +398,26 @@ public class Controller {
 	}
 	
 //SERVE PER LA PAGINA DETTAGLI DEPOSITO:
-	public void modificaDeposito(int idDep, String newIndirizzo, double newQuantRaccolto, double newDim) {
-		depositoDAO = new DepositoDAO();
-		//MODIFICA DEI DATI:
-		if(newIndirizzo.isBlank()) {
-			depositoDAO.modificaIndirizzo(idDep, newIndirizzo);
+	public boolean modificaDeposito(int idDep, String newIndirizzo, double newQuantRaccolto, double newDim) {
+		try {
+			depositoDAO = new DepositoDAO();
+			//MODIFICA INDIRIZZO:
+			if(! newIndirizzo.equals("-1")) {
+				depositoDAO.modificaIndirizzo(idDep, newIndirizzo);
+			}
+			//MODIFICA LA QUANTITA' DEL RACCOLTO COMPLESSIVO:
+			if(newQuantRaccolto != -1) {
+				depositoDAO.modificaDatiRaccolto(idDep, newQuantRaccolto);
+			}
+			//MODIFICA DELLA DIMENSIONE DEL DEPOSITO:
+			if(newDim != -1) {
+				depositoDAO.modificaDimensione(idDep, newDim);
+			}
+			
+			return true;
+		}catch(Exception xxx) {
+			return false;
 		}
-//		if(newQuantRaccolto) {
-//			depositoDAO.modificaDatiRaccolto(idDep, newQuantRaccolto);
-//		}
-		depositoDAO.modificaDatiRaccolto(idDep, newQuantRaccolto);
-		depositoDAO.modificaDimensione(idDep, newDim);
 	}
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	

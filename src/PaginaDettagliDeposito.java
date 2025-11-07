@@ -216,7 +216,12 @@ public class PaginaDettagliDeposito extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//MODIFICA DATI:
 				if(ctrlTextFields()) {
-					
+					System.out.println("Sto nell'if dove dovrebbe avviarsi il tutto!");
+					if(theController.modificaDeposito(idDeposito, txtIndirizzo.getText(), Double.valueOf(txtQuantitàRaccolto.getText().trim()), Double.valueOf(txtDimensione.getText().trim()))) {
+						JOptionPane.showInternalMessageDialog(null, "Le modifiche sono state apportate correttamente!");
+					}else {
+						JOptionPane.showMessageDialog(null, "Le mdoifiche non sono state apportate correttamente!");
+					}
 				}
 			}
 		});
@@ -228,16 +233,22 @@ public class PaginaDettagliDeposito extends JFrame {
 	//CONTROLLO SE I CAMPI DI TESTO SONO CORRETTI:
 	public boolean ctrlTextFields() {
 		//QUI DEVI CONTROLLARE SE I CAMPI DI TESTO RISPETTANO 
-		if(! txtIndirizzo.getText().trim().matches("^[A-Za-z\\s.]+,\\s\\d{1,4}[A-Za-z]?,\\s\\d{5}\\s[A-Za-z\\s]+\\s\\([A-Za-z]{2}\\)$")) {
-			JOptionPane.showMessageDialog(null, "Mi dispiace ma il formato dell'inidirzzo non è corretto!");
-			return false;
+		if(txtIndirizzo.getText().isBlank()) {
+			txtIndirizzo.setText("-1");
+		}else {
+			if(! txtIndirizzo.getText().trim().matches("^[A-Za-z\\s.]+,\\s\\d{1,4}[A-Za-z]?,\\s\\d{5}\\s[A-Za-z\\s]+\\s\\([A-Za-z]{2}\\)$")) {
+				JOptionPane.showMessageDialog(null, "Mi dispiace ma il formato dell'inidirzzo non è corretto!");
+				return false;
+			}
 		}
-		if(Double.valueOf(txtDimensione.getText().trim()) <= 0) {
+		if(txtDimensione.getText().isBlank()) {
+			txtDimensione.setText("-1");
+		}else if(Double.valueOf(txtDimensione.getText().trim()) <= 0){
 			JOptionPane.showMessageDialog(null, "Mi dispiace ma la dimensione del deposito non può essere minore o uguale a 0!");
 			return false;
 		}
 		if(txtQuantitàRaccolto.getText().isBlank()) {
-			
+			txtQuantitàRaccolto.setText("-1");
 		}else {
 			if(Double.valueOf(txtQuantitàRaccolto.getText().trim()) < 0) {
 				JOptionPane.showMessageDialog(null, "Mi dispiace ma la quantità raccolta non può essere minore di 0");

@@ -129,7 +129,7 @@ public class DepositoDAO {
 	//MODIFICA DATI DEL RACCOLTO:
 	public void modificaDatiRaccolto(int idDep, double newRaccolto) {
 		String sql = "UPDATE prguninabiogarden.Deposito "
-				+ "SET qauntità_raccolto = ? "
+				+ "SET quantità_raccolto = ? "
 				+ "WHERE id_deposito = ? ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
@@ -165,7 +165,7 @@ public class DepositoDAO {
 	//MODIFICA DELLA DIMENSIONE DEL DEPOSITO:
 	public void modificaDimensione(int idDep, double newDimensione) {
 		String sql = "UPDATE prguninabiogarden.Deposito "
-				+ "SET dimensione_deposito = ? "
+				+ "SET dim_deposito = ? "
 				+ "WHERE id_deposito = ? ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
