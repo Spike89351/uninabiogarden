@@ -194,6 +194,9 @@ public class PaginaDeposito extends JFrame {
 				
 				//DISATTIVO IL PULSANTE PER I DETTAGLI:
 				btnVisualizzaDettagli.setEnabled(false);
+				
+				//IMPOSTO LA VARIABILE A 0:
+				idDepositoSelezionato = 0;
 			}
 		});
 		paneBottom.add(btnBack, BorderLayout.WEST);
