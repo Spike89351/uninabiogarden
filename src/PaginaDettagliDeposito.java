@@ -222,7 +222,6 @@ public class PaginaDettagliDeposito extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//MODIFICA DATI:
 				if(ctrlTextFields()) {
-					System.out.println("Sto nell'if dove dovrebbe avviarsi il tutto!");
 					if(theController.modificaDeposito(idDeposito, txtIndirizzo.getText(), Double.valueOf(txtQuantitàRaccolto.getText().trim()), Double.valueOf(txtDimensione.getText().trim()))) {
 						JOptionPane.showInternalMessageDialog(null, "Le modifiche sono state apportate correttamente!");
 					}else {
