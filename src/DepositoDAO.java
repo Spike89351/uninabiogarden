@@ -77,7 +77,7 @@ public class DepositoDAO {
 	//CONTROLLO SE L'ID DEL DEPOSITO APPARTIENE AL PROPRIETARIO:
 	public boolean ctrlAppDeposito(int idProp, int idDeposito) {
 		String sql = "SELECT * "
-				+ "FROM prguninabiogarden.Proprietario AS P"
+				+ "FROM prguninabiogarden.Proprietario AS P "
 				+ "JOIN prguninabiogarden.Deposito AS D  ON P.id_proprietario = D.id_proprietario "
 				+ "WHERE P.id_proprietario = ? AND D.id_deposito = ? ";
 			
@@ -98,7 +98,7 @@ public class DepositoDAO {
 				}
 			}
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella funzione trovaIdDeposito, nella classe DepositoDAO " + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione ctrlAppDeposito, nella classe DepositoDAO " + e);
     		return false;
     	} 
 		return false;

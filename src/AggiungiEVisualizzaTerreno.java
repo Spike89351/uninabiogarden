@@ -115,6 +115,8 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 						//AGGIORNA LA TABELLA:
 						theController.popolaTabellaTerreni(u.getUsername(), modelTerreno);
 						
+						//PULISCI I CAMPI:
+						clearTextField();
 					}catch(Exception x) {
 						JOptionPane.showMessageDialog(null, "Errore nel cast delle variabili per aggiungere un nuovo terreno");
 					}
@@ -275,6 +277,9 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 				btnVisualizzaTerreno.setEnabled(false);
 				theController.paginaProprietario.setVisible(true);
 				theController.paginaProprietario.setEnabled(true);
+				
+				//PULISCI I CAMPI:
+				clearTextField();
 			}
 		});
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -317,5 +322,11 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 			}
 		}
 		return true;
+	}
+	
+	//PULISCI I CAMPI:
+	public void clearTextField() {
+		txtSuperfice.setText(null);
+		txtIdDeposito.setText(null);
 	}
 }

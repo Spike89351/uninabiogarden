@@ -162,6 +162,9 @@ public class PaginaDeposito extends JFrame {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//TORNA INDIETRO:
+				setVisible(false);
+				theController.paginaProprietario.setVisible(true);
 				
 				//PULISCI I CAMPI:
 				clearFields();
@@ -201,7 +204,7 @@ public class PaginaDeposito extends JFrame {
 			JOptionPane.showMessageDialog(null, "Errore, il campo di testo indirizzo non può essere vuoto!");
 			return false;
 		}else {
-			if(! txtIndirizzo.getText().matches("^[A-Za-z\\s]+,\\s\\d{1,4}[A-Za-z]?,\\s\\d{5}\\s[A-Za-z\\s]+\\s\\([A-Z]{2}\\)$")) {
+			if(! txtIndirizzo.getText().trim().matches("^[A-Za-z\\s]+,\\s\\d{1,4}[A-Za-z]?,\\s\\d{5}\\s[A-Za-z\\s]+\\s\\([A-Z]{2}\\)$")) {
 				JOptionPane.showMessageDialog(null, "Errore il formato dell'indirizzo è errato!");
 				return false;
 			}

@@ -249,7 +249,7 @@ public class Controller {
 				terrenoDAO = new TerrenoDAO();
 				terrenoDAO.inserisciTerreno(codeProp, superfice, tipoTerreno, tipoFertilità, idDep);
 			}else {
-				JOptionPane.showMessageDialog(null, "Mi dispiace ma non l'operazione non è andata a buon fine!");
+				JOptionPane.showMessageDialog(null, "Mi dispiace ma il codice del deposito non esiste, l'operazione non è andata a buon fine!");
 			}
 		}else {
 			JOptionPane.showMessageDialog(null, "Errore nel codice del proprietario, funzione aggiungiTerreno (Controller)");
