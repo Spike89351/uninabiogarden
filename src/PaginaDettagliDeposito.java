@@ -104,6 +104,7 @@ public class PaginaDettagliDeposito extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		txtIndirizzo = new JTextField();
+		txtIndirizzo.setEnabled(false);
 		txtIndirizzo.setToolTipText("Il formato dell'indirizzo è: \"via/Piazza, numero civico, cap citta (provincia)\"");
 		txtIndirizzo.setColumns(10);
 		
@@ -111,12 +112,14 @@ public class PaginaDettagliDeposito extends JFrame {
 		lblQuantitàRaccolto.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		txtQuantitàRaccolto = new JTextField();
+		txtQuantitàRaccolto.setEnabled(false);
 		txtQuantitàRaccolto.setColumns(10);
 		
 		JLabel lblDimensione = new JLabel("Dimensione");
 		lblDimensione.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		txtDimensione = new JTextField();
+		txtDimensione.setEnabled(false);
 		txtDimensione.setColumns(10);
 		
 		JButton btnAbilitaModifica = new JButton("Abilita modifica");
@@ -125,6 +128,9 @@ public class PaginaDettagliDeposito extends JFrame {
 				//ABILITA LA MODIFICA:
 				btnModifica.setEnabled(true);
 				
+				txtIndirizzo.setEnabled(true);
+				txtQuantitàRaccolto.setEnabled(true);
+				txtDimensione.setEnabled(true);
 			}
 		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
