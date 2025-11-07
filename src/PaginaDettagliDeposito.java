@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JTextField;
 
 public class PaginaDettagliDeposito extends JFrame {
 	private Controller theController;
@@ -32,6 +33,8 @@ public class PaginaDettagliDeposito extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel model;
+	private JTextField txtIndirizzo;
+	private JTextField txtQuantitàRaccolto;
 	
 	public PaginaDettagliDeposito(Controller c, int idDeposito) {
 		theController = c;
@@ -93,14 +96,38 @@ public class PaginaDettagliDeposito extends JFrame {
 		JLabel lblModificaDati = new JLabel("Qui puoi modiicare i dati del deposito selezionato ");
 		lblModificaDati.setHorizontalAlignment(SwingConstants.CENTER);
 		lblModificaDati.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JLabel lblNewLabel_1 = new JLabel("Indirizzo");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		txtIndirizzo = new JTextField();
+		txtIndirizzo.setToolTipText("Il formato dell'indirizzo è: \"via/Piazza, numero civico, cap citta (provincia)\"");
+		txtIndirizzo.setColumns(10);
+		
+		JLabel lblQuantitàRaccolto = new JLabel("Quantità");
+		lblQuantitàRaccolto.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		txtQuantitàRaccolto = new JTextField();
+		txtQuantitàRaccolto.setColumns(10);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
-			gl_panelCentral.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
+			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panelTable, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
-						.addComponent(lblModificaDati, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE))
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
+						.addComponent(lblModificaDati, GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(10)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelCentral.createSequentialGroup()
+									.addComponent(lblQuantitàRaccolto, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(txtQuantitàRaccolto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panelCentral.createSequentialGroup()
+									.addComponent(lblNewLabel_1)
+									.addGap(18)
+									.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -110,7 +137,15 @@ public class PaginaDettagliDeposito extends JFrame {
 					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(lblModificaDati)
-					.addContainerGap(96, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_1)
+						.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblQuantitàRaccolto, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtQuantitàRaccolto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(38, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
@@ -147,5 +182,20 @@ public class PaginaDettagliDeposito extends JFrame {
 		JButton btnAvanti = new JButton("Avanti");
 		panelBottom.add(btnAvanti, BorderLayout.EAST);
 		
+	}
+	
+//METODI:
+	//CONTROLLO SE I CAMPI DI TESTO SONO CORRETTI:
+	public boolean ctrlTextFields() {
+		//QUI DEVI CONTROLLARE SE I CAMPI DI TESTO RISPETTANO 
+		if(! txtIndirizzo.getText().trim().matches("^[A-Za-z\\s.]+,\\s\\d{1,4}[A-Za-z]?,\\s\\d{5}\\s[A-Za-z\\s]+\\s\\([A-Za-z]{2}\\)$")) {
+			JOptionPane.showMessageDialog(null, "Mi dispiace ma il formato dell'inidirzzo non è corretto!");
+			return false;
+		}
+		if(Double.valueOf(txtQuantitàRaccolto.getText().trim()) < 0) {
+			JOptionPane.showMessageDialog(null, "Mi dispiace ma la quantità raccolta non può essere minore di 0");
+			return false;
+		}
+		return true;
 	}
 }

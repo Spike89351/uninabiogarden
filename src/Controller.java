@@ -397,7 +397,13 @@ public class Controller {
 		depositoDAO.popolaTabellaConUnDeposito(idDep, model);
 	}
 	
-	
+//SERVE PER LA PAGINA DETTAGLI DEPOSITO:
+	public void modificaDeposito(int idDep, String newIndirizzo, double newQuantRaccolto) {
+		depositoDAO = new DepositoDAO();
+		//MODIFICA DEI DATI:
+		depositoDAO.modificaIndirizzo(idDep, newIndirizzo);
+		depositoDAO.modificaDatiRaccolto(idDep, newQuantRaccolto);
+	}
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	
 }

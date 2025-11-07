@@ -126,6 +126,40 @@ public class DepositoDAO {
 	}
 	
 	//MODIFICA DATI DEL DEPOSITO:
+	//MODIFICA DATI DEL RACCOLTO:
+	public void modificaDatiRaccolto(int idDep, double newRaccolto) {
+		String sql = "UPDATE prguninabiogarden.Deposito "
+				+ "SET qauntità_raccolto = ? "
+				+ "WHERE id_deposito = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(1, idDep);
+			psmt.setDouble(2, newRaccolto);
+			
+			psmt.executeQuery();
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione modificaDatiRaccolto, nella classe DepositoDAO " + e);
+    	} 
+	}
 	
+	//MODIFICA DELL'INDIRIZZO:
+	public void modificaIndirizzo(int idDep, String newIndirizzo) {
+		String sql = "UPDATE prguninabiogarden.Deposito "
+				+ "SET indirizzo_deposito = ? "
+				+ "WHERE id_deposito = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(2, idDep);
+			psmt.setString(1, newIndirizzo);
+			
+			psmt.executeQuery();
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione modificaIndirizzo, nella classe DepositoDAO " + e);
+    	} 
+	}
 	
 }
