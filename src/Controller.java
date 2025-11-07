@@ -50,6 +50,8 @@ public class Controller {
 	public VisualizzaTerrenoInModoSpecifico paginaTerrenoSpecifico;
 	public PaginaVisualizzaDettagliProgetto paginaDettagliProgetto;
 	public PaginaDeposito paginaDeposito;
+	public PaginaDettagliDeposito paginaDettagliDeposito;
+	
 	
 	//FINESTRE:
 	public FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
@@ -379,6 +381,14 @@ public class Controller {
 		depositoDAO = new DepositoDAO();
 		return depositoDAO.trovaIdDeposito(idProp);
 	}
+	
+	public void daPaginaDepositoAPaginaDettagliDeposito(int idDeposito) {
+		paginaDeposito.setVisible(false);
+		
+		paginaDettagliDeposito = new PaginaDettagliDeposito(this, idDeposito);
+		paginaDettagliDeposito.setVisible(true);
+	}
+	
 	
 	
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:

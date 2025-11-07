@@ -206,7 +206,7 @@ public class PaginaDeposito extends JFrame {
 		btnVisualizzaDettagli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//PASSO L'ID DEL DEPOSITO SELEZIONATO E VADO IN UN'ALTRA PAGINA:
-								
+				theController.daPaginaDepositoAPaginaDettagliDeposito(idDepositoSelezionato);
 				
 				//PULISCI I CAMPI:
 				clearFields();
