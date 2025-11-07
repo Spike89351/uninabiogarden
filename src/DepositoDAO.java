@@ -32,7 +32,7 @@ public class DepositoDAO {
 	
 	//SERVE A POPOLARE LA TABELLA CON I DEPOSITI:
 	public void popolaTabellaDepositi(int idProp, DefaultTableModel model) {
-		String sql = "SELECT indirizzo_deposito, dim_Deposito "
+		String sql = "SELECT id_deposito, indirizzo_deposito, dim_Deposito "
 				+ "FROM prguninabiogarden.Deposito "
 				+ "WHERE id_Proprietario = ? ";
 		
@@ -44,7 +44,7 @@ public class DepositoDAO {
 			ResultSet rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				model.addRow(new Object[]{rs.getInt("indirizzo_deposito"), rs.getString("dim_Deposito")});
+				model.addRow(new Object[]{rs.getString("id_deposito"), rs.getString("indirizzo_deposito"), rs.getString("dim_Deposito")});
 			} 
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione popolataTabellaDepsoiti, nella classe DepositoDAO " + e);
@@ -61,7 +61,7 @@ public class DepositoDAO {
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 		
 			psmt.setInt(1, idProp);
-			
+
 			ResultSet rs = psmt.executeQuery();
 			
 			if(rs.next()) {
@@ -72,6 +72,36 @@ public class DepositoDAO {
     		return 0;
     	} 
 		return 0;
+	}
+	
+	//CONTROLLO SE L'ID DEL DEPOSITO APPARTIENE AL PROPRIETARIO:
+	public boolean ctrlAppDeposito(int idProp, int idDeposito) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Proprietario AS P"
+				+ "JOIN prguninabiogarden.Deposito AS D  ON P.id_proprietario = D.id_proprietario "
+				+ "WHERE P.id_proprietario = ? AND D.id_deposito = ? ";
+			
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(1, idProp);
+			psmt.setInt(2, idDeposito);
+
+			ResultSet rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				if(rs.getInt("id_deposito") > 0) {
+					return true;
+				}else {
+					JOptionPane.showMessageDialog(null, "Non esiste alcun deposito con l'id inserito: "+idDeposito);
+					return false;
+				}
+			}
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione trovaIdDeposito, nella classe DepositoDAO " + e);
+    		return false;
+    	} 
+		return false;
 	}
 	
 	

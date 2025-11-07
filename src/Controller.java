@@ -242,6 +242,7 @@ public class Controller {
 		proprietarioDAO = new ProprietarioDAO();
 		int codeProp = proprietarioDAO.trovaCodiceProprietario(username);
 		if(codeProp > 0) {
+			//CONTROLLA SE IL DEPOSITO INSERITO E' IL SUO: 
 			//CREA UN NUOVO TERRENO:
 			terrenoDAO = new TerrenoDAO();
 			terrenoDAO.inserisciTerreno(codeProp, superfice, tipoTerreno, tipoFertilità, idDep);
