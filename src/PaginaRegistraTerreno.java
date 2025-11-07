@@ -42,7 +42,7 @@ public class PaginaRegistraTerreno extends JFrame {
 		JPanel panelTop = new JPanel();
 		contentPane.add(panelTop, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("Inserisci i dati di almeno un terreno per completare la registrazione");
+		JLabel lblNewLabel = new JLabel("Registra almeno un terreno");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panelTop.add(lblNewLabel);
 		

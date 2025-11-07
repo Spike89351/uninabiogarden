@@ -243,9 +243,14 @@ public class Controller {
 		int codeProp = proprietarioDAO.trovaCodiceProprietario(username);
 		if(codeProp > 0) {
 			//CONTROLLA SE IL DEPOSITO INSERITO E' IL SUO: 
-			//CREA UN NUOVO TERRENO:
-			terrenoDAO = new TerrenoDAO();
-			terrenoDAO.inserisciTerreno(codeProp, superfice, tipoTerreno, tipoFertilità, idDep);
+			depositoDAO = new DepositoDAO();
+			if(depositoDAO.ctrlAppDeposito(codeProp, idDep)) {
+				//CREA UN NUOVO TERRENO:
+				terrenoDAO = new TerrenoDAO();
+				terrenoDAO.inserisciTerreno(codeProp, superfice, tipoTerreno, tipoFertilità, idDep);
+			}else {
+				JOptionPane.showMessageDialog(null, "Mi dispiace ma non l'operazione non è andata a buon fine!");
+			}
 		}else {
 			JOptionPane.showMessageDialog(null, "Errore nel codice del proprietario, funzione aggiungiTerreno (Controller)");
 		}
