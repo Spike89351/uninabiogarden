@@ -57,6 +57,7 @@ public class PaginaRegistraDeposito extends JFrame {
 		txtDimensione.setColumns(10);
 		
 		txtIndirizzo = new JTextField();
+		txtIndirizzo.setToolTipText("Il formato dell'indirizzo deve essere: \"Via Garibaldi, 25, 00100 Roma (RM)\"");
 		txtIndirizzo.setColumns(10);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
