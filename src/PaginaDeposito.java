@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PaginaDeposito extends JFrame {
 	private Controller theController;
@@ -28,8 +30,11 @@ public class PaginaDeposito extends JFrame {
 	private JTable table;
 	private JTextField txtDimensione;
 	private JTextField txtIndirizzo;
+	private JButton btnBack;
+	private JButton btnVisualizzaDettagli;
 	private DefaultTableModel model;
 
+	private int idDepositoSelezionato;
 	
 	public PaginaDeposito(Controller c, int idProprietario) {
 		theController = c;
@@ -151,6 +156,24 @@ public class PaginaDeposito extends JFrame {
 			);
 		
 		table = new JTable(model);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int selectedRow = table.rowAtPoint(e.getPoint());
+				if(selectedRow != -1) {
+					try {
+						//PRESA DEL DATO DALLA TABELLA:
+						String idDepositoString = String.valueOf(table.getValueAt(selectedRow, 0));
+						//CAST DEL DATO DA STRING A INT:
+						idDepositoSelezionato = Integer.valueOf(idDepositoString);
+					}catch(ClassCastException x) {
+						JOptionPane.showMessageDialog(scrollPane, "Errore nel cast!");
+					}
+					//RENDO DISPONIBILE IL PULSANTE PER VISUALIZZARE I DETTAGLI:
+					btnVisualizzaDettagli.setEnabled(true);
+				}
+			}
+		});
 		scrollPane.setColumnHeaderView(table);
 		scrollPane.setViewportView(table);
 		panelCentral.setLayout(gl_panelCentral);
@@ -159,7 +182,7 @@ public class PaginaDeposito extends JFrame {
 		contentPane.add(paneBottom, BorderLayout.SOUTH);
 		paneBottom.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TORNA INDIETRO:
@@ -168,19 +191,25 @@ public class PaginaDeposito extends JFrame {
 				
 				//PULISCI I CAMPI:
 				clearFields();
+				
+				//DISATTIVO IL PULSANTE PER I DETTAGLI:
+				btnVisualizzaDettagli.setEnabled(false);
 			}
 		});
 		paneBottom.add(btnBack, BorderLayout.WEST);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		btnVisualizzaDettagli = new JButton("Dettagli");
+		btnVisualizzaDettagli.setEnabled(false);
+		btnVisualizzaDettagli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//PASSO L'ID DEL DEPOSITO SELEZIONATO E VADO IN UN'ALTRA PAGINA:
+								
 				
 				//PULISCI I CAMPI:
 				clearFields();
 			}
 		});
-		paneBottom.add(btnNewButton_1, BorderLayout.EAST);
+		paneBottom.add(btnVisualizzaDettagli, BorderLayout.EAST);
 		
 		//POPOLA TABELLA CON I DEPOSITI:
 		try {
