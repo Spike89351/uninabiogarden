@@ -11,12 +11,12 @@ public class Attrezzo {
     private ArrayList<String> elencoManStraordinaria = new ArrayList<String>();
     private boolean disp;
 
-    Attrezzo(String nome, String id, TipoAttrezzo typ, StatoAttrezzo stato, boolean disp){
+    Attrezzo(String nome, String id, TipoAttrezzo typ, StatoAttrezzo stato){
         this.nome = nome;
         this.idAttrezzo = id;
         this.tipo = typ;
         this.statoAttrezzo = stato;
-        this.disp = disp;
+        this.disp = true;
     }
 
 
