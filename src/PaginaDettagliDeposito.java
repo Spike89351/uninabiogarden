@@ -78,6 +78,12 @@ public class PaginaDettagliDeposito extends JFrame {
 		menuBar.add(menuFertilizzante);
 		
 		JMenuItem menuItemFertilizzante = new JMenuItem("aggiungi fertilizzante");
+		menuItemFertilizzante.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//VAI ALLA PAGINA DEDICATA AI FERTILIZZANTI:
+				theController.daPaginaDettagliDepositoAPaginaFertilizzanti(idDeposito);
+			}
+		});
 		menuFertilizzante.add(menuItemFertilizzante);
 		
 		JMenu menuColtura = new JMenu("Coltura");

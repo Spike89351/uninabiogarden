@@ -65,7 +65,7 @@ public class FinestraAggiungiAttrezzo extends JDialog {
 		JPanel panelTop = new JPanel();
 		contentPanel.add(panelTop, BorderLayout.NORTH);
 		
-		JLabel lblWelcome = new JLabel("Qui puoi aggiungere un attrezzo");
+		JLabel lblWelcome = new JLabel("Qui puoi aggiungere un attrezzo al deposito con id "+idDeposito);
 		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panelTop.add(lblWelcome);
 		

@@ -31,7 +31,8 @@ public class Controller {
 	private Importanza importanza;
 	private Deposito depposito;
 	private DepositoDAO depositoDAO;
-	private Fertilizzante fertilizzanti;
+	private Fertilizzante fertilizzante;
+	private FertilizzanteDAO fertilizzanteDAO;
 	private Coltura coltura;
 	private Attrezzo attrezzo;
 	private AttrezzoDAO attrezzoDAO;
@@ -58,6 +59,7 @@ public class Controller {
 	public FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
 	public AggiungiEVisualizzaTerreno AggEVisualizzaTerre;
 	public FinestraAggiungiAttrezzo finestraAttrezzo;
+	public FinestraFertilizzanti finestraFertilizzante;
 	
 	//MAIN:
 	public static void main(String[] args) throws SQLException {
@@ -437,6 +439,24 @@ public class Controller {
 		model.setRowCount(0);
 		attrezzoDAO = new AttrezzoDAO();
 		attrezzoDAO.popolaTabellaAttrezzoPerDeposito(idDep, model);
+	}
+	
+	//MI SERVE PER GLI ATTREZZI: (ALTRE FUNZIONI):
+	
+	
+	
+	//MI SERVE PER PASSARE DALLA PAGINA DETTAGLI DEPOSITO ALLA PAGINA FERTILIZZANTI:
+	public void daPaginaDettagliDepositoAPaginaFertilizzanti(int idDep) {
+		paginaDettagliDeposito.setEnabled(false);
+		
+		finestraFertilizzante = new FinestraFertilizzanti(idDep, this);
+		finestraFertilizzante.setVisible(true);
+	}
+	
+	//MI SERVE PER INSEIRE I FERTILIZZANTI NEL DB:
+	public boolean inserisciFertilizzante(int idDep, double letame, double compost, double granulari, double liquidi) {
+		fertilizzanteDAO = new FertilizzanteDAO();
+		return fertilizzanteDAO.inserisciFertilizzanti(idDep, letame, compost, granulari, liquidi);
 	}
 	
 	
