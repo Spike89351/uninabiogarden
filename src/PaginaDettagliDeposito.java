@@ -212,6 +212,8 @@ public class PaginaDettagliDeposito extends JFrame {
 				//IL PULSANTE SI DISATTIVA
 				btnModifica.setEnabled(false);
 				
+				//PULISCI I CAMPI DI TESTO:
+				clearTextField();				
 			}
 		});
 		panelBottom.add(btnBack, BorderLayout.WEST);
@@ -223,7 +225,10 @@ public class PaginaDettagliDeposito extends JFrame {
 				//MODIFICA DATI:
 				if(ctrlTextFields()) {
 					if(theController.modificaDeposito(idDeposito, txtIndirizzo.getText(), Double.valueOf(txtQuantitàRaccolto.getText().trim()), Double.valueOf(txtDimensione.getText().trim()))) {
+						//AGGIORNO LA TABELLA:
+						theController.inserisciInTabellaLaTuplaDaVisualizzare(idDeposito, model);
 						JOptionPane.showInternalMessageDialog(null, "Le modifiche sono state apportate correttamente!");
+						clearTextField();
 					}else {
 						JOptionPane.showMessageDialog(null, "Le mdoifiche non sono state apportate correttamente!");
 					}
@@ -235,8 +240,16 @@ public class PaginaDettagliDeposito extends JFrame {
 	}
 	
 //METODI:
+	
+	//PULISCI I CAMPI DI TESTO:
+	private void clearTextField() {
+		txtIndirizzo.setText(null);
+		txtDimensione.setText(null);
+		txtDimensione.setText(null);
+	}
+	
 	//CONTROLLO SE I CAMPI DI TESTO SONO CORRETTI:
-	public boolean ctrlTextFields() {
+	private boolean ctrlTextFields() {
 		//QUI DEVI CONTROLLARE SE I CAMPI DI TESTO RISPETTANO 
 		if(txtIndirizzo.getText().isBlank()) {
 			txtIndirizzo.setText("-1");

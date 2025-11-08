@@ -21,6 +21,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class PaginaDeposito extends JFrame {
 	private Controller theController;
@@ -37,6 +39,18 @@ public class PaginaDeposito extends JFrame {
 	private int idDepositoSelezionato;
 	
 	public PaginaDeposito(Controller c, int idProprietario) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				//POPOLA TABELLA CON I DEPOSITI:
+				try {
+					theController.popolaTabellaDepositi(idProprietario, model);
+				}catch(Exception x) {
+					JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei depositi!");
+				}
+				
+			}
+		});
 		theController = c;
 		
 		setTitle("Dettagli Depositi");
@@ -213,13 +227,6 @@ public class PaginaDeposito extends JFrame {
 			}
 		});
 		paneBottom.add(btnVisualizzaDettagli, BorderLayout.EAST);
-		
-		//POPOLA TABELLA CON I DEPOSITI:
-		try {
-			theController.popolaTabellaDepositi(idProprietario, model);
-		}catch(Exception x) {
-			JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei depositi!");
-		}
 		
 	}
 

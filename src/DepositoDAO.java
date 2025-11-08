@@ -34,7 +34,8 @@ public class DepositoDAO {
 	public void popolaTabellaDepositi(int idProp, DefaultTableModel model) {
 		String sql = "SELECT id_deposito, indirizzo_deposito, dim_Deposito "
 				+ "FROM prguninabiogarden.Deposito "
-				+ "WHERE id_Proprietario = ? ";
+				+ "WHERE id_Proprietario = ? "
+				+ "ORDER BY id_deposito ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -135,10 +136,10 @@ public class DepositoDAO {
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 		
-			psmt.setInt(1, idDep);
-			psmt.setDouble(2, newRaccolto);
-			
-			psmt.executeQuery();
+			psmt.setDouble(1, newRaccolto);
+			psmt.setInt(2, idDep);
+
+			psmt.executeUpdate();
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione modificaDatiRaccolto, nella classe DepositoDAO " + e);
     	} 
@@ -152,11 +153,11 @@ public class DepositoDAO {
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
-		
-			psmt.setInt(2, idDep);
+
 			psmt.setString(1, newIndirizzo);
+			psmt.setInt(2, idDep);
 			
-			psmt.executeQuery();
+			psmt.executeUpdate();
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione modificaIndirizzo, nella classe DepositoDAO " + e);
     	} 
@@ -171,10 +172,10 @@ public class DepositoDAO {
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 		
-			psmt.setInt(2, idDep);
 			psmt.setDouble(1, newDimensione);
+			psmt.setInt(2, idDep);
 			
-			psmt.executeQuery();
+			psmt.executeUpdate();
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione modificaDimensione, nella classe DepositoDAO " + e);
     	}

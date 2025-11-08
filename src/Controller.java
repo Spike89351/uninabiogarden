@@ -393,6 +393,7 @@ public class Controller {
 	
 	//MI SERVE PER POPOLARE LA TABELLA CON UN DEPOSITO:
 	public void popolaTabellaDepositoConUnaTupla(int idDep, DefaultTableModel model) {
+		model.setRowCount(0);
 		depositoDAO = new DepositoDAO();
 		depositoDAO.popolaTabellaConUnDeposito(idDep, model);
 	}
