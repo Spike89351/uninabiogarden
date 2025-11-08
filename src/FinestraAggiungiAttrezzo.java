@@ -48,6 +48,10 @@ public class FinestraAggiungiAttrezzo extends JDialog {
 					JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella!");
 				}
 			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				theController.paginaDettagliDeposito.setEnabled(true);
+			}
 		});
 		
 		setTitle("Aggiungi attrezzo");
@@ -189,6 +193,9 @@ public class FinestraAggiungiAttrezzo extends JDialog {
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//TORNA INDIETRO:
+						setVisible(false);
+						theController.paginaDettagliDeposito.setEnabled(true);
+						
 						
 						//PULISCI IL CAMPO NOME:
 						clearTxtField();

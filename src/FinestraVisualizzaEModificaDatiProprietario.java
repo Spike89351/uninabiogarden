@@ -206,25 +206,9 @@ public class FinestraVisualizzaEModificaDatiProprietario extends JDialog {
 				}
 			}
 		});
-		GroupLayout gl_panelBottom = new GroupLayout(panelBottom);
-		gl_panelBottom.setHorizontalGroup(
-			gl_panelBottom.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelBottom.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(btnBack)
-					.addGap(294)
-					.addComponent(btnSalva)
-					.addContainerGap())
-		);
-		gl_panelBottom.setVerticalGroup(
-			gl_panelBottom.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelBottom.createSequentialGroup()
-					.addGap(5)
-					.addGroup(gl_panelBottom.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnBack)
-						.addComponent(btnSalva)))
-		);
-		panelBottom.setLayout(gl_panelBottom);
+		panelBottom.setLayout(new BorderLayout(0, 0));
+		panelBottom.add(btnBack, BorderLayout.WEST);
+		panelBottom.add(btnSalva, BorderLayout.EAST);
 	}
 	
 //METODO:

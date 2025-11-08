@@ -420,7 +420,7 @@ public class Controller {
 	
 	//SERVE PER VISUALIZZARE LA FINESTRA 'AGGIUNGIATTREZZO':
 	public void daPaginaDettagliDepositoAFinestraAggiungiAttrezzo(int idDep) {
-		paginaDettagliDeposito.setVisible(false);
+		paginaDettagliDeposito.setEnabled(false);
 		
 		finestraAttrezzo = new FinestraAggiungiAttrezzo(idDep, this);
 		finestraAttrezzo.setVisible(true);
