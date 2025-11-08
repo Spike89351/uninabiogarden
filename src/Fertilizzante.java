@@ -5,11 +5,12 @@ public class Fertilizzante {
     private double granulari;
     private double liquidi;
 
+    //COSTRUTTORE:
     Fertilizzante(double letame, double compost, double granulari, double liquidi){
         this.letame = letame;
         this.compost = compost;
         this.granulari = granulari;
-        this.liquidi = liquidi;
+        this.liquidi = liquidi; 
     }
 
 
