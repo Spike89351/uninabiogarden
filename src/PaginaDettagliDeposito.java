@@ -65,8 +65,14 @@ public class PaginaDettagliDeposito extends JFrame {
 		JMenu menuItemAttrezzo = new JMenu("Attrezzo");
 		menuBar.add(menuItemAttrezzo);
 		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Aggiungi attrezzo");
-		menuItemAttrezzo.add(mntmNewMenuItem_3);
+		JMenuItem itemAggiungiAttrezzo = new JMenuItem("Aggiungi attrezzo");
+		itemAggiungiAttrezzo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//VAI ALLA FINESTRA DEDICATA:
+				theController.daPaginaDettagliDepositoAFinestraAggiungiAttrezzo(idDeposito);
+			}
+		});
+		menuItemAttrezzo.add(itemAggiungiAttrezzo);
 		
 		JMenu menuFertilizzante = new JMenu("Fertilizzante");
 		menuBar.add(menuFertilizzante);

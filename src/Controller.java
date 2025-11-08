@@ -56,6 +56,7 @@ public class Controller {
 	//FINESTRE:
 	public FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
 	public AggiungiEVisualizzaTerreno AggEVisualizzaTerre;
+	public FinestraAggiungiAttrezzo finestraAttrezzo;
 	
 	//MAIN:
 	public static void main(String[] args) throws SQLException {
@@ -282,11 +283,6 @@ public class Controller {
 		progettoDAO.listaDiProgettiPerTerreno(Integer.valueOf(idTerreno), ter);
 		
 	}
-
-	//METODO CHE SERVE PER PASSARE DALLA VISUALIZZAZIONE DEL TERRENO SPECIFICO ALLA PAGINA 'ALTRI DETTAGLI':
-	public void daPaginaVisualizzaDettagliTerrenoToAltriDettagli(int idTerreno) {
-		
-	}
 	
 //METODI CHE SERVONO PER LA PAGINA DEL PROPRIETARIO PER INSERIRE UN PROGETTO:
 	public boolean inserisciProgetto(int codiceProp, int idTerreno, String nomePrg, java.sql.Date dataInizio, String desc) {
@@ -420,6 +416,16 @@ public class Controller {
 			return false;
 		}
 	}
+	
+	//SERVE PER VISUALIZZARE LA FINESTRA 'AGGIUNGIATTREZZO':
+	public void daPaginaDettagliDepositoAFinestraAggiungiAttrezzo(int idDep) {
+		paginaDettagliDeposito.setVisible(false);
+		
+		finestraAttrezzo = new FinestraAggiungiAttrezzo(idDep, this);
+		finestraAttrezzo.setVisible(true);
+	}
+	
+	
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	
 }

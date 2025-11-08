@@ -4,16 +4,15 @@ import javax.swing.JOptionPane;
 
 public class Attrezzo {
     private String nome;
-    private String idAttrezzo;
+    private int  idAttrezzo;
     private TipoAttrezzo tipo;
     private ArrayList<Date> elencoManutenzioni = new ArrayList<Date>();
     private StatoAttrezzo statoAttrezzo;
     private ArrayList<String> elencoManStraordinaria = new ArrayList<String>();
     private boolean disp;
 
-    Attrezzo(String nome, String id, TipoAttrezzo typ, StatoAttrezzo stato){
+    Attrezzo(String nome, TipoAttrezzo typ, StatoAttrezzo stato){
         this.nome = nome;
-        this.idAttrezzo = id;
         this.tipo = typ;
         this.statoAttrezzo = stato;
         this.disp = true;
