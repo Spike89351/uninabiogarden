@@ -34,6 +34,7 @@ public class Controller {
 	private Fertilizzante fertilizzanti;
 	private Coltura coltura;
 	private Attrezzo attrezzo;
+	private AttrezzoDAO attrezzoDAO;
 	private StatoAttrezzo statoAttrezzo;
 	
 	//VARIABILI CHE SERVONO A MEMORIZZARE I DATI DAL DB COSI' DA AVERLI A PORTATA DI MANO:
@@ -423,6 +424,18 @@ public class Controller {
 		
 		finestraAttrezzo = new FinestraAggiungiAttrezzo(idDep, this);
 		finestraAttrezzo.setVisible(true);
+	}
+	
+	//SERVE PER CREARE UN ATTREZZO: 
+	public boolean creaAttrezzo(int idDep, String nome, String TipoAttrezzo, String statoAttrezzo) {
+		attrezzoDAO = new AttrezzoDAO();
+		return attrezzoDAO.inserisciAttrezzo(idDep, nome, TipoAttrezzo, statoAttrezzo);
+	}
+	
+	//MI SERVE PER POPOLARE LA TABELLA CON GLI ATTREZZI DI QUEL DEPOSITO:
+	public void popolaTabellaConTuttiGliAttrezziDelDeposito(int idDep, DefaultTableModel model) {
+		attrezzoDAO = new AttrezzoDAO();
+		attrezzoDAO.popolaTabellaAttrezzoPerDeposito(idDep, model);
 	}
 	
 	

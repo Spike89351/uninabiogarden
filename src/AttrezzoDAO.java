@@ -1,29 +1,57 @@
+import java.security.interfaces.RSAKey;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class AttrezzoDAO {
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
 	private static final String USER = "postgres";
 	private static final String PASSWORD = "Informatica1";
 	
-	public void inserisciAttrezzo(int idDep, String nomeAttrezzo, String tipoAttrezzo, String statoAttrezzo) {
+	//MI SERVE PER INSERIRE L'ATTREZZO NEL DB:
+	public boolean inserisciAttrezzo(int idDep, String nomeAttrezzo, String tipoAttrezzo, String statoAttrezzo) {
 		String sql = "INSERT INTO prguninabiogarden.Attrezzo(Id_deposito, nome_attrezzo, Tipo, Stato_attrezzo) "
-				+ "VALUES(?, ?, ?, ?, ?)";
+				+ "VALUES(?, ?, ?, ?)";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
             
                 psmt.setInt(1, idDep);
-                psmt.setString(2,  tipoAttrezzo);
+                psmt.setString(2,  nomeAttrezzo);
                 psmt.setString(3, tipoAttrezzo);
                 psmt.setString(4, statoAttrezzo);
                 
             psmt.executeUpdate();
+            return true;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'attrezzo! (CLASSE AttrezzoDAO), funzione: inserisciAttrezzo" + e);
+    		return false;
+    	} 
+	}
+	
+	//MI SERVE PER POPOLARE LA TABELLA CON TUTTI GLI ATTREZZI DI QUEL DEPOSITO:
+	public void popolaTabellaAttrezzoPerDeposito(int idDep, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Deposito AS D "
+				+ "JOIN prguninabiogarden.Attrezzo AS A ON D.id_deposito = A.id_deposito "
+				+ "WHERE D.id_deposito = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+            
+                psmt.setInt(1, idDep);
+                
+                ResultSet rs = psmt.executeQuery();
+                
+                while(rs.next()) {
+                	model.addRow(new Object[]{rs.getString("id_attrezzo"), rs.getString("nome_attrezzo"), rs.getString("tipo"), rs.getString("stato_attrezzo")});
+                }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella con gli attrezzi del deposito! (CLASSE AttrezzoDAO), funzione: popolaTabellaAttrezzoPerDeposito" + e);
     	} 
 	}
 	
