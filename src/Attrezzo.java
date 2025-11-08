@@ -23,7 +23,7 @@ public class Attrezzo {
     public String getNome() {
         return nome;
     }
-    public String getIdAttrezzo() {
+    public int getIdAttrezzo() {
         return idAttrezzo;
     }
     public TipoAttrezzo getTipo() {
@@ -48,7 +48,7 @@ public class Attrezzo {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public void setIdAttrezzo(String idAttrezzo) {
+    public void setIdAttrezzo(int idAttrezzo) {
         this.idAttrezzo = idAttrezzo;
     }
     public void setTipo(TipoAttrezzo tipo) {
