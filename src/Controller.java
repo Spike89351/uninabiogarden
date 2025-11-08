@@ -434,6 +434,7 @@ public class Controller {
 	
 	//MI SERVE PER POPOLARE LA TABELLA CON GLI ATTREZZI DI QUEL DEPOSITO:
 	public void popolaTabellaConTuttiGliAttrezziDelDeposito(int idDep, DefaultTableModel model) {
+		model.setRowCount(0);
 		attrezzoDAO = new AttrezzoDAO();
 		attrezzoDAO.popolaTabellaAttrezzoPerDeposito(idDep, model);
 	}
