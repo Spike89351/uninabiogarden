@@ -190,8 +190,8 @@ public class FinestraAggiungiAttrezzo extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						//TORNA INDIETRO:
 						setVisible(false);
+						theController.paginaDettagliDeposito.setVisible(true);
 						theController.paginaDettagliDeposito.setEnabled(true);
-						
 						
 						//PULISCI IL CAMPO NOME:
 						clearTxtField();

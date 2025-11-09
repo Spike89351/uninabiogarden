@@ -193,6 +193,7 @@ public class FinestraFertilizzanti extends JDialog {
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						setVisible(false);
+						theController.paginaDettagliDeposito.setVisible(true);
 						theController.paginaDettagliDeposito.setEnabled(true);
 						
 						//PULISCI I CAMPI NEL CASO CI FOSSE BISOGNO:
