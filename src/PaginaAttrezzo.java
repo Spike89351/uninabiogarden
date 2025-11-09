@@ -1,0 +1,238 @@
+import java.awt.EventQueue;
+import java.awt.Font;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import java.awt.BorderLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+
+public class PaginaAttrezzo extends JFrame {
+	private Controller theController;
+	
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JLabel lblWelcome;
+	private JTextField txtNome;
+	private JComboBox comboBoxTipo;
+	private JComboBox comboBoxStato;
+	private JTable table;
+	private DefaultTableModel model;
+	private JButton btnRimuovi;
+	private int idAttrezzoSelezionato;
+	
+	
+	public PaginaAttrezzo(int idDep, Controller c) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				//POPOLA TABELLA CON TUTTI GLI ATTREZZI:
+				theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
+			}
+		});
+		theController = c;
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(535, 318);
+		setLocationRelativeTo(null);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelTop = new JPanel();
+		contentPane.add(panelTop, BorderLayout.NORTH);
+		
+		lblWelcome = new JLabel("Qui puoi aggiungere un attrezzo al deposito con id "+idDep);
+		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		panelTop.add(lblWelcome);
+		
+		JPanel panelCentral = new JPanel();
+		contentPane.add(panelCentral, BorderLayout.CENTER);
+		
+		JLabel lblNome = new JLabel("Nome");
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblTipo = new JLabel("Tipo");
+		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		JLabel lblStato = new JLabel("Stato");
+		lblStato.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		txtNome = new JTextField();
+		txtNome.setColumns(10);
+		
+		String[] tipoAttrezzo = {"","Manuale", "Macchinario"};
+		
+		comboBoxTipo = new JComboBox(tipoAttrezzo);
+		
+		String[] statoAttrezzo = {"", "Ottimo", "Buono", "Sufficiente", "In riparazione", "Da riparare", "Da rottamare"};
+		
+		comboBoxStato = new JComboBox(statoAttrezzo);
+		
+		JButton btnAggiungi = new JButton("Aggiungi");
+		btnAggiungi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(ctrlTextFields()) {
+					if(theController.creaAttrezzo(idDep, txtNome.getText(), comboBoxTipo.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString())) {
+						theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
+						clearTxtField();
+						JOptionPane.showMessageDialog(null, "Hai inserito correttamente l'attrezzo!");
+					}
+				}
+			}
+		});
+		
+		JPanel panelTable = new JPanel();
+		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
+		gl_panelCentral.setHorizontalGroup(
+			gl_panelCentral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(gl_panelCentral.createSequentialGroup()
+									.addComponent(lblNome)
+									.addGap(18)
+									.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panelCentral.createSequentialGroup()
+									.addComponent(lblTipo, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(comboBoxTipo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addGroup(gl_panelCentral.createSequentialGroup()
+									.addComponent(lblStato, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(comboBoxStato, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addPreferredGap(ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(40)
+							.addComponent(btnAggiungi)))
+					.addContainerGap())
+		);
+		gl_panelCentral.setVerticalGroup(
+			gl_panelCentral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
+					.addGap(47)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNome)
+								.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblTipo, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBoxTipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblStato, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBoxStato, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(btnAggiungi)))
+					.addContainerGap(64, Short.MAX_VALUE))
+		);
+		panelTable.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panelTable.add(scrollPane, BorderLayout.CENTER);
+		
+		model = new DefaultTableModel(
+				new Object[][]{},
+				new String[]{ "Id attrezzo", "Nome", "Tipo", "Stato"}
+			);
+		
+		table = new JTable(model);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = table.rowAtPoint(e.getPoint());
+				if(row != -1) {
+					try {
+						//PRESA DEL DATO DALLA TABELLA:
+						String idAttrezzoString = String.valueOf(table.getValueAt(row, 0));
+						//CAST DEL DATO DA STRING A INT:
+						idAttrezzoSelezionato = Integer.valueOf(idAttrezzoString);
+					}catch(ClassCastException x) {
+						JOptionPane.showMessageDialog(scrollPane, "Errore nel cast!");
+					}
+					//RENDO DISPONIBILE IL PULSANTE PER VISUALIZZARE I DETTAGLI:
+					btnRimuovi.setEnabled(true);
+				}
+			}
+		});
+		scrollPane.setColumnHeaderView(table);
+		scrollPane.setViewportView(table);
+		panelCentral.setLayout(gl_panelCentral);
+		
+		JPanel panelBottom = new JPanel();
+		contentPane.add(panelBottom, BorderLayout.SOUTH);
+		panelBottom.setLayout(new BorderLayout(0, 0));
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TORNA INDIETRO:
+				setVisible(false);
+				theController.paginaDettagliDeposito.setVisible(true);
+				//PULISCI IL CAMPO NOME:
+				clearTxtField();
+			}
+		});
+		panelBottom.add(btnBack, BorderLayout.WEST);
+		
+		btnRimuovi = new JButton("Rimuovi");
+		btnRimuovi.setEnabled(false);
+		btnRimuovi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//UNA VOLTA SELEZIONATO UN ATTREZZO TRAMITE TABELLA IL PULSANTE SI SBLOCCA E POSSO ELIMINARLO:
+				
+			}
+		});
+		panelBottom.add(btnRimuovi, BorderLayout.EAST);
+
+	}
+	
+//METODI:
+	private boolean ctrlTextFields() {
+		if(txtNome.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Errore, ma il nome dell'attrezzo non può essere vuoto!");
+			return false;
+		}
+		if(comboBoxTipo.getSelectedItem().toString().trim().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Errore, il campo tipo di attrezzo non può essere vuoto!");
+			return false;
+		}
+		if(comboBoxStato.getSelectedItem().toString().trim().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Errore, il campo stato attrezzo non può essere vuoto!");
+			return false;
+		}
+		return true;
+	}
+	
+	//PULISCI I CMAPI:
+	private void clearTxtField() {
+		txtNome.setText(null);
+		comboBoxTipo.setSelectedItem("");
+		comboBoxStato.setSelectedItem("");
+	}
+}
