@@ -59,7 +59,7 @@ public class Controller {
 	//FINESTRE:
 	public FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
 	public AggiungiEVisualizzaTerreno AggEVisualizzaTerre;
-//	public FinestraAggiungiAttrezzo finestraAttrezzo;
+	public FinestraManutenzione finestraManutenzioneAttrezzo;
 	public FinestraFertilizzanti finestraFertilizzante;
 	
 	//MAIN:
@@ -446,6 +446,14 @@ public class Controller {
 	public boolean eliminaAttrezzo(int idAttrezzo) {
 		attrezzoDAO = new AttrezzoDAO();
 		return attrezzoDAO.elimina(idAttrezzo);
+	}
+	
+	//MI SERVE PER ANDARE DALLA PAGINA ATTREZZO ALLA FINESTRA MANUTENZIONE:
+	public void daPaginaAttrezzoAFinestraManutenzione(int idAttrezzo) {
+		paginaAttrezzo.setEnabled(false);
+		
+		finestraManutenzioneAttrezzo = new FinestraManutenzione(idAttrezzo, this);
+		finestraManutenzioneAttrezzo.setVisible(true);
 	}
 	
 	//MI SERVE PER PASSARE DALLA PAGINA DETTAGLI DEPOSITO ALLA PAGINA FERTILIZZANTI:

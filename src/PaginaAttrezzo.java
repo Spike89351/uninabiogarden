@@ -23,6 +23,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
 
 
 public class PaginaAttrezzo extends JFrame {
@@ -38,7 +41,9 @@ public class PaginaAttrezzo extends JFrame {
 	private DefaultTableModel model;
 	private JButton btnRimuovi;
 	private int idAttrezzoSelezionato;
-	
+	private JMenuBar menuBar;
+	private JMenu menuAltro;
+	private JMenuItem itemManutenzione;
 	
 	public PaginaAttrezzo(int idDep, Controller c) {
 		addWindowListener(new WindowAdapter() {
@@ -48,11 +53,29 @@ public class PaginaAttrezzo extends JFrame {
 				theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
 			}
 		});
+		
 		theController = c;
 		
+		setTitle("Pagina Attrezzo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(535, 318);
+		setSize(540, 380);
 		setLocationRelativeTo(null);
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		menuAltro = new JMenu("Altro");
+		menuBar.add(menuAltro);
+		
+		itemManutenzione = new JMenuItem("Manutenzione");
+		itemManutenzione.setEnabled(false);
+		itemManutenzione.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//FAI QUALCOSA:
+				theController.daPaginaAttrezzoAFinestraManutenzione(idAttrezzoSelezionato);
+			}
+		});
+		menuAltro.add(itemManutenzione);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -175,8 +198,9 @@ public class PaginaAttrezzo extends JFrame {
 					}catch(ClassCastException x) {
 						JOptionPane.showMessageDialog(scrollPane, "Errore nel cast!");
 					}
-					//RENDO DISPONIBILE IL PULSANTE PER VISUALIZZARE I DETTAGLI:
+					//RENDO DISPONIBILE IL PULSANTE PER RIMUOVERE E PER VISUALIZZARE LA MANUTEZIONE(MENU BAR):
 					btnRimuovi.setEnabled(true);
+					itemManutenzione.setEnabled(true);
 				}
 			}
 		});
