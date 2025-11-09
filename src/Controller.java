@@ -53,12 +53,13 @@ public class Controller {
 	public PaginaVisualizzaDettagliProgetto paginaDettagliProgetto;
 	public PaginaDeposito paginaDeposito;
 	public PaginaDettagliDeposito paginaDettagliDeposito;
+	public PaginaAttrezzo paginaAttrezzo;
 	
 	
 	//FINESTRE:
 	public FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
 	public AggiungiEVisualizzaTerreno AggEVisualizzaTerre;
-	public FinestraAggiungiAttrezzo finestraAttrezzo;
+//	public FinestraAggiungiAttrezzo finestraAttrezzo;
 	public FinestraFertilizzanti finestraFertilizzante;
 	
 	//MAIN:
@@ -421,11 +422,14 @@ public class Controller {
 	}
 	
 	//SERVE PER VISUALIZZARE LA FINESTRA 'AGGIUNGIATTREZZO':
-	public void daPaginaDettagliDepositoAFinestraAggiungiAttrezzo(int idDep) {
-		paginaDettagliDeposito.setEnabled(false);
+	public void daPaginaDettagliDepositoAPaginaAttrezzo(int idDep) {
+		paginaDettagliDeposito.setVisible(false);
 		
-		finestraAttrezzo = new FinestraAggiungiAttrezzo(idDep, this);
-		finestraAttrezzo.setVisible(true);
+		paginaAttrezzo = PaginaAttrezzo();
+		paginaAttrezzo.setVisible(true);
+		
+//		finestraAttrezzo = new FinestraAggiungiAttrezzo(idDep, this);
+//		finestraAttrezzo.setVisible(true);
 	}
 	
 	//SERVE PER CREARE UN ATTREZZO: 

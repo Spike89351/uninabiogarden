@@ -69,7 +69,7 @@ public class PaginaDettagliDeposito extends JFrame {
 		itemAggiungiAttrezzo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//VAI ALLA FINESTRA DEDICATA:
-				theController.daPaginaDettagliDepositoAFinestraAggiungiAttrezzo(idDeposito);
+				theController.daPaginaDettagliDepositoAPaginaAttrezzo(idDeposito);
 			}
 		});
 		menuItemAttrezzo.add(itemAggiungiAttrezzo);

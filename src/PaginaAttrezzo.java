@@ -1,31 +1,28 @@
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-
-import java.awt.CardLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class FinestraAggiungiAttrezzo extends JDialog {
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+public class PaginaAttrezzo extends JDialog {
 	private Controller theController;
 	
 	private static final long serialVersionUID = 1L;
@@ -37,9 +34,7 @@ public class FinestraAggiungiAttrezzo extends JDialog {
 	private DefaultTableModel model;
 	private JButton btnAggiungi;
 	
-	public FinestraAggiungiAttrezzo(int idDeposito, Controller c) {
-		theController = c;
-		
+	public PaginaAttrezzo(int idDeposito, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -189,7 +184,7 @@ public class FinestraAggiungiAttrezzo extends JDialog {
 		panelCentral.setLayout(gl_panelCentral);
 		{
 			JPanel PanelBottom = new JPanel();
-			getContentPane().add(PanelBottom, BorderLayout.SOUTH);
+			contentPanel.add(PanelBottom, BorderLayout.SOUTH);
 			PanelBottom.setLayout(new BorderLayout(0, 0));
 			{
 				JButton btnBack = new JButton("Back");
@@ -243,5 +238,5 @@ public class FinestraAggiungiAttrezzo extends JDialog {
 		comboBoxTipoAttrezzo.setSelectedItem("");
 		comboBoxStatoAttrezzo.setSelectedItem("");
 	}
-	
+
 }
