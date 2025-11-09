@@ -35,6 +35,8 @@ public class PaginaAttrezzo extends JDialog {
 	private JButton btnAggiungi;
 	
 	public PaginaAttrezzo(int idDeposito, Controller c) {
+		theController = c; 
+		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {

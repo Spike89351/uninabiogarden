@@ -425,11 +425,8 @@ public class Controller {
 	public void daPaginaDettagliDepositoAPaginaAttrezzo(int idDep) {
 		paginaDettagliDeposito.setVisible(false);
 		
-		paginaAttrezzo = PaginaAttrezzo();
+		paginaAttrezzo = new PaginaAttrezzo(idDep, this);
 		paginaAttrezzo.setVisible(true);
-		
-//		finestraAttrezzo = new FinestraAggiungiAttrezzo(idDep, this);
-//		finestraAttrezzo.setVisible(true);
 	}
 	
 	//SERVE PER CREARE UN ATTREZZO: 
