@@ -459,6 +459,19 @@ public class Controller {
 		return fertilizzanteDAO.inserisciFertilizzanti(idDep, letame, compost, granulari, liquidi);
 	}
 	
+	//MI SERVE PER SOTTRARRE IL FERTILIZZANTE USATO: 
+	public boolean sottraiFertilizzante(int idDep, double letame, double compost, double granulari, double liquidi) {
+		fertilizzanteDAO = new FertilizzanteDAO();
+		return fertilizzanteDAO.sottraiFertilizzanti(idDep, letame, compost, granulari, liquidi);
+	}
+	
+	//MI SERVE PER POPOLARE LA TABELLA:
+	public boolean popolaTabellaFertilizzanti(int idDep, DefaultTableModel model) {
+		model.setRowCount(0);
+		fertilizzanteDAO = new FertilizzanteDAO();
+		return fertilizzanteDAO.popolaTabella(idDep, model);
+	}
+	
 	
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	

@@ -42,11 +42,7 @@ public class FinestraAggiungiAttrezzo extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				try {
-					theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDeposito, model);
-				}catch(Exception x) {
-					JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella!");
-				}
+				theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDeposito, model);
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
