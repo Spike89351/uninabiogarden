@@ -449,11 +449,24 @@ public class Controller {
 	}
 	
 	//MI SERVE PER ANDARE DALLA PAGINA ATTREZZO ALLA FINESTRA MANUTENZIONE:
-	public void daPaginaAttrezzoAFinestraManutenzione(int idAttrezzo) {
+	public void daPaginaAttrezzoAFinestraManutenzione(int idDep, int idAttrezzo) {
 		paginaAttrezzo.setEnabled(false);
 		
-		finestraManutenzioneAttrezzo = new FinestraManutenzione(idAttrezzo, this);
+		finestraManutenzioneAttrezzo = new FinestraManutenzione(idDep, idAttrezzo, this);
 		finestraManutenzioneAttrezzo.setVisible(true);
+	}
+	
+	//MI SERVE PER CAMBIARE LA MANUTENZIONE E LA DISPONIBILITA' DI UN ATTREZZO:
+	public boolean manutenzioneAttrezzo(int idAttrezzo, String statoMan, boolean disp) {
+		attrezzoDAO = new AttrezzoDAO();
+		return attrezzoDAO.manutenzione(idAttrezzo, statoMan, disp);
+	}
+	
+	//MI SERVE PER POPOLARE LA TABELLA CON TUTTI GLI ATTREZZI TRAMITE MANUTENZIONE:
+	public void popolaTabellaTramiteStatoAttrezzo(int idDep, String statoMan, DefaultTableModel model) {
+		model.setRowCount(0);
+		attrezzoDAO = new AttrezzoDAO();
+		attrezzoDAO.popolaTabellaConIdDepositoEStatoManutenzione(idDep, statoMan, model);
 	}
 	
 	//MI SERVE PER PASSARE DALLA PAGINA DETTAGLI DEPOSITO ALLA PAGINA FERTILIZZANTI:

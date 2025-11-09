@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -17,6 +19,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.SwingConstants;
 
 public class FinestraManutenzione extends JDialog {
 	private Controller theController;
@@ -26,8 +33,20 @@ public class FinestraManutenzione extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private DefaultTableModel model;
+	private JComboBox comboBoxStato;
+	private JComboBox comboBoxStatoCercato;
+	private JLabel lblAttrezzoScelto;
+	private int newIdAttrezzo;
 	
-	public FinestraManutenzione(int idAttrezzo, Controller c) {
+	
+	public FinestraManutenzione(int idDep, int idAttrezzo, Controller c) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				//POPOLA LA TABELLA GIA' DI DEFAULT:
+				theController.popolaTabellaTramiteStatoAttrezzo(idDep, "Nessuna", model);
+			}
+		});
 		theController = c;
 		
 		setSize(669, 311);
@@ -40,7 +59,7 @@ public class FinestraManutenzione extends JDialog {
 			JPanel panelTop = new JPanel();
 			contentPanel.add(panelTop, BorderLayout.NORTH);
 			{
-				JLabel lblWelcome = new JLabel("Qui puoi aggiungere e visualizzare gli utensili ");
+				JLabel lblWelcome = new JLabel("Qui puoi cambiare e  visualizzare gli utensili tramite stato di manutenzione");
 				lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				panelTop.add(lblWelcome);
 			}
@@ -54,19 +73,39 @@ public class FinestraManutenzione extends JDialog {
 			
 			String[] tipoManutenzione = {"", "Nessuna", "Pianificata", "In corso", "Completata"};
 			
-			JComboBox comboBox = new JComboBox(tipoManutenzione);
+			comboBoxStato = new JComboBox(tipoManutenzione);
 			
 			JPanel panelTable = new JPanel();
+			JLabel lblStatoCercato = new JLabel("Cerca tramite stato di manutenzione");
+			comboBoxStatoCercato = new JComboBox(tipoManutenzione);
+			comboBoxStatoCercato.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					theController.popolaTabellaTramiteStatoAttrezzo(idDep, comboBoxStato.getSelectedItem().toString(), model);
+				}
+			});
+			
+			lblAttrezzoScelto = new JLabel("L'id del attrezzo scelto è "+idAttrezzo);
+			lblAttrezzoScelto.setHorizontalAlignment(SwingConstants.CENTER);
+			lblAttrezzoScelto.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 			gl_panelCentral.setHorizontalGroup(
 				gl_panelCentral.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_panelCentral.createSequentialGroup()
 						.addContainerGap()
-						.addComponent(lblStatoMan)
-						.addGap(18)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(gl_panelCentral.createSequentialGroup()
+								.addComponent(lblStatoMan)
+								.addGap(18)
+								.addComponent(comboBoxStato, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblAttrezzoScelto, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGap(49)
-						.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 346, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(gl_panelCentral.createSequentialGroup()
+								.addComponent(lblStatoCercato)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(comboBoxStatoCercato, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
+							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 346, GroupLayout.PREFERRED_SIZE))
 						.addContainerGap())
 			);
 			gl_panelCentral.setVerticalGroup(
@@ -74,14 +113,20 @@ public class FinestraManutenzione extends JDialog {
 					.addGroup(gl_panelCentral.createSequentialGroup()
 						.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_panelCentral.createSequentialGroup()
-								.addGap(28)
+								.addGap(16)
+								.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+									.addComponent(comboBoxStatoCercato, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblStatoCercato))
+								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_panelCentral.createSequentialGroup()
-								.addGap(65)
+								.addGap(40)
+								.addComponent(lblAttrezzoScelto)
+								.addPreferredGap(ComponentPlacement.UNRELATED)
 								.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 									.addComponent(lblStatoMan)
-									.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))))
-						.addContainerGap(55, Short.MAX_VALUE))
+									.addComponent(comboBoxStato, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))))
+						.addContainerGap(47, Short.MAX_VALUE))
 			);
 			panelTable.setLayout(new BorderLayout(0, 0));
 			
@@ -94,6 +139,20 @@ public class FinestraManutenzione extends JDialog {
 				);
 			
 			table = new JTable(model);
+			table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					//POSSO ANCHE CAMBIARE LO STATO DI UN ATTREZZO DIVERSO DA QUELLO CON CUI SONO ENTRATO:
+					int selectedRow = table.rowAtPoint(e.getPoint());
+					if(selectedRow != -1) {
+						String newddAttrezzoString = String.valueOf(table.getValueAt(selectedRow, 0));
+						int newIdAttrezzo = Integer.valueOf(newddAttrezzoString);
+						
+						//CAMBIA L'ID NEL LABEL:
+						lblAttrezzoScelto.setText("L'id del attrezzo scelto è "+newIdAttrezzo);
+					}
+				}
+			});
 			scrollPane.setColumnHeaderView(table);
 			scrollPane.setViewportView(table);
 			panelCentral.setLayout(gl_panelCentral);
@@ -107,7 +166,7 @@ public class FinestraManutenzione extends JDialog {
 				btnAggiungi.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//AGGIUNGI MANUTENZIONE ALL'ATTREZZO:
-						
+						//theController.manutenzioneAttrezzo(idAttrezzo, comboBoxStato.getSelectedItem().toString(), disp);
 					}
 				});
 				btnAggiungi.setActionCommand("OK");
@@ -120,13 +179,23 @@ public class FinestraManutenzione extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						//TORNA INDIETRO:
 						setVisible(false);
-						theController.paginaAttrezzo.setVisible(true);
 						theController.paginaAttrezzo.setEnabled(true);
+						theController.paginaAttrezzo.setVisible(true);
 					}
 				});
 				btnBack.setActionCommand("Cancel");
 				PanelBottom.add(btnBack, BorderLayout.WEST);
 			}
 		}
+	}
+
+//METODI:
+	private boolean ctrTxtField() {
+		if(comboBoxStato.getSelectedItem().toString().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Errore, lo stato dell'attrezzo non può essere nullo!");
+			return false;
+		}
+		
+		return true;
 	}
 }

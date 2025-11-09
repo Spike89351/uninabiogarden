@@ -72,7 +72,7 @@ public class PaginaAttrezzo extends JFrame {
 		itemManutenzione.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//FAI QUALCOSA:
-				theController.daPaginaAttrezzoAFinestraManutenzione(idAttrezzoSelezionato);
+				theController.daPaginaAttrezzoAFinestraManutenzione(idDep, idAttrezzoSelezionato);
 			}
 		});
 		menuAltro.add(itemManutenzione);

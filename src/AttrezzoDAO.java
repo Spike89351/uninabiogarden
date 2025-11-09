@@ -72,4 +72,52 @@ public class AttrezzoDAO {
     		return false;
     	} 
 	}
+	
+	//AGGIUNGI STATO MANUTENZIONE ATTREZZO E CAMBIA DISPONIBILITA' NEL CASO:
+	public boolean manutenzione(int idAttrezzo, String statoMan, boolean disp) {
+		String sql = "UPDATE prguninabiogarden.Attrezzo "
+				+ "SET "
+				+ "stato_manutenzione = ? "
+				+ "disponibilità = ? "
+				+ "WHERE id_attrezzo = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+            
+                psmt.setString(1, statoMan);
+                psmt.setBoolean(2, disp);
+                psmt.setInt(3, idAttrezzo);
+                                
+                int riuscito = psmt.executeUpdate();
+                return riuscito > 0;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nell'eliminazione dell'attrezzo! (CLASSE AttrezzoDAO), funzione: elimina" + e);
+    		return false;
+    	} 		
+	}
+	
+	//POPOLA LA TABELLA CON GLI ATTREZZI TRAMITE IL SUO STATO DI MANUTENZIONE E E ID DEPOSITO:
+	public void popolaTabellaConIdDepositoEStatoManutenzione(int idDep, String statoManutenzione, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Deposito AS D "
+				+ "JOIN prguninabiogarden.Attrezzo AS A ON D.id_deposito = A.id_deposito "
+				+ "WHERE D.id_deposito = ? AND A.stato_manutenzione = ?";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+            
+                psmt.setInt(1, idDep);
+                psmt.setString(2, statoManutenzione);
+                
+                ResultSet rs = psmt.executeQuery();
+                		
+	    		while(rs.next()) {
+	    			model.addRow(new Object[]{rs.getString("id_attrezzo"), rs.getString("nome_attrezzo"), rs.getString("stato_manutenzione")});
+	            }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella con gli attrezzi tramite stato! (CLASSE AttrezzoDAO), funzione: popolaTabellaConIdDepositoEStatoManutenzione" + e);
+    	} 
+	}
+	
+	
 }
