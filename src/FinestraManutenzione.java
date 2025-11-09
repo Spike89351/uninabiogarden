@@ -24,6 +24,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class FinestraManutenzione extends JDialog {
 	private Controller theController;
@@ -45,6 +47,10 @@ public class FinestraManutenzione extends JDialog {
 			public void windowActivated(WindowEvent e) {
 				//POPOLA LA TABELLA GIA' DI DEFAULT:
 				theController.popolaTabellaTramiteStatoAttrezzo(idDep, "Nessuna", model);
+			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				theController.paginaAttrezzo.setEnabled(true);
 			}
 		});
 		theController = c;
@@ -77,11 +83,15 @@ public class FinestraManutenzione extends JDialog {
 			
 			JPanel panelTable = new JPanel();
 			JLabel lblStatoCercato = new JLabel("Cerca tramite stato di manutenzione");
-			comboBoxStatoCercato = new JComboBox(tipoManutenzione);
-			comboBoxStatoCercato.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					theController.popolaTabellaTramiteStatoAttrezzo(idDep, comboBoxStato.getSelectedItem().toString(), model);
+
+			String[] cercaPerManutenzione = {"Nessuna", "Pianificata", "In corso", "Completata"};
+			
+			comboBoxStatoCercato = new JComboBox(cercaPerManutenzione);
+			comboBoxStatoCercato.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) {
+					 if (e.getStateChange() == ItemEvent.SELECTED) {
+				            theController.popolaTabellaTramiteStatoAttrezzo(idDep, String.valueOf(e.getItem().toString().trim()), model);
+				        }
 				}
 			});
 			
@@ -167,6 +177,9 @@ public class FinestraManutenzione extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						//AGGIUNGI MANUTENZIONE ALL'ATTREZZO:
 						//theController.manutenzioneAttrezzo(idAttrezzo, comboBoxStato.getSelectedItem().toString(), disp);
+						
+						//PULISCI IL CAMPO:
+						clearField();
 					}
 				});
 				btnAggiungi.setActionCommand("OK");
@@ -190,12 +203,15 @@ public class FinestraManutenzione extends JDialog {
 	}
 
 //METODI:
+	private void clearField() {
+		comboBoxStato.setSelectedItem(null);
+	}
+	
 	private boolean ctrTxtField() {
 		if(comboBoxStato.getSelectedItem().toString().isBlank()) {
 			JOptionPane.showMessageDialog(null, "Errore, lo stato dell'attrezzo non può essere nullo!");
 			return false;
 		}
-		
 		return true;
 	}
 }
