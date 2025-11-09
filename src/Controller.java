@@ -443,8 +443,10 @@ public class Controller {
 	}
 	
 	//MI SERVE PER GLI ATTREZZI: (ALTRE FUNZIONI):
-	
-	
+	public boolean eliminaAttrezzo(int idAttrezzo) {
+		attrezzoDAO = new AttrezzoDAO();
+		return attrezzoDAO.elimina(idAttrezzo);
+	}
 	
 	//MI SERVE PER PASSARE DALLA PAGINA DETTAGLI DEPOSITO ALLA PAGINA FERTILIZZANTI:
 	public void daPaginaDettagliDepositoAPaginaFertilizzanti(int idDep) {

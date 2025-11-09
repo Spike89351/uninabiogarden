@@ -205,11 +205,17 @@ public class PaginaAttrezzo extends JFrame {
 		btnRimuovi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//UNA VOLTA SELEZIONATO UN ATTREZZO TRAMITE TABELLA IL PULSANTE SI SBLOCCA E POSSO ELIMINARLO:
-				
+				if(theController.eliminaAttrezzo(idAttrezzoSelezionato)) {
+					theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
+					clearTxtField();
+					JOptionPane.showMessageDialog(null, "Hai eliminato correttamente l'attrezzo!");
+				}else {
+					clearTxtField();
+					JOptionPane.showMessageDialog(null, "Errore, non hai eliminato nessun attrezzo!");
+				}
 			}
 		});
 		panelBottom.add(btnRimuovi, BorderLayout.EAST);
-
 	}
 	
 //METODI:

@@ -55,5 +55,21 @@ public class AttrezzoDAO {
     	} 
 	}
 	
-	
+	//ELIMINA ATTREZZO:
+	public boolean elimina(int idAttrezzo) {
+		String sql = "DELETE FROM prguninabiogarden.Attrezzo WHERE id_attrezzo = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+            
+                psmt.setInt(1, idAttrezzo);
+                
+                int riuscito = psmt.executeUpdate();
+                
+                return riuscito > 0;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nell'eliminazione dell'attrezzo! (CLASSE AttrezzoDAO), funzione: elimina" + e);
+    		return false;
+    	} 
+	}
 }
