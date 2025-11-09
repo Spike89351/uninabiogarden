@@ -5,7 +5,6 @@ public class Deposito {
     private String indirizzo;
     private double dimDeposito;
     private ArrayList<String> elencoRaccoltoPoss = new ArrayList<String>();
-    private ArrayList<String> note = new ArrayList<String>();
     private Fertilizzante fertilizzante;
     private ArrayList<Coltura> elencoColture = new ArrayList<Coltura>();
     private ArrayList<Attrezzo> elencoAttrezzi = new ArrayList<Attrezzo>();
@@ -31,9 +30,6 @@ public class Deposito {
 	public ArrayList<String> getElencoRaccoltoPoss() {
 		return elencoRaccoltoPoss;
 	}
-	public ArrayList<String> getNote() {
-		return note;
-	}
 	public Fertilizzante getFertilizzante() {
 		return fertilizzante;
 	}
@@ -57,9 +53,6 @@ public class Deposito {
 	}
 	public void setElencoRaccoltoPoss(String RaccoltoPoss) {
 		this.elencoRaccoltoPoss.add(RaccoltoPoss);
-	}
-	public void setNote(String note) {
-		this.note.add(note);
 	}
 	public void setFertilizzante(Fertilizzante fertilizzante) {
 		this.fertilizzante = fertilizzante;
