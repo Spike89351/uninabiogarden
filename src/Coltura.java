@@ -1,15 +1,13 @@
 public class Coltura {
     private String nome;
-    private int tempoMaturazione;
     private String colore;
     private String stagione;
     private String tipoOrtaggio; //ORESA DAL DB
     private boolean disp;
 
 
-    Coltura(String nome, int tempoMat, String colore, String stagione, String tipoOrtaggio){
+    Coltura(String nome, String colore, String stagione, String tipoOrtaggio){
         this.nome = nome;
-        this.tempoMaturazione = tempoMat;
         this.colore = colore;
         this.stagione = stagione;
         this.tipoOrtaggio = tipoOrtaggio;
@@ -20,9 +18,6 @@ public class Coltura {
     //GETTERS:
     public String getNome() {
         return nome;
-    }
-    public int getTempoMaturazione() {
-        return tempoMaturazione;
     }
     public String getColore() {
         return colore;
@@ -43,9 +38,6 @@ public class Coltura {
     //SETTER:
     public void setNome(String nome) {
         this.nome = nome;
-    }
-    public void setTempoMaturazione(int tempoMaturazione) {
-        this.tempoMaturazione = tempoMaturazione;
     }
     public void setColore(String colore) {
         this.colore = colore;
