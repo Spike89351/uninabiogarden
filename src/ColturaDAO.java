@@ -56,27 +56,18 @@ public class ColturaDAO {
 	}
 	
 	//MI SERVE PER ELIMINARE UNA COLTURA:
-	public boolean elimina(int idDep, String nome, String colore, String stagione, String tipo) {
+	public boolean elimina(int idDep, int idColtura) {
 		String sql = "DELETE FROM prguninabiogarden.Coltura "
-				+ "WHERE "
-				+ "id_deposito = ? "	
-				+ "AND nome = ? "
-				+ "AND colore = ? "
-				+ "AND stagione = ? "
-				+ "AND tipo = ? ";
-		System.out.println("Sto dopo la query");
+				+ "WHERE id_coltura = ? AND id_deposito = ? ";
+
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
-			System.out.println("Sto nel try catch");
-			psmt.setInt(1, idDep);
-			psmt.setString(2, nome);
-			psmt.setString(3, colore);
-			psmt.setString(4, stagione);
-			psmt.setString(5, tipo);
-			System.out.println("Sto dopo i vari psmt..");
+
+			psmt.setInt(1, idColtura);
+			psmt.setInt(2, idDep);
+			
 			int x = psmt.executeUpdate();
-			System.out.println("Sto dopo l'execute query");
-			System.out.println("la x è uguale a: "+ x);
+			
 			return x > 0; 
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione elimina, nella classe ColturaDAO " + e);
