@@ -23,13 +23,13 @@ public class PaginaColtura extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtStagione;
 	private JTextField txtColore;
 	private JTextField txtNome;
 	private JTable table;
 	private JComboBox comboBoxTipoOrtaggio;
 	private DefaultTableModel model;
-	
+	private JComboBox comboBoxDisponibile;
+	private JComboBox comboBoxStagione;
 	
 	public PaginaColtura(int idDep, Controller c) {
 		theController = c;
@@ -69,9 +69,6 @@ public class PaginaColtura extends JFrame {
 		
 		comboBoxTipoOrtaggio = new JComboBox(elencoTipoOrtaggio);
 		
-		txtStagione = new JTextField();
-		txtStagione.setColumns(10);
-		
 		txtColore = new JTextField();
 		txtColore.setColumns(10);
 		
@@ -91,7 +88,11 @@ public class PaginaColtura extends JFrame {
 		
 		String[] elencoDisp = {"", "Non disponibile"};
 		
-		JComboBox comboBoxDisponibile = new JComboBox();
+		comboBoxDisponibile = new JComboBox();
+		
+		String[] elencoStagioni = {"", "Estivo", "Invernale", "Autunnale", "Primaverile"};
+		
+		comboBoxStagione = new JComboBox(elencoStagioni);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -111,7 +112,7 @@ public class PaginaColtura extends JFrame {
 										.addComponent(lblNome))
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-										.addComponent(txtStagione, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(comboBoxStagione, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
 										.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(txtColore, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
 						.addGroup(gl_panelCentral.createSequentialGroup()
@@ -126,7 +127,7 @@ public class PaginaColtura extends JFrame {
 							.addComponent(lblTabella)
 							.addPreferredGap(ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
 							.addComponent(comboBoxDisponibile, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
+						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -151,7 +152,7 @@ public class PaginaColtura extends JFrame {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblStagione, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtStagione, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(comboBoxStagione, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblTipoOratggio, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
