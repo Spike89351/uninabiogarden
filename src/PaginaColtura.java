@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
@@ -19,6 +21,12 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class PaginaColtura extends JFrame {
 	private Controller theController;
@@ -32,9 +40,27 @@ public class PaginaColtura extends JFrame {
 	private DefaultTableModel model;
 	private JComboBox comboBoxDisponibile;
 	private JComboBox comboBoxStagione;
+	private JButton btnRimuovi;
+	private JButton btnBack;
+	private String nomeColturaSelezionata;
+	private String coloreColturaSelezionata;
+	private String tipoColturaSelezionata;	
+	private String stagioneColturaSelezionata;
+	
 	
 	public PaginaColtura(int idDep, Controller c) {
 		theController = c;
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				//POPOLA LA TABELLA DI DEFAULT CON TUTTE LE COLTURE DISP:
+				theController.popolaTabellaColtureDispONon(idDep, model, true);
+				
+				//BLOCCO IL PULSANTE 'RIMUOVI':
+				btnRimuovi.setEnabled(true);
+			}
+		});
 		
 		setTitle("Pagina coltura");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,7 +109,13 @@ public class PaginaColtura extends JFrame {
 		btnAggiungi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//AGGIUNGI:
-				
+				if(ctrlTxtFields()) {
+					if(theController.inserisciColtura(txtNome.getText(), txtColore.getText(), comboBoxStagione.getSelectedItem().toString(), comboBoxTipoOrtaggio.getSelectedItem().toString())) {
+						theController.popolaTabellaColtureDispONon(idDep, model, true);
+						clearTxtFields();
+						JOptionPane.showMessageDialog(null, "Hai inserito correttamente la coltura!");
+					}
+				}
 			}
 		});
 		
@@ -97,10 +129,18 @@ public class PaginaColtura extends JFrame {
 		String[] elencoDisp = {"", "Non disponibile"};
 		
 		comboBoxDisponibile = new JComboBox();
+		comboBoxDisponibile.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				//UNA VOLTA CAMBIATO CERCA PER CIO' CHE SI E' CAMBIATO:
+				
+			}
+		});
 		
 		String[] elencoStagioni = {"", "Estivo", "Invernale", "Autunnale", "Primaverile"};
 		
 		comboBoxStagione = new JComboBox(elencoStagioni);
+		
+		JLabel lblAvvisoColturaScelta = new JLabel("La coltura che hai scelto è: "+nomeColturaSelezionata + coloreColturaSelezionata + tipoColturaSelezionata + stagioneColturaSelezionata);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -135,7 +175,8 @@ public class PaginaColtura extends JFrame {
 							.addComponent(lblTabella)
 							.addPreferredGap(ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
 							.addComponent(comboBoxDisponibile, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+						.addComponent(lblAvvisoColturaScelta, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -167,7 +208,9 @@ public class PaginaColtura extends JFrame {
 								.addComponent(comboBoxTipoOrtaggio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnAggiungi)))
-					.addContainerGap(57, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblAvvisoColturaScelta)
+					.addContainerGap(32, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
@@ -180,6 +223,22 @@ public class PaginaColtura extends JFrame {
 			);
 		
 		table = new JTable(model);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int selectedRow = table.rowAtPoint(e.getPoint());
+				if(selectedRow != -1) {
+					//PRENDO IL NOME DELLA COLTURA, COLORE E IL TIPO:
+					nomeColturaSelezionata = String.valueOf(table.getValueAt(selectedRow, 0));
+					coloreColturaSelezionata = String.valueOf(table.getValueAt(selectedRow, 1));
+					tipoColturaSelezionata = String.valueOf(table.getValueAt(selectedRow, 2));
+					stagioneColturaSelezionata = String.valueOf(table.getValueAt(selectedRow, 4));
+					
+					//SBLOCCO IL PULSANTE 'RIMUOVI':
+					btnRimuovi.setEnabled(true);
+				}
+			}
+		});
 		scrollPane.setColumnHeaderView(table);
 		scrollPane.setViewportView(table);
 		panelCentral.setLayout(gl_panelCentral);
@@ -188,23 +247,48 @@ public class PaginaColtura extends JFrame {
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 		panelBottom.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TORNA INDIETRO:
+				setVisible(false);
+				theController.paginaDettagliDeposito.setVisible(true);
 				
+				//PULISCO I CAMPI:
+				clearTxtFields();
 			}
 		});
 		panelBottom.add(btnBack, BorderLayout.WEST);
 		
-		JButton btnRimuovi = new JButton("Rimuovi");
+		btnRimuovi = new JButton("Rimuovi");
+		btnRimuovi.setEnabled(false);
 		btnRimuovi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//RIMUOVI:
-				
+				if(theController.eliminaColtura(nomeColturaSelezionata, coloreColturaSelezionata, stagioneColturaSelezionata, tipoColturaSelezionata)) {
+					//POPOLA LA TABELLA:
+					theController.popolaTabellaColtureDispONon(idDep, model, true);
+					//PULISCO I CAMPI:
+					clearTxtFields();
+					JOptionPane.showMessageDialog(null, "Hai eliminato correttamente la coltura");
+				}
 			}
 		});
 		panelBottom.add(btnRimuovi, BorderLayout.EAST);
 
+	}
+//METODI:
+	//MI SERVE PER PULIRE I CAMPI:
+	private void clearTxtFields() {
+		txtNome.setText(null);
+		txtColore.setText(null);
+		comboBoxStagione.setSelectedItem(null);
+		comboBoxTipoOrtaggio.setSelectedItem(null);
+	}
+	
+	//SERVE PER CONTROLLARE I CAMPI SE SONO CORRETTI:
+	private boolean ctrlTxtFields() {
+		
+		return true;
 	}
 }

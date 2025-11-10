@@ -52,11 +52,4 @@ public class Coltura {
         this.disp = disp;
     }
 
-    //SERVE PER AUMENTARE IL TEMPO DI MATURAZIONE:
-    public void aumentaTempoMaturazione(int ore) {
-        this.tempoMaturazione = this.tempoMaturazione + ore;
-    }
-
-
-
 }

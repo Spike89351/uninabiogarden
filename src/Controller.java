@@ -34,6 +34,7 @@ public class Controller {
 	private Fertilizzante fertilizzante;
 	private FertilizzanteDAO fertilizzanteDAO;
 	private Coltura coltura;
+	private ColturaDAO colturaDAO;
 	private Attrezzo attrezzo;
 	private AttrezzoDAO attrezzoDAO;
 	private StatoAttrezzo statoAttrezzo;
@@ -505,8 +506,23 @@ public class Controller {
 		paginaColtura.setVisible(true);
 	}
 	
+	//MI SERVE PER L'INSERIMENTO DI UNA COLTURA:
+	public boolean inserisciColtura(String nome, String colore, String stagione, String tipo) {
+		colturaDAO = new ColturaDAO();
+		return colturaDAO.inserisci(nome, colore, stagione, tipo);
+	}
 	
+	//MI SERVE A POPOLARE LA TABELLA CON LE COLTURE, DISP O NON DISP:
+	public void popolaTabellaColtureDispONon(int idDep, DefaultTableModel model, boolean disp) {
+		colturaDAO = new ColturaDAO();
+		colturaDAO.popolaTabella(idDep, model, disp);
+	}
 	
+	//MI SERVE PER ELIMINARE LA COLTURA:
+	public boolean eliminaColtura(String nome, String colore, String stagione, String tipo) {
+		colturaDAO = new ColturaDAO();
+		return colturaDAO.elimina(nome, colore, stagione, tipo);
+	}
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	
 }
