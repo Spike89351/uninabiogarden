@@ -73,7 +73,7 @@ public class ColturaDAO {
 			psmt.setString(3, colore);
 			psmt.setString(4, stagione);
 			psmt.setString(5, tipo);
-			System.out.println("Sto dopo i vari psmt.");
+			System.out.println("Sto dopo i vari psmt..");
 			int x = psmt.executeUpdate();
 			System.out.println("Sto dopo l'execute query");
 			System.out.println("la x è uguale a: "+ x);
