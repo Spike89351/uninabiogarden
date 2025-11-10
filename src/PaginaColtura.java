@@ -17,6 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PaginaColtura extends JFrame {
 	private Controller theController;
@@ -78,6 +80,12 @@ public class PaginaColtura extends JFrame {
 		JPanel panelTable = new JPanel();
 		
 		JButton btnAggiungi = new JButton("Aggiungi");
+		btnAggiungi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//AGGIUNGI:
+				
+			}
+		});
 		
 		JLabel lblTabella = new JLabel("Elenco colture disponibili");
 		lblTabella.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -181,9 +189,21 @@ public class PaginaColtura extends JFrame {
 		panelBottom.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TORNA INDIETRO:
+				
+			}
+		});
 		panelBottom.add(btnBack, BorderLayout.WEST);
 		
 		JButton btnRimuovi = new JButton("Rimuovi");
+		btnRimuovi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//RIMUOVI:
+				
+			}
+		});
 		panelBottom.add(btnRimuovi, BorderLayout.EAST);
 
 	}
