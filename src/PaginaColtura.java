@@ -42,10 +42,7 @@ public class PaginaColtura extends JFrame {
 	private JComboBox comboBoxStagione;
 	private JButton btnRimuovi;
 	private JButton btnBack;
-	private String nomeColturaSelezionata;
-	private String coloreColturaSelezionata;
-	private String tipoColturaSelezionata;	
-	private String stagioneColturaSelezionata;
+	private int idColturaSelezionata;
 	private JLabel lblScelta;
 	
 	public PaginaColtura(int idDep, Controller c) {
@@ -239,12 +236,11 @@ public class PaginaColtura extends JFrame {
 				int selectedRow = table.rowAtPoint(e.getPoint());
 				if(selectedRow != -1) {
 					//PRENDO IL NOME DELLA COLTURA, COLORE E IL TIPO:
-					nomeColturaSelezionata = String.valueOf(table.getValueAt(selectedRow, 0));
-					coloreColturaSelezionata = String.valueOf(table.getValueAt(selectedRow, 1));
-					tipoColturaSelezionata = String.valueOf(table.getValueAt(selectedRow, 2));
-					stagioneColturaSelezionata = String.valueOf(table.getValueAt(selectedRow, 3));
+					String idColturaString = String.valueOf(table.getValueAt(selectedRow, 0));
 					
-					lblScelta.setText("nome=" + nomeColturaSelezionata + ", colore=" + coloreColturaSelezionata + ", stagione=" + stagioneColturaSelezionata + ", tipo=" + tipoColturaSelezionata);
+					idColturaSelezionata = Integer.valueOf(idColturaString);
+					
+					lblScelta.setText("La coltura selezionata ha come id: "+ idColturaSelezionata);
 					
 					//SBLOCCO IL PULSANTE 'RIMUOVI':
 					btnRimuovi.setEnabled(true);
