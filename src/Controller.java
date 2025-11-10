@@ -54,7 +54,7 @@ public class Controller {
 	public PaginaDeposito paginaDeposito;
 	public PaginaDettagliDeposito paginaDettagliDeposito;
 	public PaginaAttrezzo paginaAttrezzo;
-	
+	public PaginaColtura paginaColtura;
 	
 	//FINESTRE:
 	public FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
@@ -495,6 +495,16 @@ public class Controller {
 		fertilizzanteDAO = new FertilizzanteDAO();
 		return fertilizzanteDAO.popolaTabella(idDep, model);
 	}
+
+//METODI CHE SERVONO PER LA PAGINA COLTURA:
+	//MI SERVE PER PASSARE DALLA PAGINA DETTAGLI DEPOSITO A COLTURA:
+	public void daPaginaDettagliDepositoAPaginaColtura(int idDep) {
+		paginaDettagliDeposito.setVisible(false);
+		
+		paginaColtura = new PaginaColtura(idDep, this);
+		paginaColtura.setVisible(true);
+	}
+	
 	
 	
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:

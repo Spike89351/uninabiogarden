@@ -4,18 +4,15 @@ public class Coltura {
     private String colore;
     private String stagione;
     private String tipoOrtaggio; //ORESA DAL DB
-    private String parteUtilizzabile;
     private boolean disp;
 
 
-    Coltura(String nome, int tempoMat, String colore, String stagione, String tipoOrtaggio, String parteUtilizzabile, boolean disp){
+    Coltura(String nome, int tempoMat, String colore, String stagione, String tipoOrtaggio){
         this.nome = nome;
         this.tempoMaturazione = tempoMat;
         this.colore = colore;
         this.stagione = stagione;
         this.tipoOrtaggio = tipoOrtaggio;
-        this.parteUtilizzabile = parteUtilizzabile;
-        this.disp = disp;
     }
 
 
@@ -35,9 +32,6 @@ public class Coltura {
     }
     public String getTipoOrtaggio() {
         return tipoOrtaggio;
-    }
-    public String getParteUtilizzabile() {
-        return parteUtilizzabile;
     }
     public boolean isDisp() {
         return disp;
@@ -61,9 +55,6 @@ public class Coltura {
     }
     public void setTipoOrtaggio(String tipoOrtaggio) {
         this.tipoOrtaggio = tipoOrtaggio;
-    }
-    public void setParteUtilizzabile(String parteUtilizzabile) {
-        this.parteUtilizzabile = parteUtilizzabile;
     }
     public void setDisp(boolean disp) {
         this.disp = disp;

@@ -90,6 +90,12 @@ public class PaginaDettagliDeposito extends JFrame {
 		menuBar.add(menuColtura);
 		
 		JMenuItem menuItemColtiura = new JMenuItem("Visualizza dati coltura");
+		menuItemColtiura.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//VAI ALLA PAGINA DEDICATA ALLA COLTURA:
+				theController.daPaginaDettagliDepositoAPaginaColtura(idDeposito);
+			}
+		});
 		menuColtura.add(menuItemColtiura);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
