@@ -48,7 +48,7 @@ public class ColturaDAO {
 			ResultSet rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				model.addRow(new Object[]{rs.getString("nome"), rs.getString("colore"), rs.getString("stagione"), rs.getString("tipo"), rs.getBoolean("disponibilità")});
+				model.addRow(new Object[]{rs.getInt("id_coltura"), rs.getString("nome"), rs.getString("colore"), rs.getString("stagione"), rs.getString("tipo"), rs.getBoolean("disponibilità")});
 			} 
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione popolataTabella, nella classe ColturaDAO " + e);
@@ -73,6 +73,51 @@ public class ColturaDAO {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione elimina, nella classe ColturaDAO " + e);
     		return false;
     	} 
+	}
+	
+	//CAMBIA DISPONIBILITA' DI UNA COLTURA:
+	public boolean cambiaDisponibilità(int idColtura) {
+		String sql = "UPDATE prguninabiogarden.Coltura "
+				+ "SET disponibilità = ? "
+				+ "WHERE id_coltura = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+
+			boolean ctrl = prendiDisponibilitàAttuale(idColtura);
+			
+			psmt.setBoolean(1, ! ctrl);
+			psmt.setInt(2, idColtura);
+			
+			int x = psmt.executeUpdate();
+			
+			return x > 0; 
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione cambiaDisponibilità, nella classe ColturaDAO " + e);
+    		return false;
+    	} 
+	}
+	
+	private boolean prendiDisponibilitàAttuale(int idColtura) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Coltura "
+				+ "WHERE id_coltura = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+
+			psmt.setInt(1, idColtura);
+			
+			ResultSet rs  = psmt.executeQuery();
+
+			if(rs.next()) {
+				return rs.getBoolean("disponibilità");
+			}
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione prendiDisponibilitàAttuale, nella classe ColturaDAO " + e);
+    		return false;
+    	}
+		return false;
 	}
 	
 }

@@ -522,8 +522,13 @@ public class Controller {
 	//MI SERVE PER ELIMINARE LA COLTURA:
 	public boolean eliminaColtura(int idDep, int idColtura) {
 		colturaDAO = new ColturaDAO();
-		System.out.println("Sto nella funzione del controller");
 		return colturaDAO.elimina(idDep, idColtura);
+	}
+	
+	//MI SERVE PER CAMBIARE LA DISPONIBILITA' DI UNA COLTURA:
+	public boolean cambiaDisponibilitàDiUnaColtura(int idColtura) {
+		colturaDAO = new ColturaDAO();
+		return colturaDAO.cambiaDisponibilità(idColtura);
 	}
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	

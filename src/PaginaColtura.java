@@ -6,6 +6,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -27,6 +29,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.FlowLayout;
 
 public class PaginaColtura extends JFrame {
 	private Controller theController;
@@ -43,7 +46,9 @@ public class PaginaColtura extends JFrame {
 	private JButton btnRimuovi;
 	private JButton btnBack;
 	private int idColturaSelezionata;
-	private JLabel lblScelta;
+	private JLabel lblAvvisoColturaScelta;
+	private JButton btnCambiaDisponibilità;
+	
 	
 	public PaginaColtura(int idDep, Controller c) {
 		theController = c;
@@ -58,7 +63,7 @@ public class PaginaColtura extends JFrame {
 		
 		setTitle("Pagina coltura");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(590, 325);
+		setSize(750, 347);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -140,15 +145,13 @@ public class PaginaColtura extends JFrame {
 		
 		comboBoxStagione = new JComboBox(elencoStagioni);
 		
-		JLabel lblAvvisoColturaScelta = new JLabel("La coltura che hai scelto è: ");
+		lblAvvisoColturaScelta = new JLabel("La coltura che hai scelto ha come id "+idColturaSelezionata);
 		lblAvvisoColturaScelta.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblAvvisoColturaScelta.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		lblScelta = new JLabel("");
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
-			gl_panelCentral.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
+			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addContainerGap()
@@ -174,14 +177,13 @@ public class PaginaColtura extends JFrame {
 							.addContainerGap()
 							.addComponent(lblAggiungiColtura, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)))
 					.addGap(18)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblScelta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(lblTabella)
 							.addPreferredGap(ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
 							.addComponent(comboBoxDisponibile, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panelTable, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-						.addComponent(lblAvvisoColturaScelta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+						.addComponent(lblAvvisoColturaScelta, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -215,9 +217,7 @@ public class PaginaColtura extends JFrame {
 							.addComponent(btnAggiungi)))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblAvvisoColturaScelta)
-					.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-					.addComponent(lblScelta)
-					.addContainerGap())
+					.addContainerGap(18, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
@@ -226,7 +226,7 @@ public class PaginaColtura extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"Nome", "Colore", "Tipo", "Stagione", "Disponibile"}
+				new String[]{"id Coltura", "Nome", "Colore", "Stagione", "Tipo", "Disponibile"}
 			);
 		
 		table = new JTable(model);
@@ -240,10 +240,11 @@ public class PaginaColtura extends JFrame {
 					
 					idColturaSelezionata = Integer.valueOf(idColturaString);
 					
-					lblScelta.setText("La coltura selezionata ha come id: "+ idColturaSelezionata);
+					lblAvvisoColturaScelta.setText("La coltura che hai scelto ha come id "+idColturaSelezionata);
 					
-					//SBLOCCO IL PULSANTE 'RIMUOVI':
+					//SBLOCCO IL PULSANTE 'RIMUOVI' e 'CAMBIADISPONIBILITA'':
 					btnRimuovi.setEnabled(true);
+					btnCambiaDisponibilità.setEnabled(true);
 				}
 			}
 		});
@@ -274,16 +275,39 @@ public class PaginaColtura extends JFrame {
 		btnRimuovi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//RIMUOVI:
-				if(theController.eliminaColtura(idDep, nomeColturaSelezionata.trim(), coloreColturaSelezionata.trim(), stagioneColturaSelezionata.trim(), tipoColturaSelezionata.trim())) {
+				if(theController.eliminaColtura(idDep, idColturaSelezionata)) {
 					//POPOLA LA TABELLA:
 					theController.popolaTabellaColtureDispONon(idDep, model, true);
 					//PULISCO I CAMPI:
 					clearTxtFields();
+					//L'ID DELLA COLTURA SELEZIONATA LA METTO A 0:
+					idColturaSelezionata = 0;
 					JOptionPane.showMessageDialog(null, "Hai eliminato correttamente la coltura");
 				}
 			}
 		});
 		panelBottom.add(btnRimuovi, BorderLayout.EAST);
+		
+		JPanel panelBottomCentral = new JPanel();
+		panelBottom.add(panelBottomCentral, BorderLayout.CENTER);
+		panelBottomCentral.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		btnCambiaDisponibilità = new JButton("Cambia disponibilità");
+		btnCambiaDisponibilità.setEnabled(false);
+		btnCambiaDisponibilità.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//CAMBIA DISPONIBILITA' DELLA COLTURA:
+				if(theController.cambiaDisponibilitàDiUnaColtura(idColturaSelezionata)) {
+//					theController.popolaTabellaColtureDispONon(idDep, model, true);
+					//PULISCO LE VARIABILI:
+					idColturaSelezionata = 0;
+					JOptionPane.showMessageDialog(null, "Hai cambiato correttamente la disponiiblità della coltura!");
+				}else {
+					JOptionPane.showMessageDialog(null, "La disponibilità della coltura selezionata non è stata cambiata correttamente, RIPROVA!");
+				}
+			}
+		});
+		panelBottomCentral.add(btnCambiaDisponibilità);
 
 	}
 //METODI:
@@ -295,10 +319,7 @@ public class PaginaColtura extends JFrame {
 		comboBoxTipoOrtaggio.setSelectedItem(null);
 		
 		//PULISCO LE VARIABILI:
-		nomeColturaSelezionata = "";
-		coloreColturaSelezionata = "";
-		tipoColturaSelezionata = "";
-		stagioneColturaSelezionata = "";
+		idColturaSelezionata = 0;
 	}
 	
 	//SERVE PER CONTROLLARE I CAMPI SE SONO CORRETTI:
