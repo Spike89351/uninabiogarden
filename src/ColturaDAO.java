@@ -12,17 +12,18 @@ public class ColturaDAO {
 	private static final String PASSWORD = "Informatica1";
 	
 	
-	public boolean inserisci(String nome, String colore, String stagione, String tipo) {
-		String sql = "INSERT INTO prguninabiogarden.Coltura(nome, colore, stagione, tipo) "
-				+ "VALUES(?, ?, ?, ?) ";
+	public boolean inserisci(int idDep, String nome, String colore, String stagione, String tipo) {
+		String sql = "INSERT INTO prguninabiogarden.Coltura(id_deposito, nome, colore, stagione, tipo) "
+				+ "VALUES(?, ?, ?, ?, ?) ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
             
-                psmt.setString(1, nome);
-                psmt.setString(2,  colore);
-                psmt.setString(3, stagione);
-                psmt.setString(4, tipo);
+                psmt.setInt(1, idDep);
+                psmt.setString(2, nome);
+                psmt.setString(3,  colore);
+                psmt.setString(4, stagione);
+                psmt.setString(5, tipo);
                 
             int x  = psmt.executeUpdate();
             return x > 0;
@@ -47,7 +48,7 @@ public class ColturaDAO {
 			ResultSet rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				model.addRow(new Object[]{rs.getString("nome"), rs.getString("colore"), rs.getString("stagione"), rs.getString("tipo"), rs.getString("disponibilità")});
+				model.addRow(new Object[]{rs.getString("nome"), rs.getString("colore"), rs.getString("stagione"), rs.getString("tipo"), rs.getBoolean("disponibilità")});
 			} 
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione popolataTabella, nella classe ColturaDAO " + e);
@@ -55,24 +56,27 @@ public class ColturaDAO {
 	}
 	
 	//MI SERVE PER ELIMINARE UNA COLTURA:
-	public boolean elimina(String nome, String colore, String stagione, String tipo) {
+	public boolean elimina(int idDep, String nome, String colore, String stagione, String tipo) {
 		String sql = "DELETE FROM prguninabiogarden.Coltura "
 				+ "WHERE "
-				+ "nome = ?, "
-				+ "colore = ?, "
-				+ "stagione = ?, "
-				+ "tipo = ?";
-		
+				+ "id_deposito = ? "	
+				+ "AND nome = ? "
+				+ "AND colore = ? "
+				+ "AND stagione = ? "
+				+ "AND tipo = ? ";
+		System.out.println("Sto dopo la query");
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
-		
-			psmt.setString(1, nome);
-			psmt.setString(2, colore);
-			psmt.setString(3, stagione);
-			psmt.setString(4, tipo);
-			
+			System.out.println("Sto nel try catch");
+			psmt.setInt(1, idDep);
+			psmt.setString(2, nome);
+			psmt.setString(3, colore);
+			psmt.setString(4, stagione);
+			psmt.setString(5, tipo);
+			System.out.println("Sto dopo i vari psmt.");
 			int x = psmt.executeUpdate();
-			
+			System.out.println("Sto dopo l'execute query");
+			System.out.println("la x è uguale a: "+ x);
 			return x > 0; 
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione elimina, nella classe ColturaDAO " + e);

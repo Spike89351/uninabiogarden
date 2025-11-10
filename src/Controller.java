@@ -507,21 +507,23 @@ public class Controller {
 	}
 	
 	//MI SERVE PER L'INSERIMENTO DI UNA COLTURA:
-	public boolean inserisciColtura(String nome, String colore, String stagione, String tipo) {
+	public boolean inserisciColtura(int idDep, String nome, String colore, String stagione, String tipo) {
 		colturaDAO = new ColturaDAO();
-		return colturaDAO.inserisci(nome, colore, stagione, tipo);
+		return colturaDAO.inserisci(idDep, nome, colore, stagione, tipo);
 	}
 	
 	//MI SERVE A POPOLARE LA TABELLA CON LE COLTURE, DISP O NON DISP:
 	public void popolaTabellaColtureDispONon(int idDep, DefaultTableModel model, boolean disp) {
+		model.setRowCount(0);
 		colturaDAO = new ColturaDAO();
 		colturaDAO.popolaTabella(idDep, model, disp);
 	}
 	
 	//MI SERVE PER ELIMINARE LA COLTURA:
-	public boolean eliminaColtura(String nome, String colore, String stagione, String tipo) {
+	public boolean eliminaColtura(int idDep, String nome, String colore, String stagione, String tipo) {
 		colturaDAO = new ColturaDAO();
-		return colturaDAO.elimina(nome, colore, stagione, tipo);
+		System.out.println("Sto nella funzione del controller");
+		return colturaDAO.elimina(idDep, nome, colore, stagione, tipo);
 	}
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	
