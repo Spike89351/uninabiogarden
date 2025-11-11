@@ -232,6 +232,7 @@ public class PaginaAttrezzo extends JFrame {
 				if(theController.eliminaAttrezzo(idAttrezzoSelezionato)) {
 					theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
 					clearTxtField();
+					btnRimuovi.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "Hai eliminato correttamente l'attrezzo!");
 				}else {
 					clearTxtField();
