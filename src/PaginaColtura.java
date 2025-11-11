@@ -301,6 +301,7 @@ public class PaginaColtura extends JFrame {
 //					theController.popolaTabellaColtureDispONon(idDep, model, true);
 					//PULISCO LE VARIABILI:
 					idColturaSelezionata = 0;
+					
 					JOptionPane.showMessageDialog(null, "Hai cambiato correttamente la disponiiblità della coltura!");
 				}else {
 					JOptionPane.showMessageDialog(null, "La disponibilità della coltura selezionata non è stata cambiata correttamente, RIPROVA!");
@@ -332,11 +333,11 @@ public class PaginaColtura extends JFrame {
 			JOptionPane.showMessageDialog(null, "Errore, il campo colore non può essere vuoto!");
 			return false;
 		}
-		if(comboBoxStagione.getSelectedItem().toString().isBlank()) {
+		if(comboBoxStagione.getSelectedItem().toString().trim().isBlank()) {
 			JOptionPane.showMessageDialog(null, "Errore, il campo stagione non può essere vuoto!");
 			return false;
 		}
-		if(comboBoxTipoOrtaggio.getSelectedItem().toString().isBlank()) {
+		if(comboBoxTipoOrtaggio.getSelectedItem().toString().trim().isBlank()) {
 			JOptionPane.showMessageDialog(null, "Errore, il campo tipo ortaggio non può essere vuoto!");
 			return false;
 		}
