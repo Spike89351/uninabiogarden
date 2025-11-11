@@ -24,7 +24,6 @@ public class Controller {
 	private TerrenoDAO terrenoDAO;
 	private CondizioneRaccolto condizioneRaccolto;
 	private Stato stato;
-	private TipoAttivita tipoAttività;
 	private Attività attività;
 	private Notifica notifica;
 	private StatoNotifica statoNotifica;
@@ -51,6 +50,7 @@ public class Controller {
 	public PaginaProprietario paginaProprietario;
 	public PaginaColtivatore paginaColtivatore;
 	public VisualizzaTerrenoInModoSpecifico paginaTerrenoSpecifico;
+	public PaginaAttività paginaAttività;
 	public PaginaVisualizzaDettagliProgetto paginaDettagliProgetto;
 	public PaginaDeposito paginaDeposito;
 	public PaginaDettagliDeposito paginaDettagliDeposito;
@@ -287,6 +287,14 @@ public class Controller {
 		progettoDAO = new ProgettoDAO();
 		progettoDAO.listaDiProgettiPerTerreno(Integer.valueOf(idTerreno), ter);
 		
+	}
+	
+	//METODO CHE SERVE PER ANDARE NELLA PAGINA DEDICATA ALLE ATTIVITA':
+	public void daPaginaTerrenoSpecificoAPaginaAttività(int idTerreno) {
+		paginaTerrenoSpecifico.setVisible(false);
+		
+		paginaAttività = new PaginaAttività(idTerreno, this);
+		paginaAttività.setVisible(true);
 	}
 	
 //METODI CHE SERVONO PER LA PAGINA DEL PROPRIETARIO PER INSERIRE UN PROGETTO:

@@ -6,6 +6,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.BoxLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PaginaAttività extends JFrame {
 	private Controller theController;
@@ -16,6 +20,7 @@ public class PaginaAttività extends JFrame {
 	private JPanel panelCentral;
 	private JPanel panelBottom;
 	private JLabel lblWelcome;
+	private JButton btnBack;
 	
 	public PaginaAttività(int idTerreno, Controller c) {
 		theController = c;
@@ -41,6 +46,18 @@ public class PaginaAttività extends JFrame {
 		
 		panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
+		panelBottom.setLayout(new BoxLayout(panelBottom, BoxLayout.X_AXIS));
+		
+		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				///TORNA INDIETRO:
+				setVisible(false);
+				theController.paginaTerrenoSpecifico.setVisible(true);
+				
+			}
+		});
+		panelBottom.add(btnBack);
 	}
 
 }
