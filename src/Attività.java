@@ -7,10 +7,7 @@ public class Attività {
     private Stato statoEsecuzione;
     private Date dataRaccolto;
     private Terreno terreno;
-    private Deposito deposito;
-    private int quantitàRaccoltoPrevisto;
     private int quantitàRaccolto;
-    private Fertilizzante fertilizzanteUsato;
     
     Attività(Terreno ter){
     	
@@ -32,17 +29,8 @@ public class Attività {
 	public Terreno getTerreno() {
 		return terreno;
 	}
-	public Deposito getDeposito() {
-		return deposito;
-	}
-	public int getQuantitàRaccoltoPrevisto() {
-		return quantitàRaccoltoPrevisto;
-	}
 	public int getQuantitàRaccolto() {
 		return quantitàRaccolto;
-	}
-	public Fertilizzante getFertilizzanteUsato() {
-		return fertilizzanteUsato;
 	}
 	
 	
@@ -65,17 +53,8 @@ public class Attività {
 	public void setTerreno(Terreno terreno) {
 		this.terreno = terreno;
 	}
-	public void setDeposito(Deposito deposito) {
-		this.deposito = deposito;
-	}
-	public void setQuantitàRaccoltoPrevisto(int quantitàRaccoltoPrevisto) {
-		this.quantitàRaccoltoPrevisto = quantitàRaccoltoPrevisto;
-	}
 	public void setQuantitàRaccolto(int quantitàRaccolto) {
 		this.quantitàRaccolto = quantitàRaccolto;
-	}
-	public void setFertilizzanteUsato(Fertilizzante fertilizzanteUsato) {
-		this.fertilizzanteUsato = fertilizzanteUsato;
 	}
     
     
