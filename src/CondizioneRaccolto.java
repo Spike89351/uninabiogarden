@@ -1,6 +1,6 @@
 
 public enum CondizioneRaccolto {
-    Preparazione_Terreno,
+    Preparazione,
     Semina,
     Germinazione,
     Irrigazione,
@@ -10,6 +10,6 @@ public enum CondizioneRaccolto {
     Raccolta,
     Fruttificazione,
     Maturazione,
-    Riposo_Campo,
-    Rinnovo_Campo
+    Riposo,
+    Rinnovo
 }
