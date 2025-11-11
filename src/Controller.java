@@ -25,6 +25,7 @@ public class Controller {
 	private CondizioneRaccolto condizioneRaccolto;
 	private Stato stato;
 	private Attività attività;
+	private AttivitàDAO attivitàDAO;
 	private Notifica notifica;
 	private StatoNotifica statoNotifica;
 	private Importanza importanza;
@@ -538,6 +539,11 @@ public class Controller {
 		colturaDAO = new ColturaDAO();
 		return colturaDAO.cambiaDisponibilità(idColtura);
 	}
-//METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	
+//METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
+	//MI SERVE PER INSERIRE L'ATTIVITA' AL TERRENO NEL DB:
+	public boolean inserisciAttività(int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio) {
+		attivitàDAO = new AttivitàDAO();
+		return attivitàDAO.inserisci(idTerr, tipoAttività, statoAttività, dataInizio);
+	}
 }

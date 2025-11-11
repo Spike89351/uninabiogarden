@@ -7,6 +7,8 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
@@ -32,7 +34,7 @@ public class PaginaAttività extends JFrame {
 	private JPanel contentPane;
 	private JPanel panelTop;
 	private JPanel panelCentral;
-	private JComboBox comboBoxCondizione;
+	private JComboBox comboBoxTipoAttività;
 	private JComboBox comboBoxStato;
 	private JDateChooser dateChooserInizio;
 	private JPanel panelBottom;
@@ -78,8 +80,8 @@ public class PaginaAttività extends JFrame {
 		panelCentral = new JPanel();
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		
-		JLabel lblCondizione = new JLabel("Condizione");
-		lblCondizione.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		JLabel lblTipoAttività = new JLabel("Tipo attività");
+		lblTipoAttività.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JLabel lblStato = new JLabel("Stato");
 		lblStato.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -89,13 +91,16 @@ public class PaginaAttività extends JFrame {
 		
 		String[] elecoCondizioni = {"", "Preparazione", "Semina", "Germinazione", "Irrigazione", "Nutrizione", "Fioritura", "Crescita", "Raccolta", "Maturazione", "Fruttificazione", "Riposo", "Rinnovo"};
 		
-		comboBoxCondizione = new JComboBox(elecoCondizioni);
+		comboBoxTipoAttività = new JComboBox(elecoCondizioni);
+		comboBoxTipoAttività.setToolTipText("Se lasci vuoto il database inserira il parametro 'Preprazione come default'");
 		
 		String[] elencoStato = {"", "Nessuna", "In Corso", "Pianificata", "Completata"};
 		
 		comboBoxStato = new JComboBox(elencoStato);
+		comboBoxStato.setToolTipText("Se lasci vuoto questo camp il database compilerà questo campo di default con il valore 'Nessuno'");
 		
 		dateChooserInizio = new JDateChooser();
+		dateChooserInizio.setToolTipText("Questo camapo non può essere vuoto");
 		
 		JPanel panelTable = new JPanel();
 		
@@ -103,9 +108,13 @@ public class PaginaAttività extends JFrame {
 		btnAggiungi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//AGGIUNGI ATTIVITA':
-				
-				//PULISCI CAMPI:
-				clearFields();
+				if(theController.inserisciAttività(idTerreno, comboBoxTipoAttività.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString(), (java.sql.Date) dateChooserInizio.getDate())) {
+					//PULISCI CAMPI:
+					clearFields();
+					JOptionPane.showMessageDialog(null, "Complimenti hai inserito correttamente l'attività al terreno!");
+				}else {
+					JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'attività!");
+				}
 			}
 		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
@@ -115,36 +124,32 @@ public class PaginaAttività extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addContainerGap()
-							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(dateChooserInizio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addComponent(lblCondizione)
-									.addGap(18)
-									.addComponent(comboBoxCondizione, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addComponent(lblStato, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(comboBoxStato, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))))
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblTipoAttività)
+								.addComponent(lblStato, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+								.addComponent(dateChooserInizio, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+								.addComponent(comboBoxStato, 0, 94, Short.MAX_VALUE)
+								.addComponent(comboBoxTipoAttività, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(51)
 							.addComponent(btnAggiungi)))
 					.addGap(18)
-					.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+					.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(37)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(panelTable, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(panelTable, 0, 0, Short.MAX_VALUE)
+						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblCondizione)
-								.addComponent(comboBoxCondizione, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblTipoAttività)
+								.addComponent(comboBoxTipoAttività, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblStato, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
@@ -232,13 +237,15 @@ public class PaginaAttività extends JFrame {
 //METODI:
 	//SERVE PER PULIRE I CAMPI:
 	private void clearFields() {
-		comboBoxCondizione.setSelectedItem(null);
+		comboBoxTipoAttività.setSelectedItem(null);
 		comboBoxStato.setSelectedItem(null);
 		dateChooserInizio.setDate(null);
 	}
 	//SERVE PER CONTROLLARE SE I CAMPI SONO CORRETTAMENTE COMPILATI:
 	private boolean ctrlFields() {
-		
+		if(comboBoxTipoAttività.getSelectedItem().toString().equalsIgnoreCase("")) {
+			JOptionPane.showMessageDialog(null, "Questo campo è vuoto, pertanto verrà settato con un valore du default 'Preparazione'! ");
+		}
 		return true;
 	}
 }
