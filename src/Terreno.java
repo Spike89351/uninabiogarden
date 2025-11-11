@@ -7,7 +7,7 @@ public class Terreno {
     private TipoTerreno TipologiaTerreno;
     private Fertilità fertTerreno;
     private ArrayList<Progetto> Project = new ArrayList<Progetto>();
-    private ArrayList<TipoAttivita> TipoAttivita = new ArrayList<TipoAttivita>();
+    private ArrayList<Attività> TipoAttivita = new ArrayList<Attività>();
    // private ArrayList<String> StoricoColtura = new ArrayList<String>();
     private Deposito deposito;
 
@@ -38,7 +38,7 @@ public class Terreno {
     public ArrayList<Progetto> getProject() {
         return Project;
     }
-    public ArrayList<TipoAttivita> getTipoAttivita() {
+    public ArrayList<Attività> getTipoAttivita() {
         return TipoAttivita;
     }
 
@@ -61,7 +61,7 @@ public class Terreno {
     public void setProject(ArrayList<Progetto> Project) {
         this.Project = Project;
     }
-    public void setTipoAttivita(ArrayList<TipoAttivita> TipoAttivita) {
+    public void setTipoAttivita(ArrayList<Attività> TipoAttivita) {
         this.TipoAttivita = TipoAttivita;
     }
 }

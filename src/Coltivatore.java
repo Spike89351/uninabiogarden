@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 
 public class Coltivatore extends Utente{
     private String codiceId;
-    private ArrayList<TipoAttivita> elencoAttività = new ArrayList<TipoAttivita>();
+    private ArrayList<Attività> elencoAttività = new ArrayList<Attività>();
     private ArrayList<Notifica> elencoNotifiche = new ArrayList<Notifica>();
     private Date dataInizioContratto;
     private ArrayList<Attività> elencoCosaSaFare = new ArrayList<Attività>();
@@ -27,7 +27,7 @@ public class Coltivatore extends Utente{
     public String getCodiceId() {
         return codiceId;
     }
-    public ArrayList<TipoAttivita> getElencoAttività() {
+    public ArrayList<Attività> getElencoAttività() {
         return elencoAttività;
     }
     public ArrayList<Notifica> getElencoNotifiche() {
@@ -48,7 +48,7 @@ public class Coltivatore extends Utente{
     public void setCodiceId(String codiceId) {
         this.codiceId = codiceId;
     }
-    public void setElencoAttività(ArrayList<TipoAttivita> elencoAttività) {
+    public void setElencoAttività(ArrayList<Attività> elencoAttività) {
         this.elencoAttività = elencoAttività;
     }
     public void setElencoNotifiche(ArrayList<Notifica> elencoNotifiche) {
