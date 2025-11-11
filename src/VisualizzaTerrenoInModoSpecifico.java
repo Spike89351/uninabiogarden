@@ -181,7 +181,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		panelBottom.add(btnBack, BorderLayout.WEST);
 		btnVisualizzaAltriDettagli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//DEVO POTER VISUALIZZARE IL TIPO DI ATTIVITA' CHE SI STA FACENDO:
+				//DEVO POTER VISUALIZZARE IL TIPO DI ATTIVITA' CHE SI STA FACENDO SUL TERRENO :
 				
 			}
 		});
