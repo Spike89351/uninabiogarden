@@ -36,10 +36,6 @@ public class Attività {
 		return quantitàRaccolto;
 	}
 	
-	
-	
-	
-	
 //SETTERS:    
 	public void setElencoColt(Coltivatore colt) {
 		elencoColt.add(colt);
