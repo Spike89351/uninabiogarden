@@ -5,13 +5,17 @@ public class Attività {
 	private ArrayList<Coltivatore> elencoColt = new ArrayList<Coltivatore>();
     private CondizioneRaccolto condizioneRaccolto;
     private Stato statoEsecuzione;
-    private Date dataRaccolto;
+    private java.sql.Date dataInizio;
+    private java.sql.Date dataFine;
+    private java.sql.Date dataRaccolto;
     private Terreno terreno;
     private int quantitàRaccolto;
     
-    Attività(CondizioneRaccolto cond, Stato stat, Terreno ter, int raccolto){
+    Attività(CondizioneRaccolto cond, Stato stat, java.sql.Date dataInizio, java.sql.Date dataFine, Terreno ter, int raccolto){
     	this.condizioneRaccolto = cond;
     	this.statoEsecuzione = stat;
+    	this.dataInizio = dataInizio;
+    	this.dataFine = dataFine;
     	this.terreno = ter;
     	this.quantitàRaccolto = raccolto;
     }
@@ -26,7 +30,13 @@ public class Attività {
 	public Stato getStatoEsecuzione() {
 		return statoEsecuzione;
 	}
-	public Date getDataRaccolto() {
+	public java.sql.Date getDataInizio(){
+		return dataInizio;
+	}
+	public java.sql.Date getDataFine(){
+		return dataFine;
+	}
+	public java.sql.Date getDataRaccolto() {
 		return dataRaccolto;
 	}
 	public Terreno getTerreno() {
@@ -46,7 +56,13 @@ public class Attività {
 	public void setStatoEsecuzione(Stato statoEsecuzione) {
 		this.statoEsecuzione = statoEsecuzione;
 	}
-	public void setDataRaccolto(Date dataRaccolto) {
+	public void setDataInizio(java.sql.Date dataIn) {
+		this.dataInizio = dataIn;
+	}
+	public void setDataFine(java.sql.Date dataFin) {
+		this.dataFine = dataFin;
+	}
+	public void setDataRaccolto(java.sql.Date dataRaccolto) {
 		this.dataRaccolto = dataRaccolto;
 	}
 	public void setTerreno(Terreno terreno) {
