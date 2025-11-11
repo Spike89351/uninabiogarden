@@ -9,8 +9,11 @@ public class Attività {
     private Terreno terreno;
     private int quantitàRaccolto;
     
-    Attività(Terreno ter){
-    	
+    Attività(CondizioneRaccolto cond, Stato stat, Terreno ter, int raccolto){
+    	this.condizioneRaccolto = cond;
+    	this.statoEsecuzione = stat;
+    	this.terreno = ter;
+    	this.quantitàRaccolto = raccolto;
     }
 
 //GETTERS:
@@ -38,8 +41,8 @@ public class Attività {
 	
 	
 //SETTERS:    
-	public void setElencoColt(ArrayList<Coltivatore> elencoColt) {
-		this.elencoColt = elencoColt;
+	public void setElencoColt(Coltivatore colt) {
+		elencoColt.add(colt);
 	}
 	public void setCondizioneRaccolto(CondizioneRaccolto condizioneRaccolto) {
 		this.condizioneRaccolto = condizioneRaccolto;
