@@ -243,8 +243,17 @@ public class PaginaAttività extends JFrame {
 	}
 	//SERVE PER CONTROLLARE SE I CAMPI SONO CORRETTAMENTE COMPILATI:
 	private boolean ctrlFields() {
-		if(comboBoxTipoAttività.getSelectedItem().toString().equalsIgnoreCase("")) {
+		if(comboBoxTipoAttività.getSelectedItem().toString().isBlank()){
 			JOptionPane.showMessageDialog(null, "Questo campo è vuoto, pertanto verrà settato con un valore du default 'Preparazione'! ");
+		}else {
+			//FAI ALTRO:
+			
+		}
+		if(comboBoxStato.getSelectedItem().toString().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Questo campo è vuoto, pertanto verrà settato con un valore du default 'Nessuno'! ");
+		}else {
+			//FAI ALTRO:
+			
 		}
 		return true;
 	}
