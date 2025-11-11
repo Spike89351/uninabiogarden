@@ -21,6 +21,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JProgressBar;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private Controller theController;
@@ -34,6 +38,17 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	
 	public VisualizzaTerrenoInModoSpecifico(Controller c, String idTerreno) {
 		theController = c;
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				try {
+					theController.popolaTabellaProgettiPerTerreno(idTerreno);
+				}catch(Exception x) {
+					JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei progetti, nella pagina visualizzaTerrenoInMododSpecifico"+ x);
+				}
+			}
+		});
 		
 		terrSelezionato = theController.trovaTerreno(idTerreno);
 		
@@ -171,13 +186,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 			}
 		});
 		panelBottom.add(btnVisualizzaAltriDettagli, BorderLayout.EAST);
-		
-		try {
-			theController.popolaTabellaProgettiPerTerreno(idTerreno);
-		}catch(Exception x) {
-			JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei progetti, nella pagina visualizzaTerrenoInMododSpecifico"+ x);
-		}
-		
+
 	}
 	
 //METODI:
