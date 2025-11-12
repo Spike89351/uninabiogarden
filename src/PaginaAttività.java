@@ -89,7 +89,7 @@ public class PaginaAttività extends JFrame {
 		JLabel lblDataInizio = new JLabel("Dara inizio");
 		lblDataInizio.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		String[] elecoCondizioni = {"", "Preparazione", "Semina", "Germinazione", "Irrigazione", "Nutrizione", "Fioritura", "Crescita", "Raccolta", "Maturazione", "Fruttificazione", "Riposo", "Rinnovo"};
+		String[] elecoCondizioni = {"", "Riposo", "Rinnovo", "Preparazione", "Semina", "Germinazione", "Irrigazione", "Nutrizione", "Fioritura", "Crescita", "Maturazione", "Fruttificazione"};
 		
 		comboBoxTipoAttività = new JComboBox(elecoCondizioni);
 		comboBoxTipoAttività.setToolTipText("Se lasci vuoto il database inserira il parametro 'Preprazione come default'");
