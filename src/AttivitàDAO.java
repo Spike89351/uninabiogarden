@@ -28,7 +28,6 @@ public class AttivitàDAO {
 			try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
 	    			PreparedStatement psmt = conn.prepareStatement(sql)) {
 	    		
-	    		
 	                psmt.setInt(1, idTerr);
 	                psmt.setString(2, tipoAttività);
 	                psmt.setString(3, statoAttività);
@@ -50,7 +49,6 @@ public class AttivitàDAO {
 			try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
 	    			PreparedStatement psmt = conn.prepareStatement(sql)) {
 	    		
-	    		
 	                psmt.setInt(1, idTerr);
 	                psmt.setString(2, tipoAttività);
 	                psmt.setString(3, statoAttività);
@@ -65,7 +63,6 @@ public class AttivitàDAO {
 	    		return false;
 	    	}
 		}
-		    
 	}
 	
 	//MI SERVE A PRENDERE L'ATTIVITA' ULTIMA IN CORSO:
