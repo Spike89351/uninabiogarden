@@ -37,6 +37,7 @@ public class PaginaAttività extends JFrame {
 	private JComboBox comboBoxTipoAttività;
 	private JComboBox comboBoxStato;
 	private JDateChooser dateChooserInizio;
+	private JDateChooser dateChooserFine;
 	private JPanel panelBottom;
 	private JLabel lblWelcome;
 	private JButton btnBack;
@@ -63,7 +64,7 @@ public class PaginaAttività extends JFrame {
 		
 		setTitle("Pagina attività");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(605, 318);
+		setSize(650, 340);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -108,7 +109,7 @@ public class PaginaAttività extends JFrame {
 		btnAggiungi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//AGGIUNGI ATTIVITA':
-				if(theController.inserisciAttività(idTerreno, comboBoxTipoAttività.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString(), (java.sql.Date) dateChooserInizio.getDate())) {
+				if(theController.inserisciAttività(idTerreno, comboBoxTipoAttività.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString(), (java.sql.Date) dateChooserInizio.getDate(), (java.sql.Date) dateChooserFine.getDate())) {
 					//PULISCI CAMPI:
 					clearFields();
 					JOptionPane.showMessageDialog(null, "Complimenti hai inserito correttamente l'attività al terreno!");
@@ -117,6 +118,12 @@ public class PaginaAttività extends JFrame {
 				}
 			}
 		});
+		
+		JLabel lblDataFine = new JLabel("Data fine");
+		lblDataFine.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		dateChooserFine = new JDateChooser();
+		dateChooserFine.setToolTipText("Questo camapo non può essere vuoto");
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -127,25 +134,28 @@ public class PaginaAttività extends JFrame {
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblTipoAttività)
 								.addComponent(lblStato, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDataFine, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-								.addComponent(dateChooserInizio, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-								.addComponent(comboBoxStato, 0, 94, Short.MAX_VALUE)
-								.addComponent(comboBoxTipoAttività, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(dateChooserInizio, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
+									.addComponent(comboBoxStato, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
+									.addComponent(comboBoxTipoAttività, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addGap(18)
+							.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(51)
 							.addComponent(btnAggiungi)))
-					.addGap(18)
-					.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(37)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(panelTable, 0, 0, Short.MAX_VALUE)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblTipoAttività)
@@ -159,8 +169,12 @@ public class PaginaAttività extends JFrame {
 								.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 								.addComponent(dateChooserInizio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblDataFine, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+								.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
 							.addComponent(btnAggiungi)))
-					.addContainerGap(43, Short.MAX_VALUE))
+					.addContainerGap(27, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
@@ -169,7 +183,7 @@ public class PaginaAttività extends JFrame {
 		
 		model = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "Id attività", "Condizione", "Stato", "Data inizio"}
+				new String[]{ "Id attività", "Condizione", "Stato", "Data inizio", "Data fine"}
 			);
 		
 		table = new JTable(model);
@@ -228,7 +242,7 @@ public class PaginaAttività extends JFrame {
 		btnVisualizzaDettagli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//VISUALIZZA DETTAGLI E LI' PUOI AGGIUNGERE ALTRE COSE:
-				
+				theController.daPaginaAttivitàAFinestraDettagliAttività(idTerreno);
 				//NON CREDO CI SIA BISOGNO DI SETTARE IL PULSANTE FALSE PER RENDERLO NON CLICCABILE:
 //				btnVisualizzaDettagli.setEnabled(false);
 			}
@@ -240,6 +254,7 @@ public class PaginaAttività extends JFrame {
 		comboBoxTipoAttività.setSelectedItem(null);
 		comboBoxStato.setSelectedItem(null);
 		dateChooserInizio.setDate(null);
+		dateChooserFine.setDate(null);
 	}
 	//SERVE PER CONTROLLARE SE I CAMPI SONO CORRETTAMENTE COMPILATI:
 	private boolean ctrlFields() {
