@@ -63,6 +63,7 @@ public class Controller {
 	public AggiungiEVisualizzaTerreno AggEVisualizzaTerre;
 	public FinestraManutenzione finestraManutenzioneAttrezzo;
 	public FinestraFertilizzanti finestraFertilizzante;
+	public FinestraDettagliAttività finestraDettagliAttività;
 	
 	//MAIN:
 	public static void main(String[] args) throws SQLException {
@@ -542,8 +543,21 @@ public class Controller {
 	
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	//MI SERVE PER INSERIRE L'ATTIVITA' AL TERRENO NEL DB:
-	public boolean inserisciAttività(int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
+	public boolean inserisciOModificaAttività(int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
 		attivitàDAO = new AttivitàDAO();
-		return attivitàDAO.inserisci(idTerr, tipoAttività, statoAttività, dataInizio, dataFine);
+		return attivitàDAO.inserisciOmodifica(idTerr, tipoAttività, statoAttività, dataInizio, dataFine);
 	}
+	
+	
+	//MI SERVE PER PASSARE DALLA PAGINA ATTIVITA' ALLA FINESTRA DETTAGLI:
+	public void daPaginaAttivitàAFinestraDettagliAttività(int idAttività) {
+		paginaAttività.setEnabled(false);
+		
+		finestraDettagliAttività = new FinestraDettagliAttività(idAttività, this);
+		finestraDettagliAttività.setVisible(true);
+		finestraDettagliAttività.setEnabled(true);
+	}
+	
+	
+	
 }

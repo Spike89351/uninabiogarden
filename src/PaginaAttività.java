@@ -109,10 +109,10 @@ public class PaginaAttività extends JFrame {
 		btnAggiungi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//AGGIUNGI ATTIVITA':
-				if(theController.inserisciAttività(idTerreno, comboBoxTipoAttività.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString(), (java.sql.Date) dateChooserInizio.getDate(), (java.sql.Date) dateChooserFine.getDate())) {
+				if(theController.inserisciOModificaAttività(idTerreno, comboBoxTipoAttività.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString(), (java.sql.Date) dateChooserInizio.getDate(), (java.sql.Date) dateChooserFine.getDate())) {
 					//PULISCI CAMPI:
 					clearFields();
-					JOptionPane.showMessageDialog(null, "Complimenti hai inserito correttamente l'attività al terreno!");
+					JOptionPane.showMessageDialog(null, "Complimenti l'azione è andata a buon fine!");
 				}else {
 					JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'attività!");
 				}
