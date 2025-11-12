@@ -11,8 +11,13 @@ public class AttivitàDAO {
 	
 	//MI SERVE PER INSERIRE NELLA DB I DATI DELL'ATTIVITA'
 	public boolean inserisci(int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio) {
-		String sql = "INSERT INTO prguninabiogarden.Attività(id_terreno, tipo_attività, Stato_attività, data_inizio) "
-				+ "VALUES(?, ?, ?, ?) ";
+		String sql = "INSERT INTO Attività(id_terreno, tipo_attività, Stato_attività, Data_Inizio) "
+		           + "VALUES (?, ?, ?, ?) "
+		           + "ON CONFLICT (id_terreno) "
+		           + "DO UPDATE SET "
+		           + "tipo_attività = EXCLUDED.tipo_attività, "
+		           + "Stato_attività = EXCLUDED.Stato_attività, "
+		           + "Data_Inizio = EXCLUDED.Data_Inizio ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
