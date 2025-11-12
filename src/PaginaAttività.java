@@ -27,6 +27,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class PaginaAttività extends JFrame {
 	private Controller theController;
@@ -116,13 +117,24 @@ public class PaginaAttività extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//CONTROLLA I PARAMETRI:
 				if(ctrlFields()) {
-					//AGGIUNGI ATTIVITA':
-					if(theController.inserisciOModificaAttività(idTerreno, comboBoxTipoAttività.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString(), (java.sql.Date) dateChooserInizio.getDate(), (java.sql.Date) dateChooserFine.getDate())) {
-						//PULISCI CAMPI:
-						clearFields();
-						JOptionPane.showMessageDialog(null, "Complimenti l'azione è andata a buon fine!");
-					}else {
-						JOptionPane.showMessageDialog(null, "Errore, l'azione non è andata a buon fine!");
+					try {
+						//CAST DEI PARAMETRI:
+						LocalDate dataInizioLocalDate = dateChooserInizio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						java.sql.Date castDataInizio = java.sql.Date.valueOf(dataInizioLocalDate);
+						
+						LocalDate dataFineLocalDate = dateChooserFine.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						java.sql.Date castDataFine = java.sql.Date.valueOf(dataFineLocalDate);
+						
+						//AGGIUNGI ATTIVITA':
+						if(theController.inserisciOModificaAttività(idTerreno, comboBoxTipoAttività.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString(), castDataInizio, castDataFine)) {
+							//PULISCI CAMPI:
+							clearFields();
+							JOptionPane.showMessageDialog(null, "Complimenti l'azione è andata a buon fine!");
+						}else {
+							JOptionPane.showMessageDialog(null, "Errore, l'azione non è andata a buon fine!");
+						}
+					}catch(Exception x) {
+						JOptionPane.showMessageDialog(null, "Errore nel cast del tipo di dato");
 					}
 				}
 			}

@@ -22,7 +22,7 @@ public class AttivitàDAO {
 			           + "DO UPDATE SET "
 			           + "tipo_attività = EXCLUDED.tipo_attività, "
 			           + "Stato_attività = EXCLUDED.Stato_attività, "
-			           + "Data_Inizio = EXCLUDED.Data_Inizio "
+			           + "Data_Inizio = EXCLUDED.Data_Inizio, "
 			           + "Data_Fine = EXCLUDED.Data_Fine ";
 			
 			try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
@@ -39,7 +39,7 @@ public class AttivitàDAO {
 	           
 	           return x > 0;
 	    	}catch(Exception e) {
-	    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'attività! Prima parte della funzione (CLASSE AttivitàDAO), funzione: inserisci" + e);
+	    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'attività! Prima parte della funzione (CLASSE AttivitàDAO), funzione: inserisciOmodifica" + e);
 	    		return false;
 	    	}
 		}else {
@@ -55,12 +55,13 @@ public class AttivitàDAO {
 	                psmt.setString(2, tipoAttività);
 	                psmt.setString(3, statoAttività);
 	                psmt.setDate(4, dataInizio);
+	                psmt.setDate(5, dataFine);
 	                
 	           int x =  psmt.executeUpdate();
 	           
 	           return x > 0;
 	    	}catch(Exception e) {
-	    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'attività! Seconda parte della funzione (CLASSE AttivitàDAO), funzione: inserisci" + e);
+	    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'attività! Seconda parte della funzione (CLASSE AttivitàDAO), funzione: inserisciOmodifica" + e);
 	    		return false;
 	    	}
 		}
