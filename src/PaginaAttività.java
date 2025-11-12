@@ -25,6 +25,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class PaginaAttività extends JFrame {
 	private Controller theController;
@@ -108,13 +110,16 @@ public class PaginaAttività extends JFrame {
 		btnAggiungi = new JButton("Aggiungi");
 		btnAggiungi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//AGGIUNGI ATTIVITA':
-				if(theController.inserisciOModificaAttività(idTerreno, comboBoxTipoAttività.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString(), (java.sql.Date) dateChooserInizio.getDate(), (java.sql.Date) dateChooserFine.getDate())) {
-					//PULISCI CAMPI:
-					clearFields();
-					JOptionPane.showMessageDialog(null, "Complimenti l'azione è andata a buon fine!");
-				}else {
-					JOptionPane.showMessageDialog(null, "Errore, l'azione non è andata a buon fine!");
+				//CONTROLLA I PARAMETRI:
+				if(ctrlFields()) {
+					//AGGIUNGI ATTIVITA':
+					if(theController.inserisciOModificaAttività(idTerreno, comboBoxTipoAttività.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString(), (java.sql.Date) dateChooserInizio.getDate(), (java.sql.Date) dateChooserFine.getDate())) {
+						//PULISCI CAMPI:
+						clearFields();
+						JOptionPane.showMessageDialog(null, "Complimenti l'azione è andata a buon fine!");
+					}else {
+						JOptionPane.showMessageDialog(null, "Errore, l'azione non è andata a buon fine!");
+					}
 				}
 			}
 		});
@@ -228,6 +233,12 @@ public class PaginaAttività extends JFrame {
 		
 		btnVisualizzaDettagli = new JButton("Visualizza Dettagli");
 		btnVisualizzaDettagli.setEnabled(false);
+		btnVisualizzaDettagli.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//VISUALIZZA DETTAGLI E LI' PUOI AGGIUNGERE ALTRE COSE:
+				theController.daPaginaAttivitàAFinestraDettagliAttività(idTerreno);
+			}
+		});
 		panelBottomoCentral.add(btnVisualizzaDettagli);
 		
 		btnRimuovi = new JButton("Rimuovi");
@@ -239,14 +250,7 @@ public class PaginaAttività extends JFrame {
 			}
 		});
 		panelBottom.add(btnRimuovi, BorderLayout.EAST);
-		btnVisualizzaDettagli.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//VISUALIZZA DETTAGLI E LI' PUOI AGGIUNGERE ALTRE COSE:
-				theController.daPaginaAttivitàAFinestraDettagliAttività(idTerreno);
-				//NON CREDO CI SIA BISOGNO DI SETTARE IL PULSANTE FALSE PER RENDERLO NON CLICCABILE:
-//				btnVisualizzaDettagli.setEnabled(false);
-			}
-		});
+		
 	}
 //METODI:
 	//SERVE PER PULIRE I CAMPI:
@@ -259,17 +263,32 @@ public class PaginaAttività extends JFrame {
 	//SERVE PER CONTROLLARE SE I CAMPI SONO CORRETTAMENTE COMPILATI:
 	private boolean ctrlFields() {
 		if(comboBoxTipoAttività.getSelectedItem().toString().isBlank()){
-			JOptionPane.showMessageDialog(null, "Questo campo è vuoto, pertanto verrà settato con un valore du default 'Preparazione'! ");
+			JOptionPane.showMessageDialog(null, "Il campo tipo attività è vuoto, pertanto verrà settato con un valore du default 'Preparazione'! ");
 		}else {
 			//FAI ALTRO:
 			
 		}
 		if(comboBoxStato.getSelectedItem().toString().isBlank()) {
-			JOptionPane.showMessageDialog(null, "Questo campo è vuoto, pertanto verrà settato con un valore du default 'Nessuno'! ");
+			JOptionPane.showMessageDialog(null, "Il campo stato è vuoto, pertanto verrà settato con un valore du default 'Nessuno'! ");
 		}else {
 			//FAI ALTRO:
 			
 		}
+		try {
+			LocalDate dataOdiernaLocalDate = LocalDate.now();
+			java.sql.Date dataOdierna = java.sql.Date.valueOf(dataOdiernaLocalDate);
+			if(dateChooserInizio.getDate().before(dataOdierna)) {
+				JOptionPane.showMessageDialog(null, "La data di inizio di un'attività non può essere prima della data odierna!");
+				return false;
+			}
+			if(dateChooserFine.getDate().equals(dateChooserInizio.getDate()) || dateChooserFine.getDate().before(dateChooserInizio.getDate())) {
+				JOptionPane.showMessageDialog(null, "La data di fine non può essere uguale, o minore, alla data di inizio di un'attività!");
+				return false;
+			}
+		}catch(ClassCastException x) {
+			JOptionPane.showMessageDialog(null, "Errore nel cast della data!");
+		}
+		
 		return true;
 	}
 }
