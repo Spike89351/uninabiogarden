@@ -548,6 +548,12 @@ public class Controller {
 		return attivitàDAO.inserisciOmodifica(idTerr, tipoAttività, statoAttività, dataInizio, dataFine);
 	}
 	
+	//MI SERVE PER POPOLARE LA TABELLA DELLE ATTIVITA':
+	public void popolaTabellaAttività(int idAttività, DefaultTableModel model) {
+		model.setRowCount(0);
+		attivitàDAO = new AttivitàDAO();
+		attivitàDAO.popolaTabella(idAttività, model);
+	}
 	
 	//MI SERVE PER PASSARE DALLA PAGINA ATTIVITA' ALLA FINESTRA DETTAGLI:
 	public void daPaginaAttivitàAFinestraDettagliAttività(int idAttività) {

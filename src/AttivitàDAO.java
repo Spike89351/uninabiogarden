@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class AttivitàDAO {
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
@@ -11,7 +12,7 @@ public class AttivitàDAO {
 	private static final String PASSWORD = "Informatica1";
 	
 	//MI SERVE PER INSERIRE NELLA DB I DATI DELL'ATTIVITA'
-	public boolean inserisci(int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
+	public boolean inserisciOmodifica(int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
 		//CONTROLLO SE ESISTE UN'ATTIVITA' IN CORSO (TUPLA):
 		if(prendiUltimaAttività(idTerr)) {
 			//SE ESSITE UNA TUPLA DELL'ATTIVITA': AGGIORNA LA TUPLA ESISTENTE
@@ -90,10 +91,22 @@ public class AttivitàDAO {
     	} 
 	}
 
-	//MI SERVE AD AGGIRNARE LA DATA DI FINE DI UN'ATTIVITA':
-	public boolean aggiornaDataFine(int idTerreno) {
-		String sql = "UPDATE prguninabiogarden.Attività "
-				+ "SET data_fine";
+	//POPOLA TABELLA CON TUTTE LE ATTIVITA' (RICORDA CHE NON TI FARA VEDERE TUTTE LE FASI DI UN'ATTIVITA'!):
+	public void popolaTabella(int idTerreno, DefaultTableModel model) {
+		String sql = "";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setInt(1, idTerreno);
+				
+				ResultSet rs = psmt.executeQuery();
+				
+				while(rs.next()) {
+					model.addRow(new Object[]{rs.getInt("Id attività"), rs.getString("Tipo"), rs.getString("Stato"), rs.getDate("Data inizio"), rs.getDate("Data fine")});
+                }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella nella CLASSE AttivitàDAO, funzione: popolaTabella" + e);
+    	} 
 	}
-	
 }

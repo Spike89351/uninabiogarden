@@ -60,6 +60,10 @@ public class PaginaAttività extends JFrame {
 				//LA VARIABILE A CUI PASSO L'ID DELL'ATTIVITA' LA SETTO  A 0:
 				idAttivitàSelezionata = 0;
 			}
+			@Override
+			public void windowActivated(WindowEvent e) {
+//				theController.popolaTabellaAttività(idTerreno, model);
+			}
 		});
 		
 		theController = c;
@@ -76,7 +80,7 @@ public class PaginaAttività extends JFrame {
 		panelTop = new JPanel();
 		contentPane.add(panelTop, BorderLayout.NORTH);
 		
-		lblWelcome = new JLabel("Aggiungi il tipo di attività sul terreno con id 0");
+		lblWelcome = new JLabel("Aggiungi il tipo di attività sul terreno con id "+ idTerreno);
 		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panelTop.add(lblWelcome);
 		
@@ -188,7 +192,7 @@ public class PaginaAttività extends JFrame {
 		
 		model = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "Id attività", "Condizione", "Stato", "Data inizio", "Data fine"}
+				new String[]{ "Id attività", "Tipo", "Stato", "Data inizio", "Data fine"}
 			);
 		
 		table = new JTable(model);
