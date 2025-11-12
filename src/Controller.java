@@ -542,8 +542,8 @@ public class Controller {
 	
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	//MI SERVE PER INSERIRE L'ATTIVITA' AL TERRENO NEL DB:
-	public boolean inserisciAttività(int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio) {
+	public boolean inserisciAttività(int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
 		attivitàDAO = new AttivitàDAO();
-		return attivitàDAO.inserisci(idTerr, tipoAttività, statoAttività, dataInizio);
+		return attivitàDAO.inserisci(idTerr, tipoAttività, statoAttività, dataInizio, dataFine);
 	}
 }
