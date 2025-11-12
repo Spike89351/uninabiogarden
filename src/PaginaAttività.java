@@ -114,7 +114,7 @@ public class PaginaAttività extends JFrame {
 					clearFields();
 					JOptionPane.showMessageDialog(null, "Complimenti l'azione è andata a buon fine!");
 				}else {
-					JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'attività!");
+					JOptionPane.showMessageDialog(null, "Errore, l'azione non è andata a buon fine!");
 				}
 			}
 		});
