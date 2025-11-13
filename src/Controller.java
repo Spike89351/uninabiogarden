@@ -72,7 +72,6 @@ public class Controller {
 	
 	//COSTRUTTORE
 	public Controller() throws SQLException{
-		
 		homePage = new HomePage(this);
 		homePage.setVisible(true);
 		
