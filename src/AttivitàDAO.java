@@ -106,7 +106,7 @@ public class AttivitàDAO {
 				ResultSet rs = psmt.executeQuery();
 				
 				while(rs.next()) {
-					model.addRow(new Object[]{rs.getInt("Id attività"), rs.getString("Tipo"), rs.getString("Stato"), rs.getDate("Data inizio"), rs.getDate("Data fine")});
+					model.addRow(new Object[]{rs.getInt("Id_attività"), rs.getString("Tipo_attività"), rs.getString("Stato_attività"), rs.getDate("Data_inizio"), rs.getDate("Data_fine")});
                 }
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella nella CLASSE AttivitàDAO, funzione: popolaTabella" + e);
