@@ -16,7 +16,7 @@ public class AttivitàDAO {
 		//CONTROLLO SE ESISTE UN'ATTIVITA' IN CORSO (TUPLA):
 		if(prendiUltimaAttività(idTerr)) {
 			//SE ESSITE UNA TUPLA DELL'ATTIVITA': AGGIORNA LA TUPLA ESISTENTE
-			String sql = "INSERT INTO Attività(id_terreno, tipo_attività, Stato_attività, Data_Inizio, data_fine) "
+			String sql = "INSERT INTO prguninabiogarden.Attività(id_terreno, tipo_attività, Stato_attività, Data_Inizio, data_fine) "
 			           + "VALUES (?, ?, ?, ?, ?) "
 			           + "ON CONFLICT (id_terreno) "
 			           + "DO UPDATE SET "
