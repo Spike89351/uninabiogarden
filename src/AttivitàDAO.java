@@ -12,12 +12,12 @@ public class AttivitàDAO {
 	private static final String PASSWORD = "Informatica1";
 	
 	//MI SERVE PER INSERIRE NELLA DB I DATI DELL'ATTIVITA'
-	public boolean inserisciOmodifica(int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
+	public boolean inserisciOmodifica(int idProgetto, int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
 		//CONTROLLO SE ESISTE UN'ATTIVITA' IN CORSO (TUPLA):
 		if(prendiUltimaAttività(idTerr)) {
 			//SE ESSITE UNA TUPLA DELL'ATTIVITA': AGGIORNA LA TUPLA ESISTENTE
-			String sql = "INSERT INTO prguninabiogarden.Attività(codice_prg, tipo_attività, Stato_attività, Data_Inizio, data_fine) "
-			           + "VALUES (?, ?, ?, ?, ?) "
+			String sql = "INSERT INTO prguninabiogarden.Attività(codice_prg, id_terreno, tipo_attività, Stato_attività, Data_Inizio, data_fine) "
+			           + "VALUES (?, ?, ?, ?, ?, ?) "
 			           + "ON CONFLICT (codice_prg) "
 			           + "DO UPDATE SET "
 			           + "tipo_attività = EXCLUDED.tipo_attività, "
@@ -27,12 +27,13 @@ public class AttivitàDAO {
 			
 			try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
 	    			PreparedStatement psmt = conn.prepareStatement(sql)) {
-	    		
-	                psmt.setInt(1, idTerr);
-	                psmt.setString(2, tipoAttività);
-	                psmt.setString(3, statoAttività);
-	                psmt.setDate(4, dataInizio);
-	                psmt.setDate(5, dataFine);
+	    			
+					psmt.setInt(1, idProgetto);
+	                psmt.setInt(2, idTerr);
+	                psmt.setString(3, tipoAttività);
+	                psmt.setString(4, statoAttività);
+	                psmt.setDate(5, dataInizio);
+	                psmt.setDate(6, dataFine);
 	                
 	           int x =  psmt.executeUpdate();
 	           
@@ -43,17 +44,18 @@ public class AttivitàDAO {
 	    	}
 		}else {
 			//SE NON ESISTE:
-			String sql = "INSERT INTO prguninabiogarden.Attività(codice_prg, tipo_attività, Stato_attività, Data_Inizio, Data_Fine) "
-					+ "VALUES(?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO prguninabiogarden.Attività(codice_prg, id_terreno, tipo_attività, Stato_attività, Data_Inizio, Data_Fine) "
+					+ "VALUES(?, ?, ?, ?, ?, ?)";
 			
 			try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
 	    			PreparedStatement psmt = conn.prepareStatement(sql)) {
 	    		
-	                psmt.setInt(1, idTerr);
-	                psmt.setString(2, tipoAttività);
-	                psmt.setString(3, statoAttività);
-	                psmt.setDate(4, dataInizio);
-	                psmt.setDate(5, dataFine);
+					psmt.setInt(1, idProgetto);
+	                psmt.setInt(2, idTerr);
+	                psmt.setString(3, tipoAttività);
+	                psmt.setString(4, statoAttività);
+	                psmt.setDate(5, dataInizio);
+	                psmt.setDate(6, dataFine);
 	                
 	           int x =  psmt.executeUpdate();
 	           

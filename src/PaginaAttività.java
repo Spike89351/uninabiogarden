@@ -50,7 +50,7 @@ public class PaginaAttività extends JFrame {
 	private DefaultTableModel model;
 	private JButton btnRimuovi;
 	
-	public PaginaAttività(int idTerreno, int idPorgetto, Controller c) {
+	public PaginaAttività(int idTerreno, int idProgetto, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -81,7 +81,7 @@ public class PaginaAttività extends JFrame {
 		panelTop = new JPanel();
 		contentPane.add(panelTop, BorderLayout.NORTH);
 		
-		lblWelcome = new JLabel("Aggiungi il tipo di attività sul terreno con id "+ idTerreno);
+		lblWelcome = new JLabel("Aggiungi il tipo di attività sul terreno con id "+ idTerreno +" e al progetto con id "+ idProgetto);
 		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panelTop.add(lblWelcome);
 		
