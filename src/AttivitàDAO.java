@@ -16,9 +16,9 @@ public class AttivitàDAO {
 		//CONTROLLO SE ESISTE UN'ATTIVITA' IN CORSO (TUPLA):
 		if(prendiUltimaAttività(idTerr)) {
 			//SE ESSITE UNA TUPLA DELL'ATTIVITA': AGGIORNA LA TUPLA ESISTENTE
-			String sql = "INSERT INTO prguninabiogarden.Attività(id_terreno, tipo_attività, Stato_attività, Data_Inizio, data_fine) "
+			String sql = "INSERT INTO prguninabiogarden.Attività(codice_prg, tipo_attività, Stato_attività, Data_Inizio, data_fine) "
 			           + "VALUES (?, ?, ?, ?, ?) "
-			           + "ON CONFLICT (id_terreno) "
+			           + "ON CONFLICT (codice_prg) "
 			           + "DO UPDATE SET "
 			           + "tipo_attività = EXCLUDED.tipo_attività, "
 			           + "Stato_attività = EXCLUDED.Stato_attività, "
@@ -43,7 +43,7 @@ public class AttivitàDAO {
 	    	}
 		}else {
 			//SE NON ESISTE:
-			String sql = "INSERT INTO prguninabiogarden.Attività(id_terreno, tipo_attività, Stato_attività, Data_Inizio, Data_Fine) "
+			String sql = "INSERT INTO prguninabiogarden.Attività(codice_prg, tipo_attività, Stato_attività, Data_Inizio, Data_Fine) "
 					+ "VALUES(?, ?, ?, ?, ?)";
 			
 			try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
