@@ -50,7 +50,7 @@ public class PaginaAttività extends JFrame {
 	private DefaultTableModel model;
 	private JButton btnRimuovi;
 	
-	public PaginaAttività(int idTerreno, Controller c) {
+	public PaginaAttività(int idTerreno, int idPorgetto, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

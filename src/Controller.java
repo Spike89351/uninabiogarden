@@ -292,10 +292,10 @@ public class Controller {
 	}
 	
 	//METODO CHE SERVE PER ANDARE NELLA PAGINA DEDICATA ALLE ATTIVITA':
-	public void daPaginaTerrenoSpecificoAPaginaAttività(int idTerreno) {
+	public void daPaginaTerrenoSpecificoAPaginaAttività(int idTerreno, int idProgetto) {
 		paginaTerrenoSpecifico.setVisible(false);
 		
-		paginaAttività = new PaginaAttività(idTerreno, this);
+		paginaAttività = new PaginaAttività(idTerreno, idProgetto, this);
 		paginaAttività.setVisible(true);
 	}
 	

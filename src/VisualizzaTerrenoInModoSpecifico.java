@@ -34,7 +34,9 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private JTable table;
 	private DefaultTableModel modelProgetto;
 	private Terreno terrSelezionato;
-	private final JButton btnVisualizzaAltriDettagli = new JButton("Altri dettagli");
+	private JButton btnVisualizzaAltriDettagli;
+	private int idProgettoSelezionato;
+	
 	
 	public VisualizzaTerrenoInModoSpecifico(Controller c, String idTerreno) {
 		theController = c;
@@ -162,6 +164,17 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 			);;
 		
 		table = new JTable(modelProgetto);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int selectedRow = table.rowAtPoint(e.getPoint());
+				if(selectedRow != -1) {
+					String idProgettoStringSel = String.valueOf(table.getValueAt(selectedRow, 0));
+					idProgettoSelezionato = Integer.valueOf(idProgettoStringSel);
+					
+				}
+			}
+		});
 		scrollPane.setColumnHeaderView(table);
 		scrollPane.setViewportView(table);
 		panelCentral.setLayout(gl_panelCentral);
@@ -179,10 +192,12 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		});
 		panelBottom.setLayout(new BorderLayout(0, 0));
 		panelBottom.add(btnBack, BorderLayout.WEST);
+		btnVisualizzaAltriDettagli = new JButton("Altri dettagli");
+		btnVisualizzaAltriDettagli.setEnabled(false);
 		btnVisualizzaAltriDettagli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//DEVO POTER VISUALIZZARE IL TIPO DI ATTIVITA' CHE SI STA FACENDO SUL TERRENO :
-				theController.daPaginaTerrenoSpecificoAPaginaAttività(Integer.valueOf(idTerreno.trim()));
+				theController.daPaginaTerrenoSpecificoAPaginaAttività(Integer.valueOf(idTerreno.trim()), idProgettoSelezionato);
 			}
 		});
 		panelBottom.add(btnVisualizzaAltriDettagli, BorderLayout.EAST);
