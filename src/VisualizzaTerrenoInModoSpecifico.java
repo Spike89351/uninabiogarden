@@ -196,7 +196,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		btnVisualizzaAltriDettagli.setEnabled(false);
 		btnVisualizzaAltriDettagli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//DEVO POTER VISUALIZZARE IL TIPO DI ATTIVITA' CHE SI STA FACENDO SUL TERRENO :.
+				//DEVO POTER VISUALIZZARE IL TIPO DI ATTIVITA' CHE SI STA FACENDO SUL TERRENO :
 				theController.daPaginaTerrenoSpecificoAPaginaAttività(Integer.valueOf(idTerreno.trim()), idProgettoSelezionato);
 			}
 		});
