@@ -93,7 +93,10 @@ public class AttivitàDAO {
 
 	//POPOLA TABELLA CON TUTTE LE ATTIVITA' (RICORDA CHE NON TI FARA VEDERE TUTTE LE FASI DI UN'ATTIVITA'!):
 	public void popolaTabella(int idTerreno, DefaultTableModel model) {
-		String sql = "";
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Attività AS A "
+				+ "JOIN prguninabiogarden.Terreno AS T ON A.id_terreno = T.id_terreno "
+				+ "WHERE T.id_terreno = ? ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {

@@ -63,7 +63,7 @@ public class PaginaAttività extends JFrame {
 			}
 			@Override
 			public void windowActivated(WindowEvent e) {
-//				theController.popolaTabellaAttività(idTerreno, model);
+				theController.popolaTabellaAttività(idTerreno, model);
 			}
 		});
 		
