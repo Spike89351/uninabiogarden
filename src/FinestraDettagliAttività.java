@@ -5,6 +5,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class FinestraDettagliAttività extends JDialog {
 	private Controller theController;
@@ -14,6 +18,18 @@ public class FinestraDettagliAttività extends JDialog {
 
 	
 	public FinestraDettagliAttività(int idAttività, Controller c) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				setEnabled(false);
+				theController.paginaAttività.setEnabled(true);
+			}
+			@Override
+			public void windowActivated(WindowEvent e) {
+				theController.paginaAttività.setEnabled(false);
+				setEnabled(true);
+			}
+		});
 		theController = c;
 		
 		setTitle("Finestra dettagli Attività");
@@ -35,6 +51,11 @@ public class FinestraDettagliAttività extends JDialog {
 			}
 			{
 				JButton btnBack = new JButton("Back");
+				btnBack.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					}
+				});
 				btnBack.setActionCommand("Cancel");
 				buttonPane.add(btnBack, BorderLayout.WEST);
 			}
