@@ -77,10 +77,7 @@ public class Controller {
 		homePage.setVisible(true);
 		
 		paginaRegistrati = new PaginaRegistrati(this);
-		
-		
 	}
-	
 	
 //METODI:
 	
