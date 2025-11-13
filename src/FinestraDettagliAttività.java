@@ -53,7 +53,7 @@ public class FinestraDettagliAttività extends JDialog {
 				JButton btnBack = new JButton("Back");
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+						setVisible(false);
 					}
 				});
 				btnBack.setActionCommand("Cancel");
