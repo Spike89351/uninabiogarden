@@ -266,7 +266,6 @@ public class Controller {
 		}
 	}
 	
-	
 	//SERVE PER ANDARE NELLA PAGINA TERRENO E VISUALIZZARE UN TERRENO SELEZIONATO PI' APPROFONDITAMENTE:
 	public void daPaginaAggiungiEVisualizzaTerrenoAVisualizzaTerrenoSpecifico(String idTerreno) {
 		paginaTerrenoSpecifico = new VisualizzaTerrenoInModoSpecifico(idTerreno, this);
