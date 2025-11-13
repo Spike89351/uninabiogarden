@@ -172,6 +172,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 					String idProgettoStringSel = String.valueOf(table.getValueAt(selectedRow, 0));
 					idProgettoSelezionato = Integer.valueOf(idProgettoStringSel);
 					
+					btnVisualizzaAltriDettagli.setEnabled(true);					
 				}
 			}
 		});
@@ -201,7 +202,6 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 			}
 		});
 		panelBottom.add(btnVisualizzaAltriDettagli, BorderLayout.EAST);
-
 	}
 	
 //METODI:
