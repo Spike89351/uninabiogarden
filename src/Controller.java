@@ -269,7 +269,7 @@ public class Controller {
 	
 	//SERVE PER ANDARE NELLA PAGINA TERRENO E VISUALIZZARE UN TERRENO SELEZIONATO PI' APPROFONDITAMENTE:
 	public void daPaginaAggiungiEVisualizzaTerrenoAVisualizzaTerrenoSpecifico(String idTerreno) {
-		paginaTerrenoSpecifico = new VisualizzaTerrenoInModoSpecifico(this, idTerreno);
+		paginaTerrenoSpecifico = new VisualizzaTerrenoInModoSpecifico(idTerreno, this);
 		paginaTerrenoSpecifico.setVisible(true);
 		
 		AggEVisualizzaTerre.setVisible(false);
@@ -284,11 +284,10 @@ public class Controller {
 	}
 	
 	//SERVE PER VISUALIZZARE TUTTI I PROGETTI PER UN TERRENO: (DEVI PRIMA POTERLI INSERIRE)
-	public void popolaTabellaProgettiPerTerreno(String idTerreno) {
-		Terreno ter = trovaTerreno(idTerreno);
+	public void popolaTabellaProgettiPerTerreno(int idTerreno, DefaultTableModel model) {
+//		Terreno ter = trovaTerreno(String.valueOf(idTerreno));
 		progettoDAO = new ProgettoDAO();
-		progettoDAO.listaDiProgettiPerTerreno(Integer.valueOf(idTerreno), ter);
-		
+		progettoDAO.listaDiProgettiPerTerreno(idTerreno, model);
 	}
 	
 	//METODO CHE SERVE PER ANDARE NELLA PAGINA DEDICATA ALLE ATTIVITA':
@@ -339,6 +338,12 @@ public class Controller {
 		model.setRowCount(0);
 		progettoDAO = new ProgettoDAO();
 		progettoDAO.tuplaDettagliprogetto(idProgetto, model);
+	}
+	
+	//MI SERVE PER POPOLARE LA TABELLA DEI PROGETTI PER UN TERRENO SPECIFICO:
+	public void popolaTabellaPerTerrenoSpecifico(int idTerreno, DefaultTableModel model) {
+		progettoDAO = new ProgettoDAO();
+		progettoDAO.listaDiProgettiPerTerreno(idTerreno, model);
 	}
 	
 	//MODIFICA DI ALCUNI DATI DEL PROGETTO:

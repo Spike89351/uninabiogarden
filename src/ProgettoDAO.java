@@ -37,13 +37,11 @@ public class ProgettoDAO {
 	}
 	
 	//FUNZIONE CHE SERVE PER RISALIRE AI PROGETTI:
-	public ArrayList<Progetto> listaDiProgettiPerTerreno(int idTerreno, Terreno terr){
+	public void listaDiProgettiPerTerreno(int idTerreno, DefaultTableModel model){
 		String sql = "SELECT * "
 		           + "FROM prguninabiogarden.Progetto AS P "
-		           + "JOIN prguninabiogarden.Terreno AS T ON P.codice_prg = T.codice_prg "
-		           + "WHERE T.id_terreno = ?";
-		
-		ArrayList<Progetto> listaProvProgetti = new ArrayList<Progetto>();
+		           + "JOIN prguninabiogarden.Terreno AS T ON P.id_terreno = T.id_terreno "
+		           + "WHERE T.id_terreno = ? ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -52,18 +50,10 @@ public class ProgettoDAO {
 			
 			ResultSet rs = psmt.executeQuery();
 			while(rs.next()) {
-				Progetto prgProv = new Progetto(rs.getString("Nome_prg"), rs.getDate("data_inizio"), terr);
-				prgProv.setDescrizioneProgetto(rs.getString("desc_prg"));
-				prgProv.setDataFine(rs.getDate("data_fine"));
-				prgProv.setCodeProgetto(rs.getInt("codice_prg"));
-				prgProv.setStatoProgetto(StatoProgetto.valueOf(rs.getString("stato_prg")));
-				
-				listaProvProgetti.add(prgProv);
+				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getString("stato_prg")});
 			} 
-			return listaProvProgetti;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione listaDiPorgettiPerTerreno, nella classe ProgettoDAO " + e);
-    		return null;
     	}  
 	}
 	

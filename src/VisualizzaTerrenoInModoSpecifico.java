@@ -38,14 +38,14 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private int idProgettoSelezionato;
 	
 	
-	public VisualizzaTerrenoInModoSpecifico(Controller c, String idTerreno) {
+	public VisualizzaTerrenoInModoSpecifico(String idTerreno, Controller c) {
 		theController = c;
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				try {
-					theController.popolaTabellaProgettiPerTerreno(idTerreno);
+					theController.popolaTabellaProgettiPerTerreno(Integer.valueOf(idTerreno), modelProgetto);
 				}catch(Exception x) {
 					JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei progetti, nella pagina visualizzaTerrenoInMododSpecifico"+ x);
 				}
