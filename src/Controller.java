@@ -577,4 +577,9 @@ public class Controller {
 		attivitàDAO.popolaTabellaConQuantitàRaccolto(idTerreno, model);
 	}
 	
+//MI SERVE PER LA PAGINA DEL COLTIVATORE:
+	public int trovaIdColtirvatore(String username) {
+		coltivatoreDAO = new ColtivatoreDAO();
+		return coltivatoreDAO.trovaId(username);
+	}
 }
