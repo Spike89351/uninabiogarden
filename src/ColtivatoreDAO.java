@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class ColtivatoreDAO {
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
@@ -36,7 +37,6 @@ public class ColtivatoreDAO {
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
-
                
                 psmt.setString(1, username);
                 
@@ -53,8 +53,25 @@ public class ColtivatoreDAO {
 	}
 	
 	//MI SERVE PER POPOLARE LA TABELLA CON TUTTI I PROGETTI/ATTIVITA' SU CUI STA LAVORANDO IL COLTIVATORE:
-	public void tutteLeAttività(int idColt){
+	public void tutteLeAttività(int idColt, DefaultTableModel model){
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Coltivatore AS C "
+				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
+				+ "WHERE C.id_coltivatore = ? ";
 		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+               
+                psmt.setInt(1, idColt);
+                
+                ResultSet rs = psmt.executeQuery();
+                
+            while(rs.next()) {
+				model.addRow(new Object[]{rs.getString("id_attività"), rs.getInt("tipo_attività"), rs.getDouble("data_inizio"), rs.getString("data_fine")});
+            }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: tutteLeAttività" + e);
+    	}
 	}
 	
 }

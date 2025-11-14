@@ -582,4 +582,12 @@ public class Controller {
 		coltivatoreDAO = new ColtivatoreDAO();
 		return coltivatoreDAO.trovaId(username);
 	}
+	
+	//MI SERVE A POPOLARE LA TABELLA CON TUTTE LE ATTIVITA' DEL COLTIVATORE:
+	public void popolaTabellaDelleAttivitàConIdColtivatore(int idColtivatore, DefaultTableModel model) {
+		coltivatoreDAO = new ColtivatoreDAO();
+		coltivatoreDAO.tutteLeAttività(idColtivatore, model);
+	}
+	
+	
 }
