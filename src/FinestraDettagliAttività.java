@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -43,6 +45,8 @@ public class FinestraDettagliAttività extends JDialog {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				theController.paginaAttività.setEnabled(false);
+				//POPOLA TABELLA: 
+				theController.popolaTabellaConQuantitàRaccolto(idTerreno, model);
 				setEnabled(true);
 			}
 		});
@@ -90,10 +94,17 @@ public class FinestraDettagliAttività extends JDialog {
 				btnCompleta = new JButton("Completa");
 				btnCompleta.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//COMPLETA ATTIVITA':
-						
-						//AGGIORNA TABELLA:
-						
+						if(ctrlTxtFields()) {
+							//COMPLETA ATTIVITA':
+							if(theController.modificaTipoAttivitàInRaccolto(txtStato.getText(), Double.valueOf(txtQuantità.getText()), idAttività)) {
+								JOptionPane.showMessageDialog(null, "Complimenti, l'azione è andata a buon fine!");
+								clearTxtFields();
+								//AGGIORNA TABELLA:
+								theController.popolaTabellaConQuantitàRaccolto(idTerreno, model);
+							}else {
+								JOptionPane.showMessageDialog(null, "Errore, l'azione non è andata a buon fine!");
+							}
+						}
 					}
 				});
 				btnCompleta.setActionCommand("OK");
@@ -147,7 +158,7 @@ public class FinestraDettagliAttività extends JDialog {
 			
 			model = new DefaultTableModel(
 					new Object[][]{},
-					new String[]{ "Id attività", "Tipo", "Stato", "Data inizio", "Data fine"}
+					new String[]{ "Id attività", "Quantità", "Data inizio", "Data fine"}
 				);
 			
 			table = new JTable(model);
@@ -171,4 +182,21 @@ public class FinestraDettagliAttività extends JDialog {
 			}
 		}
 	}
+	
+//METODI:
+	private boolean ctrlTxtFields() {
+		if(Double.valueOf(txtQuantità.getText()) < 0) {
+			JOptionPane.showMessageDialog(null, "La quantità del raccolto non può essere MINORE di 0");
+			return false;
+		}
+		return true;
+	}
+	
+	//MI SERVE PER PULIRE I CAMPI:
+	private void clearTxtFields() {
+		txtQuantità.setText(null);
+	}
+	
+	
+	
 }

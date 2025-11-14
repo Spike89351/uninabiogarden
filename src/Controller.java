@@ -564,6 +564,17 @@ public class Controller {
 		finestraDettagliAttività.setEnabled(true);
 	}
 	
+	//MI SERVE PER MODIFICARE LO STATO DI UN'ATTIVITA' DA QUALSIASI A  RACCOLTO COMPLETATO:	
+	public boolean modificaTipoAttivitàInRaccolto(String stato, double raccoltoQuant, int idAtt) {
+		attivitàDAO = new AttivitàDAO();
+		return attivitàDAO.modificaStatoEAggiungiQuantità(stato, raccoltoQuant, idAtt);
+	}
 	
+	//MI SERVE A POPOLARE LA TABELLA CON LE ATTIVITà SU QUEL TERRENO COMPLETATE + LA QUANTITA' DI RACCOLTO:
+	public void popolaTabellaConQuantitàRaccolto(int idTerreno, DefaultTableModel model) {
+		model.setRowCount(0);
+		attivitàDAO = new AttivitàDAO();
+		attivitàDAO.popolaTabellaConQuantitàRaccolto(idTerreno, model);
+	}
 	
 }

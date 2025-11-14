@@ -112,4 +112,49 @@ public class AttivitàDAO {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella nella CLASSE AttivitàDAO, funzione: popolaTabella" + e);
     	} 
 	}
+	
+	//MI SERVE PER MODIFICARE LO STATO E AGGIUNGERE UNA QUANTITA' DEL RACCOLTO:
+	public boolean modificaStatoEAggiungiQuantità(String stato, double raccoltoQuant, int idAtt) {
+		String sql = "UPDATE prguninabiogarden.Attività "
+				+ "SET stato = ? "
+				+ "AND quantità_raccolto = ? "
+				+ "WHERE id_attività = ?";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setString(1, stato);
+				psmt.setDouble(2, raccoltoQuant);
+				psmt.setInt(3, idAtt);
+				
+				int ret = psmt.executeUpdate();
+				
+				return ret > 0;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella nella CLASSE AttivitàDAO, funzione: popolaTabella" + e);
+    		return false;
+    	} 
+	}
+	
+	//MI SERVE PER POPOLARE LA TABELLA CON LE ATTIVITA' COMPLETATE SUL TERRENO:
+	public void popolaTabellaConQuantitàRaccolto(int idTerreno, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Attività AS A "
+				+ "JOIN prguninabiogarden. Terreno AS T ON A.id_terreno = T.id_terreno "
+				+ "WHERE T.id_terreno = ?";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setInt(1, idTerreno);
+				
+				ResultSet rs = psmt.executeQuery();
+				
+				while(rs.next()) {
+					model.addRow(new Object[]{rs.getInt("Id_attività"), rs.getDouble("quantità_raccolto"), rs.getDate("Data_inizio"), rs.getDate("Data_fine")});
+                }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella nella CLASSE AttivitàDAO, funzione: popolaTabellaConQuantitàRaccolto" + e);
+    	} 
+	}
 }
