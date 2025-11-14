@@ -72,19 +72,19 @@ public class FinestraDettagliAttività extends JDialog {
 			JPanel panelCentral = new JPanel();
 			contentPanel.add(panelCentral, BorderLayout.CENTER);
 			
-			JLabel lblStato = new JLabel("Qunatità ");
+			JLabel lblStato = new JLabel("Stato");
 			lblStato.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			
 			txtQuantità = new JTextField();
 			txtQuantità.setHorizontalAlignment(SwingConstants.CENTER);
 			txtQuantità.setColumns(10);
 			
-			JLabel lblQuantità = new JLabel("Qunatità ");
+			JLabel lblQuantità = new JLabel("Quantità");
 			lblQuantità.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			
 			txtStato = new JTextField();
 			txtStato.setHorizontalAlignment(SwingConstants.CENTER);
-			txtStato.setText("Completato");
+			txtStato.setText("Completata");
 			txtStato.setEnabled(false);
 			txtStato.setEditable(false);
 			txtStato.setColumns(10);
@@ -117,10 +117,10 @@ public class FinestraDettagliAttività extends JDialog {
 						.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_panelCentral.createSequentialGroup()
 								.addContainerGap()
-								.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
 									.addGroup(gl_panelCentral.createSequentialGroup()
 										.addComponent(lblStato)
-										.addGap(18)
+										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(txtStato, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 									.addGroup(gl_panelCentral.createSequentialGroup()
 										.addComponent(lblQuantità, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
@@ -174,6 +174,8 @@ public class FinestraDettagliAttività extends JDialog {
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						setVisible(false);
+						theController.paginaAttività.setEnabled(true);
+						theController.paginaAttività.setVisible(true);
 					}
 				});
 				panelBottom.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));

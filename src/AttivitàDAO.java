@@ -116,8 +116,9 @@ public class AttivitàDAO {
 	//MI SERVE PER MODIFICARE LO STATO E AGGIUNGERE UNA QUANTITA' DEL RACCOLTO:
 	public boolean modificaStatoEAggiungiQuantità(String stato, double raccoltoQuant, int idAtt) {
 		String sql = "UPDATE prguninabiogarden.Attività "
-				+ "SET stato = ? "
-				+ "AND quantità_raccolto = ? "
+				+ "SET stato_attività = ?, "
+				+ "quantità_raccolto = ?, "
+				+ "tipo_attività = ? "
 				+ "WHERE id_attività = ?";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
@@ -125,13 +126,14 @@ public class AttivitàDAO {
 				
 				psmt.setString(1, stato);
 				psmt.setDouble(2, raccoltoQuant);
-				psmt.setInt(3, idAtt);
+				psmt.setString(3, "Raccolta");
+				psmt.setInt(4, idAtt);
 				
 				int ret = psmt.executeUpdate();
 				
 				return ret > 0;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella nella CLASSE AttivitàDAO, funzione: popolaTabella" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella modifica dello stato + aggiunta di raccolta la tabella nella CLASSE AttivitàDAO, funzione: modificaStatoEAggiungiQuantità" + e);
     		return false;
     	} 
 	}
