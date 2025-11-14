@@ -52,5 +52,9 @@ public class ColtivatoreDAO {
 		return -1;
 	}
 	
+	//MI SERVE PER POPOLARE LA TABELLA CON TUTTI I PROGETTI/ATTIVITA' SU CUI STA LAVORANDO IL COLTIVATORE:
+	public void tutteLeAttività(int idColt){
+		
+	}
 	
 }
