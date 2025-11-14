@@ -11,7 +11,7 @@ public class ColtivatoreDAO {
     
 	
 	public void inserisciColtivatore(String username) {
-String sql = "INSERT INTO prguninabiogarden.Coltivatore (Username) VALUES(?)";
+		String sql = "INSERT INTO prguninabiogarden.Coltivatore (Username) VALUES(?)";
     	
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {

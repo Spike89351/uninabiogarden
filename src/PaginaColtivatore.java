@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 public class PaginaColtivatore extends JFrame {
 	private Controller theController;
 	
-	
+	private int idColtivatore;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
