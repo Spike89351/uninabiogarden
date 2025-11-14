@@ -556,10 +556,10 @@ public class Controller {
 	}
 	
 	//MI SERVE PER PASSARE DALLA PAGINA ATTIVITA' ALLA FINESTRA DETTAGLI:
-	public void daPaginaAttivitàAFinestraDettagliAttività(int idAttività) {
+	public void daPaginaAttivitàAFinestraDettagliAttività(int idTerreno, int idAttività) {
 		paginaAttività.setEnabled(false);
 		
-		finestraDettagliAttività = new FinestraDettagliAttività(idAttività, this);
+		finestraDettagliAttività = new FinestraDettagliAttività(idTerreno, idAttività, this);
 		finestraDettagliAttività.setVisible(true);
 		finestraDettagliAttività.setEnabled(true);
 	}

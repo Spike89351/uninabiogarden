@@ -247,12 +247,12 @@ public class PaginaAttività extends JFrame {
 		JPanel panelBottomoCentral = new JPanel();
 		panelBottom.add(panelBottomoCentral, BorderLayout.CENTER);
 		
-		btnVisualizzaDettagli = new JButton("Visualizza Dettagli");
+		btnVisualizzaDettagli = new JButton("Completa");
 		btnVisualizzaDettagli.setEnabled(false);
 		btnVisualizzaDettagli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//VISUALIZZA DETTAGLI E LI' PUOI AGGIUNGERE ALTRE COSE:
-				theController.daPaginaAttivitàAFinestraDettagliAttività(idTerreno);
+				theController.daPaginaAttivitàAFinestraDettagliAttività(idTerreno, idAttivitàSelezionata);
 			}
 		});
 		panelBottomoCentral.add(btnVisualizzaDettagli);
