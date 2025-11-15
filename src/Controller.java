@@ -590,12 +590,13 @@ public class Controller {
 	
 	//POPOLA LA TABELLA CON TUTTI I COLTIVATORI:
 	public void popolaTabellaConColtivatori(DefaultTableModel model) {
+		model.setRowCount(0);
 		coltivatoreDAO = new ColtivatoreDAO();
 		coltivatoreDAO.popolaTabella(model);
 	}
 	
 	//ASSOCIA UN'ATTIVITA' A UN COLTIVATORE E CAMBIA LA SUA DISPONIBILITA':
-	public boolean associaAttività(int idAttività, int idColtivatore) {
+	public boolean associaAttivitàAColtivatore(int idAttività, int idColtivatore) {
 		coltivatoreDAO = new ColtivatoreDAO();		
 		return coltivatoreDAO.associaAttivitàAlColtivatore(idAttività, idColtivatore);
 	}
@@ -608,6 +609,7 @@ public class Controller {
 	
 	//MI SERVE A POPOLARE LA TABELLA CON TUTTE LE ATTIVITA' DEL COLTIVATORE:
 	public void popolaTabellaDelleAttivitàConIdColtivatore(int idColtivatore, DefaultTableModel model) {
+		model.setRowCount(0);
 		coltivatoreDAO = new ColtivatoreDAO();
 		coltivatoreDAO.tutteLeAttività(idColtivatore, model);
 	}

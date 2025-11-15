@@ -78,11 +78,14 @@ public class ColtivatoreDAO {
 	public void popolaTabella(DefaultTableModel model) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Utente AS U "
-				+ "JOIN prguninabiogarden.Coltivatore AS C ON U.username = C.username ";
+				+ "JOIN prguninabiogarden.Coltivatore AS C ON U.username = C.username "
+				+ "WHERE C.disponibilità = ?";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
                
+				psmt.setBoolean(1, true);
+			
                 ResultSet rs = psmt.executeQuery();
                 
             while(rs.next()) {
@@ -96,7 +99,7 @@ public class ColtivatoreDAO {
 	//MI SERVE PER ASSOCIARE UN COLTIVATORE A UN'ATTIVITA':
 	public boolean associaAttivitàAlColtivatore(int idAttività, int idColtivatore) {
 		String sql = "UPDATE prguninabiogarden.Coltivatore "
-				+ "SET id_attivita = ?, "
+				+ "SET id_attività = ?, "
 				+ "disponibilità = ? "
 				+ "WHERE id_coltivatore = ?";
 		
@@ -111,9 +114,9 @@ public class ColtivatoreDAO {
                 
             return result > 0;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: popolaTabella" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione che serve per associare un coltivatore a un'attività! (CLASSE ColtivatoreDAO), funzione: associaAttivitàAlColtivatore" + e);
+    		return false;
     	}
-		return false;
 	}
 	
 	//MI SERVE A CAMBIARE LA DISPONIIBLITA' DI UN COLTIVATORE:

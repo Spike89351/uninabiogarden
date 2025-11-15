@@ -91,7 +91,7 @@ public class PaginaSceltaColtivatore extends JFrame {
 				if(selectedRow != -1) {
 					String idColtivatoreStirng = String.valueOf(table.getValueAt(selectedRow, 0));
 					idColtivatoreSelezionato = Integer.valueOf(idColtivatoreStirng);
-					btnAssocia.setEnabled(false);
+					btnAssocia.setEnabled(true);
 				}
 			}
 		});
@@ -115,7 +115,12 @@ public class PaginaSceltaColtivatore extends JFrame {
 		btnAssocia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//METODO CHE PRENDE COME INPUT L'ID DELL'ATTIVITA' E COLTIVATORE E LI ASSOCIA + POI METTE IL BOOELAN FALSE DEL COLTIVATORE:
-				
+				if(theController.associaAttivitàAColtivatore(idAttività, idColtivatoreSelezionato)) {
+					theController.popolaTabellaConColtivatori(model);
+					JOptionPane.showMessageDialog(null, "Complimenti, hai associato perfettamente il coltivatore all'attività!");
+				}else {
+					JOptionPane.showMessageDialog(null, "ERRORE, non hai associato il coltivatore all'attività!");
+				}
 			}
 		});
 		btnAssocia.setEnabled(false);
