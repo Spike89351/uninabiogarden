@@ -120,5 +120,9 @@ public class ColtivatoreDAO {
 	}
 	
 	//MI SERVE A CAMBIARE LA DISPONIIBLITA' DI UN COLTIVATORE:
-	
+	//DEVO ANCHE CONTROLLARE QUANTI COLTIVATORI CI SONO SU QUELL'ATTIVITA', USARE UNA FUNZIONE ESTERNA
+	public boolean dissociaColtivatoreDaAttività(int idAttività) {
+		
+		return false;
+	}
 }
