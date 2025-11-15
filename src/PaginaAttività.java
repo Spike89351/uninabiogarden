@@ -48,7 +48,7 @@ public class PaginaAttività extends JFrame {
 	private JButton btnAggiungi;
 	private JTable table;
 	private DefaultTableModel model;
-	private JButton btnRimuovi;
+	private JButton btnAggiungiColtivatore;
 	
 	public PaginaAttività(int idTerreno, int idProgetto, Controller c) {
 		addWindowListener(new WindowAdapter() {
@@ -257,15 +257,16 @@ public class PaginaAttività extends JFrame {
 		});
 		panelBottomoCentral.add(btnVisualizzaDettagli);
 		
-		btnRimuovi = new JButton("Rimuovi");
-		btnRimuovi.addActionListener(new ActionListener() {
+		btnAggiungiColtivatore = new JButton("Rimuovi");
+		btnAggiungiColtivatore.setEnabled(false);
+		btnAggiungiColtivatore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//RIMUOVI ATTIVITA':
 				
 				
 			}
 		});
-		panelBottom.add(btnRimuovi, BorderLayout.EAST);
+		panelBottom.add(btnAggiungiColtivatore, BorderLayout.EAST);
 		
 	}
 //METODI:
