@@ -74,4 +74,23 @@ public class ColtivatoreDAO {
     	}
 	}
 	
+	//SERVE A POPOLARE LA TABELLA CON TUTTI I COLTIVATORI:
+	public void popolaTabella(DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Utente AS U "
+				+ "JOIN prguninabiogarden.Coltivatore AS C ON U.username = C.username ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+               
+                ResultSet rs = psmt.executeQuery();
+                
+            while(rs.next()) {
+				model.addRow(new Object[]{rs.getString("Nome"), rs.getInt("Cognome"), rs.getDate("data_nascita")});
+            }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: tutteLeAttività" + e);
+    	}
+	}
+	
 }

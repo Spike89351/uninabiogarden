@@ -39,9 +39,6 @@ public class Controller {
 	private AttrezzoDAO attrezzoDAO;
 	private StatoAttrezzo statoAttrezzo;
 	
-	//VARIABILI CHE SERVONO A MEMORIZZARE I DATI DAL DB COSI' DA AVERLI A PORTATA DI MANO:
-	//private ArrayList<Terreno> listaTerre;
-	
 	//INIZIALIZZAZIONE DELLE PAGINE: (ALCUNE)
 	public HomePage homePage;
 	public PaginaRegistrati paginaRegistrati;
@@ -57,6 +54,7 @@ public class Controller {
 	public PaginaDettagliDeposito paginaDettagliDeposito;
 	public PaginaAttrezzo paginaAttrezzo;
 	public PaginaColtura paginaColtura;
+	public PaginaSceltaColtivatore paginaSceltaColtivatore;
 	
 	//FINESTRE:
 	public FinestraVisualizzaEModificaDatiProprietario finestraDatiProprietario;
@@ -577,6 +575,21 @@ public class Controller {
 		attivitàDAO.popolaTabellaConQuantitàRaccolto(idTerreno, model);
 	}
 	
+//MI SERVE PER LA PAGINA PER LA SCELTA DEL COLTIVATORE:	
+	//PASSO DALLA PAGINA DEL TIPO DI ATTIVTIA' ALLA PAGINA SCELTA DEL COLTIVATORE:
+	public void daPaginaAttivitàAPaginaSceltaColtivatore(int idAttività) {
+		paginaAttività.setVisible(false);
+		
+		paginaSceltaColtivatore = new PaginaSceltaColtivatore(idAttività, this);
+		paginaSceltaColtivatore.setVisible(true);
+	}
+	
+	//POPOLA LA TABELLA CON TUTTI I COLTIVATORI:
+	public void popolaTabellaConColtivatori(DefaultTableModel model) {
+		coltivatoreDAO = new ColtivatoreDAO();
+		coltivatoreDAO.popolaTabella(model);
+	}
+	
 //MI SERVE PER LA PAGINA DEL COLTIVATORE:
 	public int trovaIdColtirvatore(String username) {
 		coltivatoreDAO = new ColtivatoreDAO();
@@ -588,6 +601,7 @@ public class Controller {
 		coltivatoreDAO = new ColtivatoreDAO();
 		coltivatoreDAO.tutteLeAttività(idColtivatore, model);
 	}
+	
 	
 	
 }
