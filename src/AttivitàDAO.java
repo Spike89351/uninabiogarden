@@ -159,4 +159,5 @@ public class AttivitàDAO {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella nella CLASSE AttivitàDAO, funzione: popolaTabellaConQuantitàRaccolto" + e);
     	} 
 	}
+	
 }

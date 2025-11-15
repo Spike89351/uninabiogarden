@@ -594,6 +594,12 @@ public class Controller {
 		coltivatoreDAO.popolaTabella(model);
 	}
 	
+	//ASSOCIA UN'ATTIVITA' A UN COLTIVATORE E CAMBIA LA SUA DISPONIBILITA':
+	public boolean associaAttività(int idAttività, int idColtivatore) {
+		coltivatoreDAO = new ColtivatoreDAO();		
+		return coltivatoreDAO.associaAttivitàAlColtivatore(idAttività, idColtivatore);
+	}
+	
 //MI SERVE PER LA PAGINA DEL COLTIVATORE:
 	public int trovaIdColtirvatore(String username) {
 		coltivatoreDAO = new ColtivatoreDAO();
