@@ -230,7 +230,6 @@ public class Controller {
 	}
 	
 //MI SERVE PER LA PAGINA DEI TERRENI IN PROPRIETARIO:
-	
 	//SERVE PER LA FINESTRA DEI TERRENI DEL PROPRIETARIO:
 	public void daPaginaProprietarioAFinestraTerreni(Utente u) {
 		AggEVisualizzaTerre	= new AggiungiEVisualizzaTerreno(this, u);

@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PaginaSceltaColtivatore extends JFrame {
 	private Controller theController;
@@ -26,7 +28,10 @@ public class PaginaSceltaColtivatore extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel model;
-
+	private JButton btnBack;
+	private JButton btnAssocia;
+	private int idColtivatoreSelezionato;
+	
 	public PaginaSceltaColtivatore(int idAttività, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -75,17 +80,28 @@ public class PaginaSceltaColtivatore extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"Nome", "Cognome", "Data di Nascita"}
+				new String[]{"id coltivatore", "Nome", "Cognome", "Data di Nascita"}
 			);
 		
 		table = new JTable(model);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int selectedRow = table.rowAtPoint(e.getPoint());
+				if(selectedRow != -1) {
+					String idColtivatoreStirng = String.valueOf(table.getValueAt(selectedRow, 0));
+					idColtivatoreSelezionato = Integer.valueOf(idColtivatoreStirng);
+					btnAssocia.setEnabled(false);
+				}
+			}
+		});
 		scrollPane.setColumnHeaderView(table);
 		scrollPane.setViewportView(table);
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 		panelBottom.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TORNA INDIETRO:
@@ -95,7 +111,13 @@ public class PaginaSceltaColtivatore extends JFrame {
 		});
 		panelBottom.add(btnBack, BorderLayout.WEST);
 		
-		JButton btnAssocia = new JButton("Associa");
+		btnAssocia = new JButton("Associa");
+		btnAssocia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//METODO CHE PRENDE COME INPUT L'ID DELL'ATTIVITA' E COLTIVATORE E LI ASSOCIA + POI METTE IL BOOELAN FALSE DEL COLTIVATORE:
+				
+			}
+		});
 		btnAssocia.setEnabled(false);
 		panelBottom.add(btnAssocia, BorderLayout.EAST);
 
