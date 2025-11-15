@@ -134,6 +134,11 @@ public class Controller {
 		paginaRegistraProp.setVisible(true);
 	}
 	
+	public boolean ctrlEsistenzaUtente(String username) {
+		utenteDAO = new UtenteDAO();
+		return utenteDAO.ctrlEsistenza(username);
+	}
+	
 	//SERVE A TORANARE INDIETRO:
 	public void daPaginaProprietarioARegistraUtente(Utente u) {
 		u = null;

@@ -123,22 +123,27 @@ public class PaginaRegistrati extends JFrame {
 						//FACCIAMO CONFERMARE ALL'UTENTE LA REGISTRAZIONE COSI' DA ESSERE SICURI CHE NON ABBIA SBAGLIATO A CLICCARE:
 						int risposta = JOptionPane.showConfirmDialog(
 					            null, // Nessuna finestra padre (verrà mostrato al centro dello schermo)
-					            "Sei sicuro di voler continuare?",
+					            "Sei sicuro di voler registrati come coltivatore?",
 					            "Conferma",
 					            JOptionPane.YES_NO_OPTION
 					        );
 						
 						if(risposta == JOptionPane.YES_OPTION) {
-							//CHIAMATA DELLA FUNZIONE CHE CREA IL COLTIVATORE:
-							theController.inserisciColtivatore(u);
-							JOptionPane.showMessageDialog(null, "La registrazione è avvenuta con successo!");
-							
-							//PULIAMO I CAMPI:
-							clearFields(txtNome, txtCognome, dateChooser, txtUsername, txtPassword);
-							
-							//TORNIAMO ALL'HOMEPAGE:
-							theController.paginaRegistrati.setVisible(false);
-							theController.homePage.setVisible(true);
+							//CONTROLLO SE ESISTE GIA' L'USERNAME:
+							if(! theController.ctrlEsistenzaUtente(txtUsername.getText().trim())) {
+								//CHIAMATA DELLA FUNZIONE CHE CREA IL COLTIVATORE:
+								theController.inserisciColtivatore(u);
+								JOptionPane.showMessageDialog(null, "La registrazione è avvenuta con successo!");
+								
+								//PULIAMO I CAMPI:
+								clearFields(txtNome, txtCognome, dateChooser, txtUsername, txtPassword);
+								
+								//TORNIAMO ALL'HOMEPAGE:
+								theController.paginaRegistrati.setVisible(false);
+								theController.homePage.setVisible(true);
+							}else {
+								JOptionPane.showMessageDialog(null, "ERRORE, l'username che hai inserito è già in uso, RIPROVA!");
+							}
 						}
 						
 					}catch(Exception x) {
@@ -153,21 +158,25 @@ public class PaginaRegistrati extends JFrame {
 		btnProprietario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(control(txtNome, txtCognome, dateChooser, txtUsername, txtPassword)) {
-					try{
-						//FACCIO IL CAST DELLA DATA:
-						java.sql.Date data = new java.sql.Date(dateChooser.getDate().getTime());
-						
-						//CASTO ANCHE LA VIARIABILE DI TIPO GENERE:
-						gen = (Genere) comboBoxGenere.getSelectedItem();
-						
-						//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE PER POI PASSARLA ALLA PAGGINA SUCCESSIVA:
-						Utente u = new Utente(txtNome.getText().trim(), txtCognome.getText().trim(), data, gen, txtUsername.getText().trim(), txtPassword.getText().trim());
-						
-						//CHIAMO LA FUNZIONE CHE MI PERMETTE DI PASSARE A UN'ALTRA PAGINA:
-						theController.daPaginaRegistratiAProprietario(u);
-						
-					}catch(Exception x) {
-						JOptionPane.showMessageDialog(null, "Errore nel blocco try-catch dell'utente");
+					if(! theController.ctrlEsistenzaUtente(txtUsername.getText().trim())){
+						try{
+							//FACCIO IL CAST DELLA DATA:
+							java.sql.Date data = new java.sql.Date(dateChooser.getDate().getTime());
+							
+							//CASTO ANCHE LA VIARIABILE DI TIPO GENERE:
+							gen = (Genere) comboBoxGenere.getSelectedItem();
+							
+							//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE PER POI PASSARLA ALLA PAGGINA SUCCESSIVA:
+							Utente u = new Utente(txtNome.getText().trim(), txtCognome.getText().trim(), data, gen, txtUsername.getText().trim(), txtPassword.getText().trim());
+							
+							//CHIAMO LA FUNZIONE CHE MI PERMETTE DI PASSARE A UN'ALTRA PAGINA:
+							theController.daPaginaRegistratiAProprietario(u);
+							
+						}catch(Exception x) {
+							JOptionPane.showMessageDialog(null, "Errore nel blocco try-catch dell'utente");
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "ERRORE, l'username che hai inserito già è usato");
 					}
 				}
 			}

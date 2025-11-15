@@ -98,6 +98,28 @@ public class UtenteDAO {
         }
     }
 
+    //CONTROLLO SE ESISTE L'USERNAME:
+    public boolean ctrlEsistenza(String username) {
+    	String sql = "SELECT * "
+    			+ "FROM prguninabiogarden.Utente "
+    			+ "WHERE username = ? ";
+    	
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+    		
+    		psmt.setString(1, username);
+    		
+    		ResultSet rs = psmt.executeQuery();
+    		
+            return rs.next();
+              		
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		JOptionPane.showMessageDialog(null, "Errore nella classe UteneteDAO, funzione: ctrlEsistenza");
+    		return false;
+    	}
+    }
+    
     //CONTROLLO SE E' UN PROPRIETARIO O COLTIVATORE:
     public int controlloTipoUtente(String username) {
     	String sql = "SELECT\r\n"

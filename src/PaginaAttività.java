@@ -219,6 +219,7 @@ public class PaginaAttività extends JFrame {
 					
 					//SBLOCCO IL PULSANTE 'DETTAGLI':
 					btnVisualizzaDettagli.setEnabled(true);
+					btnAggiungiColtivatore.setEnabled(true);
 				}
 			}
 		});
@@ -257,13 +258,12 @@ public class PaginaAttività extends JFrame {
 		});
 		panelBottomoCentral.add(btnVisualizzaDettagli);
 		
-		btnAggiungiColtivatore = new JButton("Rimuovi");
+		btnAggiungiColtivatore = new JButton("Seleziona coltivatore");
 		btnAggiungiColtivatore.setEnabled(false);
 		btnAggiungiColtivatore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//RIMUOVI ATTIVITA':
-				
-				
+				theController.daPaginaAttivitàAPaginaSceltaColtivatore(idAttivitàSelezionata);
 			}
 		});
 		panelBottom.add(btnAggiungiColtivatore, BorderLayout.EAST);
