@@ -119,12 +119,4 @@ public class ColtivatoreDAO {
     	}
 	}
 	
-	//MI SERVE A CAMBIARE LA DISPONIIBLITA' DI UN COLTIVATORE:
-	//DEVO ANCHE CONTROLLARE QUANTI COLTIVATORI CI SONO SU QUELL'ATTIVITA' E DISSOCIARE TUTTI, USARE UNA FUNZIONE ESTERNA
-	public boolean dissociaColtivatoreDaAttività(int idAttività, int idColtivatore) {
-		String sql = "INSERT INTO prguninabiogarden.Coltivatore() "
-				+ "VALUES() ";
-		
-		return false;
-	}
 }
