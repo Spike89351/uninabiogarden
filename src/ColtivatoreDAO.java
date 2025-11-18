@@ -67,7 +67,7 @@ public class ColtivatoreDAO {
                 ResultSet rs = psmt.executeQuery();
                 
             while(rs.next()) {
-				model.addRow(new Object[]{rs.getString("id_attività"), rs.getInt("tipo_attività"), rs.getDouble("data_inizio"), rs.getString("data_fine")});
+				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine")});
             }
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: tutteLeAttività" + e);
