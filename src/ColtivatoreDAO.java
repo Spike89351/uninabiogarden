@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class ColtivatoreDAO {
@@ -50,6 +51,26 @@ public class ColtivatoreDAO {
     		return -1;
     	}
 		return -1;
+	}
+	
+	public void trovaCredenziali(String username, JTextField nome, JTextField cognome) {
+		String sql = "SELECT nome, cognome "
+				+ "FROM prguninabiogarden.Utente AS U "
+				+ "WHERE U.username = ? ";
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+               
+                psmt.setString(1, username);
+                
+                ResultSet rs = psmt.executeQuery();
+                
+            if(rs.next()) {
+            	nome.setText(rs.getString("nome"));
+            	cognome.setText(rs.getString("cognome"));
+            }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel trovare le credenziali del Coltivatore! (CLASSE ColtivatoreDAO), funzione: trovaCredenziali" + e);
+    	}
 	}
 	
 	//MI SERVE PER POPOLARE LA TABELLA CON TUTTI I PROGETTI/ATTIVITA' SU CUI STA LAVORANDO IL COLTIVATORE:

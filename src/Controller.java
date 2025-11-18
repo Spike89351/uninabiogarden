@@ -607,6 +607,12 @@ public class Controller {
 		return coltivatoreDAO.trovaId(username);
 	}
 	
+	//TROVA LE CREDENZIALI DEL COLTIVATORE E LE INSERISCE NEI CAMPI JTEXTFIELD:
+	public void credenzialiColtivatore(String username, JTextField nome, JTextField cognome) {
+		coltivatoreDAO = new ColtivatoreDAO();
+		coltivatoreDAO.trovaCredenziali(username, nome, cognome);		
+	}
+	
 	//MI SERVE A POPOLARE LA TABELLA CON TUTTE LE ATTIVITA' DEL COLTIVATORE:
 	public void popolaTabellaDelleAttivitàConIdColtivatore(int idColtivatore, DefaultTableModel model) {
 		model.setRowCount(0);
