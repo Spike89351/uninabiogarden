@@ -607,7 +607,7 @@ public class Controller {
 		return coltivatoreDAO.trovaId(username);
 	}
 	
-	//TROVA LE CREDENZIALI DEL COLTIVATORE E LE INSERISCE NEI CAMPI JTEXTFIELD:
+	//TROVA LE CREDENZIALI DEL COLTIVATORE E LE INSERISCE NEI CAMPI JTEXTFIELD:.
 	public void credenzialiColtivatore(String username, JTextField nome, JTextField cognome) {
 		coltivatoreDAO = new ColtivatoreDAO();
 		coltivatoreDAO.trovaCredenziali(username, nome, cognome);		
