@@ -118,6 +118,7 @@ public class PaginaSceltaColtivatore extends JFrame {
 				if(theController.associaAttivitàAColtivatore(idAttività, idColtivatoreSelezionato)) {
 					theController.popolaTabellaConColtivatori(model);
 					JOptionPane.showMessageDialog(null, "Complimenti, hai associato perfettamente il coltivatore all'attività!");
+					btnAssocia.setEnabled(false);
 				}else {
 					JOptionPane.showMessageDialog(null, "ERRORE, non hai associato il coltivatore all'attività!");
 				}
