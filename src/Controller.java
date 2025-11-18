@@ -601,7 +601,7 @@ public class Controller {
 		return coltivatoreDAO.associaAttivitàAlColtivatore(idAttività, idColtivatore);
 	}
 	
-//MI SERVE PER LA PAGINA DEL COLTIVATORE:
+//MI SERVE PER LA PAGINA DEL COLTIVATORE:.
 	public int trovaIdColtirvatore(String username) {
 		coltivatoreDAO = new ColtivatoreDAO();
 		return coltivatoreDAO.trovaId(username);
