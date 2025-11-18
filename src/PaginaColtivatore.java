@@ -21,6 +21,7 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class PaginaColtivatore extends JFrame {
 	private Controller theController;
@@ -40,6 +41,7 @@ public class PaginaColtivatore extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				idColtivatore = theController.trovaIdColtirvatore(username);
+				theController.credenzialiColtivatore(username, txtNome, txtCognome);
 				if(idColtivatore == -1) {
 					JOptionPane.showMessageDialog(null, "L'id non è stato trovato, ERRORE!");
 				}else {
@@ -99,6 +101,7 @@ public class PaginaColtivatore extends JFrame {
 		txtCognome.setColumns(10);
 		
 		txtId = new JTextField();
+		txtId.setHorizontalAlignment(SwingConstants.CENTER);
 		txtId.setEnabled(false);
 		txtId.setText(""+ idColtivatore);
 		txtId.setColumns(10);
@@ -106,27 +109,26 @@ public class PaginaColtivatore extends JFrame {
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(73)
 							.addComponent(lblNewLabel))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addComponent(lblCognome)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(txtCognome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCognome))
+							.addGap(21)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+								.addComponent(txtNome, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtCognome, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblId, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+							.addGap(22)
+							.addComponent(txtId, 0, 0, Short.MAX_VALUE)
+							.addGap(1)))
+					.addPreferredGap(ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING, false)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(lblElencoAttività)
