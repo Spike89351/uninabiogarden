@@ -618,10 +618,10 @@ public class Controller {
 	}
 	
 	//MI SERVE A POPOLARE LA TABELLA CON TUTTE LE ATTIVITA' DEL COLTIVATORE:
-	public void popolaTabellaDelleAttivitàConIdColtivatore(int idColtivatore, DefaultTableModel model) {
+	public void popolaTabellaDelleAttivitàConIdColtivatore(int idColtivatore, DefaultTableModel model, String statoAtt) {
 		model.setRowCount(0);
 		coltivatoreDAO = new ColtivatoreDAO();
-		coltivatoreDAO.tutteLeAttività(idColtivatore, model);
+		coltivatoreDAO.tutteLeAttività(idColtivatore, model, statoAtt);
 	}
 	
 	

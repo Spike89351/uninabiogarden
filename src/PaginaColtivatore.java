@@ -22,6 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class PaginaColtivatore extends JFrame {
 	private Controller theController;
@@ -45,7 +47,7 @@ public class PaginaColtivatore extends JFrame {
 				if(idColtivatore == -1) {
 					JOptionPane.showMessageDialog(null, "L'id non è stato trovato, ERRORE!");
 				}else {
-					theController.popolaTabellaDelleAttivitàConIdColtivatore(idColtivatore, model);
+					theController.popolaTabellaDelleAttivitàConIdColtivatore(idColtivatore, model, "In corso");
 				}
 			}
 		});
@@ -54,7 +56,7 @@ public class PaginaColtivatore extends JFrame {
 		
 		setTitle("Pagina del coltivatore");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(530, 308);
+		setSize(620, 308);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -76,9 +78,14 @@ public class PaginaColtivatore extends JFrame {
 		JLabel lblElencoAttività = new JLabel("Elenco attività");
 		lblElencoAttività.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		String[] elencoAttività = {};
+		String[] elencoAttività = {"In Corso", "Pianificata", "Completata"};
 		
 		comboBox = new JComboBox(elencoAttività);
+		comboBox.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				theController.popolaTabellaDelleAttivitàConIdColtivatore(idColtivatore, model, comboBox.getSelectedItem().toString().trim());
+			}
+		});
 		
 		JLabel lblNewLabel = new JLabel("Dati");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -128,13 +135,15 @@ public class PaginaColtivatore extends JFrame {
 							.addGap(22)
 							.addComponent(txtId, 0, 0, Short.MAX_VALUE)
 							.addGap(1)))
-					.addPreferredGap(ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING, false)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
 							.addComponent(lblElencoAttività)
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(18)
+							.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -170,7 +179,7 @@ public class PaginaColtivatore extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"Id attività", "Tipo", "Data inizio", "Data fine"}
+				new String[]{"Id attività", "Tipo", "Data inizio", "Data fine", "Stato"}
 			);
 		
 		table = new JTable(model);

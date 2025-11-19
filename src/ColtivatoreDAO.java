@@ -73,28 +73,6 @@ public class ColtivatoreDAO {
     	}
 	}
 	
-	//MI SERVE PER POPOLARE LA TABELLA CON TUTTI I PROGETTI/ATTIVITA' SU CUI STA LAVORANDO IL COLTIVATORE:
-	public void tutteLeAttività(int idColt, DefaultTableModel model){
-		String sql = "SELECT * "
-				+ "FROM prguninabiogarden.Coltivatore AS C "
-				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
-				+ "WHERE C.id_coltivatore = ? ";
-		
-		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
-    			PreparedStatement psmt = conn.prepareStatement(sql)) {
-               
-                psmt.setInt(1, idColt);
-                
-                ResultSet rs = psmt.executeQuery();
-                
-            while(rs.next()) {
-				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine")});
-            }
-    	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: tutteLeAttività" + e);
-    	}
-	}
-	
 	//SERVE A POPOLARE LA TABELLA CON TUTTI I COLTIVATORI:
 	public void popolaTabella(DefaultTableModel model) {
 		String sql = "SELECT * "
@@ -137,6 +115,125 @@ public class ColtivatoreDAO {
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione che serve per associare un coltivatore a un'attività! (CLASSE ColtivatoreDAO), funzione: associaAttivitàAlColtivatore" + e);
     		return false;
+    	}
+	}
+	
+//MI SERVE PER POPOLARE LA TABELLA CON TUTTI I PROGETTI/ATTIVITA' SU CUI STA LAVORANDO IL COLTIVATORE:
+	//POTREI CERCARE PER STATO DELL'ATTIVITA:
+	public void tutteLeAttività(int idColt, DefaultTableModel model, String cercaAtt){
+		if(cercaAtt.isBlank()) {
+			allAttività(idColt, model);
+		}else {
+			prova(idColt, model, cercaAtt);
+		}
+		
+	}
+	
+	//MI SERVE PER LA FUNZIONE 'tutteLeAttività': 
+	private void allAttività(int idColt, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Coltivatore AS C "
+				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
+				+ "WHERE C.id_coltivatore = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+               
+                psmt.setInt(1, idColt);
+                
+                ResultSet rs = psmt.executeQuery();
+                
+            while(rs.next()) {
+				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_attività")});
+            }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: allAttività" + e);
+    	}
+	}
+	
+	private void attivitàPianificate(int idColt, DefaultTableModel model, String tipoStato) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Coltivatore AS C "
+				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
+				+ "WHERE C.id_coltivatore = ?  WHERE stato_attività = 'Pianificata' ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+               
+                psmt.setInt(1, idColt);
+                
+                ResultSet rs = psmt.executeQuery();
+                
+            while(rs.next()) {
+				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_attività")});
+            }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: attivitàPianificate" + e);
+    	}
+	}
+	
+	private void attivitàInCorso(int idColt, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Coltivatore AS C "
+				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
+				+ "WHERE C.id_coltivatore = ?  WHERE stato_attività = 'In corso' ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+               
+                psmt.setInt(1, idColt);
+                
+                ResultSet rs = psmt.executeQuery();
+                
+            while(rs.next()) {
+				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_attività")});
+            }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: attivitàInCorso" + e);
+    	}
+	}
+	
+	private void attivitàCompletate(int idColt, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Coltivatore AS C "
+				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
+				+ "WHERE C.id_coltivatore = ?  WHERE stato_attività = 'Completata' ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+               
+                psmt.setInt(1, idColt);
+                
+                ResultSet rs = psmt.executeQuery();
+                
+            while(rs.next()) {
+				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_attività")});
+            }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: attivitàCompletate" + e);
+    	}
+	}
+	
+	
+	private void prova(int idColt, DefaultTableModel model, String tipoStato) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Coltivatore AS C "
+				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
+				+ "WHERE C.id_coltivatore = ?  WHERE stato_attività = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+               
+                psmt.setInt(1, idColt);
+                psmt.setString(2, tipoStato);
+                
+                ResultSet rs = psmt.executeQuery();
+                
+            while(rs.next()) {
+				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_attività")});
+            }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: attivitàPianificate" + e);
     	}
 	}
 	
