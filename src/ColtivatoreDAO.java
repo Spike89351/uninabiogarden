@@ -124,12 +124,12 @@ public class ColtivatoreDAO {
 		if(cercaAtt.isBlank()) {
 			allAttività(idColt, model);
 		}else {
-			prova(idColt, model, cercaAtt);
+			inBaseAlloStato(idColt, model, cercaAtt);
 		}
-		
 	}
 	
 	//MI SERVE PER LA FUNZIONE 'tutteLeAttività': 
+		//CERCA TUTTE LE ATTIVITA':
 	private void allAttività(int idColt, DefaultTableModel model) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Coltivatore AS C "
@@ -151,75 +151,12 @@ public class ColtivatoreDAO {
     	}
 	}
 	
-	private void attivitàPianificate(int idColt, DefaultTableModel model, String tipoStato) {
+	//CERCA IN BASE A UN PARAMETRO:
+	private void inBaseAlloStato(int idColt, DefaultTableModel model, String tipoStato) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Coltivatore AS C "
 				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
-				+ "WHERE C.id_coltivatore = ?  WHERE stato_attività = 'Pianificata' ";
-		
-		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
-    			PreparedStatement psmt = conn.prepareStatement(sql)) {
-               
-                psmt.setInt(1, idColt);
-                
-                ResultSet rs = psmt.executeQuery();
-                
-            while(rs.next()) {
-				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_attività")});
-            }
-    	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: attivitàPianificate" + e);
-    	}
-	}
-	
-	private void attivitàInCorso(int idColt, DefaultTableModel model) {
-		String sql = "SELECT * "
-				+ "FROM prguninabiogarden.Coltivatore AS C "
-				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
-				+ "WHERE C.id_coltivatore = ?  WHERE stato_attività = 'In corso' ";
-		
-		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
-    			PreparedStatement psmt = conn.prepareStatement(sql)) {
-               
-                psmt.setInt(1, idColt);
-                
-                ResultSet rs = psmt.executeQuery();
-                
-            while(rs.next()) {
-				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_attività")});
-            }
-    	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: attivitàInCorso" + e);
-    	}
-	}
-	
-	private void attivitàCompletate(int idColt, DefaultTableModel model) {
-		String sql = "SELECT * "
-				+ "FROM prguninabiogarden.Coltivatore AS C "
-				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
-				+ "WHERE C.id_coltivatore = ?  WHERE stato_attività = 'Completata' ";
-		
-		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
-    			PreparedStatement psmt = conn.prepareStatement(sql)) {
-               
-                psmt.setInt(1, idColt);
-                
-                ResultSet rs = psmt.executeQuery();
-                
-            while(rs.next()) {
-				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_attività")});
-            }
-    	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: attivitàCompletate" + e);
-    	}
-	}
-	
-	
-	private void prova(int idColt, DefaultTableModel model, String tipoStato) {
-		String sql = "SELECT * "
-				+ "FROM prguninabiogarden.Coltivatore AS C "
-				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
-				+ "WHERE C.id_coltivatore = ?  WHERE stato_attività = ? ";
+				+ "WHERE C.id_coltivatore = ? AND stato_attività = ? ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {

@@ -24,6 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class PaginaColtivatore extends JFrame {
 	private Controller theController;
@@ -47,7 +49,7 @@ public class PaginaColtivatore extends JFrame {
 				if(idColtivatore == -1) {
 					JOptionPane.showMessageDialog(null, "L'id non è stato trovato, ERRORE!");
 				}else {
-					theController.popolaTabellaDelleAttivitàConIdColtivatore(idColtivatore, model, "In corso");
+					theController.popolaTabellaDelleAttivitàConIdColtivatore(idColtivatore, model, " ");
 				}
 			}
 		});
@@ -78,11 +80,11 @@ public class PaginaColtivatore extends JFrame {
 		JLabel lblElencoAttività = new JLabel("Elenco attività");
 		lblElencoAttività.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		String[] elencoAttività = {"In Corso", "Pianificata", "Completata"};
+		String[] elencoAttività = {"", "In Corso", "Pianificata", "Completata"};
 		
 		comboBox = new JComboBox(elencoAttività);
-		comboBox.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
 				theController.popolaTabellaDelleAttivitàConIdColtivatore(idColtivatore, model, comboBox.getSelectedItem().toString().trim());
 			}
 		});
@@ -137,13 +139,13 @@ public class PaginaColtivatore extends JFrame {
 							.addGap(1)))
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
 							.addComponent(lblElencoAttività)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
+							.addGap(93)
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(18)
-							.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)))
+							.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -151,10 +153,10 @@ public class PaginaColtivatore extends JFrame {
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(19)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblElencoAttività)
-							.addComponent(lblNewLabel)))
+							.addComponent(lblNewLabel))
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
@@ -170,7 +172,7 @@ public class PaginaColtivatore extends JFrame {
 								.addComponent(lblId, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(51, Short.MAX_VALUE))
+					.addContainerGap(53, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
