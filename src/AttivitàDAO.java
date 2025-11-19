@@ -116,7 +116,7 @@ public class AttivitàDAO {
 
 	//POPOLA TABELLA CON TUTTE LE ATTIVITA' (RICORDA CHE NON TI FARA VEDERE TUTTE LE FASI DI UN'ATTIVITA'!):
 	public void popolaTabella(int idTerreno, int idProg, DefaultTableModel model) {
-		String sql = "SELECT * "
+		String sql = "SELECT A.id_attività, A.tipo_attività, A.stato_attività, A.data_inizio, A.data_fine "
 				+ "FROM prguninabiogarden.Terreno AS T "
 				+ "JOIN prguninabiogarden.Progetto AS PRO ON T.id_terreno = PRO.id_terreno "
 				+ "JOIN prguninabiogarden.Attività AS A ON A.codice_prg = PRO.codice_prg "
@@ -135,6 +135,27 @@ public class AttivitàDAO {
                 }
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella nella CLASSE AttivitàDAO, funzione: popolaTabella" + e);
+    	} 
+	}
+	
+	//MI SERVE AD INSERIRE UNA DATA ODIERNA NELL'ATTIVITA' QUANDO SI E' COMPLETATA:
+	public boolean inserisciStatoAttivitàCompleta(int idAttività, String stato) {
+		String sql = "UPDATE prguninabiogarden.Attività "
+				+ "SET stato_attività = ? "
+				+ "WHERE id_attività = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setString(1, stato);
+				psmt.setInt(2, idAttività);
+				
+				int result = psmt.executeUpdate();
+				
+				return result > 0;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento dello stato completato nell'attività scelta, CLASSE AttivitàDAO, funzione: inserisciDataOdiernaAlCompletamento" + e);
+    		return false;
     	} 
 	}
 	

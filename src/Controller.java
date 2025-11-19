@@ -543,12 +543,11 @@ public class Controller {
 		return colturaDAO.cambiaDisponibilità(idColtura);
 	}
 	
-//METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
-	//MI SERVE PER INSERIRE L'ATTIVITA' AL TERRENO NEL DB:
-//	public boolean inserisciOModificaAttività(int idProgetto, int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
-//		attivitàDAO = new AttivitàDAO();
-//		return attivitàDAO.inserisciOmodifica(idProgetto, idTerr, tipoAttività, statoAttività, dataInizio, dataFine);
-//	}
+	//MI SERVE PER INSERIRE UNA DATA DI FINE ALL'ATTIVITA' SCELTA:
+	public boolean inserisciDataFIneAttività(int idAttività, String stato) {
+		attivitàDAO = new AttivitàDAO();
+		return attivitàDAO.inserisciStatoAttivitàCompleta(idAttività, stato);
+	}
 	
 	public boolean inserisciAttività(int idProgetto, int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
 		attivitàDAO = new AttivitàDAO();
