@@ -63,7 +63,7 @@ public class PaginaAttività extends JFrame {
 			}
 			@Override
 			public void windowActivated(WindowEvent e) {
-				theController.popolaTabellaAttività(idTerreno, model);
+				theController.popolaTabellaAttività(idTerreno, idProgetto, model);
 			}
 		});
 		
@@ -126,7 +126,7 @@ public class PaginaAttività extends JFrame {
 						java.sql.Date castDataFine = java.sql.Date.valueOf(dataFineLocalDate);
 						
 						//AGGIUNGI ATTIVITA':
-						if(theController.inserisciOModificaAttività(idProgetto, idTerreno, comboBoxTipoAttività.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString(), castDataInizio, castDataFine)) {
+						if(theController.inserisciAttività(idProgetto, idTerreno, comboBoxTipoAttività.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString(), castDataInizio, castDataFine)) {
 							//PULISCI CAMPI:
 							clearFields();
 							JOptionPane.showMessageDialog(null, "Complimenti l'azione è andata a buon fine!");

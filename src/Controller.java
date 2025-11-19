@@ -545,16 +545,21 @@ public class Controller {
 	
 //METODI CHE SERVONO PER IL TIPO DI ATTIVITA' DI UN TERRENO:
 	//MI SERVE PER INSERIRE L'ATTIVITA' AL TERRENO NEL DB:
-	public boolean inserisciOModificaAttività(int idProgetto, int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
+//	public boolean inserisciOModificaAttività(int idProgetto, int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
+//		attivitàDAO = new AttivitàDAO();
+//		return attivitàDAO.inserisciOmodifica(idProgetto, idTerr, tipoAttività, statoAttività, dataInizio, dataFine);
+//	}
+	
+	public boolean inserisciAttività(int idProgetto, int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
 		attivitàDAO = new AttivitàDAO();
-		return attivitàDAO.inserisciOmodifica(idProgetto, idTerr, tipoAttività, statoAttività, dataInizio, dataFine);
+		return attivitàDAO.inserisci(idProgetto, idTerr, tipoAttività, statoAttività, dataInizio, dataFine);
 	}
 	
 	//MI SERVE PER POPOLARE LA TABELLA DELLE ATTIVITA':
-	public void popolaTabellaAttività(int idAttività, DefaultTableModel model) {
+	public void popolaTabellaAttività(int idAttività, int idProg, DefaultTableModel model) {
 		model.setRowCount(0);
 		attivitàDAO = new AttivitàDAO();
-		attivitàDAO.popolaTabella(idAttività, model);
+		attivitàDAO.popolaTabella(idAttività, idProg, model);
 	}
 	
 	//MI SERVE PER PASSARE DALLA PAGINA ATTIVITA' ALLA FINESTRA DETTAGLI:
