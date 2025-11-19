@@ -103,7 +103,7 @@ public class PaginaAttività extends JFrame {
 		comboBoxTipoAttività = new JComboBox(elecoCondizioni);
 		comboBoxTipoAttività.setToolTipText("Se lasci vuoto il database inserira il parametro 'Preprazione come default'");
 		
-		String[] elencoStato = {"", "Nessuna", "In Corso", "Pianificata", "Completata"};
+		String[] elencoStato = {"", "Nessuna", "In Corso", "Pianificata"};
 		
 		comboBoxStato = new JComboBox(elencoStato);
 		comboBoxStato.setToolTipText("Se lasci vuoto questo camp il database compilerà questo campo di default con il valore 'Nessuno'");
