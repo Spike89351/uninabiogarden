@@ -50,7 +50,7 @@ public class FinestraNotificheColtivatore extends JDialog {
 				{
 					model = new DefaultTableModel(
 							new Object[][]{},
-							new String[]{ "", "Tipo", "Descrizione", "Data invio"}
+							new String[]{"Tipo", "Descrizione", "Data invio"}
 						);
 					
 					table = new JTable(model);
