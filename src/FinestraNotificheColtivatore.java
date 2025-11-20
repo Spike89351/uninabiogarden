@@ -36,6 +36,7 @@ public class FinestraNotificheColtivatore extends JDialog {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				setVisible(false);
+				theController.paginaColtivatore.setVisible(true);
 				theController.paginaColtivatore.setEnabled(true);
 			}
 		});
