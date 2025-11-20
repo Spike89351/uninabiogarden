@@ -207,7 +207,7 @@ public class PaginaColtivatore extends JFrame {
 		btnNotifiche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//VAI ALLA FINESTRA DELLE NOTIFICHE:
-				
+				theController.daPaginaColtivatoreAFinestraNotifiche(idColtivatore);
 			}
 		});
 		panelBottom.add(btnNotifiche, BorderLayout.EAST);

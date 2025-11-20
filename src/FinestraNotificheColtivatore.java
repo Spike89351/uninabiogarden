@@ -11,6 +11,10 @@ import java.awt.Font;
 import java.awt.CardLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FinestraNotificheColtivatore extends JDialog {
 	private Controller theController;
@@ -19,9 +23,22 @@ public class FinestraNotificheColtivatore extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private DefaultTableModel model;
-	
+	private JButton btnVisualizza;
+	private JButton btnBack;
 	
 	public FinestraNotificheColtivatore(int idColt, Controller c) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				//POPOLA TABELLA:
+				
+			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				setVisible(false);
+				theController.paginaColtivatore.setEnabled(true);
+			}
+		});
 		theController = c;
 		
 		setTitle("Finestra notifiche");
@@ -64,13 +81,18 @@ public class FinestraNotificheColtivatore extends JDialog {
 			getContentPane().add(panelBottom, BorderLayout.SOUTH);
 			panelBottom.setLayout(new BorderLayout(0, 0));
 			{
-				JButton btnVisualizza = new JButton("Segna come lette");
-				btnVisualizza.setActionCommand("OK");
+				btnVisualizza = new JButton("Segna come lette");
 				panelBottom.add(btnVisualizza, BorderLayout.EAST);
 				getRootPane().setDefaultButton(btnVisualizza);
 			}
 			{
-				JButton btnBack = new JButton("Back");
+				btnBack = new JButton("Back");
+				btnBack.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						setVisible(false);
+						theController.paginaColtivatore.setEnabled(true);
+					}
+				});
 				btnBack.setActionCommand("Cancel");
 				panelBottom.add(btnBack, BorderLayout.WEST);
 			}
