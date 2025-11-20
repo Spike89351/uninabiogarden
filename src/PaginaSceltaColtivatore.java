@@ -117,6 +117,8 @@ public class PaginaSceltaColtivatore extends JFrame {
 				//METODO CHE PRENDE COME INPUT L'ID DELL'ATTIVITA' E COLTIVATORE E LI ASSOCIA + POI METTE IL BOOELAN FALSE DEL COLTIVATORE:
 				if(theController.associaAttivitàAColtivatore(idAttività, idColtivatoreSelezionato)) {
 					theController.popolaTabellaConColtivatori(model);
+					//INVIA NOTIFICA:
+					theController.iniviaNotificaPrezaServizio(idColtivatoreSelezionato);
 					JOptionPane.showMessageDialog(null, "Complimenti, hai associato perfettamente il coltivatore all'attività!");
 					btnAssocia.setEnabled(false);
 				}else {

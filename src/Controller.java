@@ -27,6 +27,7 @@ public class Controller {
 	private Attività attività;
 	private AttivitàDAO attivitàDAO;
 	private Notifica notifica;
+	private NotificaDAO notificaDAO;
 	private StatoNotifica statoNotifica;
 	private Importanza importanza;
 	private Deposito depposito;
@@ -624,6 +625,12 @@ public class Controller {
 		coltivatoreDAO.tutteLeAttività(idColtivatore, model, statoAtt);
 	}
 	
+//NOTIFICA:
+	//MI SERVE PER INVIARE LA NOTIFICA QUANDO UN COLTIVATORE VIENE PRESO IN SERVIZIO:
+	public boolean iniviaNotificaPrezaServizio(int idColtivatore) {
+		notificaDAO = new NotificaDAO();
+		return notificaDAO.inviaDiPresaInCarico(idColtivatore);
+	}
 	
 	
 }
