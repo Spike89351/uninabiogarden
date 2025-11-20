@@ -31,7 +31,7 @@ public class FinestraNotificheColtivatore extends JDialog {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				//POPOLA TABELLA:
-				
+				theController.visualizzaNotificheColtivatore(idColt, model);
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
