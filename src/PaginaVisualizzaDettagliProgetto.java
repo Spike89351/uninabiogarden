@@ -15,6 +15,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JToggleButton;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -169,7 +171,13 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 				if(ctrlFields()) {
 					try {
 						//CAST:
-						java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
+						java.sql.Date sqlDate = null;
+						
+						if(dateChooser.getDate() != null) {
+							LocalDate dataInizioLocalDate = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+							sqlDate = java.sql.Date.valueOf(dataInizioLocalDate);
+						}
+						
 						theController.modificaDatiProgetto(idProgetto, txtNewNomeProgetto.getText(), sqlDate, String.valueOf(comboBoxNewStatoPrg.getSelectedItem()));
 					}catch(Exception xxx) {
 						System.out.println("Errore nel try catch nella pagina per visualizzare i deettagli del progetto");

@@ -353,9 +353,13 @@ public class Controller {
 		}
 		//INSERIMENTO ALTRI DATI GIA' CONTROLLATI:
 		//DATA:
-		progettoDAO.inserisciDataFine(dataFinePrg, codiceProgetto);
+		if(dataFinePrg != null) {
+			progettoDAO.inserisciDataFine(dataFinePrg, codiceProgetto);
+		}
 		//STATO:
-		progettoDAO.modificaStatoProgetto(statoProgetto, codiceProgetto);
+		if(! statoProgetto.isBlank()) {
+			progettoDAO.modificaStatoProgetto(statoProgetto, codiceProgetto);
+		}
 	}
 	
 	//CONTROLLO LO STATO DEL PROGETTO:
