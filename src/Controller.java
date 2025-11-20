@@ -64,6 +64,8 @@ public class Controller {
 	public FinestraFertilizzanti finestraFertilizzante;
 	public FinestraDettagliAttività finestraDettagliAttività;
 	public FinestraVisualizzaColtivatoriAttività finestraVisualizzaColtivatoriAttività;
+	public FinestraNotificheColtivatore finestraNotificheColtivatore;
+	
 	//MAIN:
 	public static void main(String[] args) throws SQLException {
 			Controller theController = new Controller();
@@ -660,6 +662,7 @@ public class Controller {
 	
 	//MI SERVE A FARE VISUALIZZARE TUTTE LE NOTIFICHE DI UN COLTIVATORE:
 	public void visualizzaNotificheColtivatore(int idColt, DefaultTableModel model) {
+		model.setRowCount(0);
 		notificaDAO = new NotificaDAO();
 		notificaDAO.visualizzaNotifiche(idColt, model);
 	}
