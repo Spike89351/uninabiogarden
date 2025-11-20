@@ -11,62 +11,7 @@ public class AttivitàDAO {
 	private static final String USER = "postgres";
 	private static final String PASSWORD = "Informatica1";
 	
-	//MI SERVE PER INSERIRE NELLA DB I DATI DELL'ATTIVITA'
-//	public boolean inserisciOmodifica(int idProgetto, int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
-//		//CONTROLLO SE ESISTE UN'ATTIVITA' IN CORSO (TUPLA):
-//		if(prendiUltimaAttività(idTerr)) {
-//			//SE ESSITE UNA TUPLA DELL'ATTIVITA': AGGIORNA LA TUPLA ESISTENTE
-//			String sql = "INSERT INTO prguninabiogarden.Attività(codice_prg, id_terreno, tipo_attività, Stato_attività, Data_Inizio, data_fine) "
-//			           + "VALUES (?, ?, ?, ?, ?, ?) "
-//			           + "ON CONFLICT (codice_prg) "
-//			           + "DO UPDATE SET "
-//			           + "tipo_attività = EXCLUDED.tipo_attività, "
-//			           + "Stato_attività = EXCLUDED.Stato_attività, "
-//			           + "Data_Inizio = EXCLUDED.Data_Inizio, "
-//			           + "Data_Fine = EXCLUDED.Data_Fine ";
-//			
-//			try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
-//	    			PreparedStatement psmt = conn.prepareStatement(sql)) {
-//	    			
-//					psmt.setInt(1, idProgetto);
-//	                psmt.setInt(2, idTerr);
-//	                psmt.setString(3, tipoAttività);
-//	                psmt.setString(4, statoAttività);
-//	                psmt.setDate(5, dataInizio);
-//	                psmt.setDate(6, dataFine);
-//	                
-//	           int x =  psmt.executeUpdate();
-//	           
-//	           return x > 0;
-//	    	}catch(Exception e) {
-//	    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'attività! Prima parte della funzione (CLASSE AttivitàDAO), funzione: inserisciOmodifica" + e);
-//	    		return false;
-//	    	}
-//		}else {
-//			//SE NON ESISTE:
-//			String sql = "INSERT INTO prguninabiogarden.Attività(codice_prg, id_terreno, tipo_attività, Stato_attività, Data_Inizio, Data_Fine) "
-//					+ "VALUES(?, ?, ?, ?, ?, ?)";
-//			
-//			try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
-//	    			PreparedStatement psmt = conn.prepareStatement(sql)) {
-//	    		
-//					psmt.setInt(1, idProgetto);
-//	                psmt.setInt(2, idTerr);
-//	                psmt.setString(3, tipoAttività);
-//	                psmt.setString(4, statoAttività);
-//	                psmt.setDate(5, dataInizio);
-//	                psmt.setDate(6, dataFine);
-//	                
-//	           int x =  psmt.executeUpdate();
-//	           
-//	           return x > 0;
-//	    	}catch(Exception e) {
-//	    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'attività! Seconda parte della funzione (CLASSE AttivitàDAO), funzione: inserisciOmodifica" + e);
-//	    		return false;
-//	    	}
-//		}
-//	}
-	
+	//MI SERVE AD INSERIRE I DATI NELLA DB:
 	public boolean inserisci(int idProgetto, int idTerr, String tipoAttività, String statoAttività, java.sql.Date dataInizio, java.sql.Date dataFine) {
 		String sql = "INSERT INTO prguninabiogarden.Attività(codice_prg, id_terreno, tipo_attività, Stato_attività, Data_Inizio, Data_Fine) "
 				+ "VALUES(?, ?, ?, ?, ?, ?)";
@@ -204,6 +149,62 @@ public class AttivitàDAO {
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella nella CLASSE AttivitàDAO, funzione: popolaTabellaConQuantitàRaccolto" + e);
     	} 
+	}
+	
+	//MI SERVE A INSERIRE I COLTIVATORI NELLA TABELLA PER VISUALIZZARLI:
+	public void coltivatoreAttività(int idAttività, DefaultTableModel model, String statoAtt) {
+		if(statoAtt.equals("Completata")) {
+			popolaTabellaConColtivatoriAttivitàCompleta(idAttività, model);
+		}else {
+			popolaTabellaConColtivatoriAttivitàNonCompleta(idAttività, model);
+		}
+	}
+	
+	//MI SERVE PER LA FUNZIONE SOPRA, E SERVE PER INSERIRE NELLA TABELLA I COLTIVATORI CHE STANNO LAVORANDO ALL'ATTIVITA' CHE SI STA SVOLGENDO ORA:
+	private void popolaTabellaConColtivatoriAttivitàNonCompleta(int idAttività, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Attività AS A "
+				+ "JOIN prguninabiogarden.Coltivatore AS C ON A.id_attività = C.id_attività "
+				+ "JOIN prguninabiogarden.Utente AS U ON C.username = U.username "
+				+ "WHERE A.id_attività = ? ";
+
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setInt(1, idAttività);
+				
+				ResultSet rs = psmt.executeQuery();
+				
+				while(rs.next()) {
+					model.addRow(new Object[]{rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_nascita")});
+                }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con i coltivatori che lavorano su quel campo, nella CLASSE AttivitàDAO, funzione: popolaTabellaConQuantitàRaccolto" + e);
+    	}
+	}
+	
+	//MI SERVE NELLA FUNZIONE SOPRA, E SERVE PER INSERIRE NELLA TABELLA TUTTI I COLTIVATORI CHE HANNO LAVORATO A QUELL'ATTIVITA' ORAMAI COMPLETATA:
+	private void popolaTabellaConColtivatoriAttivitàCompleta(int idAttività, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Attività AS A "
+				+ "JOIN prguninabiogarden.logStoricoColtivatore AS STC ON A.id_attività = STC.id_attività "
+				+ "JOIN prguninabiogarden.Coltivatore AS C ON STC.id_coltivatore = C.id_coltivatore "
+				+ "JOIN prguninabiogarden.Utente AS U ON C.username = U.username "
+				+ "WHERE STC.id_attività = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setInt(1, idAttività);
+				
+				ResultSet rs = psmt.executeQuery();
+				
+				while(rs.next()) {
+					model.addRow(new Object[]{rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_nascita")});
+                }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con i coltivatori che lavorano su quel campo, nella CLASSE AttivitàDAO, funzione: popolaTabellaConQuantitàRaccolto" + e);
+    	}
 	}
 	
 }

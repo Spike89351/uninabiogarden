@@ -142,7 +142,7 @@ public class PaginaProprietario extends JFrame {
 		
 		JPanel panelTable = new JPanel();
 		
-		JButton btnVisualizzaProgetto = new JButton("Visualizza progetto");
+		JButton btnVisualizzaProgetto = new JButton("Visualizza dati progetto");
 		btnVisualizzaProgetto.setEnabled(false);
 		btnVisualizzaProgetto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

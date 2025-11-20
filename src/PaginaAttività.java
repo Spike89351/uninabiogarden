@@ -28,6 +28,7 @@ import java.awt.event.WindowEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.awt.FlowLayout;
 
 public class PaginaAttività extends JFrame {
 	private Controller theController;
@@ -49,7 +50,9 @@ public class PaginaAttività extends JFrame {
 	private JTable table;
 	private DefaultTableModel model;
 	private JButton btnAggiungiColtivatore;
+	private JButton btnColtivatoreAssegnato;
 	private String tipoAttività;
+	private String statoAttivitàSelezionata;
 	
 	public PaginaAttività(int idTerreno, int idProgetto, Controller c) {
 		addWindowListener(new WindowAdapter() {
@@ -147,23 +150,12 @@ public class PaginaAttività extends JFrame {
 		dateChooserFine = new JDateChooser();
 		dateChooserFine.setToolTipText("Questo camapo non può essere vuoto");
 		
-		btnVisualizzaDettagli = new JButton("Completa");
-		btnVisualizzaDettagli.setToolTipText("Questo pulsante aggiunge una data fine all'attività selezioanta ");
-		btnVisualizzaDettagli.setEnabled(false);
-		btnVisualizzaDettagli.addActionListener(new ActionListener() {
+		btnColtivatoreAssegnato = new JButton("Coltivatore assegnato");
+		btnColtivatoreAssegnato.setEnabled(false);
+		btnColtivatoreAssegnato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//SE L'ATTIVITà E' DIVERSA DALLA RACCOLTA ALLORA INSERISIC SOLO LA DATA ALTRIMENTI VAI NELLA PAGINA E INSERISCI LA QUANTITA' RACCOLTA
-				if(! tipoAttività.equals("Raccolta")) {
-					//INSERISCI LO STATO 'COMPLETATA':
-					theController.inserisciDataFIneAttività(idAttivitàSelezionata, "Completata");
-					theController.popolaTabellaAttività(idTerreno, idProgetto, model);
-					//QUI DEVO SBLOCCARE I COLTIVATORI:
-				}else {
-					//POI SBLOCCO I COLTIVATORI:
-					
-					//VISUALIZZA DETTAGLI E LI' PUOI AGGIUNGERE ALTRE COSE:
-					theController.daPaginaAttivitàAFinestraDettagliAttività(idTerreno, idAttivitàSelezionata);
-				}
+				//POSSIBILITA' DI VEDERE I COLTIVATORI ASSEGNATI PER PROGETTO:
+				theController.daPaginaAttivitàAFinestraVisualizzaColtivatoriAttività(idAttivitàSelezionata, statoAttivitàSelezionata);
 			}
 		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
@@ -189,8 +181,8 @@ public class PaginaAttività extends JFrame {
 					.addGap(51)
 					.addComponent(btnAggiungi)
 					.addPreferredGap(ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
-					.addComponent(btnVisualizzaDettagli)
-					.addGap(174))
+					.addComponent(btnColtivatoreAssegnato)
+					.addGap(164))
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -199,8 +191,8 @@ public class PaginaAttività extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(btnVisualizzaDettagli))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnColtivatoreAssegnato))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblTipoAttività)
@@ -219,7 +211,7 @@ public class PaginaAttività extends JFrame {
 								.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addComponent(btnAggiungi)))
-					.addContainerGap(27, Short.MAX_VALUE))
+					.addContainerGap(37, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
@@ -241,8 +233,10 @@ public class PaginaAttività extends JFrame {
 					String idAttivitàString= String.valueOf(table.getValueAt(selectedRow, 0));
 					idAttivitàSelezionata = Integer.valueOf(idAttivitàString);
 					tipoAttività = String.valueOf(table.getValueAt(selectedRow, 1));
+					statoAttivitàSelezionata = String.valueOf(table.getValueAt(selectedRow, 2));
 					
 					//SBLOCCO IL PULSANTE 'DETTAGLI':
+					btnColtivatoreAssegnato.setEnabled(true);
 					btnVisualizzaDettagli.setEnabled(true);
 					btnAggiungiColtivatore.setEnabled(true);
 				}
@@ -270,8 +264,30 @@ public class PaginaAttività extends JFrame {
 		panelBottom.setLayout(new BorderLayout(0, 0));
 		panelBottom.add(btnBack, BorderLayout.WEST);
 		
-		JPanel panelBottomoCentral = new JPanel();
-		panelBottom.add(panelBottomoCentral, BorderLayout.CENTER);
+		JPanel panelBottomCentral = new JPanel();
+		panelBottom.add(panelBottomCentral, BorderLayout.CENTER);
+		panelBottomCentral.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		btnVisualizzaDettagli = new JButton("Completa");
+		panelBottomCentral.add(btnVisualizzaDettagli);
+		btnVisualizzaDettagli.setToolTipText("Questo pulsante aggiunge una data fine all'attività selezioanta ");
+		btnVisualizzaDettagli.setEnabled(false);
+		btnVisualizzaDettagli.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//SE L'ATTIVITà E' DIVERSA DALLA RACCOLTA ALLORA INSERISIC SOLO LA DATA ALTRIMENTI VAI NELLA PAGINA E INSERISCI LA QUANTITA' RACCOLTA
+				if(! tipoAttività.equals("Raccolta")) {
+					//INSERISCI LO STATO 'COMPLETATA':
+					theController.inserisciDataFIneAttività(idAttivitàSelezionata, "Completata");
+					theController.popolaTabellaAttività(idTerreno, idProgetto, model);
+					//QUI DEVO SBLOCCARE I COLTIVATORI:
+				}else {
+					//POI SBLOCCO I COLTIVATORI:
+					
+					//VISUALIZZA DETTAGLI E LI' PUOI AGGIUNGERE ALTRE COSE:
+					theController.daPaginaAttivitàAFinestraDettagliAttività(idTerreno, idAttivitàSelezionata);
+				}
+			}
+		});
 		
 		btnAggiungiColtivatore = new JButton("Seleziona coltivatore");
 		btnAggiungiColtivatore.setEnabled(false);

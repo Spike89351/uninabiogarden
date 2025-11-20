@@ -63,7 +63,7 @@ public class Controller {
 	public FinestraManutenzione finestraManutenzioneAttrezzo;
 	public FinestraFertilizzanti finestraFertilizzante;
 	public FinestraDettagliAttività finestraDettagliAttività;
-	
+	public FinestraVisualizzaColtivatoriAttività finestraVisualizzaColtivatoriAttività;
 	//MAIN:
 	public static void main(String[] args) throws SQLException {
 			Controller theController = new Controller();
@@ -604,6 +604,20 @@ public class Controller {
 		coltivatoreDAO.popolaTabella(model);
 	}
 	
+	//MI SERVE PER ANDARE NELLA FINESTRA DEI COLTIVATORI CHE STANNO LAVORANO A QUELL'ATTIVITA':
+	public void daPaginaAttivitàAFinestraVisualizzaColtivatoriAttività(int idAttività, String statoAtt) {
+		paginaAttività.setEnabled(false);
+		
+		finestraVisualizzaColtivatoriAttività = new FinestraVisualizzaColtivatoriAttività(idAttività, statoAtt, this);
+		finestraVisualizzaColtivatoriAttività.setVisible(true);
+	}
+	
+	public void popolaTabellaConColtivatoriAssociatiAllAttività(int idAttività, DefaultTableModel model, String statoAtt) {
+		model.setRowCount(0);
+		attivitàDAO = new AttivitàDAO();
+		attivitàDAO.coltivatoreAttività(idAttività, model, statoAtt);
+	}
+	
 	//ASSOCIA UN'ATTIVITA' A UN COLTIVATORE E CAMBIA LA SUA DISPONIBILITA':
 	public boolean associaAttivitàAColtivatore(int idAttività, int idColtivatore) {
 		coltivatoreDAO = new ColtivatoreDAO();		
@@ -635,6 +649,7 @@ public class Controller {
 		notificaDAO = new NotificaDAO();
 		return notificaDAO.inviaDiPresaInCarico(idColtivatore);
 	}
+	
 	
 	
 }
