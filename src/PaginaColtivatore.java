@@ -202,6 +202,15 @@ public class PaginaColtivatore extends JFrame {
 			}
 		});
 		panelBottom.add(btnLogout, BorderLayout.WEST);
+		
+		JButton btnNotifiche = new JButton("Notifiche");
+		btnNotifiche.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//VAI ALLA FINESTRA DELLE NOTIFICHE:
+				
+			}
+		});
+		panelBottom.add(btnNotifiche, BorderLayout.EAST);
 
 	}
 }

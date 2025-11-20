@@ -650,6 +650,19 @@ public class Controller {
 		return notificaDAO.inviaDiPresaInCarico(idColtivatore);
 	}
 	
+	//MI SERVE A PASSARE DALLA PAGINA DEL COLTIVATORE ALLA PAGINA NOTIFICHE:
+	public void daPaginaColtivatoreAFinestraNotifiche(int idColt) {
+		paginaColtivatore.setEnabled(false);
+		
+		finestraNotificheColtivatore = new FinestraNotificheColtivatore(idColt, this);
+		finestraNotificheColtivatore.setVisible(true);
+	}
+	
+	//MI SERVE A FARE VISUALIZZARE TUTTE LE NOTIFICHE DI UN COLTIVATORE:
+	public void visualizzaNotificheColtivatore(int idColt, DefaultTableModel model) {
+		notificaDAO = new NotificaDAO();
+		notificaDAO.visualizzaNotifiche(idColt, model);
+	}
 	
 	
 }
