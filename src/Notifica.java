@@ -5,13 +5,11 @@ public class Notifica {
 	private int idNotifica;
 	private String descrizione;
 	private TipoNotifica tipoNotifica;
-	private java.sql.Date dataCreazione;
 	
 	
-	public Notifica(String descrizione, TipoNotifica tipoNotifica, Date dataCreazione) {
+	public Notifica(String descrizione, TipoNotifica tipoNotifica) {
 		this.descrizione = descrizione;
 		this.tipoNotifica = tipoNotifica;
-		this.dataCreazione = dataCreazione;
 	}
 	
 //GETTERS:
@@ -24,9 +22,6 @@ public class Notifica {
 	public TipoNotifica getTipoNotifica() {
 		return tipoNotifica;
 	}
-	public java.sql.Date getDataCreazione() {
-		return dataCreazione;
-	}
 	
 //SETTERS:
 	public void setIdNotifica(int idNotifica) {
@@ -38,10 +33,5 @@ public class Notifica {
 	public void setTipoNotifica(TipoNotifica tipoNotifica) {
 		this.tipoNotifica = tipoNotifica;
 	}
-	public void setDataCreazione(java.sql.Date dataCreazione) {
-		this.dataCreazione = dataCreazione;
-	}
-	
-	
 	
 }
