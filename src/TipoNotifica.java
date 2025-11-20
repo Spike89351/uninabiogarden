@@ -1,5 +1,5 @@
 
-public enum Tipo {
+public enum TipoNotifica {
     Anomalia,
     Attività_Imminente
 }
