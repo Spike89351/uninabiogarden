@@ -90,8 +90,8 @@ public class PaginaColtivatore extends JFrame {
 			}
 		});
 		
-		JLabel lblNewLabel = new JLabel("Dati");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		JLabel lblDati = new JLabel("Dati");
+		lblDati.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -121,7 +121,7 @@ public class PaginaColtivatore extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(73)
-							.addComponent(lblNewLabel))
+							.addComponent(lblDati))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -155,7 +155,7 @@ public class PaginaColtivatore extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblElencoAttività)
-							.addComponent(lblNewLabel))
+							.addComponent(lblDati))
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
