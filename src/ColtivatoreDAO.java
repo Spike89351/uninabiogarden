@@ -123,8 +123,8 @@ public class ColtivatoreDAO {
 	public void tutteLeAttività(int idColt, DefaultTableModel model, String cercaAtt){
 		if(cercaAtt.isBlank()) {
 			allAttività(idColt, model);
-		}else {
-			inBaseAlloStato(idColt, model, cercaAtt);
+		}else if(cercaAtt.equals("Completata")){
+			statoCompletato(idColt, model, cercaAtt);
 		}
 	}
 	
@@ -151,12 +151,13 @@ public class ColtivatoreDAO {
     	}
 	}
 	
-	//CERCA IN BASE A UN PARAMETRO:
-	private void inBaseAlloStato(int idColt, DefaultTableModel model, String tipoStato) {
+	//CERCA IN BASE A UN PARAMETRO (COMPLETATO):
+	private void statoCompletato(int idColt, DefaultTableModel model, String tipoStato) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Coltivatore AS C "
-				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
-				+ "WHERE C.id_coltivatore = ? AND stato_attività = ? ";
+				+ "JOIN prguninabiogarden.logStoricoColtivatore AS STC ON C.id_coltivatore = STC.id_coltivatore "
+				+ "JOIN prguninabiogarden.Attività AS A ON STC.id_attività = A.id_attività "
+				+ "WHERE C.id_coltivatore = ? AND stato = ? ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -167,7 +168,7 @@ public class ColtivatoreDAO {
                 ResultSet rs = psmt.executeQuery();
                 
             while(rs.next()) {
-				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_attività")});
+				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato")});
             }
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: attivitàPianificate" + e);

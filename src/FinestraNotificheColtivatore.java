@@ -83,6 +83,12 @@ public class FinestraNotificheColtivatore extends JDialog {
 			panelBottom.setLayout(new BorderLayout(0, 0));
 			{
 				btnVisualizza = new JButton("Segna come lette");
+				btnVisualizza.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						//SEGNA COME LETTE, UNA AD  UNA:
+						
+					}
+				});
 				panelBottom.add(btnVisualizza, BorderLayout.EAST);
 				getRootPane().setDefaultButton(btnVisualizza);
 			}

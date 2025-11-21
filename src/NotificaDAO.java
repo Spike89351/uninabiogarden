@@ -43,7 +43,7 @@ public class NotificaDAO {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Notifica AS N "
 				+ "JOIN prguninabiogarden.Coltivatore AS C ON N.id_coltivatore = C.id_coltivatore "
-				+ "WHERE C.id_coltivatore = ? "
+				+ "WHERE C.id_coltivatore = ? AND visualizzata = 'FALSE' "
 				+ "ORDER BY N.data_creazione DESC "; //POTRESTI ANCHE FARLA IN ORDINE TRAMITE ID_ATTIVITA'
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 

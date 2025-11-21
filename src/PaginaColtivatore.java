@@ -45,6 +45,7 @@ public class PaginaColtivatore extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				idColtivatore = theController.trovaIdColtirvatore(username);
+				txtId.setText(String.valueOf(idColtivatore));
 				theController.credenzialiColtivatore(username, txtNome, txtCognome);
 				if(idColtivatore == -1) {
 					JOptionPane.showMessageDialog(null, "L'id non è stato trovato, ERRORE!");
@@ -80,7 +81,7 @@ public class PaginaColtivatore extends JFrame {
 		JLabel lblElencoAttività = new JLabel("Elenco attività");
 		lblElencoAttività.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		String[] elencoAttività = {"", "In Corso", "Pianificata", "Completata"};
+		String[] elencoAttività = {"", "Completata"};
 		
 		comboBox = new JComboBox(elencoAttività);
 		comboBox.addItemListener(new ItemListener() {
@@ -112,7 +113,6 @@ public class PaginaColtivatore extends JFrame {
 		txtId = new JTextField();
 		txtId.setHorizontalAlignment(SwingConstants.CENTER);
 		txtId.setEnabled(false);
-		txtId.setText(""+ idColtivatore);
 		txtId.setColumns(10);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
