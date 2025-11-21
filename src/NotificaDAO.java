@@ -101,7 +101,7 @@ public class NotificaDAO {
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 				
-				psmt.setInt(2, idNotifica);
+				psmt.setInt(1, idNotifica);
 				
 				int result = psmt.executeUpdate();
 				

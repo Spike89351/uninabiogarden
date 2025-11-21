@@ -25,6 +25,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class FinestraNotificheColtivatore extends JDialog {
 	private Controller theController;
@@ -43,7 +45,7 @@ public class FinestraNotificheColtivatore extends JDialog {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				//POPOLA TABELLA:
-				theController.visualizzaNotificheColtivatore(idColt, model, comboBox.getSelectedItem().toString().trim());
+				theController.visualizzaNotificheColtivatore(idColt, model, "");
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -80,7 +82,13 @@ public class FinestraNotificheColtivatore extends JDialog {
 			
 			String[] tipoNot = {"", "Visualizzato"};
 			
-			JComboBox comboBox = new JComboBox(tipoNot);
+			comboBox = new JComboBox(tipoNot);
+			comboBox.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) {
+					//POPOLA TABELLA:
+					theController.visualizzaNotificheColtivatore(idColt, model, comboBox.getSelectedItem().toString().trim());
+				}
+			});
 			GroupLayout gl_panelCetnral = new GroupLayout(panelCetnral);
 			gl_panelCetnral.setHorizontalGroup(
 				gl_panelCetnral.createParallelGroup(Alignment.LEADING)
@@ -125,7 +133,7 @@ public class FinestraNotificheColtivatore extends JDialog {
 						String idNotifyString = String.valueOf(table.getValueAt(selectedRow, 0));
 						idNotificaSelezionata = Integer.valueOf(idNotifyString);
 						btnSegnaComeLetto.setEnabled(true);
-						btnSegnaComeLetto.setBackground(Color.RED);
+						btnSegnaComeLetto.setForeground(Color.RED);
 					}
 					
 				}
@@ -140,16 +148,17 @@ public class FinestraNotificheColtivatore extends JDialog {
 			panelBottom.setLayout(new BorderLayout(0, 0));
 			{
 				btnSegnaComeLetto = new JButton("Segna come lette");
+				btnSegnaComeLetto.setEnabled(false);
 				btnSegnaComeLetto.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//SEGNA COME LETTE, UNA AD  UNA:
 						if(theController.cambiaVisualNotifica(idNotificaSelezionata)) {
 							
 							JOptionPane.showMessageDialog(null, "Notifica resa visualizzata! ");
-							theController.visualizzaNotificheColtivatore(idColt, model, comboBox.getSelectedItem().toString().trim());
+							theController.visualizzaNotificheColtivatore(idColt, model, "");
 							//UNA VOLTA SEGNATO COME LETTO FAI RITORNARE IL PULSANTE COME PRIMA:
 							btnSegnaComeLetto.setEnabled(false);
-							btnSegnaComeLetto.setBackground(Color.BLACK);
+							btnSegnaComeLetto.setForeground(Color.BLACK);
 						}
 					}
 				});
@@ -161,6 +170,7 @@ public class FinestraNotificheColtivatore extends JDialog {
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						setVisible(false);
+						theController.paginaColtivatore.setVisible(true);
 						theController.paginaColtivatore.setEnabled(true);
 					}
 				});
