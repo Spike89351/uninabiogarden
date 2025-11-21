@@ -5,12 +5,16 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +33,7 @@ public class FinestraVisualizzaColtivatoriAttività extends JDialog {
 	private JScrollPane scrollPane;
 	private JTable table;
 	private DefaultTableModel model;
+	private int[] selectedIDs;
 	
 	public FinestraVisualizzaColtivatoriAttività(int idAttività, String statAtt, Controller c) {
 		addWindowListener(new WindowAdapter() {
@@ -72,10 +77,36 @@ public class FinestraVisualizzaColtivatoriAttività extends JDialog {
 				{
 					model  = new DefaultTableModel(
 							new Object[][]{},
-							new String[]{"username", "Nome", "Cognome", "Data di Nascita"}
+							new String[]{"id", "username", "Nome", "Cognome", "Data di Nascita"}
 						);
 					
 					table = new JTable(model);
+					
+					// Abilita la selezione multipla
+			        table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+			        
+			        selectedIDs = new int[0];
+
+			        // Aggiungi un ListSelectionListener per aggiornare l'array in tempo reale
+			        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			            @Override
+			            public void valueChanged(ListSelectionEvent e) {
+			                if (!e.getValueIsAdjusting()) {
+			                    // 9. Recupera gli indici delle righe selezionate
+			                    int[] selectedRows = table.getSelectedRows();
+
+			                    // 10. Aggiorna l'array degli ID selezionati
+			                    selectedIDs = new int[selectedRows.length];
+			                    for (int i = 0; i < selectedRows.length; i++) {
+			                        int row = selectedRows[i];
+			                        String val = String.valueOf(table.getValueAt(row, 0));
+			                        selectedIDs[i] = Integer.valueOf(val); // ID nella prima colonna
+			                    }
+
+			                }
+			            }
+			        });			        
+			        
 					scrollPane.setColumnHeaderView(table);
 					scrollPane.setViewportView(table);
 				}

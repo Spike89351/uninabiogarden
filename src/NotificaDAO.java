@@ -13,7 +13,7 @@ public class NotificaDAO {
 	
 	//SERVE AD INVIARE UNA NOTIFICA AL COLTIVATORE:
 	public boolean inviaDiPresaInCarico(int idColtivatore) {
-		String sql = "INSERT INTO prguninabiogarden.Notifica(id_coltivatore, Descrizione, tipo_notifca) "
+		String sql = "INSERT INTO prguninabiogarden.Notifica(id_coltivatore, Descrizione, tipo_notifica) "
 				+ "VALUES(?, ?, ?) ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
