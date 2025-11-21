@@ -661,11 +661,16 @@ public class Controller {
 	}
 	
 	//MI SERVE A FARE VISUALIZZARE TUTTE LE NOTIFICHE DI UN COLTIVATORE:
-	public void visualizzaNotificheColtivatore(int idColt, DefaultTableModel model) {
+	public void visualizzaNotificheColtivatore(int idColt, DefaultTableModel model, String lettOnon) {
 		model.setRowCount(0);
 		notificaDAO = new NotificaDAO();
-		notificaDAO.visualizzaNotifiche(idColt, model);
+		notificaDAO.visualizzaNotifiche(idColt, model, lettOnon);
 	}
 	
+	//MI SERVE PER CAMBIARE STATO DELLA NOTIFICA (FALSE -> TRUE):
+	public boolean cambiaVisualNotifica(int idNot) {
+		notificaDAO = new NotificaDAO();
+		return notificaDAO.cambiaVisualNotifica(idNot);
+	}
 	
 }

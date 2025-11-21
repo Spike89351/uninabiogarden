@@ -38,8 +38,16 @@ public class NotificaDAO {
 		return false;
 	}
 	
-	//MI SERVE PER VISUALIZZARE LE NOTIFICHE:
-	public void visualizzaNotifiche(int idColt, DefaultTableModel model) {
+	public void visualizzaNotifiche(int idColt, DefaultTableModel model, String tipoNot) {
+		if(tipoNot.isBlank()) {
+			visualizzaNotificheNonLette(idColt, model);
+		}else {
+			visualizzaNotificheLette(idColt, model);
+		}
+	}
+	
+	//MI SERVE PER VISUALIZZARE LE NOTIFICHE NON VISUALIZZATE:
+	public void visualizzaNotificheNonLette(int idColt, DefaultTableModel model) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Notifica AS N "
 				+ "JOIN prguninabiogarden.Coltivatore AS C ON N.id_coltivatore = C.id_coltivatore "
@@ -54,10 +62,53 @@ public class NotificaDAO {
 				ResultSet rs = psmt.executeQuery();
 				
 				while(rs.next()) {
-					model.addRow(new Object[]{rs.getString("Descrizione"), rs.getString("tipo_notifica"), rs.getDate("data_creazione")});
+					model.addRow(new Object[]{rs.getInt("id_notifica"), rs.getString("tipo_notifica"), rs.getString("Descrizione"), rs.getDate("data_creazione")});
                 }
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le notifiche del coltivatore, nella CLASSE NotificaDAO, funzione: visualizzaNotifiche" + e);
+    	}
+	}
+	
+	//MI SERVE PER VISUALIZZARE LE NOTIFICHE GIA' VISTE:
+	public void visualizzaNotificheLette(int idColt, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Notifica AS N "
+				+ "JOIN prguninabiogarden.Coltivatore AS C ON N.id_coltivatore = C.id_coltivatore "
+				+ "WHERE C.id_coltivatore = ? AND visualizzata = 'TRUE' "
+				+ "ORDER BY N.data_creazione DESC ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setInt(1, idColt);
+				
+				ResultSet rs = psmt.executeQuery();
+				
+				while(rs.next()) {
+					model.addRow(new Object[]{rs.getInt("id_notifica"), rs.getString("tipo_notifica"), rs.getString("Descrizione"), rs.getDate("data_creazione")});
+                }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le notifiche già lette del coltivatore, nella CLASSE NotificaDAO, funzione: visualizzaNotificheLette" + e);
+    	}
+	}
+	
+	//MI SERVE A VISUALIZZARE LA NOTIFICA, CAMBIO FALSE->TRUE:
+	public boolean cambiaVisualNotifica(int idNotifica) {
+		String sql = "UPDATE prguninabiogarden.Notifica "
+				+ "SET visualizzata = 'TRUE' "
+				+ "WHERE id_notifica = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setInt(2, idNotifica);
+				
+				int result = psmt.executeUpdate();
+				
+				return result > 0;				
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nel cambaire lo stato della notifica da (FALSE -> TRUE) nella CLASSE NotificaDAO, funzione: cambiaVisualNotifica" + e);
+    		return false;
     	}
 	}
 }

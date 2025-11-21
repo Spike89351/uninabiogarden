@@ -7,31 +7,43 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.CardLayout;
+import java.awt.Color;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FinestraNotificheColtivatore extends JDialog {
 	private Controller theController;
 	
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTable table;
 	private DefaultTableModel model;
-	private JButton btnVisualizza;
+	private JButton btnSegnaComeLetto;
 	private JButton btnBack;
+	private JComboBox comboBox;
+	private JTable table;
+	private int idNotificaSelezionata;
 	
 	public FinestraNotificheColtivatore(int idColt, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				//POPOLA TABELLA:
-				theController.visualizzaNotificheColtivatore(idColt, model);
+				theController.visualizzaNotificheColtivatore(idColt, model, comboBox.getSelectedItem().toString().trim());
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -59,38 +71,90 @@ public class FinestraNotificheColtivatore extends JDialog {
 			}
 		}
 		{
-			JPanel panelCentral = new JPanel();
-			contentPanel.add(panelCentral, BorderLayout.CENTER);
-			panelCentral.setLayout(new BorderLayout(0, 0));
-			{
-				JScrollPane scrollPane = new JScrollPane();
-				panelCentral.add(scrollPane, BorderLayout.CENTER);
-				{
-					model = new DefaultTableModel(
-							new Object[][]{},
-							new String[]{"Tipo", "Descrizione", "Data invio"}
-						);
+			JPanel panelCetnral = new JPanel();
+			contentPanel.add(panelCetnral, BorderLayout.CENTER);
+			JPanel panel = new JPanel();
+			
+			JLabel lblElencoNotifiche = new JLabel("Elenco notifiche");
+			lblElencoNotifiche.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			
+			String[] tipoNot = {"", "Visualizzato"};
+			
+			JComboBox comboBox = new JComboBox(tipoNot);
+			GroupLayout gl_panelCetnral = new GroupLayout(panelCetnral);
+			gl_panelCetnral.setHorizontalGroup(
+				gl_panelCetnral.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panelCetnral.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(gl_panelCetnral.createParallelGroup(Alignment.TRAILING)
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+							.addGroup(Alignment.LEADING, gl_panelCetnral.createSequentialGroup()
+								.addComponent(lblElencoNotifiche)
+								.addPreferredGap(ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
+								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addContainerGap())
+			);
+			gl_panelCetnral.setVerticalGroup(
+				gl_panelCetnral.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_panelCetnral.createSequentialGroup()
+						.addGap(16)
+						.addGroup(gl_panelCetnral.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblElencoNotifiche)
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+						.addContainerGap())
+			);
+			panel.setLayout(new BorderLayout(0, 0));
+			
+			JScrollPane scrollPane = new JScrollPane();
+			panel.add(scrollPane, BorderLayout.CENTER);
+			
+			model = new DefaultTableModel(
+					new Object[][]{},
+					new String[]{"id notifica", "Tipo", "Descrizione", "Data invio"}
+				);
+			
+			table = new JTable(model);
+			table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					//RENDI IL BOTTONE DISONIBILE:
+					int selectedRow = table.rowAtPoint(e.getPoint());
+					if(selectedRow != -1) {
+						String idNotifyString = String.valueOf(table.getValueAt(selectedRow, 0));
+						idNotificaSelezionata = Integer.valueOf(idNotifyString);
+						btnSegnaComeLetto.setEnabled(true);
+						btnSegnaComeLetto.setBackground(Color.RED);
+					}
 					
-					table = new JTable(model);
-					scrollPane.setColumnHeaderView(table);
-					scrollPane.setViewportView(table);
 				}
-			}
+			});
+			scrollPane.setColumnHeaderView(table);
+			scrollPane.setViewportView(table);
+			panelCetnral.setLayout(gl_panelCetnral);
 		}
 		{
 			JPanel panelBottom = new JPanel();
 			getContentPane().add(panelBottom, BorderLayout.SOUTH);
 			panelBottom.setLayout(new BorderLayout(0, 0));
 			{
-				btnVisualizza = new JButton("Segna come lette");
-				btnVisualizza.addActionListener(new ActionListener() {
+				btnSegnaComeLetto = new JButton("Segna come lette");
+				btnSegnaComeLetto.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//SEGNA COME LETTE, UNA AD  UNA:
-						
+						if(theController.cambiaVisualNotifica(idNotificaSelezionata)) {
+							
+							JOptionPane.showMessageDialog(null, "Notifica resa visualizzata! ");
+							theController.visualizzaNotificheColtivatore(idColt, model, comboBox.getSelectedItem().toString().trim());
+							//UNA VOLTA SEGNATO COME LETTO FAI RITORNARE IL PULSANTE COME PRIMA:
+							btnSegnaComeLetto.setEnabled(false);
+							btnSegnaComeLetto.setBackground(Color.BLACK);
+						}
 					}
 				});
-				panelBottom.add(btnVisualizza, BorderLayout.EAST);
-				getRootPane().setDefaultButton(btnVisualizza);
+				panelBottom.add(btnSegnaComeLetto, BorderLayout.EAST);
+				getRootPane().setDefaultButton(btnSegnaComeLetto);
 			}
 			{
 				btnBack = new JButton("Back");
@@ -105,5 +169,4 @@ public class FinestraNotificheColtivatore extends JDialog {
 			}
 		}
 	}
-
 }
