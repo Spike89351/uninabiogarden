@@ -673,4 +673,10 @@ public class Controller {
 		return notificaDAO.cambiaVisualNotifica(idNot);
 	}
 	
+	//POSSIBILITA' DI INVIARE UNA NOTIFICA A PIU' O UN COLTIVATORE:
+	public boolean inviaNotificaModificata(int idColt, String desc, String tipNot) {
+		notificaDAO = new NotificaDAO();
+		return notificaDAO.inviaNotifica(idColt, desc, tipNot);
+	}
+	
 }

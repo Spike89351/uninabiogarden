@@ -32,10 +32,25 @@ public class NotificaDAO {
     	}
 	}
 	
-	//POSSIBILIA' DI INVIARE UN'ALTRA NOTIFICA AL COLTIVAOTORE:
-	public boolean inviaNotifica() {
+	//POSSIBILIA' DI INVIARE UN'ALTRA NOTIFICA AL COLTIVATORE:
+	public boolean inviaNotifica(int idColt, String desc, String tipNot) {
+		String sql = "INSERT INTO prguninabiogarden.Notifica(id_coltivatore, Descrizione, tipo_notifica) "
+				+ "VALUES(?, ?, ?) ";
 		
-		return false;
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+    		
+				psmt.setInt(1, idColt);
+                psmt.setString(2, desc);
+                psmt.setString(3, tipNot);
+                
+           int result =  psmt.executeUpdate();
+           
+           return result > 0;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella creazione della notifica! funzione: invia, (CLASSE NotificaDAO) " + e);
+    		return false;
+    	}
 	}
 	
 	public void visualizzaNotifiche(int idColt, DefaultTableModel model, String tipoNot) {
@@ -47,7 +62,7 @@ public class NotificaDAO {
 	}
 	
 	//MI SERVE PER VISUALIZZARE LE NOTIFICHE NON VISUALIZZATE:
-	public void visualizzaNotificheNonLette(int idColt, DefaultTableModel model) {
+	private void visualizzaNotificheNonLette(int idColt, DefaultTableModel model) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Notifica AS N "
 				+ "JOIN prguninabiogarden.Coltivatore AS C ON N.id_coltivatore = C.id_coltivatore "
@@ -70,7 +85,7 @@ public class NotificaDAO {
 	}
 	
 	//MI SERVE PER VISUALIZZARE LE NOTIFICHE GIA' VISTE:
-	public void visualizzaNotificheLette(int idColt, DefaultTableModel model) {
+	private void visualizzaNotificheLette(int idColt, DefaultTableModel model) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Notifica AS N "
 				+ "JOIN prguninabiogarden.Coltivatore AS C ON N.id_coltivatore = C.id_coltivatore "
