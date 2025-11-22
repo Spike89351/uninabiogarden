@@ -172,9 +172,9 @@ public class FinestraVisualizzaColtivatoriAttività extends JDialog {
 		                	}
 		                }
 		                if(count == model.getRowCount()) {
-		                	JOptionPane.showConfirmDialog(null, "Complimenti, la notifica è stata inviata a tutti");
+		                	JOptionPane.showMessageDialog(null, "Complimenti, la notifica è stata inviata a tutti");
 		                }else {
-		                	JOptionPane.showConfirmDialog(null, "ERRORE, la notifica NON è stata inviata a tutti");
+		                	JOptionPane.showMessageDialog(null, "ERRORE, la notifica NON è stata inviata a tutti");
 		                }
 					}
 	                clearTxt();
