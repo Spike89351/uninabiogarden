@@ -9,6 +9,7 @@ public class Coltivatore extends Utente{
     private ArrayList<Notifica> elencoNotifiche = new ArrayList<Notifica>();
     private Date dataInizioContratto;
     private ArrayList<Attività> elencoCosaSaFare = new ArrayList<Attività>();
+    private Notifica notifica;
     private boolean disponibilità;
 
 
@@ -39,10 +40,13 @@ public class Coltivatore extends Utente{
     public ArrayList<Attività> getElencoCosaSaFare(){
         return elencoCosaSaFare;
     }
+    public Notifica getNotifica() {
+    	return notifica;
+    }
     public boolean isDisponibilità() {
         return disponibilità;
     }
-
+    
 
     //SETTERS:
     public void setCodiceId(String codiceId) {
@@ -69,6 +73,9 @@ public class Coltivatore extends Utente{
         }else {
             elencoCosaSaFare.add(at);
         }
+    }
+    public void setNotifica(Notifica notifica) {
+    	this.notifica = notifica;
     }
     public void setDisponibilità(boolean disponibilità) {
         this.disponibilità = disponibilità;
