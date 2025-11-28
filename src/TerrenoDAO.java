@@ -38,7 +38,7 @@ public class TerrenoDAO {
 	
 	//MI SERVE PER TROVARE IL TERRENO:
 	public Terreno trovaTerreno(String idTerreno) {
-		String sql = "SELECT superfice, tipo_terreno, fertilità FROM prguninabiogarden.Terreno WHERE id_terreno = ?";
+		String sql = "SELECT superfice, tipo_terreno, fertilità, indirizzo FROM prguninabiogarden.Terreno WHERE id_terreno = ?";
 
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
