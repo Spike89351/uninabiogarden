@@ -510,10 +510,10 @@ public class Controller {
 	}
 	
 	//MI SERVE PER POPOLARE LA TABELLA:
-	public boolean popolaTabellaFertilizzanti(int idDep, DefaultTableModel model) {
+	public void popolaTabellaFertilizzanti(int idDep, DefaultTableModel model) {
 		model.setRowCount(0);
 		fertilizzanteDAO = new FertilizzanteDAO();
-		return fertilizzanteDAO.popolaTabella(idDep, model);
+		fertilizzanteDAO.popolaTabella(idDep, model);
 	}
 
 //METODI CHE SERVONO PER LA PAGINA COLTURA:

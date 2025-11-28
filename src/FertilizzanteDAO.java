@@ -70,7 +70,7 @@ public class FertilizzanteDAO {
 
 	
 	//MI SERVE PER POPOLARE LA TABELLA CON I FERTILIZZANTI PER DEPOSITO:
-	public boolean popolaTabella(int idDep, DefaultTableModel model) {
+	public void popolaTabella(int idDep, DefaultTableModel model) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Fertilizzante "
 				+ "WHERE id_deposito = ? ";
@@ -85,10 +85,8 @@ public class FertilizzanteDAO {
     			while(rs.next()) {
     				model.addRow(new Object[]{rs.getDouble("Letame"), rs.getDouble("Compost"), rs.getDouble("Granulari"), rs.getDouble("Liquidi")});
     			}    
-    			return true;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella (CLASSE FertilizzanteDAO), funzione: popolaTabella" + e);
-    		return false;
     	}
 	}
 	
