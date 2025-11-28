@@ -8,7 +8,6 @@ public class Coltivatore extends Utente{
     private ArrayList<Attività> elencoAttività = new ArrayList<Attività>();
     private ArrayList<Notifica> elencoNotifiche = new ArrayList<Notifica>();
     private Date dataInizioContratto;
-    private ArrayList<Attività> elencoCosaSaFare = new ArrayList<Attività>();
     private Notifica notifica;
     private boolean disponibilità;
 
@@ -32,9 +31,6 @@ public class Coltivatore extends Utente{
     public Date getDataInizioContratto() {
         return dataInizioContratto;
     }
-    public ArrayList<Attività> getElencoCosaSaFare(){
-        return elencoCosaSaFare;
-    }
     public Notifica getNotifica() {
     	return notifica;
     }
@@ -55,19 +51,6 @@ public class Coltivatore extends Utente{
     }
     public void setDataInizioContratto(Date dataInizioContratto) {
         this.dataInizioContratto = dataInizioContratto;
-    }
-    public void setElencoCosaSoFare(Attività at) {
-        boolean ctrl = true;
-        for(int i=0; i<elencoCosaSaFare.size(); i++) {
-            if(elencoCosaSaFare.get(i).equals(at)) {
-                ctrl = false;
-            }
-        }
-        if(! ctrl) {
-            JOptionPane.showMessageDialog(null, "Mi dispiace, ma stai cercando di inserire una mansione che già hai!");
-        }else {
-            elencoCosaSaFare.add(at);
-        }
     }
     public void setNotifica(Notifica notifica) {
     	this.notifica = notifica;
