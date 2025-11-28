@@ -82,7 +82,7 @@ public class Controller {
 //METODI:
 	
 	//INSERIMENTO DEL PROPRIETARIO:
-	public void inserisciPropreitario(Utente u, String email, String partitaIva, Deposito dep, double superfice, TipoTerreno tipoTerreno, Fertilità tipoFertilità) {
+	public void inserisciPropreitario(Utente u, String email, String partitaIva, Deposito dep, double superfice, TipoTerreno tipoTerreno, Fertilità tipoFertilità, String indirizzo) {
 		utenteDAO = new UtenteDAO();
 		utenteDAO.inserisicUtente(u);
 		proprietarioDAO = new ProprietarioDAO();
@@ -91,7 +91,7 @@ public class Controller {
 		creaDeposito(codeProp, dep.getIndirizzo(), dep.getDimDeposito());
 		depositoDAO = new DepositoDAO();
 		int idDep = depositoDAO.trovaIdDeposito(codeProp);
-		aggiungiTerreno(u.getUsername(), superfice, tipoTerreno, tipoFertilità, idDep);
+		aggiungiTerreno(u.getUsername(), superfice, tipoTerreno, tipoFertilità, idDep, indirizzo);
 	}
 	
 	//INSERIMENTO DEL COLTIVATORE:
@@ -248,7 +248,7 @@ public class Controller {
 	}
 	
 	//SERVE AD AGGIUNGERE UN TERRENO AL PROPRIETARIO: (NEL CASO BISOGNEREBBE AGGIORNARE ANCHE L'ARRAYLIST)
-	public void aggiungiTerreno(String username, double superfice, TipoTerreno tipoTerreno, Fertilità tipoFertilità, int idDep) {
+	public void aggiungiTerreno(String username, double superfice, TipoTerreno tipoTerreno, Fertilità tipoFertilità, int idDep, String indirizzo) {
 		//TROVA IL CODICE DEL PROPRIETARIO:
 		proprietarioDAO = new ProprietarioDAO();
 		int codeProp = proprietarioDAO.trovaCodiceProprietario(username);
@@ -257,8 +257,9 @@ public class Controller {
 			depositoDAO = new DepositoDAO();
 			if(depositoDAO.ctrlAppDeposito(codeProp, idDep)) {
 				//CREA UN NUOVO TERRENO:
+				
 				terrenoDAO = new TerrenoDAO();
-				terrenoDAO.inserisciTerreno(codeProp, superfice, tipoTerreno, tipoFertilità, idDep);
+				terrenoDAO.inserisciTerreno(codeProp, superfice, tipoTerreno, tipoFertilità, idDep, indirizzo);
 			}else {
 				JOptionPane.showMessageDialog(null, "Mi dispiace ma il codice del deposito non esiste, l'operazione non è andata a buon fine!");
 			}

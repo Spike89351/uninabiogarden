@@ -70,6 +70,7 @@ public class PaginaRegistraTerreno extends JFrame {
 		lblIndirizzo.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		txtIndirizzo = new JTextField();
+		txtIndirizzo.setToolTipText("Il formato dell'indirizzo deve essere: \"Via Garibaldi, 25, 00100 Roma (RM)\"");
 		txtIndirizzo.setColumns(10);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
@@ -124,7 +125,7 @@ public class PaginaRegistraTerreno extends JFrame {
 					double superfice = Double.valueOf(txtSuperfice.getText().trim());
 					TipoTerreno typ = (TipoTerreno) comboBox.getSelectedItem();
 					Fertilità fert = (Fertilità) comboBoxFertilità.getSelectedItem();
-					theController.inserisciPropreitario(u, email, partitaIva, dep, superfice, typ, fert);
+					theController.inserisciPropreitario(u, email, partitaIva, dep, superfice, typ, fert, txtIndirizzo.getText().trim());
 					JOptionPane.showMessageDialog(null, "Perfetto hai completato la registrazione!");
 					clearField(txtSuperfice);
 					theController.daTerrenoAHomePage();

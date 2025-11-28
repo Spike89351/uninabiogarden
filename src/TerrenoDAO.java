@@ -13,8 +13,8 @@ public class TerrenoDAO {
 	private static final String PASSWORD = "Informatica1";
 	
 	//SERVE PER INSERIRE UN TERRENO:
-	public void inserisciTerreno(int codeProprietario, double superficie, TipoTerreno TipologiaTerreno, Fertilità tipoFertilità, int idDep) {
-		String sql = "INSERT INTO prguninabiogarden.Terreno (Id_proprietario, id_deposito, Superfice, Tipo_terreno, Fertilità) VALUES(?, ?, ?, ?, ?)";
+	public void inserisciTerreno(int codeProprietario, double superficie, TipoTerreno TipologiaTerreno, Fertilità tipoFertilità, int idDep, String indirizzo) {
+		String sql = "INSERT INTO prguninabiogarden.Terreno (Id_proprietario, id_deposito, Superfice, Tipo_terreno, Fertilità, indirizzo) VALUES(?, ?, ?, ?, ?, ?)";
     	
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -28,7 +28,7 @@ public class TerrenoDAO {
                 psmt.setDouble(3, superficie);
                 psmt.setString(4, tipoTerreno);
                 psmt.setString(5, Fertilità);
-                
+                psmt.setString(6, indirizzo);
                 
             psmt.executeUpdate();
     	}catch(Exception e) {
@@ -49,7 +49,7 @@ public class TerrenoDAO {
 			
 			if(rs.next()) {
 				Deposito dep = null;
-				Terreno terProv = new Terreno(rs.getDouble("superfice"), TipoTerreno.valueOf(rs.getString("tipo_terreno")), Fertilità.valueOf(rs.getString("fertilità")), dep);
+				Terreno terProv = new Terreno(rs.getDouble("superfice"), TipoTerreno.valueOf(rs.getString("tipo_terreno")), Fertilità.valueOf(rs.getString("fertilità")), dep, rs.getString("indirizzo"));
 				return terProv;
 			} 
     	}catch(Exception e) {
@@ -74,7 +74,7 @@ public class TerrenoDAO {
 				ResultSet rs = psmt.executeQuery();
 				
 				while(rs.next()) {
-					model.addRow(new Object[]{rs.getInt("id_terreno"), rs.getDouble("superfice"), rs.getString("tipo_terreno"), rs.getString("fertilità")});
+					model.addRow(new Object[]{rs.getInt("id_terreno"), rs.getString("indirizzo"), rs.getDouble("superfice"), rs.getString("tipo_terreno"), rs.getString("fertilità")});
                 }
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella CLASSE TerrenoDAO, funzione: risaliTerreni" + e);

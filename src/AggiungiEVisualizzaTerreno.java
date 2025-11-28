@@ -40,7 +40,8 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 	
 	//ATTRIBUTI:
 	private String idTerrenoSelezioanto;
-	private JTextField txtIdDeposito;
+	private JTextField txtIndirizzo;
+	private JTextField txtDeposito;
 	
 	
 	public AggiungiEVisualizzaTerreno(Controller c, Utente u) {
@@ -51,6 +52,12 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 			}
 			@Override
 			public void windowActivated(WindowEvent e) {
+				try {
+					theController.popolaTabellaTerreni(u.getUsername(), modelTerreno);
+				}catch(Exception xxx) {
+					JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei terreni: "+ xxx);
+				}
+
 				theController.paginaProprietario.setEnabled(false);
 			}
 		});
@@ -58,7 +65,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		
 			
 		setTitle("Registra e visualizza terreni");
-		setSize(597, 350);
+		setSize(631, 408);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -110,7 +117,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 						Fertilità fert = (Fertilità) comboBoxFertilità.getSelectedItem();
 						
 						//AGGIUNGI UN TERRENO:
-						theController.aggiungiTerreno(u.getUsername(), supConv, tipoTerrString, fert, Integer.valueOf(txtIdDeposito.getText().trim()));
+						theController.aggiungiTerreno(u.getUsername(), supConv, tipoTerrString, fert, Integer.valueOf(txtDeposito.getText().trim()), txtIndirizzo.getText().trim());
 						
 						//AGGIORNA LA TABELLA:
 						theController.popolaTabellaTerreni(u.getUsername(), modelTerreno);
@@ -140,11 +147,18 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		JLabel lblTerrenoId = new JLabel("");
 		lblTerrenoId.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
+		JLabel lblIndirizzo = new JLabel("Indirizzo");
+		lblIndirizzo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		txtIndirizzo = new JTextField();
+		txtIndirizzo.setToolTipText("Il formato dell'indirizzo deve essere: \"Via Garibaldi, 25, 00100 Roma (RM)\"");
+		txtIndirizzo.setColumns(10);
+		
 		JLabel lblDeposito = new JLabel("Deposito");
 		lblDeposito.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		txtIdDeposito = new JTextField();
-		txtIdDeposito.setColumns(10);
+		txtDeposito = new JTextField();
+		txtDeposito.setColumns(10);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
@@ -160,27 +174,31 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(lblSuperfice, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
 							.addGap(46)
-							.addComponent(txtSuperfice, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
+							.addComponent(txtSuperfice, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(lblTipoTerreno, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 							.addGap(28)
-							.addComponent(comboBoxTipoTerreno, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
+							.addComponent(comboBoxTipoTerreno, 0, 96, Short.MAX_VALUE))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblIndirizzo, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblDeposito, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
 							.addGap(28)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtIdDeposito, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(comboBoxFertilità, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))))
-					.addPreferredGap(ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-						.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBoxFertilità, 0, 96, Short.MAX_VALUE)
+								.addComponent(txtDeposito, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+								.addComponent(txtIndirizzo, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))))
+					.addGap(30)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(lblTerrenoSelezionato)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblTerrenoId, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
+							.addComponent(lblTerrenoId, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+							.addGap(109))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())))
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(44)
 					.addComponent(btnAggiungiTerreno)
@@ -197,31 +215,40 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 						.addComponent(lblVisualizzaTerreni, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addGap(17)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addGap(1)
+									.addGap(18)
 									.addComponent(lblSuperfice, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-								.addComponent(txtSuperfice, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(11)
+								.addGroup(gl_panelCentral.createSequentialGroup()
+									.addGap(17)
+									.addComponent(txtSuperfice, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addGap(1)
+									.addGap(12)
 									.addComponent(lblTipoTerreno, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-								.addComponent(comboBoxTipoTerreno, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-							.addGap(11)
+								.addGroup(gl_panelCentral.createSequentialGroup()
+									.addGap(11)
+									.addComponent(comboBoxTipoTerreno, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addGap(1)
+									.addGap(12)
 									.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-								.addComponent(comboBoxFertilità, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panelCentral.createSequentialGroup()
+									.addGap(11)
+									.addComponent(comboBoxFertilità, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))
+							.addGap(18)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblIndirizzo, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblDeposito, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtIdDeposito, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(txtDeposito, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblTerrenoSelezionato)
@@ -230,7 +257,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnVisualizzaTerreno)
 						.addComponent(btnAggiungiTerreno))
-					.addContainerGap(38, Short.MAX_VALUE))
+					.addContainerGap(50, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
@@ -239,7 +266,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		
 		modelTerreno = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "id Terreno", "Superfice", "Tipo terreno", "Fertilità"}
+				new String[]{ "id Terreno", "Indirizzo", "Superfice", "Tipo terreno", "Fertilità"}
 			);;
 		
 		table = new JTable(modelTerreno);
@@ -299,12 +326,6 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		);
 		panelBottom.setLayout(gl_panelBottom);
 		
-		try {
-			theController.popolaTabellaTerreni(u.getUsername(), modelTerreno);
-		}catch(Exception xxx) {
-			JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei terreni: "+ xxx);
-		}
-
 	}
 	
 //METODI:
@@ -321,12 +342,22 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 				return false;
 			}
 		}
+		//CONTROLLO DELL'INDIRIZZO:
+		if(txtIndirizzo.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Errore, il campo di testo indirizzo non può essere vuoto!");
+			return false;
+		}else {
+			if(! txtIndirizzo.getText().trim().matches("^[A-Za-z\\s]+,\\s\\d{1,4}[A-Za-z]?,\\s\\d{5}\\s[A-Za-z\\s]+\\s\\([A-Z]{2}\\)$")) {
+				JOptionPane.showMessageDialog(null, "Errore il formato dell'indirizzo è errato!");
+				return false;
+			}
+		}
 		return true;
 	}
 	
 	//PULISCI I CAMPI:
 	public void clearTextField() {
 		txtSuperfice.setText(null);
-		txtIdDeposito.setText(null);
+		txtIndirizzo.setText(null);
 	}
 }
