@@ -25,6 +25,7 @@ public class PaginaRegistraTerreno extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtSuperfice;
 	private JComboBox comboBox;
+	private JTextField txtIndirizzo;
 	
 	public PaginaRegistraTerreno(Utente u, String email, String partitaIva, Deposito dep, Controller c) {
 		theController = c;
@@ -64,6 +65,12 @@ public class PaginaRegistraTerreno extends JFrame {
 		lblFertilità.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JComboBox comboBoxFertilità = new JComboBox(Fertilità.values());
+		
+		JLabel lblIndirizzo = new JLabel("Indirizzo");
+		lblIndirizzo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		txtIndirizzo = new JTextField();
+		txtIndirizzo.setColumns(10);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
@@ -72,9 +79,11 @@ public class PaginaRegistraTerreno extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblTipoTerreno)
 						.addComponent(lblSuperfice)
-						.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblIndirizzo, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
 					.addGap(28)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
 						.addComponent(comboBoxFertilità, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
 							.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -96,7 +105,11 @@ public class PaginaRegistraTerreno extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblFertilità, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 						.addComponent(comboBoxFertilità, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(113, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblIndirizzo, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(86, Short.MAX_VALUE))
 		);
 		panelCentral.setLayout(gl_panelCentral);
 		
@@ -146,6 +159,15 @@ public class PaginaRegistraTerreno extends JFrame {
 				}
 			}catch(Exception e) {
 				JOptionPane.showMessageDialog(null, "C'è stato un errore nella conversione del valore!");
+				return false;
+			}
+		}
+		if(txtIndirizzo.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Errore, il campo di testo indirizzo non può essere vuoto!");
+			return false;
+		}else {
+			if(! txtIndirizzo.getText().trim().matches("^[A-Za-z\\s]+,\\s\\d{1,4}[A-Za-z]?,\\s\\d{5}\\s[A-Za-z\\s]+\\s\\([A-Z]{2}\\)$")) {
+				JOptionPane.showMessageDialog(null, "Errore il formato dell'indirizzo è errato!");
 				return false;
 			}
 		}
