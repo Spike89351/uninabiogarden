@@ -22,7 +22,6 @@ public class ColtivatoreDAO {
                
                 psmt.setString(1, username);
                 
-                
             psmt.executeUpdate();
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nell'inserimento del Coltivatore! (CLASSE ColtivatoreDAO), funzione: inserisciColtivatore" + e);
