@@ -133,6 +133,7 @@ public class ColtivatoreDAO {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Coltivatore AS C "
 				+ "JOIN prguninabiogarden.Attività AS A ON C.id_attività = A.id_attività "
+				+ "JOIN prguninabiogarden.Terreno AS T ON A.id_terreno = T.id_terreno "
 				+ "WHERE C.id_coltivatore = ? ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
@@ -156,6 +157,7 @@ public class ColtivatoreDAO {
 				+ "FROM prguninabiogarden.Coltivatore AS C "
 				+ "JOIN prguninabiogarden.logStoricoColtivatore AS STC ON C.id_coltivatore = STC.id_coltivatore "
 				+ "JOIN prguninabiogarden.Attività AS A ON STC.id_attività = A.id_attività "
+				+ "prguninabiogarden.Terreno AS T ON A.id_terreno = T.id_terreno "
 				+ "WHERE C.id_coltivatore = ? AND stato = ? ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 

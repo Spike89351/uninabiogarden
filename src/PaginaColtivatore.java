@@ -59,7 +59,7 @@ public class PaginaColtivatore extends JFrame {
 		
 		setTitle("Pagina del coltivatore");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(620, 308);
+		setSize(700, 308);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -90,7 +90,7 @@ public class PaginaColtivatore extends JFrame {
 			}
 		});
 		
-		JLabel lblDati = new JLabel("Dati");
+		JLabel lblDati = new JLabel("Dati personali");
 		lblDati.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel lblNome = new JLabel("Nome");
@@ -118,25 +118,26 @@ public class PaginaColtivatore extends JFrame {
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(gl_panelCentral.createSequentialGroup()
+								.addContainerGap()
+								.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblCognome))
+								.addGap(21)
+								.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+									.addComponent(txtNome, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+									.addComponent(txtCognome, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(gl_panelCentral.createSequentialGroup()
+								.addContainerGap()
+								.addComponent(lblId, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+								.addGap(22)
+								.addComponent(txtId, 0, 0, Short.MAX_VALUE)
+								.addGap(1)))
 						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addGap(73)
-							.addComponent(lblDati))
-						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblCognome))
-							.addGap(21)
-							.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
-								.addComponent(txtNome, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCognome, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblId, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-							.addGap(22)
-							.addComponent(txtId, 0, 0, Short.MAX_VALUE)
-							.addGap(1)))
+							.addGap(54)
+							.addComponent(lblDati)))
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
@@ -181,7 +182,7 @@ public class PaginaColtivatore extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"Id attività", "Tipo", "Data inizio", "Data fine", "Stato"}
+				new String[]{"Id attività", "Tipo", "Data inizio", "Data fine", "Stato", "indirizzo"}
 			);
 		
 		table = new JTable(model);
