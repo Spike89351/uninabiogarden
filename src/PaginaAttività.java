@@ -101,7 +101,7 @@ public class PaginaAttività extends JFrame {
 		JLabel lblDataInizio = new JLabel("Dara inizio");
 		lblDataInizio.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		String[] elecoCondizioni = {"", "Riposo", "Rinnovo", "Preparazione", "Semina", "Germinazione", "Irrigazione", "Nutrizione", "Fioritura", "Crescita", "Maturazione", "Fruttificazione"};
+		String[] elecoCondizioni = {"", "Riposo", "Rinnovo", "Preparazione", "Semina", "Germinazione", "Irrigazione", "Nutrizione", "Fioritura", "Crescita", "Maturazione", "Fruttificazione", "Rccolta"};
 		
 		comboBoxTipoAttività = new JComboBox(elecoCondizioni);
 		comboBoxTipoAttività.setToolTipText("Se lasci vuoto il database inserira il parametro 'Preprazione come default'");
@@ -126,8 +126,11 @@ public class PaginaAttività extends JFrame {
 						LocalDate dataInizioLocalDate = dateChooserInizio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 						java.sql.Date castDataInizio = java.sql.Date.valueOf(dataInizioLocalDate);
 						
-						LocalDate dataFineLocalDate = dateChooserFine.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-						java.sql.Date castDataFine = java.sql.Date.valueOf(dataFineLocalDate);
+						java.sql.Date castDataFine = null;
+						if(dateChooserFine.getDate() != null){
+							LocalDate dataFineLocalDate = dateChooserFine.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+							castDataFine = java.sql.Date.valueOf(dataFineLocalDate);
+						}
 						
 						//AGGIUNGI ATTIVITA':
 						if(theController.inserisciAttività(idProgetto, idTerreno, comboBoxTipoAttività.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString(), castDataInizio, castDataFine)) {
@@ -235,10 +238,12 @@ public class PaginaAttività extends JFrame {
 					tipoAttività = String.valueOf(table.getValueAt(selectedRow, 1));
 					statoAttivitàSelezionata = String.valueOf(table.getValueAt(selectedRow, 2));
 					
-					//SBLOCCO IL PULSANTE 'DETTAGLI':
-					btnColtivatoreAssegnato.setEnabled(true);
-					btnVisualizzaDettagli.setEnabled(true);
-					btnAggiungiColtivatore.setEnabled(true);
+					if(!statoAttivitàSelezionata.equals("Completata")) {
+						//SBLOCCO IL PULSANTE 'DETTAGLI':
+						btnColtivatoreAssegnato.setEnabled(true);
+						btnVisualizzaDettagli.setEnabled(true);
+						btnAggiungiColtivatore.setEnabled(true);
+					}
 				}
 			}
 		});
