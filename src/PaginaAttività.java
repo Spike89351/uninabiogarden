@@ -29,6 +29,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.awt.FlowLayout;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class PaginaAttività extends JFrame {
 	private Controller theController;
@@ -109,6 +111,12 @@ public class PaginaAttività extends JFrame {
 		String[] elencoStato = {"", "Nessuna", "Pianificata", "In Corso"};
 		
 		comboBoxStato = new JComboBox(elencoStato);
+		comboBoxStato.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				//QUANDO CAMBIA E VA SU 'RACCOLTA BLOCCA LA DATA DI FINE'
+				
+			}
+		});
 		comboBoxStato.setToolTipText("Se lasci vuoto questo camp il database compilerà questo campo di default con il valore 'Nessuno'");
 		
 		dateChooserInizio = new JDateChooser();
