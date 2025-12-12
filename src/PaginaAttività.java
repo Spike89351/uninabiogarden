@@ -31,6 +31,8 @@ import java.time.ZoneId;
 import java.awt.FlowLayout;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class PaginaAttività extends JFrame {
 	private Controller theController;
@@ -55,6 +57,7 @@ public class PaginaAttività extends JFrame {
 	private JButton btnColtivatoreAssegnato;
 	private String tipoAttività;
 	private String statoAttivitàSelezionata;
+	private boolean ctrlDate;
 	
 	public PaginaAttività(int idTerreno, int idProgetto, Controller c) {
 		addWindowListener(new WindowAdapter() {
@@ -103,20 +106,26 @@ public class PaginaAttività extends JFrame {
 		JLabel lblDataInizio = new JLabel("Dara inizio");
 		lblDataInizio.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		String[] elecoCondizioni = {"", "Riposo", "Rinnovo", "Preparazione", "Semina", "Germinazione", "Irrigazione", "Nutrizione", "Fioritura", "Crescita", "Maturazione", "Fruttificazione", "Rccolta"};
+		String[] elecoCondizioni = {"", "Riposo", "Rinnovo", "Preparazione", "Semina", "Germinazione", "Irrigazione", "Nutrizione", "Fioritura", "Crescita", "Maturazione", "Fruttificazione", "Raccolta"};
 		
 		comboBoxTipoAttività = new JComboBox(elecoCondizioni);
+		comboBoxTipoAttività.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				//UNA VOLTA CAMBIATO STATO E SELEZIONATO 'RACCOLTA':
+				if(comboBoxTipoAttività.getSelectedItem().toString().equals("Raccolta")) {
+					ctrlDate = false;
+					dateChooserFine.setEnabled(false);
+				}else {
+					ctrlDate = true;
+					dateChooserFine.setEnabled(true);
+				}
+			}
+		});
 		comboBoxTipoAttività.setToolTipText("Se lasci vuoto il database inserira il parametro 'Preprazione come default'");
 		
 		String[] elencoStato = {"", "Nessuna", "Pianificata", "In Corso"};
 		
-		comboBoxStato = new JComboBox(elencoStato);
-		comboBoxStato.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				//QUANDO CAMBIA E VA SU 'RACCOLTA BLOCCA LA DATA DI FINE'
-				
-			}
-		});
+		comboBoxStato = new JComboBox(elencoStato);		
 		comboBoxStato.setToolTipText("Se lasci vuoto questo camp il database compilerà questo campo di default con il valore 'Nessuno'");
 		
 		dateChooserInizio = new JDateChooser();
@@ -135,7 +144,7 @@ public class PaginaAttività extends JFrame {
 						java.sql.Date castDataInizio = java.sql.Date.valueOf(dataInizioLocalDate);
 						
 						java.sql.Date castDataFine = null;
-						if(dateChooserFine.getDate() != null){
+						if(ctrlDate){
 							LocalDate dataFineLocalDate = dateChooserFine.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 							castDataFine = java.sql.Date.valueOf(dataFineLocalDate);
 						}
@@ -342,9 +351,11 @@ public class PaginaAttività extends JFrame {
 				JOptionPane.showMessageDialog(null, "La data di inizio di un'attività non può essere prima della data odierna!");
 				return false;
 			}
-			if(dateChooserFine.getDate().equals(dateChooserInizio.getDate()) || dateChooserFine.getDate().before(dateChooserInizio.getDate())) {
-				JOptionPane.showMessageDialog(null, "La data di fine non può essere uguale, o minore, alla data di inizio di un'attività!");
-				return false;
+			if(ctrlDate) {
+				if(dateChooserFine.getDate().equals(dateChooserInizio.getDate()) || dateChooserFine.getDate().before(dateChooserInizio.getDate())) {
+					JOptionPane.showMessageDialog(null, "La data di fine non può essere uguale, o minore, alla data di inizio di un'attività!");
+					return false;
+				}
 			}
 		}catch(ClassCastException x) {
 			JOptionPane.showMessageDialog(null, "Errore nel cast della data!");

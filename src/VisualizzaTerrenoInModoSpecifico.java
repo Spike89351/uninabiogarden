@@ -115,7 +115,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(66)
 					.addComponent(lblDatiTerrenoSelezionato)
-					.addPreferredGap(ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
 					.addComponent(lblVisualizzaProgetti)
 					.addGap(137))
 				.addGroup(gl_panelCentral.createSequentialGroup()
@@ -136,8 +136,8 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 							.addComponent(lblIndirizzo)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(lblIndirizzoDaMostrare, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)))
-					.addGap(18)
-					.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 460, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
