@@ -65,6 +65,7 @@ public class Controller {
 	public FinestraDettagliAttività finestraDettagliAttività;
 	public FinestraVisualizzaColtivatoriAttività finestraVisualizzaColtivatoriAttività;
 	public FinestraNotificheColtivatore finestraNotificheColtivatore;
+	public FinestraCambiaStatoAttività finestraCambiaStatoAttività;
 	
 	//MAIN:
 	public static void main(String[] args) throws SQLException {
@@ -576,6 +577,13 @@ public class Controller {
 		finestraDettagliAttività = new FinestraDettagliAttività(idTerreno, idAttività, this);
 		finestraDettagliAttività.setVisible(true);
 		finestraDettagliAttività.setEnabled(true);
+	}
+	
+	public void daPaginaAttivitàAFinestraCambiaStatoAttività(int idAtt, String statoAtt) {
+		paginaAttività.setEnabled(false);
+		
+		finestraCambiaStatoAttività = new FinestraCambiaStatoAttività(idAtt, statoAtt, this);
+		finestraCambiaStatoAttività.setVisible(true);
 	}
 	
 	//MI SERVE PER MODIFICARE LO STATO DI UN'ATTIVITA' DA QUALSIASI A  RACCOLTO COMPLETATO:	

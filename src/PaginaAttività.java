@@ -56,6 +56,7 @@ public class PaginaAttività extends JFrame {
 	private JButton btnAggiungiColtivatore;
 	private String tipoAttività;
 	private String statoAttivitàSelezionata;
+	private JButton btnCambiaStato;
 	private boolean ctrlDate;
 	
 	public PaginaAttività(int idTerreno, int idProgetto, Controller c) {
@@ -289,14 +290,14 @@ public class PaginaAttività extends JFrame {
 		panelBottom.add(panelBottomCentral, BorderLayout.CENTER);
 		panelBottomCentral.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnNewButton = new JButton("Cambia stato");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnCambiaStato = new JButton("Cambia stato");
+		btnCambiaStato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//MI SERVE PER CAMBIARE STATO DELL'ATTIVIA':
-				
+				theController.daPaginaAttivitàAFinestraCambiaStatoAttività(idAttivitàSelezionata, statoAttivitàSelezionata);
 			}
 		});
-		panelBottomCentral.add(btnNewButton);
+		panelBottomCentral.add(btnCambiaStato);
 		
 		btnVisualizzaDettagli = new JButton("Completa");
 		panelBottom.add(btnVisualizzaDettagli, BorderLayout.EAST);
