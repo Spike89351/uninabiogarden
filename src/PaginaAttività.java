@@ -54,7 +54,6 @@ public class PaginaAttività extends JFrame {
 	private JTable table;
 	private DefaultTableModel model;
 	private JButton btnAggiungiColtivatore;
-	private JButton btnColtivatoreAssegnato;
 	private String tipoAttività;
 	private String statoAttivitàSelezionata;
 	private boolean ctrlDate;
@@ -170,39 +169,40 @@ public class PaginaAttività extends JFrame {
 		dateChooserFine = new JDateChooser();
 		dateChooserFine.setToolTipText("Questo camapo non può essere vuoto");
 		
-		btnColtivatoreAssegnato = new JButton("Coltivatore assegnato");
-		btnColtivatoreAssegnato.setEnabled(false);
-		btnColtivatoreAssegnato.addActionListener(new ActionListener() {
+		btnAggiungiColtivatore = new JButton("Seleziona coltivatore");
+		btnAggiungiColtivatore.setEnabled(false);
+		btnAggiungiColtivatore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//POSSIBILITA' DI VEDERE I COLTIVATORI ASSEGNATI PER PROGETTO:
-				
+				//RIMUOVI ATTIVITA':
+				theController.daPaginaAttivitàAPaginaSceltaColtivatore(idAttivitàSelezionata, statoAttivitàSelezionata);
 			}
 		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
-					.addContainerGap()
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblTipoAttività)
-						.addComponent(lblStato, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDataFine, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
-						.addComponent(dateChooserInizio, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBoxStato, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBoxTipoAttività, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblTipoAttività)
+								.addComponent(lblStato, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDataFine, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
+								.addComponent(dateChooserInizio, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBoxStato, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBoxTipoAttività, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addGap(51)
+							.addComponent(btnAggiungi)
+							.addPreferredGap(ComponentPlacement.RELATED, 407, Short.MAX_VALUE)
+							.addComponent(btnAggiungiColtivatore)))
 					.addContainerGap())
-				.addGroup(gl_panelCentral.createSequentialGroup()
-					.addGap(51)
-					.addComponent(btnAggiungi)
-					.addPreferredGap(ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
-					.addComponent(btnColtivatoreAssegnato)
-					.addGap(164))
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -211,8 +211,8 @@ public class PaginaAttività extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnColtivatoreAssegnato))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnAggiungiColtivatore))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblTipoAttività)
@@ -257,7 +257,6 @@ public class PaginaAttività extends JFrame {
 					
 					if(!statoAttivitàSelezionata.equals("Completata")) {
 						//SBLOCCO IL PULSANTE 'DETTAGLI':
-						btnColtivatoreAssegnato.setEnabled(true);
 						btnVisualizzaDettagli.setEnabled(true);
 						btnAggiungiColtivatore.setEnabled(true);
 					}
@@ -290,8 +289,17 @@ public class PaginaAttività extends JFrame {
 		panelBottom.add(panelBottomCentral, BorderLayout.CENTER);
 		panelBottomCentral.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
+		JButton btnNewButton = new JButton("Cambia stato");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//MI SERVE PER CAMBIARE STATO DELL'ATTIVIA':
+				
+			}
+		});
+		panelBottomCentral.add(btnNewButton);
+		
 		btnVisualizzaDettagli = new JButton("Completa");
-		panelBottomCentral.add(btnVisualizzaDettagli);
+		panelBottom.add(btnVisualizzaDettagli, BorderLayout.EAST);
 		btnVisualizzaDettagli.setToolTipText("Questo pulsante aggiunge una data fine all'attività selezioanta ");
 		btnVisualizzaDettagli.setEnabled(false);
 		btnVisualizzaDettagli.addActionListener(new ActionListener() {
@@ -310,16 +318,6 @@ public class PaginaAttività extends JFrame {
 				}
 			}
 		});
-		
-		btnAggiungiColtivatore = new JButton("Seleziona coltivatore");
-		btnAggiungiColtivatore.setEnabled(false);
-		btnAggiungiColtivatore.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//RIMUOVI ATTIVITA':
-				theController.daPaginaAttivitàAPaginaSceltaColtivatore(idAttivitàSelezionata, statoAttivitàSelezionata);
-			}
-		});
-		panelBottom.add(btnAggiungiColtivatore, BorderLayout.EAST);
 		
 	}
 //METODI:
