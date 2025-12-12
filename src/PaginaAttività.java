@@ -109,18 +109,18 @@ public class PaginaAttività extends JFrame {
 		String[] elecoCondizioni = {"", "Riposo", "Rinnovo", "Preparazione", "Semina", "Germinazione", "Irrigazione", "Nutrizione", "Fioritura", "Crescita", "Maturazione", "Fruttificazione", "Raccolta"};
 		
 		comboBoxTipoAttività = new JComboBox(elecoCondizioni);
-		comboBoxTipoAttività.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				//UNA VOLTA CAMBIATO STATO E SELEZIONATO 'RACCOLTA':
-				if(comboBoxTipoAttività.getSelectedItem().toString().equals("Raccolta")) {
-					ctrlDate = false;
-					dateChooserFine.setEnabled(false);
-				}else {
-					ctrlDate = true;
-					dateChooserFine.setEnabled(true);
-				}
-			}
-		});
+//		comboBoxTipoAttività.addItemListener(new ItemListener() {
+//			public void itemStateChanged(ItemEvent e) {
+//				//UNA VOLTA CAMBIATO STATO E SELEZIONATO 'RACCOLTA':
+//				if(comboBoxTipoAttività.getSelectedItem().toString().equals("Raccolta")) {
+//					ctrlDate = false;
+//					dateChooserFine.setEnabled(false);
+//				}else {
+//					ctrlDate = true;
+//					dateChooserFine.setEnabled(true);
+//				}
+//			}
+//		});
 		comboBoxTipoAttività.setToolTipText("Se lasci vuoto il database inserira il parametro 'Preprazione come default'");
 		
 		String[] elencoStato = {"", "Nessuna", "Pianificata", "In Corso"};
@@ -305,7 +305,7 @@ public class PaginaAttività extends JFrame {
 		btnVisualizzaDettagli.setEnabled(false);
 		btnVisualizzaDettagli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//SE L'ATTIVITà E' DIVERSA DALLA RACCOLTA ALLORA INSERISIC SOLO LA DATA ALTRIMENTI VAI NELLA PAGINA E INSERISCI LA QUANTITA' RACCOLTA
+				//SE L'ATTIVITà E' DIVERSA DALLA RACCOLTA ALLORA INSERISCI SOLO LA DATA ALTRIMENTI VAI NELLA PAGINA E INSERISCI LA QUANTITA' RACCOLTA:
 				if(! tipoAttività.equals("Raccolta")) {
 					//INSERISCI LO STATO 'COMPLETATA':
 					theController.inserisciDataFIneAttività(idAttivitàSelezionata, "Completata");
