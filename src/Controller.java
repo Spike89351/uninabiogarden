@@ -593,10 +593,10 @@ public class Controller {
 	
 //MI SERVE PER LA PAGINA PER LA SCELTA DEL COLTIVATORE:	
 	//PASSO DALLA PAGINA DEL TIPO DI ATTIVTIA' ALLA PAGINA SCELTA DEL COLTIVATORE:
-	public void daPaginaAttivitàAPaginaSceltaColtivatore(int idAttività) {
+	public void daPaginaAttivitàAPaginaSceltaColtivatore(int idAttività, String statoAttivitàSel) {
 		paginaAttività.setVisible(false);
 		
-		paginaSceltaColtivatore = new PaginaSceltaColtivatore(idAttività, this);
+		paginaSceltaColtivatore = new PaginaSceltaColtivatore(idAttività, statoAttivitàSel, this);
 		paginaSceltaColtivatore.setVisible(true);
 	}
 	

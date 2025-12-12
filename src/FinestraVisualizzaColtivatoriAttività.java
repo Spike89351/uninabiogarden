@@ -60,10 +60,7 @@ public class FinestraVisualizzaColtivatoriAttività extends JDialog {
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
-				setEnabled(false);
-				setVisible(false);
-				theController.paginaAttività.setVisible(true);
-				theController.paginaAttività.setEnabled(true);
+				btnBack.doClick();
 			}
 		});
 		theController = c;
@@ -235,8 +232,8 @@ public class FinestraVisualizzaColtivatoriAttività extends JDialog {
 						//TORNA INDIETRO:
 						setEnabled(false);
 						setVisible(false);
-						theController.paginaAttività.setVisible(true);
-						theController.paginaAttività.setEnabled(true);
+						theController.paginaSceltaColtivatore.setVisible(true);
+						theController.paginaSceltaColtivatore.setEnabled(true);
 					}
 				});
 				btnBack.setActionCommand("Cancel");

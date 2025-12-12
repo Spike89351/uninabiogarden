@@ -32,7 +32,7 @@ public class PaginaSceltaColtivatore extends JFrame {
 	private JButton btnAssocia;
 	private int idColtivatoreSelezionato;
 	
-	public PaginaSceltaColtivatore(int idAttività, Controller c) {
+	public PaginaSceltaColtivatore(int idAttività, String statoAttivitàSelezionata, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -45,8 +45,7 @@ public class PaginaSceltaColtivatore extends JFrame {
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
-				setVisible(false);
-				theController.paginaAttività.setVisible(true);
+				btnBack.doClick();
 			}
 		});
 		theController = c;
@@ -63,7 +62,7 @@ public class PaginaSceltaColtivatore extends JFrame {
 		JPanel panelTop = new JPanel();
 		contentPane.add(panelTop, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("Qui ci sono tutti i coltivatori");
+		JLabel lblNewLabel = new JLabel("Qui puoi scegliere chi far lavorare sul tuo terreno");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panelTop.add(lblNewLabel);
 		
@@ -107,11 +106,16 @@ public class PaginaSceltaColtivatore extends JFrame {
 				//TORNA INDIETRO:
 				setVisible(false);
 				theController.paginaAttività.setVisible(true);
+				theController.paginaAttività.setEnabled(true);
 			}
 		});
 		panelBottom.add(btnBack, BorderLayout.WEST);
 		
+		JPanel panel_1 = new JPanel();
+		panelBottom.add(panel_1, BorderLayout.CENTER);
+		
 		btnAssocia = new JButton("Associa");
+		panel_1.add(btnAssocia);
 		btnAssocia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//METODO CHE PRENDE COME INPUT L'ID DELL'ATTIVITA' E COLTIVATORE E LI ASSOCIA + POI METTE IL BOOELAN FALSE DEL COLTIVATORE:
@@ -127,7 +131,14 @@ public class PaginaSceltaColtivatore extends JFrame {
 			}
 		});
 		btnAssocia.setEnabled(false);
-		panelBottom.add(btnAssocia, BorderLayout.EAST);
+		
+		JButton btnNewButton = new JButton("Coltivatori Associati");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				theController.daPaginaAttivitàAFinestraVisualizzaColtivatoriAttività(idAttività, statoAttivitàSelezionata);
+			}
+		});
+		panelBottom.add(btnNewButton, BorderLayout.EAST);
 
 	}
 

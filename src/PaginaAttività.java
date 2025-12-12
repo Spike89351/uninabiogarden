@@ -175,7 +175,7 @@ public class PaginaAttività extends JFrame {
 		btnColtivatoreAssegnato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//POSSIBILITA' DI VEDERE I COLTIVATORI ASSEGNATI PER PROGETTO:
-				theController.daPaginaAttivitàAFinestraVisualizzaColtivatoriAttività(idAttivitàSelezionata, statoAttivitàSelezionata);
+				
 			}
 		});
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
@@ -316,7 +316,7 @@ public class PaginaAttività extends JFrame {
 		btnAggiungiColtivatore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//RIMUOVI ATTIVITA':
-				theController.daPaginaAttivitàAPaginaSceltaColtivatore(idAttivitàSelezionata);
+				theController.daPaginaAttivitàAPaginaSceltaColtivatore(idAttivitàSelezionata, statoAttivitàSelezionata);
 			}
 		});
 		panelBottom.add(btnAggiungiColtivatore, BorderLayout.EAST);
