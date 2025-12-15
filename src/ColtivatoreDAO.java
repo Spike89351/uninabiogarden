@@ -151,7 +151,7 @@ public class ColtivatoreDAO {
     	}
 	}
 	
-	//CERCA IN BASE A UN PARAMETRO (COMPLETATO):
+	//CERCA IN BASE A UN PARAMETRO (COMPLETATO): (Non funziona)
 	private void statoCompletato(int idColt, DefaultTableModel model, String tipoStato) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Coltivatore AS C "
