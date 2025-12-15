@@ -586,6 +586,12 @@ public class Controller {
 		finestraCambiaStatoAttività.setVisible(true);
 	}
 	
+	//MI SERVE PER RISALIRE A UN'ATTIVITA':
+	public ArrayList<Object> prendiDatiAttività(int idAttività){
+		attivitàDAO = new AttivitàDAO();
+		return attivitàDAO.prendiDatiAttività(idAttività);
+	}
+	
 	//MI SERVE PER MODIFICARE LO STATO DI UN'ATTIVITA' DA QUALSIASI A  RACCOLTO COMPLETATO:	
 	public boolean modificaTipoAttivitàInRaccolto(String stato, double raccoltoQuant, int idAtt) {
 		attivitàDAO = new AttivitàDAO();

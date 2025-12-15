@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -206,4 +207,30 @@ public class AttivitàDAO {
     	}
 	}
 	
+	//PRENDI DATI ATTIVITA':
+	public ArrayList<Object> prendiDatiAttività(int idAttività) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Attività "
+				+ "WHERE id_attività = ? ";
+		
+		ArrayList<Object> elencoDati = new ArrayList<Object>();
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setInt(1, idAttività);
+				
+				ResultSet rs = psmt.executeQuery();
+				
+				if(rs.next()) {
+					elencoDati.add(rs.getDate("data_inizio"));
+					elencoDati.add(rs.getString("tipo_attività"));
+					elencoDati.add(rs.getString("stato_attività"));
+                }
+				return elencoDati;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione, nella CLASSE AttivitàDAO, funzione: prendiDatiAttività" + e);
+    		return elencoDati;
+    	}
+	}
 }
