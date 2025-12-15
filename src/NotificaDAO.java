@@ -27,7 +27,7 @@ public class NotificaDAO {
            
            return x > 0;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella creazione della notifica! funzione (CLASSE NotificaDAO), funzione: invia" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella creazione della notifica! funzione (CLASSE NotificaDAO), funzione: inviaDiPresaInCarico" + e);
     		return false;
     	}
 	}
@@ -48,7 +48,7 @@ public class NotificaDAO {
            
            return result > 0;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nella creazione della notifica! funzione: invia, (CLASSE NotificaDAO) " + e);
+    		JOptionPane.showMessageDialog(null, "Errore nella creazione della notifica! funzione: inviaNotifica, (CLASSE NotificaDAO) " + e);
     		return false;
     	}
 	}
