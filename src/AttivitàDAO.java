@@ -93,8 +93,7 @@ public class AttivitàDAO {
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 				
 				psmt.setString(1, stato);
-//				psmt.setDate
-				psmt.setInt(3, idAttività);
+				psmt.setInt(2, idAttività);
 				
 				int result = psmt.executeUpdate();
 				

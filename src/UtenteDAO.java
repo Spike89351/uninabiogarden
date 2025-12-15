@@ -37,10 +37,8 @@ public class UtenteDAO {
                 psmt.setString(5, utente.getUsername());
                 psmt.setString(6, hashedPassword);
                                 
-                
             psmt.executeUpdate();
     	}catch(Exception e) {
-    		System.out.println(e);
     		JOptionPane.showMessageDialog(null, "Errore nell'inserimento dell'utente! (CLASSE UtenteDAO), funzione: inserisciUtente" + e);
     	}    	
     }

@@ -308,12 +308,13 @@ public class PaginaAttività extends JFrame {
 				//SE L'ATTIVITà E' DIVERSA DALLA RACCOLTA ALLORA INSERISCI SOLO LA DATA ALTRIMENTI VAI NELLA PAGINA E INSERISCI LA QUANTITA' RACCOLTA:
 				if(! tipoAttività.equals("Raccolta")) {
 					//INSERISCI LO STATO 'COMPLETATA':
-					theController.inserisciDataFIneAttività(idAttivitàSelezionata, "Completata");
+					if(theController.inserisciDataFIneAttività(idAttivitàSelezionata, "Completata")) {
+						JOptionPane.showMessageDialog(null, "Complimenti l'attività è stata completata");
+					}else {
+						JOptionPane.showMessageDialog(null, "Errore, non è stato cambiato lo stato dell'attività");
+					}
 					theController.popolaTabellaAttività(idTerreno, idProgetto, model);
-					//QUI DEVO SBLOCCARE I COLTIVATORI:
 				}else {
-					//POI SBLOCCO I COLTIVATORI:
-					
 					//VISUALIZZA DETTAGLI E LI' PUOI AGGIUNGERE ALTRE COSE:
 					theController.daPaginaAttivitàAFinestraDettagliAttività(idTerreno, idAttivitàSelezionata);
 				}

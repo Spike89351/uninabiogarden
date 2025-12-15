@@ -72,7 +72,9 @@ public class FinestraCambiaStatoAttività extends JDialog {
 				JButton btnBack = new JButton("Back");
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+						setVisible(false);
+						theController.paginaAttività.setEnabled(true);
+						theController.paginaAttività.setVisible(true);
 					}
 				});
 				btnBack.setActionCommand("Cancel");
