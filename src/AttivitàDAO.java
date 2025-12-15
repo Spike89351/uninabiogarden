@@ -47,7 +47,6 @@ public class AttivitàDAO {
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
     		
-    		
                 psmt.setInt(1, idTerr);
                 
           ResultSet rs  =  psmt.executeQuery();
