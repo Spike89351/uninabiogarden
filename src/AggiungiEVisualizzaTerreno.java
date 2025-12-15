@@ -359,5 +359,6 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 	public void clearTextField() {
 		txtSuperfice.setText(null);
 		txtIndirizzo.setText(null);
+		txtDeposito.setText(null);
 	}
 }
