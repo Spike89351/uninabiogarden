@@ -211,7 +211,7 @@ public class FinestraCambiaStatoAttività extends JDialog {
 	
 	//MI SERVE A CAPIRE SE LO STATO SELEZIONATO E' CORRETTO:
 	private boolean ctrlText() {
-		if(comboBox.getSelectedItem().toString().trim().equals("")) {
+		if(comboBox.getSelectedItem().toString().trim().isBlank()) {
 			JOptionPane.showMessageDialog(null, "Lo stato dell'attività non può essere vuoto!");
 			return false;
 		}else {

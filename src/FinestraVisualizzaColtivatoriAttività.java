@@ -132,7 +132,7 @@ public class FinestraVisualizzaColtivatoriAttività extends JDialog {
 			lblTipoNotifica = new JLabel("Tipo notifica");
 			lblTipoNotifica.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			
-			String[] tipNot = {"", "Anomalia"};			
+			String[] tipNot = {"Anomalia"};			
 			
 			comboBox = new JComboBox(tipNot);
 			

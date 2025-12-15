@@ -49,7 +49,7 @@ public class PaginaAttività extends JFrame {
 	private JPanel panelBottom;
 	private JLabel lblWelcome;
 	private JButton btnBack;
-	private JButton btnVisualizzaDettagli;
+	private JButton btnCompleta;
 	private JButton btnAggiungi;
 	private JTable table;
 	private DefaultTableModel model;
@@ -66,7 +66,7 @@ public class PaginaAttività extends JFrame {
 				//PULISCI CAMPI:
 				clearFields();
 				//RENDO IL PULSANTE NON DISPONIBILE:
-				btnVisualizzaDettagli.setEnabled(false);
+				btnCompleta.setEnabled(false);
 				//LA VARIABILE A CUI PASSO L'ID DELL'ATTIVITA' LA SETTO  A 0:
 				idAttivitàSelezionata = 0;
 			}
@@ -259,7 +259,7 @@ public class PaginaAttività extends JFrame {
 					if(!statoAttivitàSelezionata.equals("Completata")) {
 						//SBLOCCO IL PULSANTE 'DETTAGLI':
 						btnCambiaStato.setEnabled(true);
-						btnVisualizzaDettagli.setEnabled(true);
+						btnCompleta.setEnabled(true);
 						btnAggiungiColtivatore.setEnabled(true);
 					}
 				}
@@ -297,15 +297,16 @@ public class PaginaAttività extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//MI SERVE PER CAMBIARE STATO DELL'ATTIVIA':
 				theController.daPaginaAttivitàAFinestraCambiaStatoAttività(idAttivitàSelezionata, statoAttivitàSelezionata);
+				disattivaPulsanti();
 			}
 		});
 		panelBottomCentral.add(btnCambiaStato);
 		
-		btnVisualizzaDettagli = new JButton("Completa");
-		panelBottom.add(btnVisualizzaDettagli, BorderLayout.EAST);
-		btnVisualizzaDettagli.setToolTipText("Questo pulsante aggiunge una data fine all'attività selezioanta ");
-		btnVisualizzaDettagli.setEnabled(false);
-		btnVisualizzaDettagli.addActionListener(new ActionListener() {
+		btnCompleta = new JButton("Completa");
+		panelBottom.add(btnCompleta, BorderLayout.EAST);
+		btnCompleta.setToolTipText("Questo pulsante aggiunge una data fine all'attività selezioanta ");
+		btnCompleta.setEnabled(false);
+		btnCompleta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//SE L'ATTIVITà E' DIVERSA DALLA RACCOLTA ALLORA INSERISCI SOLO LA DATA ALTRIMENTI VAI NELLA PAGINA E INSERISCI LA QUANTITA' RACCOLTA:
 				if(! tipoAttività.equals("Raccolta")) {
@@ -320,11 +321,18 @@ public class PaginaAttività extends JFrame {
 					//VISUALIZZA DETTAGLI E LI' PUOI AGGIUNGERE ALTRE COSE:
 					theController.daPaginaAttivitàAFinestraDettagliAttività(idTerreno, idAttivitàSelezionata);
 				}
+				disattivaPulsanti();
 			}
 		});
 		
 	}
 //METODI:
+	//MI SERVE PER DISATTIVARE I PULSANTI:
+	private void disattivaPulsanti() {
+		btnCompleta.setEnabled(false);
+		btnCambiaStato.setEnabled(false);
+	}
+	
 	//SERVE PER PULIRE I CAMPI:
 	private void clearFields() {
 		comboBoxTipoAttività.setSelectedItem(null);
