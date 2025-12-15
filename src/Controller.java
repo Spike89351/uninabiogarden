@@ -592,6 +592,12 @@ public class Controller {
 		return attivitàDAO.prendiDatiAttività(idAttività);
 	}
 	
+	//MI SERVE PER CAMBIARE LO STATO DELL'ATTIVITA'
+	public boolean cambiaStatoAttività(int idAtt, String newState) {
+		attivitàDAO = new AttivitàDAO();
+		return attivitàDAO.cambiaStato(idAtt, newState);
+	}
+	
 	//MI SERVE PER MODIFICARE LO STATO DI UN'ATTIVITA' DA QUALSIASI A  RACCOLTO COMPLETATO:	
 	public boolean modificaTipoAttivitàInRaccolto(String stato, double raccoltoQuant, int idAtt) {
 		attivitàDAO = new AttivitàDAO();

@@ -34,6 +34,7 @@ public class FinestraCambiaStatoAttività extends JDialog {
 	private JLabel lblDataInSel;
 	private JLabel lblTipoAttSel;
 	private JLabel lblStatoAttSel;
+	private JComboBox comboBox;
 	
 	public FinestraCambiaStatoAttività(int idAtt, String statoAtt, Controller c) {
 		addWindowListener(new WindowAdapter() {
@@ -103,7 +104,9 @@ public class FinestraCambiaStatoAttività extends JDialog {
 			JLabel lblNewLabel = new JLabel("Stato Attività");
 			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			
-			JComboBox comboBox = new JComboBox();
+			String[] elencoStato = {"", "Pianificata", "In Corso"};
+			
+			comboBox = new JComboBox(elencoStato);
 			GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 			gl_panelCentral.setHorizontalGroup(
 				gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -165,7 +168,18 @@ public class FinestraCambiaStatoAttività extends JDialog {
 				btnCambiaStato = new JButton("Cambia stato");
 				btnCambiaStato.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+						//CONTROLLER DELLO STATO:
+						if(ctrlText()) {
+							//CAMBIA STATO:
+							if(theController.cambiaStatoAttività(idAtt, comboBox.getSelectedItem().toString().trim())) {
+								clearField();
+								lblStatoAttSel.setText(comboBox.getSelectedItem().toString().trim());
+								JOptionPane.showMessageDialog(null, "Complimenti lo stato dell'attività è stato cambiato correttamente!");
+							}else {
+								clearField();
+								JOptionPane.showMessageDialog(null, "Errore, non è stato possibile cambiare lo stato dell'attività!");
+							}
+						}
 					}
 				});
 				btnCambiaStato.setActionCommand("OK");
@@ -179,11 +193,47 @@ public class FinestraCambiaStatoAttività extends JDialog {
 						setVisible(false);
 						theController.paginaAttività.setEnabled(true);
 						theController.paginaAttività.setVisible(true);
+						
+						//PULISCI CAMPI:
+						clearField();
 					}
 				});
 				btnBack.setActionCommand("Cancel");
 				buttonPane.add(btnBack, BorderLayout.WEST);
 			}
 		}
+	}
+//METODI:
+	//MI SERVE PER PULIRE I CAMPI:
+	private void clearField() {
+		comboBox.setSelectedItem(null);
+	}
+	
+	//MI SERVE A CAPIRE SE LO STATO SELEZIONATO E' CORRETTO:
+	private boolean ctrlText() {
+		if(comboBox.getSelectedItem().toString().equals("")) {
+			JOptionPane.showMessageDialog(null, "Lo stato dell'attività non può essere vuoto!");
+			return false;
+		}else {
+			if(elencoDatiAttività.get(2).toString().equalsIgnoreCase("Pianificata")) {
+				if(elencoDatiAttività.get(2).toString().equalsIgnoreCase("Nessuna")) {
+					JOptionPane.showMessageDialog(null, "Errore, non puoi selezionare uno stato attività precedente!");
+					return false;
+				}else if(elencoDatiAttività.get(2).toString().equalsIgnoreCase("Pianificata")) {
+					JOptionPane.showMessageDialog(null, "Errore, lo stato attività che hai selezionato già è in corso");
+					return false;
+				}
+			}
+			if(elencoDatiAttività.get(2).toString().equalsIgnoreCase("In Corso")) {
+				if(elencoDatiAttività.get(2).toString().equalsIgnoreCase("In Corso")) {
+					JOptionPane.showMessageDialog(null, "Errore, lo stato attività che hai selezionato già è in corso");
+					return false;
+				}else {
+					JOptionPane.showMessageDialog(null, "Errore, lo stato attività non può passare a un'attività precednete");
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }

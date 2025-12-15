@@ -233,4 +233,25 @@ public class AttivitàDAO {
     		return elencoDati;
     	}
 	}
+	
+	//MI SERVE PER CAMBIARE LO STATO DI UN'ATTIVITA'
+	public boolean cambiaStato(int idAtt, String newState) {
+		String sql = "UPDATE prguninabiogarden.Attività "
+				+ "SET stato_attività = ? "
+				+ "WHERE id_attività = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setString(1, newState);
+				psmt.setInt(2, idAtt);
+				
+				int result = psmt.executeUpdate();
+				
+				return result > 0;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione, nella CLASSE AttivitàDAO, funzione: cambiaStato" + e);
+    		return false;
+    	}
+	}
 }
