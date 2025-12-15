@@ -258,6 +258,7 @@ public class PaginaAttività extends JFrame {
 					
 					if(!statoAttivitàSelezionata.equals("Completata")) {
 						//SBLOCCO IL PULSANTE 'DETTAGLI':
+						btnCambiaStato.setEnabled(true);
 						btnVisualizzaDettagli.setEnabled(true);
 						btnAggiungiColtivatore.setEnabled(true);
 					}
@@ -291,6 +292,7 @@ public class PaginaAttività extends JFrame {
 		panelBottomCentral.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnCambiaStato = new JButton("Cambia stato");
+		btnCambiaStato.setEnabled(false);
 		btnCambiaStato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//MI SERVE PER CAMBIARE STATO DELL'ATTIVIA':

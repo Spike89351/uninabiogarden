@@ -211,27 +211,17 @@ public class FinestraCambiaStatoAttività extends JDialog {
 	
 	//MI SERVE A CAPIRE SE LO STATO SELEZIONATO E' CORRETTO:
 	private boolean ctrlText() {
-		if(comboBox.getSelectedItem().toString().equals("")) {
+		if(comboBox.getSelectedItem().toString().trim().equals("")) {
 			JOptionPane.showMessageDialog(null, "Lo stato dell'attività non può essere vuoto!");
 			return false;
 		}else {
-			if(elencoDatiAttività.get(2).toString().equalsIgnoreCase("Pianificata")) {
-				if(elencoDatiAttività.get(2).toString().equalsIgnoreCase("Nessuna")) {
-					JOptionPane.showMessageDialog(null, "Errore, non puoi selezionare uno stato attività precedente!");
-					return false;
-				}else if(elencoDatiAttività.get(2).toString().equalsIgnoreCase("Pianificata")) {
-					JOptionPane.showMessageDialog(null, "Errore, lo stato attività che hai selezionato già è in corso");
-					return false;
-				}
+			if(elencoDatiAttività.get(2).toString().equalsIgnoreCase(comboBox.getSelectedItem().toString().trim())) {
+				JOptionPane.showMessageDialog(null, "Errore, lo stato attività che hai selezionato già è in corso");
+				return false;
 			}
-			if(elencoDatiAttività.get(2).toString().equalsIgnoreCase("In Corso")) {
-				if(elencoDatiAttività.get(2).toString().equalsIgnoreCase("In Corso")) {
-					JOptionPane.showMessageDialog(null, "Errore, lo stato attività che hai selezionato già è in corso");
-					return false;
-				}else {
-					JOptionPane.showMessageDialog(null, "Errore, lo stato attività non può passare a un'attività precednete");
-					return false;
-				}
+			if(elencoDatiAttività.get(2).toString().equalsIgnoreCase("In Corso") && comboBox.getSelectedItem().toString().trim().equalsIgnoreCase("Pianificata")) {
+				JOptionPane.showMessageDialog(null, "Errore, lo stato attività non può passare a un'attività precedente");
+				return false;
 			}
 		}
 		return true;
