@@ -121,10 +121,8 @@ public class ColtivatoreDAO {
 	//POTREI CERCARE PER STATO DELL'ATTIVITA:
 	public void tutteLeAttività(int idColt, DefaultTableModel model, String cercaAtt){
 		if(cercaAtt.isBlank()) {
-			System.out.println("Sto nella prima chiamata");
 			allAttività(idColt, model);
 		}else if(cercaAtt.equals("Completata")){
-			System.out.println("Sto nella seconda chiamata");
 			statoCompletato(idColt, model, cercaAtt);
 		}
 	}
