@@ -38,10 +38,11 @@ public class FinestraManutenzione extends JDialog {
 	private JComboBox comboBoxStato;
 	private JComboBox comboBoxStatoCercato;
 	private JLabel lblAttrezzoScelto;
-	private int newIdAttrezzo;
+	private int idAttrezzoSel;
+	private String currentStateTool;
 	
 	
-	public FinestraManutenzione(int idDep, int idAttrezzo, Controller c) {
+	public FinestraManutenzione(int idDep, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -95,7 +96,7 @@ public class FinestraManutenzione extends JDialog {
 				}
 			});
 			
-			lblAttrezzoScelto = new JLabel("L'id del attrezzo scelto è "+idAttrezzo);
+			lblAttrezzoScelto = new JLabel("L'id del attrezzo scelto è "+idAttrezzoSel);
 			lblAttrezzoScelto.setHorizontalAlignment(SwingConstants.CENTER);
 			lblAttrezzoScelto.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
@@ -155,11 +156,12 @@ public class FinestraManutenzione extends JDialog {
 					//POSSO ANCHE CAMBIARE LO STATO DI UN ATTREZZO DIVERSO DA QUELLO CON CUI SONO ENTRATO:
 					int selectedRow = table.rowAtPoint(e.getPoint());
 					if(selectedRow != -1) {
-						String newddAttrezzoString = String.valueOf(table.getValueAt(selectedRow, 0));
-						int newIdAttrezzo = Integer.valueOf(newddAttrezzoString);
+						idAttrezzoSel = Integer.valueOf(String.valueOf(table.getValueAt(selectedRow, 0)));
+						
+						currentStateTool = String.valueOf(table.getValueAt(selectedRow, 2));
 						
 						//CAMBIA L'ID NEL LABEL:
-						lblAttrezzoScelto.setText("L'id del attrezzo scelto è "+newIdAttrezzo);
+						lblAttrezzoScelto.setText("L'id del attrezzo scelto è "+String.valueOf(idAttrezzoSel));
 					}
 				}
 			});
@@ -176,7 +178,11 @@ public class FinestraManutenzione extends JDialog {
 				btnAggiungi.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//AGGIUNGI MANUTENZIONE ALL'ATTREZZO:
-						//theController.manutenzioneAttrezzo(idAttrezzo, comboBoxStato.getSelectedItem().toString(), disp);
+						boolean disp = false;
+						if(! comboBoxStato.getSelectedItem().toString().trim().equals("In corso")) {
+							disp = true;
+						}
+						theController.manutenzioneAttrezzo(idAttrezzoSel, comboBoxStato.getSelectedItem().toString(), disp);
 						
 						//PULISCI IL CAMPO:
 						clearField();
@@ -199,10 +205,40 @@ public class FinestraManutenzione extends JDialog {
 				btnBack.setActionCommand("Cancel");
 				PanelBottom.add(btnBack, BorderLayout.WEST);
 			}
+			
+			JPanel panelCetnralBottom = new JPanel();
+			PanelBottom.add(panelCetnralBottom, BorderLayout.CENTER);
+			
+			JButton btnCambiaStato = new JButton("Cambia stato");
+			btnCambiaStato.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//CAMBIA STATO ATTREZZO:
+					if(ctrlStateTool()) {
+						
+					}
+				}
+			});
+			panelCetnralBottom.add(btnCambiaStato);
 		}
 	}
 
 //METODI:
+	private boolean ctrlStateTool() {
+		if(comboBoxStato.getSelectedItem().toString().trim().equalsIgnoreCase(currentStateTool)) {
+			JOptionPane.showMessageDialog(null, "Errore, l'attrezzo è gia in questo stato di manutenzione");
+			return false;
+		}else {
+//			if() {
+//				
+//			}
+			
+			
+			
+			
+		}
+		return true;
+	}
+	
 	private void clearField() {
 		comboBoxStato.setSelectedItem(null);
 	}

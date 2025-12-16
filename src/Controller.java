@@ -471,10 +471,10 @@ public class Controller {
 	}
 	
 	//MI SERVE PER ANDARE DALLA PAGINA ATTREZZO ALLA FINESTRA MANUTENZIONE:
-	public void daPaginaAttrezzoAFinestraManutenzione(int idDep, int idAttrezzo) {
+	public void daPaginaAttrezzoAFinestraManutenzione(int idDep) {
 		paginaAttrezzo.setEnabled(false);
 		
-		finestraManutenzioneAttrezzo = new FinestraManutenzione(idDep, idAttrezzo, this);
+		finestraManutenzioneAttrezzo = new FinestraManutenzione(idDep, this);
 		finestraManutenzioneAttrezzo.setVisible(true);
 	}
 	

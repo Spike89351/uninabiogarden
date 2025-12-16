@@ -68,11 +68,10 @@ public class PaginaAttrezzo extends JFrame {
 		menuBar.add(menuAltro);
 		
 		itemManutenzione = new JMenuItem("Manutenzione");
-		itemManutenzione.setEnabled(false);
 		itemManutenzione.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//FAI QUALCOSA:
-				theController.daPaginaAttrezzoAFinestraManutenzione(idDep, idAttrezzoSelezionato);
+				theController.daPaginaAttrezzoAFinestraManutenzione(idDep);
 			}
 		});
 		menuAltro.add(itemManutenzione);
@@ -200,7 +199,6 @@ public class PaginaAttrezzo extends JFrame {
 					}
 					//RENDO DISPONIBILE IL PULSANTE PER RIMUOVERE E PER VISUALIZZARE LA MANUTEZIONE(MENU BAR):
 					btnRimuovi.setEnabled(true);
-					itemManutenzione.setEnabled(true);
 				}
 			}
 		});

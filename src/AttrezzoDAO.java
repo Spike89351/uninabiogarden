@@ -77,7 +77,7 @@ public class AttrezzoDAO {
 	public boolean manutenzione(int idAttrezzo, String statoMan, boolean disp) {
 		String sql = "UPDATE prguninabiogarden.Attrezzo "
 				+ "SET "
-				+ "stato_manutenzione = ? "
+				+ "stato_manutenzione = ?, "
 				+ "disponibilità = ? "
 				+ "WHERE id_attrezzo = ? ";
 		
