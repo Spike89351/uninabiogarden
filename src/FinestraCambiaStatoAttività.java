@@ -172,8 +172,8 @@ public class FinestraCambiaStatoAttività extends JDialog {
 						if(ctrlText()) {
 							//CAMBIA STATO:
 							if(theController.cambiaStatoAttività(idAtt, comboBox.getSelectedItem().toString().trim())) {
+								lblStatoAttSel.setText(String.valueOf(comboBox.getSelectedItem().toString().trim()));
 								clearField();
-								lblStatoAttSel.setText(comboBox.getSelectedItem().toString().trim());
 								JOptionPane.showMessageDialog(null, "Complimenti lo stato dell'attività è stato cambiato correttamente!");
 							}else {
 								clearField();
