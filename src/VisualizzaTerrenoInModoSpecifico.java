@@ -36,6 +36,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private Terreno terrSelezionato;
 	private JButton btnVisualizzaAltriDettagli;
 	private int idProgettoSelezionato;
+	private JButton btnBack;
 	
 	
 	public VisualizzaTerrenoInModoSpecifico(String idTerreno, Controller c) {
@@ -50,13 +51,16 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 					JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei progetti, nella pagina visualizzaTerrenoInMododSpecifico"+ x);
 				}
 			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnBack.doClick();
+			}
 		});
 		
 		terrSelezionato = theController.trovaTerreno(idTerreno);
 		
 		
 		setTitle("Terreno Selezionato");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(618, 300);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
@@ -200,7 +204,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TORNA INDIETRO:

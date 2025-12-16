@@ -228,7 +228,7 @@ public class FinestraManutenzione extends JDialog {
 			JOptionPane.showMessageDialog(null, "Errore, l'attrezzo è gia in questo stato di manutenzione");
 			return false;
 		}else {
-//			if() {
+//			if(comboBoxStato.getSelectedItem().toString().trim()) {
 //				
 //			}
 			
