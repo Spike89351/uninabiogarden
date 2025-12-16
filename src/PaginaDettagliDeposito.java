@@ -264,7 +264,6 @@ public class PaginaDettagliDeposito extends JFrame {
 	}
 	
 //METODI:
-	
 	//PULISCI I CAMPI DI TESTO:
 	private void clearTextField() {
 		txtIndirizzo.setText(null);
