@@ -258,6 +258,7 @@ public class PaginaAttività extends JFrame {
 					
 					if(!statoAttivitàSelezionata.equals("Completata")) {
 						//SBLOCCO IL PULSANTE 'DETTAGLI':
+						btnAggiungiColtivatore.setEnabled(true);
 						btnCambiaStato.setEnabled(true);
 						btnCompleta.setEnabled(true);
 						btnAggiungiColtivatore.setEnabled(true);
@@ -329,6 +330,7 @@ public class PaginaAttività extends JFrame {
 //METODI:
 	//MI SERVE PER DISATTIVARE I PULSANTI:
 	private void disattivaPulsanti() {
+		btnAggiungiColtivatore.setEnabled(false);
 		btnCompleta.setEnabled(false);
 		btnCambiaStato.setEnabled(false);
 	}

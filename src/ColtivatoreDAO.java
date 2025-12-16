@@ -121,8 +121,10 @@ public class ColtivatoreDAO {
 	//POTREI CERCARE PER STATO DELL'ATTIVITA:
 	public void tutteLeAttività(int idColt, DefaultTableModel model, String cercaAtt){
 		if(cercaAtt.isBlank()) {
+			System.out.println("Sto nella prima chiamata");
 			allAttività(idColt, model);
 		}else if(cercaAtt.equals("Completata")){
+			System.out.println("Sto nella seconda chiamata");
 			statoCompletato(idColt, model, cercaAtt);
 		}
 	}
@@ -151,9 +153,9 @@ public class ColtivatoreDAO {
     	}
 	}
 	
-	//CERCA IN BASE A UN PARAMETRO (COMPLETATO): (Non funziona)
+	//CERCA IN BASE A UN PARAMETRO (COMPLETATO): 
 	private void statoCompletato(int idColt, DefaultTableModel model, String tipoStato) {
-		String sql = "SELECT * "
+		String sql = "SELECT STC.*, A.*, T.indirizzo "
 				+ "FROM prguninabiogarden.Coltivatore AS C "
 				+ "JOIN prguninabiogarden.logStoricoColtivatore AS STC ON C.id_coltivatore = STC.id_coltivatore "
 				+ "JOIN prguninabiogarden.Attività AS A ON STC.id_attività = A.id_attività "
@@ -169,7 +171,7 @@ public class ColtivatoreDAO {
                 ResultSet rs = psmt.executeQuery();
                 
             while(rs.next()) {
-				model.addRow(new Object[]{rs.getString("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato"), rs.getString("indirizzo")});
+				model.addRow(new Object[]{rs.getInt("id_attività"), rs.getString("tipo_attività"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato"), rs.getString("indirizzo")});
             }
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: attivitàPianificate" + e);
