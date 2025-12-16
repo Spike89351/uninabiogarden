@@ -219,15 +219,15 @@ public class ProgettoDAO {
 	}
 //MODIFICA DELLO STATO DEL PROGETTO:
 	//RICORDA CHE NEL DB VA' SEGNATO in corso, INVECE NELLA CLASSE ENUM E' in_corso;
-	public void modificaStatoProgetto(String newStatoPorgetto, int codicePrg) {
+	public void modificaStatoProgetto(String newStatoProgetto, int codicePrg) {
 		String sql = "UPDATE prguninabiogarden.Progetto "
 				+ "SET stato_prg = ? "
 				+ "WHERE codice_prg = ? ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
-		
-			psmt.setString(1, newStatoPorgetto);
+			
+			psmt.setString(1, newStatoProgetto);
 			psmt.setInt(2, codicePrg);
 			
 			psmt.executeUpdate();

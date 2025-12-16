@@ -174,8 +174,8 @@ public class PaginaVisualizzaDettagliProgetto extends JFrame {
 						java.sql.Date sqlDate = null;
 						
 						if(dateChooser.getDate() != null) {
-							LocalDate dataInizioLocalDate = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-							sqlDate = java.sql.Date.valueOf(dataInizioLocalDate);
+							LocalDate dataFineLocalDate = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+							sqlDate = java.sql.Date.valueOf(dataFineLocalDate);
 						}
 						
 						theController.modificaDatiProgetto(idProgetto, txtNewNomeProgetto.getText(), sqlDate, String.valueOf(comboBoxNewStatoPrg.getSelectedItem()));
