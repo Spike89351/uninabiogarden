@@ -56,7 +56,7 @@ public class PaginaDettagliDeposito extends JFrame {
 				
 		setTitle("Dettagli deposito");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(750, 297);
+		setSize(780, 297);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
