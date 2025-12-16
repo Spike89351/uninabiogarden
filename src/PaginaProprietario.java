@@ -384,13 +384,12 @@ public class PaginaProprietario extends JFrame {
 		    if (dataScelta.isBefore(oggi)) {
 				JOptionPane.showMessageDialog(null, "La data di inizio del progetto non può essere una data precedente alla data corrente");
 				return false;
-			}else {
-				return true;
 			}
 		}catch(Exception x) {
 			JOptionPane.showMessageDialog(null, "Errore nella conversione della data");
 			return false;
 		}
+		return true;
 	}
 	
 	//SERVE PER PULIRE I CAMPI UNA VOLTA CHE IL PROGETTO E' STATO INSERITO:
