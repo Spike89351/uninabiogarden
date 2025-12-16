@@ -36,6 +36,7 @@ public class PaginaDettagliDeposito extends JFrame {
 	private JTextField txtIndirizzo;
 	private JTextField txtQuantitàRaccolto;
 	private JTextField txtDimensione;
+	private JButton btnBack;
 	private JButton btnModifica;
 	
 	
@@ -51,6 +52,10 @@ public class PaginaDettagliDeposito extends JFrame {
 				}catch(Exception x) {
 					JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella "+ x);
 				}
+			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnBack.doClick();
 			}
 		});
 				
@@ -220,7 +225,7 @@ public class PaginaDettagliDeposito extends JFrame {
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 		panelBottom.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TORNA INDIETRO:
@@ -246,11 +251,12 @@ public class PaginaDettagliDeposito extends JFrame {
 						//AGGIORNO LA TABELLA:
 						theController.inserisciInTabellaLaTuplaDaVisualizzare(idDeposito, model);
 						JOptionPane.showInternalMessageDialog(null, "Le modifiche sono state apportate correttamente!");
-						clearTextField();
 					}else {
 						JOptionPane.showMessageDialog(null, "Le mdoifiche non sono state apportate correttamente!");
 					}
 				}
+				btnModifica.setEnabled(false);
+				clearTextField();
 			}
 		});
 		panelBottom.add(btnModifica, BorderLayout.EAST);
@@ -263,7 +269,7 @@ public class PaginaDettagliDeposito extends JFrame {
 	private void clearTextField() {
 		txtIndirizzo.setText(null);
 		txtDimensione.setText(null);
-		txtDimensione.setText(null);
+		txtQuantitàRaccolto.setText(null);
 	}
 	
 	//CONTROLLO SE I CAMPI DI TESTO SONO CORRETTI:
