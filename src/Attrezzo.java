@@ -17,7 +17,6 @@ public class Attrezzo {
         this.disp = true;
     }
 
-
     //GETTERS:
     public String getNome() {
         return nome;
