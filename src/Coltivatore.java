@@ -7,7 +7,6 @@ public class Coltivatore extends Utente{
     private String codiceId;
     private ArrayList<Attività> elencoAttività = new ArrayList<Attività>();
     private ArrayList<Notifica> elencoNotifiche = new ArrayList<Notifica>();
-    private Date dataInizioContratto;
     private Notifica notifica;
     private boolean disponibilità;
 
@@ -28,9 +27,6 @@ public class Coltivatore extends Utente{
     public ArrayList<Notifica> getElencoNotifiche() {
         return elencoNotifiche;
     }
-    public Date getDataInizioContratto() {
-        return dataInizioContratto;
-    }
     public Notifica getNotifica() {
     	return notifica;
     }
@@ -48,9 +44,6 @@ public class Coltivatore extends Utente{
     }
     public void setElencoNotifiche(ArrayList<Notifica> elencoNotifiche) {
         this.elencoNotifiche = elencoNotifiche;
-    }
-    public void setDataInizioContratto(Date dataInizioContratto) {
-        this.dataInizioContratto = dataInizioContratto;
     }
     public void setNotifica(Notifica notifica) {
     	this.notifica = notifica;
