@@ -176,7 +176,7 @@ public class AttivitàDAO {
 				ResultSet rs = psmt.executeQuery();
 				
 				while(rs.next()) {
-					model.addRow(new Object[]{rs.getInt("id_coltivatore"), rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_nascita")});
+					model.addRow(new Object[]{rs.getInt("id_coltivatore"), rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_nascita"), rs.getString("indirizzo")});
                 }
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con i coltivatori che lavorano su quel campo, nella CLASSE AttivitàDAO, funzione: popolaTabellaConQuantitàRaccolto" + e);
@@ -200,7 +200,7 @@ public class AttivitàDAO {
 				ResultSet rs = psmt.executeQuery();
 				
 				while(rs.next()) {
-					model.addRow(new Object[]{rs.getInt("id_coltivatore"), rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_nascita")});
+					model.addRow(new Object[]{rs.getInt("id_coltivatore"), rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_nascita"), rs.getString("indirizzo")});
                 }
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con i coltivatori che lavorano su quel campo, nella CLASSE AttivitàDAO, funzione: popolaTabellaConQuantitàRaccolto" + e);

@@ -66,7 +66,7 @@ public class FinestraVisualizzaColtivatoriAttività extends JDialog {
 		theController = c;
 		
 		setTitle("Finestra per visualizzare i coltivatori associati all'attività");
-		setSize(474, 472);
+		setSize(750, 472);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -91,7 +91,7 @@ public class FinestraVisualizzaColtivatoriAttività extends JDialog {
 				{
 					model  = new DefaultTableModel(
 							new Object[][]{},
-							new String[]{"id", "username", "Nome", "Cognome", "Data di Nascita"}
+							new String[]{"id", "username", "Nome", "Cognome", "Data di Nascita", "Indirizzo"}
 						);
 					
 					table = new JTable(model);
