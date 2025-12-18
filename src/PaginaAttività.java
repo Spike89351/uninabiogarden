@@ -59,7 +59,7 @@ public class PaginaAttività extends JFrame {
 	private JButton btnCambiaStato;
 	private boolean ctrlDate;
 	
-	public PaginaAttività(int idTerreno, int idProgetto, Controller c) {
+	public PaginaAttività(int idTerreno, int idProgetto, String statoPrg, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -72,6 +72,11 @@ public class PaginaAttività extends JFrame {
 			}
 			@Override
 			public void windowActivated(WindowEvent e) {
+				if(statoPrg.equals("Completato")) {
+					btnAggiungi.setEnabled(false);
+					btnCompleta.setEnabled(false);
+					btnCambiaStato.setEnabled(false);
+				}
 				theController.popolaTabellaAttività(idTerreno, idProgetto, model);
 			}
 		});

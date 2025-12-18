@@ -37,7 +37,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private JButton btnVisualizzaAltriDettagli;
 	private int idProgettoSelezionato;
 	private JButton btnBack;
-	
+	private String statoPrg;
 	
 	public VisualizzaTerrenoInModoSpecifico(String idTerreno, Controller c) {
 		theController = c;
@@ -191,6 +191,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 				int selectedRow = table.rowAtPoint(e.getPoint());
 				if(selectedRow != -1) {
 					String idProgettoStringSel = String.valueOf(table.getValueAt(selectedRow, 0));
+					statoPrg = String.valueOf(table.getValueAt(selectedRow, 3));
 					idProgettoSelezionato = Integer.valueOf(idProgettoStringSel);
 					
 					btnVisualizzaAltriDettagli.setEnabled(true);					
@@ -219,7 +220,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		btnVisualizzaAltriDettagli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//DEVO POTER VISUALIZZARE IL TIPO DI ATTIVITA' CHE SI STA FACENDO SUL TERRENO :
-				theController.daPaginaTerrenoSpecificoAPaginaAttività(Integer.valueOf(idTerreno.trim()), idProgettoSelezionato);
+				theController.daPaginaTerrenoSpecificoAPaginaAttività(Integer.valueOf(idTerreno.trim()), idProgettoSelezionato, statoPrg);
 			}
 		});
 		panelBottom.add(btnVisualizzaAltriDettagli, BorderLayout.EAST);
