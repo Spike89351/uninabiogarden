@@ -52,7 +52,7 @@ public class PaginaSceltaColtivatore extends JFrame {
 		
 		setTitle("Pagina scelta coltivatore");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(450, 300);
+		setSize(950, 300);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -79,7 +79,7 @@ public class PaginaSceltaColtivatore extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"id coltivatore", "Nome", "Cognome", "Data di Nascita"}
+				new String[]{"id coltivatore", "Nome", "Cognome", "Data di Nascita", "Indirizzo"}
 			);
 		
 		table = new JTable(model);
