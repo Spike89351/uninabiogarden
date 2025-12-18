@@ -120,30 +120,12 @@ public class PaginaRegistrati extends JFrame {
 						//INSERISCO I DATI IN UNA VARIABILE DI TIPO UTENTE PER POI PASSARLA ALLA PAGGINA SUCCESSIVA:
 						Utente u = new Utente(txtNome.getText(), txtCognome.getText(), data, gen, txtUsername.getText(), txtPassword.getText());
 						
-						//FACCIAMO CONFERMARE ALL'UTENTE LA REGISTRAZIONE COSI' DA ESSERE SICURI CHE NON ABBIA SBAGLIATO A CLICCARE:
-						int risposta = JOptionPane.showConfirmDialog(
-					            null, // Nessuna finestra padre (verrà mostrato al centro dello schermo)
-					            "Sei sicuro di voler registrati come coltivatore?",
-					            "Conferma",
-					            JOptionPane.YES_NO_OPTION
-					        );
-						
-						if(risposta == JOptionPane.YES_OPTION) {
-							//CONTROLLO SE ESISTE GIA' L'USERNAME:
-							if(! theController.ctrlEsistenzaUtente(txtUsername.getText().trim())) {
-								//CHIAMATA DELLA FUNZIONE CHE CREA IL COLTIVATORE:
-								theController.inserisciColtivatore(u);
-								JOptionPane.showMessageDialog(null, "La registrazione è avvenuta con successo!");
-								
-								//PULIAMO I CAMPI:
-								clearFields(txtNome, txtCognome, dateChooser, txtUsername, txtPassword);
-								
-								//TORNIAMO ALL'HOMEPAGE:
-								theController.paginaRegistrati.setVisible(false);
-								theController.homePage.setVisible(true);
-							}else {
-								JOptionPane.showMessageDialog(null, "ERRORE, l'username che hai inserito è già in uso, RIPROVA!");
-							}
+						//CONTROLLO CHE L'USERNAME NON ESISTE:
+						if(! theController.ctrlEsistenzaUtente(txtUsername.getText().trim())) {
+							//PASSO LA VARIABILE (u) ALLA FINESTRA PER INSERIRE L'INDIRIZZO DEL COLTIVATORE:
+							theController.daPaginaRegistrazioneAFinestraInserisciIndirizzoColtivatore(u);
+						}else {
+							JOptionPane.showMessageDialog(null, "ERRORE, l'username che hai inserito è già in uso, RIPROVA!");
 						}
 						
 					}catch(Exception x) {

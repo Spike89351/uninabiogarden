@@ -13,14 +13,14 @@ public class ColtivatoreDAO {
 	private static final String PASSWORD = "Informatica1";
     
 	//MI SERVE PER INSERIRE UN COLTIVATORE:
-	public void inserisciColtivatore(String username) {
-		String sql = "INSERT INTO prguninabiogarden.Coltivatore (Username) VALUES(?)";
+	public void inserisciColtivatore(String username, String indirizzo) {
+		String sql = "INSERT INTO prguninabiogarden.Coltivatore (Username, indirizzo) VALUES(?, ?)";
     	
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 
-               
                 psmt.setString(1, username);
+                psmt.setString(2, indirizzo);
                 
             psmt.executeUpdate();
     	}catch(Exception e) {

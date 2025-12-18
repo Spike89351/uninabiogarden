@@ -66,6 +66,7 @@ public class Controller {
 	public FinestraVisualizzaColtivatoriAttività finestraVisualizzaColtivatoriAttività;
 	public FinestraNotificheColtivatore finestraNotificheColtivatore;
 	public FinestraCambiaStatoAttività finestraCambiaStatoAttività;
+	public FinestraInserisciIndirizzoColtivatore finestraInserisciIndirizzoColtivatore;
 	
 	//MAIN:
 	public static void main(String[] args) throws SQLException {
@@ -96,13 +97,12 @@ public class Controller {
 	}
 	
 	//INSERIMENTO DEL COLTIVATORE:
-	public void inserisciColtivatore(Utente u) {
+	public void inserisciColtivatore(Utente u, String indirizzo) {
 		utenteDAO = new UtenteDAO();
 		utenteDAO.inserisicUtente(u);//INSERIMENTO NELLA TABELLA UTENTE;
 		coltivatoreDAO = new ColtivatoreDAO();
-		coltivatoreDAO.inserisciColtivatore(u.getUsername());//INSERIMENTO NELLA TABELLA COLTIVATORE;
+		coltivatoreDAO.inserisciColtivatore(u.getUsername(), indirizzo);//INSERIMENTO NELLA TABELLA COLTIVATORE;
 	}
-	
 	
 	//QUESTO METODO SERVE PER IL LOGIN:
 	public void accediAllaPiattaforma(String username, String password) {
@@ -129,6 +129,13 @@ public class Controller {
 		}
 	}
 	
+	//MI SERVE PER PASSARE DALLA PAGINA REGISTRAZIONE A QUELLA PER INSERIRE L'INDIRIZZO DEL COLTIVATORE:
+	public void daPaginaRegistrazioneAFinestraInserisciIndirizzoColtivatore(Utente u) {
+		paginaRegistrati.setVisible(false);
+		
+		finestraInserisciIndirizzoColtivatore = new FinestraInserisciIndirizzoColtivatore(u, this);
+		finestraInserisciIndirizzoColtivatore.setVisible(true);
+	}
 
 	//PASSAGGIO DALLA PAGINA CREAZIONE UTENTE A QUELLA DELLA REGISTRAZIONE PER IL PROPRIETARIO:
 	public void daPaginaRegistratiAProprietario(Utente u) {
