@@ -267,6 +267,10 @@ public class PaginaAttività extends JFrame {
 						btnCambiaStato.setEnabled(true);
 						btnCompleta.setEnabled(true);
 						btnAggiungiColtivatore.setEnabled(true);
+					}else {
+						btnAggiungiColtivatore.setEnabled(false);
+						btnCambiaStato.setEnabled(false);
+						btnCompleta.setEnabled(false);
 					}
 				}
 			}
