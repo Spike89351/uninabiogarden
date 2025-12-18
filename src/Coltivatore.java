@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 
 public class Coltivatore extends Utente{
     private String codiceId;
+    private String indirizzo;
     private ArrayList<Attività> elencoAttività = new ArrayList<Attività>();
     private ArrayList<Notifica> elencoNotifiche = new ArrayList<Notifica>();
     private Notifica notifica;
@@ -13,7 +14,7 @@ public class Coltivatore extends Utente{
 
 
     //COSTRUTTORE:
-    Coltivatore(String nome, String cognome, java.sql.Date dataNascita, Genere gen, String username, String password){
+    Coltivatore(String nome, String cognome, java.sql.Date dataNascita, Genere gen, String username, String password, String indirizzo){
         super(nome, cognome, dataNascita, gen, username, password);
     }
 
@@ -33,7 +34,9 @@ public class Coltivatore extends Utente{
     public boolean isDisponibilità() {
         return disponibilità;
     }
-    
+    public String getIndirizzo() {
+    	return indirizzo;
+    }
 
     //SETTERS:
     public void setCodiceId(String codiceId) {
@@ -51,9 +54,7 @@ public class Coltivatore extends Utente{
     public void setDisponibilità(boolean disponibilità) {
         this.disponibilità = disponibilità;
     }
-
-
-
-
-
+    public void setIndirizzo(String indirizzo) {
+    	this.indirizzo = indirizzo;
+    }
 }
