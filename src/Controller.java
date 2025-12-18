@@ -303,7 +303,7 @@ public class Controller {
 	public void daPaginaTerrenoSpecificoAPaginaAttività(int idTerreno, int idProgetto, String statoPrg) {
 		paginaTerrenoSpecifico.setVisible(false);
 		
-		paginaAttività = new PaginaAttività(idTerreno, idProgetto, stato, this);
+		paginaAttività = new PaginaAttività(idTerreno, idProgetto, statoPrg, this);
 		paginaAttività.setVisible(true);
 	}
 	
