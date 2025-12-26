@@ -50,7 +50,7 @@ public class PaginaRegistrati extends JFrame {
 		
 		setTitle("Registrati");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(425, 412);
+		setSize(500, 415);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -203,12 +203,12 @@ public class PaginaRegistrati extends JFrame {
 								.addComponent(lblUsername, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addGap(33)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
-								.addComponent(comboBoxGenere, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtUsername)
 								.addComponent(txtCognome)
 								.addComponent(txtNome)
-								.addComponent(txtPassword))))
+								.addComponent(txtPassword)
+								.addComponent(comboBoxGenere, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(checkBoxMostraPassword)
 					.addContainerGap(13, Short.MAX_VALUE))
