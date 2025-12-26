@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class FinestraInserisciIndirizzoColtivatore extends JDialog {
 	private Controller theController;
@@ -66,6 +68,14 @@ public class FinestraInserisciIndirizzoColtivatore extends JDialog {
 			}
 			
 			txtIndirizzo = new JTextField();
+			txtIndirizzo.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+						btnCompleta.doClick();
+					}
+				}
+			});
 			txtIndirizzo.setToolTipText("Il formato dell'indirizzo deve essere: \"Via Garibaldi, 25, 00100 Roma (RM)\"");
 			txtIndirizzo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 			txtIndirizzo.setColumns(10);
