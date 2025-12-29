@@ -76,14 +76,11 @@ public class UtenteDAO {
             ResultSet rs = psmt.executeQuery();
 
             if (rs.next()) {
+            	
                 String hashedPasswordFromDB = rs.getString("Passwd");
                 // 2. CONFRONTA LA PASSWORD(IN HASH) CON LA PASSOWRD PRESA DAL DB(IN HASH) BCrypt.checkpw()
                 boolean isPasswordCorrect = BCrypt.checkpw(password, hashedPasswordFromDB);
-                if (isPasswordCorrect) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return isPasswordCorrect;
             } else {
                 JOptionPane.showMessageDialog(null, "Username non trovato.");
                 return false;
