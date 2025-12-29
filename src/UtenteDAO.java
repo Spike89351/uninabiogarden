@@ -28,7 +28,6 @@ public class UtenteDAO {
     		String gen = String.valueOf(utente.getGenere());
     		
               String hashedPassword = BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt());
-              // Salva `hashedPassword` nel database
     		
                 psmt.setString(1, utente.getNome());
                 psmt.setString(2, utente.getCognome());
