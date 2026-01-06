@@ -181,4 +181,26 @@ public class DepositoDAO {
     	}
 	}
 	
+	//MI SERVE PER TROVARE TUTTI I DEPOSITI ASSOCIATI AD UN PROPRIETARIO:
+	public void allDepositi(String username, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Proprietario AS P "
+				+ "JOIN prguninabiogarden.Deposito AS D ON P.id_proprietario = D.id_proprietario "
+				+ "WHERE P.Username = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setString(1, username);
+
+			ResultSet rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				model.addRow(new Object[]{rs.getString("id_deposito"), rs.getString("indirizzo_deposito"), rs.getString("dim_Deposito"), rs.getDouble("quantità_raccolto")});
+			}
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione allDepositi, nella classe DepositoDAO " + e);
+    	} 
+	}
+	
 }

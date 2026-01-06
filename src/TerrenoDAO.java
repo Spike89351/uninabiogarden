@@ -107,16 +107,16 @@ public class TerrenoDAO {
 	}
 	
 	//MI SERVE PER POPOLARE LA TABELLA CON I TERRENI LIBERI PER POI SCEGLIERNE UNO SU CUI FARE UN NUOVO PROGETTO:
-	public void terreniDisponibiliPerUnNuovoProgetto(int codiceProp, DefaultTableModel model) {
+	public void terreniDisponibiliPerUnNuovoProgetto(String username, DefaultTableModel model) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Proprietario AS P "
 				+ "JOIN prguninabiogarden.Terreno AS T ON P.id_proprietario = T.id_proprietario "
-				+ "WHERE P.id_proprietario = ? AND T.codice_prg IS null ";
+				+ "WHERE P.username = ? AND T.codice_prg IS null ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 				
-				psmt.setInt(1, codiceProp);
+				psmt.setString(1, username);
 				
 				ResultSet rs = psmt.executeQuery();
 				

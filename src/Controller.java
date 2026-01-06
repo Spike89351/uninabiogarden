@@ -68,7 +68,7 @@ public class Controller {
 	public FinestraCambiaStatoAttività finestraCambiaStatoAttività;
 	public FinestraInserisciIndirizzoColtivatore finestraInserisciIndirizzoColtivatore;
 	public FinestraMostraTerreni finestraMostraTerreni;	
-	
+	public FinestraVisualizzaDepositi finestraVisualizzaDepositi;
 	//MAIN:
 	public static void main(String[] args) throws SQLException {
 			Controller theController = new Controller();
@@ -246,9 +246,8 @@ public class Controller {
 	//MI SERVE PER POPOLARE LA TABELLA DELLA FINESTRA SU DICHIARATA:
 	public void popolaTabellaConITerreniLiberi(String username, DefaultTableModel model) {
 		model.setRowCount(0);
-		 proprietarioDAO = new ProprietarioDAO();
 		 terrenoDAO = new TerrenoDAO();
-		 terrenoDAO.terreniDisponibiliPerUnNuovoProgetto(proprietarioDAO.trovaCodiceProprietario(username), model);
+		 terrenoDAO.terreniDisponibiliPerUnNuovoProgetto(username, model);
 	}
 	
 	//SERVE PER LA FINESTRA DEI DATI DELL'UTENTE:
@@ -264,6 +263,21 @@ public class Controller {
 		AggEVisualizzaTerre	= new AggiungiEVisualizzaTerreno(this, u);
 		AggEVisualizzaTerre.setVisible(true);
 		paginaProprietario.setEnabled(false);
+	}
+	
+	//MI SERVE PER ANDARE NELLA FINSETRA PER I DEPOSITI DISPONIBILI:
+	public void vaiAMostraDepositiDisponibiliNellaFinestra(String username, JTextField txt) {
+		AggEVisualizzaTerre.setEnabled(false);
+		
+		finestraVisualizzaDepositi = new FinestraVisualizzaDepositi(username, txt, this);
+		finestraVisualizzaDepositi.setVisible(true);
+	}
+	
+	//MI SERVE PER POPOLARE LA TABELLA CON TUTTI I DEPOSITI DI UN DETERMINATO PROP. FINESTRA SOPRA DICHIARATA:
+	public void allDepoistiDiUnProp(String username, DefaultTableModel model) {
+		model.setRowCount(0);
+		depositoDAO = new DepositoDAO();
+		depositoDAO.allDepositi(username, model);
 	}
 	
 	//SERVE PER POPOLARE LA TABELLA CON I VARI TERRENI CHE APPARTENGONO ALL'UTENTE:

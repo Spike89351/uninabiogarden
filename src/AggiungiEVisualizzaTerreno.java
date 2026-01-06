@@ -36,7 +36,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 	private JTextField txtSuperfice;
 	private JComboBox<TipoTerreno> comboBoxTipoTerreno;
 	private JComboBox<Fertilità> comboBoxFertilità;
-	
+	private int count;
 	
 	//ATTRIBUTI:
 	private String idTerrenoSelezioanto;
@@ -158,6 +158,18 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		lblDeposito.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		txtDeposito = new JTextField();
+		txtDeposito.setToolTipText("Fai click due volte con il mouse per fare apparire la tabella con i depositi");
+		txtDeposito.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				count++;
+				if(count == 2) {
+					//VAI ALLA PAGINA PER VISUALIZZARE I TUOI DEPOSITI:
+					theController.vaiAMostraDepositiDisponibiliNellaFinestra(u.getUsername().trim(), txtDeposito);
+					count = 0;
+				}
+			}
+		});
 		txtDeposito.setColumns(10);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
@@ -269,7 +281,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		modelTerreno = new DefaultTableModel(
 				new Object[][]{},
 				new String[]{ "id Terreno", "Indirizzo", "Superfice", "Tipo terreno", "Fertilità"}
-			);;
+			);
 		
 		table = new JTable(modelTerreno);
 		table.addMouseListener(new MouseAdapter() {
