@@ -53,7 +53,7 @@ public class FinestraDettagliAttività extends JDialog {
 		theController = c;
 		
 		setTitle("Finestra dettagli Attività");
-		setSize(450, 300);
+		setSize(580, 320);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
