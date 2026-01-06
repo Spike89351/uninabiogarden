@@ -109,7 +109,7 @@ public class FinestraVisualizzaDepositi extends JDialog {
 				getRootPane().setDefaultButton(btnOk);
 			}
 			{
-				btnBack = new JButton("Cancel");
+				btnBack = new JButton("Back");
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						setVisible(false);
