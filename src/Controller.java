@@ -67,6 +67,7 @@ public class Controller {
 	public FinestraNotificheColtivatore finestraNotificheColtivatore;
 	public FinestraCambiaStatoAttività finestraCambiaStatoAttività;
 	public FinestraInserisciIndirizzoColtivatore finestraInserisciIndirizzoColtivatore;
+	public FinestraMostraTerreni finestraMostraTerreni;	
 	
 	//MAIN:
 	public static void main(String[] args) throws SQLException {
@@ -232,6 +233,22 @@ public class Controller {
 		}catch(Exception x){
 			JOptionPane.showMessageDialog(null, "Errore nella funzione nella classe controller, funzione modificaDati");
 		}
+	}
+	
+	//DA PAGINA PRINCIPALE A FINESTRA INSERISCI ID DEL TERRENO (MI SERVE PER QUANDO DEVO CREARE UN PROGETTO E NON SO L'ID DEL TERRENO):
+	public void daPaginaPrincipaleAFinestraInserisciIdDelTerreno(String username, JTextField txtField) {
+		paginaProprietario.setEnabled(false);
+		
+		finestraMostraTerreni = new FinestraMostraTerreni(username, txtField, this);
+		finestraMostraTerreni.setVisible(true);
+	}
+	
+	//MI SERVE PER POPOLARE LA TABELLA DELLA FINESTRA SU DICHIARATA:
+	public void popolaTabellaConITerreniLiberi(String username, DefaultTableModel model) {
+		model.setRowCount(0);
+		 proprietarioDAO = new ProprietarioDAO();
+		 terrenoDAO = new TerrenoDAO();
+		 terrenoDAO.terreniDisponibiliPerUnNuovoProgetto(proprietarioDAO.trovaCodiceProprietario(username), model);
 	}
 	
 	//SERVE PER LA FINESTRA DEI DATI DELL'UTENTE:

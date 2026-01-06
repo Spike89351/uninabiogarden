@@ -106,4 +106,25 @@ public class TerrenoDAO {
 		return 0;
 	}
 	
+	//MI SERVE PER POPOLARE LA TABELLA CON I TERRENI LIBERI PER POI SCEGLIERNE UNO SU CUI FARE UN NUOVO PROGETTO:
+	public void terreniDisponibiliPerUnNuovoProgetto(int codiceProp, DefaultTableModel model) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Proprietario AS P "
+				+ "JOIN prguninabiogarden.Terreno AS T ON P.id_proprietario = T.id_proprietario "
+				+ "WHERE P.id_proprietario = ? AND T.codice_prg IS null ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+				
+				psmt.setInt(1, codiceProp);
+				
+				ResultSet rs = psmt.executeQuery();
+				
+				while(rs.next()) {
+					model.addRow(new Object[]{rs.getInt("id_terreno"), rs.getString("indirizzo"), rs.getDouble("superfice"), rs.getString("tipo_terreno"), rs.getString("fertilità")});
+                }
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella CLASSE TerrenoDAO, funzione: terreniDisponibiliPerUnNuovoProgetto" + e);
+    	} 
+	}
 }

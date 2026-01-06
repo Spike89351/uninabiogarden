@@ -56,7 +56,7 @@ public class PaginaProprietario extends JFrame {
 	private JComboBox comboBoxStatoProgetto;
 	private JTextField txtDescrizione;
 	private int idProgettoSelezionato;
-	
+	private int count;
 	
 	public PaginaProprietario(String username, Controller c) {
 		theController = c;
@@ -213,7 +213,18 @@ public class PaginaProprietario extends JFrame {
 		lblIdTerreno.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		txtIdTerreno = new JTextField();
-		txtIdTerreno.setToolTipText("Inserisci l'id del terreno dove vuoi che il progetto si svolga");
+		txtIdTerreno.setToolTipText("Fai click col mouse due volte per aprire la tabella con i tuoi terreni");
+		txtIdTerreno.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				count++;
+				if(count == 2) {
+					//APRI UNA FINESTRA CHE MOSTRA I TERRENI, L'ID E L'INDIRIZZO:
+					theController.daPaginaPrincipaleAFinestraInserisciIdDelTerreno(username, txtIdTerreno);
+					count = 0;
+				}
+			}
+		});
 		txtIdTerreno.setColumns(10);
 		
 		String[] statoProgetto = {"Tutti", "Pianificato", "In corso", "Completato"};
