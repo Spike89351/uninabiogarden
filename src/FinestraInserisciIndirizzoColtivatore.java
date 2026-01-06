@@ -82,21 +82,21 @@ public class FinestraInserisciIndirizzoColtivatore extends JDialog {
 			GroupLayout gl_panelCentral = new GroupLayout(PanelCentral);
 			gl_panelCentral.setHorizontalGroup(
 				gl_panelCentral.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_panelCentral.createSequentialGroup()
-						.addGap(119)
+					.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
+						.addGap(98)
 						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGap(18)
-						.addComponent(txtIndirizzo, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-						.addGap(88))
+						.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE)
+						.addGap(70))
 			);
 			gl_panelCentral.setVerticalGroup(
 				gl_panelCentral.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_panelCentral.createSequentialGroup()
-						.addGap(58)
+						.addGap(90)
 						.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblNewLabel)
 							.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addContainerGap(131, Short.MAX_VALUE))
+						.addContainerGap(99, Short.MAX_VALUE))
 			);
 			PanelCentral.setLayout(gl_panelCentral);
 		}
