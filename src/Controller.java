@@ -194,6 +194,7 @@ public class Controller {
 		paginaProprietario.setVisible(true);
 	}
 		
+	//DA HOME PAGE A PAGINA COLTIVATORE:
 	private void daHomePageAccessoAColtivatore(String username) {
 		homePage.setVisible(false);
 		
