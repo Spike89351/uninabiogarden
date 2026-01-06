@@ -154,7 +154,7 @@ public class FinestraInserisciIndirizzoColtivatore extends JDialog {
 			JOptionPane.showMessageDialog(null, "Errore, il campo 'indirizzo' non può essere vuoto");
 			return false;
 		}else {
-			if(! txtIndirizzo.getText().matches("^[A-Za-z\\s]+,\\s\\d{1,4}[A-Za-z]?,\\s\\d{5}\\s[A-Za-z\\s]+\\s\\([A-Z]{2}\\)$")) {
+			if(! txtIndirizzo.getText().matches("^[A-Za-zÀ-ÿ0-9'\\s\\.]+,\\s(\\d{1,4}[A-Za-z]?|[Ss][Nn][Cc]|[Kk][Mm]\\s?\\d+),\\s\\d{5}\\s[A-Za-zÀ-ÿ'\\s]+\\s\\([A-Z]{2}\\)$")) {
 				JOptionPane.showMessageDialog(null, "Errore il formato dell'indirizzo è errato!");
 				return false;
 			}
