@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class PaginaRegistraDeposito extends JFrame {
 	private Controller theController;
@@ -54,6 +55,8 @@ public class PaginaRegistraDeposito extends JFrame {
 		lblDimensione.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		txtDimensione = new JTextField();
+		txtDimensione.setToolTipText("dimensioni in m²");
+		txtDimensione.setHorizontalAlignment(SwingConstants.CENTER);
 		txtDimensione.setColumns(10);
 		
 		txtIndirizzo = new JTextField();
@@ -68,10 +71,10 @@ public class PaginaRegistraDeposito extends JFrame {
 						.addComponent(lblDimensione)
 						.addComponent(lblIndirizzo))
 					.addGap(18)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-						.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtDimensione, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(117, Short.MAX_VALUE))
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(txtIndirizzo)
+						.addComponent(txtDimensione, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+					.addGap(94))
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -96,7 +99,8 @@ public class PaginaRegistraDeposito extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TORNA INDIETRO:
-				
+				setVisible(false);
+				theController.paginaRegistrati.setVisible(true);
 			}
 		});
 		panelBottom.add(btnBack, BorderLayout.WEST);
@@ -123,7 +127,7 @@ public class PaginaRegistraDeposito extends JFrame {
 			JOptionPane.showMessageDialog(null, "Errore, il campo di testo indirizzo non può essere vuoto!");
 			return false;
 		}else {
-			if(! txtIndirizzo.getText().matches("^[A-Za-z\\s]+,\\s\\d{1,4}[A-Za-z]?,\\s\\d{5}\\s[A-Za-z\\s]+\\s\\([A-Z]{2}\\)$")) {
+			if(! txtIndirizzo.getText().matches("^[A-Za-zÀ-ÿ'\\s]+,\\s(\\d{1,4}[A-Za-z]?|[Ss][Nn][Cc]),\\s\\d{5}\\s[A-Za-zÀ-ÿ'\\s]+\\s\\([A-Z]{2}\\)$")) {
 				JOptionPane.showMessageDialog(null, "Errore il formato dell'indirizzo è errato!");
 				return false;
 			}
