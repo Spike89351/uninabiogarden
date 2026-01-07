@@ -180,10 +180,10 @@ public class PaginaColtura extends JFrame {
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(lblTabella)
-							.addPreferredGap(ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
-							.addComponent(comboBoxDisponibile, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-						.addComponent(lblAvvisoColturaScelta, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
+							.addComponent(comboBoxDisponibile, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+						.addComponent(lblAvvisoColturaScelta, GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
