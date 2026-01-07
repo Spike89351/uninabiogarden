@@ -101,7 +101,8 @@ public class AttrezzoDAO {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Deposito AS D "
 				+ "JOIN prguninabiogarden.Attrezzo AS A ON D.id_deposito = A.id_deposito "
-				+ "WHERE D.id_deposito = ? AND A.stato_manutenzione = ?";
+				+ "WHERE D.id_deposito = ? AND A.stato_manutenzione = ? "
+				+ "ORDER BY A.id_attrezzo ASC ";
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
