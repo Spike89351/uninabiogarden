@@ -141,7 +141,7 @@ public class PaginaColtura extends JFrame {
 			}
 		});
 		
-		String[] elencoStagioni = {"", "Annuale", "Estivo", "Invernale", "Autunnale", "Primaverile"};
+		String[] elencoStagioni = {"", "Annuale", "Estivo", "Invernale", "Autunnale", "Primaverile", "Prim/Est", "Aut/Inv"};
 		
 		comboBoxStagione = new JComboBox(elencoStagioni);
 		
