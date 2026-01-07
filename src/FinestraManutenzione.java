@@ -111,13 +111,15 @@ public class FinestraManutenzione extends JDialog {
 								.addGap(18)
 								.addComponent(comboBoxStato, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
 							.addComponent(lblAttrezzoScelto, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGap(49)
-						.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 							.addGroup(gl_panelCentral.createSequentialGroup()
+								.addGap(49)
 								.addComponent(lblStatoCercato)
 								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(comboBoxStatoCercato, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
-							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 346, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_panelCentral.createSequentialGroup()
+								.addGap(18)
+								.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 377, GroupLayout.PREFERRED_SIZE)))
 						.addContainerGap())
 			);
 			gl_panelCentral.setVerticalGroup(
