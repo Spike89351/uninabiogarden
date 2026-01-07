@@ -91,7 +91,7 @@ public class AttrezzoDAO {
                 int riuscito = psmt.executeUpdate();
                 return riuscito > 0;
     	}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, "Errore nell'eliminazione dell'attrezzo! (CLASSE AttrezzoDAO), funzione: elimina" + e);
+    		JOptionPane.showMessageDialog(null, "Errore nel cambio della manuntenzione dell'attrezzo! (CLASSE AttrezzoDAO), funzione: manutenzione" + e);
     		return false;
     	} 		
 	}
