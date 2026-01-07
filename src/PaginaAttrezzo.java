@@ -58,7 +58,7 @@ public class PaginaAttrezzo extends JFrame {
 		
 		setTitle("Pagina Attrezzo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(540, 380);
+		setSize(625, 380);
 		setLocationRelativeTo(null);
 		
 		menuBar = new JMenuBar();
@@ -147,17 +147,17 @@ public class PaginaAttrezzo extends JFrame {
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(40)
 							.addComponent(btnAggiungi)))
-					.addGap(48)
-					.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+					.addGap(18)
+					.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(47)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panelTable, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNome)
 								.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -171,7 +171,7 @@ public class PaginaAttrezzo extends JFrame {
 								.addComponent(comboBoxStato, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addComponent(btnAggiungi)))
-					.addGap(77))
+					.addGap(45))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
