@@ -56,7 +56,8 @@ public class FinestraManutenzione extends JDialog {
 		});
 		theController = c;
 		
-		setSize(669, 311);
+		setTitle("Finestra manutenzione");
+		setSize(670, 315);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -187,13 +188,11 @@ public class FinestraManutenzione extends JDialog {
 							//CAMBIA STATO ATTREZZO:
 							if(ctrlStateTool()) {
 								boolean disp = false;
-								if(comboBoxStato.getSelectedItem().toString().trim().equals("In corso")) {
+								if(comboBoxStato.getSelectedItem().toString().trim().equalsIgnoreCase("Completata") || comboBoxStato.getSelectedItem().toString().trim().equalsIgnoreCase("Pianificata")) {
 									disp = true;
 								}
 								if(theController.manutenzioneAttrezzo(idAttrezzoSel, comboBoxStatoCercato.getSelectedItem().toString().trim(), disp)) {
 									JOptionPane.showMessageDialog(null, "Cambio dello stato avvenuto con successo!");
-//									comboBoxStatoCercato.setSelectedItem("Nessuna");
-//									comboBoxStatoCercato.actionPerformed(e);
 									//AGGIORNA LA TABELLA:
 									theController.popolaTabellaTramiteStatoAttrezzo(idDep, "Nessuna", model);
 								}
