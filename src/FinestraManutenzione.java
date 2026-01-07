@@ -99,6 +99,7 @@ public class FinestraManutenzione extends JDialog {
 			});
 			
 			lblAttrezzoScelto = new JLabel("L'id del attrezzo scelto è "+idAttrezzoSel);
+			lblAttrezzoScelto.setVisible(false);
 			lblAttrezzoScelto.setHorizontalAlignment(SwingConstants.CENTER);
 			lblAttrezzoScelto.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
@@ -161,7 +162,7 @@ public class FinestraManutenzione extends JDialog {
 					int selectedRow = table.rowAtPoint(e.getPoint());
 					if(selectedRow != -1) {
 						idAttrezzoSel = Integer.valueOf(String.valueOf(table.getValueAt(selectedRow, 0)));
-						
+						lblAttrezzoScelto.setVisible(true);
 						currentStateTool = String.valueOf(table.getValueAt(selectedRow, 2));
 						if(currentStateTool.equalsIgnoreCase("Completata")) {
 							btnCambiaStato.setEnabled(false);

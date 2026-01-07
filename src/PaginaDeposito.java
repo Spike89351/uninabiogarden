@@ -55,7 +55,7 @@ public class PaginaDeposito extends JFrame {
 		
 		setTitle("Dettagli Depositi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(600, 319);
+		setSize(660, 334);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -117,7 +117,7 @@ public class PaginaDeposito extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
 					.addComponent(lblElencoDepositi)
 					.addGap(98))
-				.addGroup(gl_panelCentral.createSequentialGroup()
+				.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addContainerGap()
@@ -131,8 +131,8 @@ public class PaginaDeposito extends JFrame {
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(45)
 							.addComponent(btnAggiungiDeposito)))
-					.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -144,9 +144,6 @@ public class PaginaDeposito extends JFrame {
 						.addComponent(lblAggiungiDeposito, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(14)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblIndirizzo)
@@ -156,7 +153,10 @@ public class PaginaDeposito extends JFrame {
 								.addComponent(lblDimensione, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtDimensione, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addComponent(btnAggiungiDeposito)))
+							.addComponent(btnAggiungiDeposito))
+						.addGroup(gl_panelCentral.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(70, Short.MAX_VALUE))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
