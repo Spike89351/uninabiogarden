@@ -143,21 +143,21 @@ public class PaginaAttrezzo extends JFrame {
 								.addGroup(gl_panelCentral.createSequentialGroup()
 									.addComponent(lblStato, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 									.addGap(18)
-									.addComponent(comboBoxStato, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-							.addPreferredGap(ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE))
+									.addComponent(comboBoxStato, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGap(40)
 							.addComponent(btnAggiungi)))
+					.addGap(48)
+					.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(47)
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-						.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panelCentral.createSequentialGroup()
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panelTable, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+						.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNome)
 								.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -171,7 +171,7 @@ public class PaginaAttrezzo extends JFrame {
 								.addComponent(comboBoxStato, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addComponent(btnAggiungi)))
-					.addContainerGap(64, Short.MAX_VALUE))
+					.addGap(77))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
