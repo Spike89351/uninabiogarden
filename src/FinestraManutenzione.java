@@ -42,6 +42,7 @@ public class FinestraManutenzione extends JDialog {
 	private String currentStateTool;
 	private JButton btnBack;
 	private JButton btnCambiaStato;
+	
 	public FinestraManutenzione(int idDep, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -193,10 +194,11 @@ public class FinestraManutenzione extends JDialog {
 								if(comboBoxStato.getSelectedItem().toString().trim().equalsIgnoreCase("Completata") || comboBoxStato.getSelectedItem().toString().trim().equalsIgnoreCase("Pianificata")) {
 									disp = true;
 								}
-								if(theController.manutenzioneAttrezzo(idAttrezzoSel, comboBoxStatoCercato.getSelectedItem().toString().trim(), disp)) {
+								if(theController.manutenzioneAttrezzo(idAttrezzoSel, String.valueOf(comboBoxStato.getSelectedItem().toString().trim()), disp)) {
 									JOptionPane.showMessageDialog(null, "Cambio dello stato avvenuto con successo!");
 									//AGGIORNA LA TABELLA:
 									theController.popolaTabellaTramiteStatoAttrezzo(idDep, "Nessuna", model);
+									comboBoxStatoCercato.setSelectedItem("Nessuna");
 								}
 							}
 							//PULISCI IL CAMPO:
