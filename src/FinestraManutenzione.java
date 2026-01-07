@@ -40,8 +40,8 @@ public class FinestraManutenzione extends JDialog {
 	private JLabel lblAttrezzoScelto;
 	private int idAttrezzoSel;
 	private String currentStateTool;
-	
-	
+	private JButton btnBack;
+	private JButton btnCambiaStato;
 	public FinestraManutenzione(int idDep, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -51,7 +51,7 @@ public class FinestraManutenzione extends JDialog {
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
-				theController.paginaAttrezzo.setEnabled(true);
+				btnBack.doClick();
 			}
 		});
 		theController = c;
@@ -92,7 +92,7 @@ public class FinestraManutenzione extends JDialog {
 				public void itemStateChanged(ItemEvent e) {
 					 if (e.getStateChange() == ItemEvent.SELECTED) {
 				            theController.popolaTabellaTramiteStatoAttrezzo(idDep, String.valueOf(e.getItem().toString().trim()), model);
-				        }
+				     }
 				}
 			});
 			
@@ -159,7 +159,11 @@ public class FinestraManutenzione extends JDialog {
 						idAttrezzoSel = Integer.valueOf(String.valueOf(table.getValueAt(selectedRow, 0)));
 						
 						currentStateTool = String.valueOf(table.getValueAt(selectedRow, 2));
-						
+						if(currentStateTool.equalsIgnoreCase("Completata")) {
+							btnCambiaStato.setEnabled(false);
+						}else {
+							btnCambiaStato.setEnabled(true);
+						}
 						//CAMBIA L'ID NEL LABEL:
 						lblAttrezzoScelto.setText("L'id del attrezzo scelto è "+String.valueOf(idAttrezzoSel));
 					}
@@ -174,26 +178,37 @@ public class FinestraManutenzione extends JDialog {
 			getContentPane().add(PanelBottom, BorderLayout.SOUTH);
 			PanelBottom.setLayout(new BorderLayout(0, 0));
 			{
-				JButton btnAggiungi = new JButton("Aggiungi");
-				btnAggiungi.addActionListener(new ActionListener() {
+				btnCambiaStato = new JButton("Cambia stato");
+				btnCambiaStato.setEnabled(false);
+				btnCambiaStato.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//AGGIUNGI MANUTENZIONE ALL'ATTREZZO:
-						boolean disp = false;
-						if(! comboBoxStato.getSelectedItem().toString().trim().equals("In corso")) {
-							disp = true;
+						if(ctrTxtField()){
+							//CAMBIA STATO ATTREZZO:
+							if(ctrlStateTool()) {
+								boolean disp = false;
+								if(comboBoxStato.getSelectedItem().toString().trim().equals("In corso")) {
+									disp = true;
+								}
+								if(theController.manutenzioneAttrezzo(idAttrezzoSel, comboBoxStatoCercato.getSelectedItem().toString().trim(), disp)) {
+									JOptionPane.showMessageDialog(null, "Cambio dello stato avvenuto con successo!");
+//									comboBoxStatoCercato.setSelectedItem("Nessuna");
+//									comboBoxStatoCercato.actionPerformed(e);
+									//AGGIORNA LA TABELLA:
+									theController.popolaTabellaTramiteStatoAttrezzo(idDep, "Nessuna", model);
+								}
+							}
+							//PULISCI IL CAMPO:
+							clearField();
 						}
-						theController.manutenzioneAttrezzo(idAttrezzoSel, comboBoxStato.getSelectedItem().toString(), disp);
-						
-						//PULISCI IL CAMPO:
-						clearField();
 					}
 				});
-				btnAggiungi.setActionCommand("OK");
-				PanelBottom.add(btnAggiungi, BorderLayout.EAST);
-				getRootPane().setDefaultButton(btnAggiungi);
+				btnCambiaStato.setActionCommand("OK");
+				PanelBottom.add(btnCambiaStato, BorderLayout.EAST);
+				getRootPane().setDefaultButton(btnCambiaStato);
 			}
 			{
-				JButton btnBack = new JButton("Back");
+				btnBack = new JButton("Back");
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//TORNA INDIETRO:
@@ -208,17 +223,6 @@ public class FinestraManutenzione extends JDialog {
 			
 			JPanel panelCetnralBottom = new JPanel();
 			PanelBottom.add(panelCetnralBottom, BorderLayout.CENTER);
-			
-			JButton btnCambiaStato = new JButton("Cambia stato");
-			btnCambiaStato.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					//CAMBIA STATO ATTREZZO:
-					if(ctrlStateTool()) {
-						
-					}
-				}
-			});
-			panelCetnralBottom.add(btnCambiaStato);
 		}
 	}
 
@@ -228,13 +232,18 @@ public class FinestraManutenzione extends JDialog {
 			JOptionPane.showMessageDialog(null, "Errore, l'attrezzo è gia in questo stato di manutenzione");
 			return false;
 		}else {
-//			if(comboBoxStato.getSelectedItem().toString().trim()) {
-//				
-//			}
-			
-			
-			
-			
+			if(currentStateTool.equalsIgnoreCase("Pianificata") && comboBoxStato.getSelectedItem().toString().trim().equalsIgnoreCase("Nessuna") ) {
+				JOptionPane.showMessageDialog(null, "Errore, l'attrezzo non può avere questo stato che hai selezionato");
+				return false;
+			}
+			if(currentStateTool.equalsIgnoreCase("In corso") && comboBoxStato.getSelectedItem().toString().trim().equalsIgnoreCase("Nessuna") ) {
+				JOptionPane.showMessageDialog(null, "Errore, l'attrezzo non può avere questo stato che hai selezionato");
+				return false;
+			}
+			if(currentStateTool.equalsIgnoreCase("In corso") && comboBoxStato.getSelectedItem().toString().trim().equalsIgnoreCase("Pianificata")) {
+				JOptionPane.showMessageDialog(null, "Errore, l'attrezzo non può avere questo stato che hai selezionato");
+				return false;
+			}
 		}
 		return true;
 	}
