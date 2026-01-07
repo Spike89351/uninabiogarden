@@ -243,7 +243,7 @@ public class PaginaDeposito extends JFrame {
 			JOptionPane.showMessageDialog(null, "Errore, il campo di testo indirizzo non può essere vuoto!");
 			return false;
 		}else {
-			if(! txtIndirizzo.getText().trim().matches("^[A-Za-z\\s]+,\\s\\d{1,4}[A-Za-z]?,\\s\\d{5}\\s[A-Za-z\\s]+\\s\\([A-Z]{2}\\)$")) {
+			if(! txtIndirizzo.getText().trim().matches("^[A-Za-zÀ-ÿ'\\s]+,\\s(\\d{1,4}[A-Za-z]?|[Ss][Nn][Cc]),\\s\\d{5}\\s[A-Za-zÀ-ÿ'\\s]+\\s\\([A-Z]{2}\\)$")) {
 				JOptionPane.showMessageDialog(null, "Errore il formato dell'indirizzo è errato!");
 				return false;
 			}
