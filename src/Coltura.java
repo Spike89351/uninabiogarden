@@ -2,7 +2,7 @@ public class Coltura {
     private String nome;
     private String colore;
     private String stagione;
-    private String tipoOrtaggio; //ORESA DAL DB
+    private String tipoOrtaggio;
     private boolean disp;
 
 
@@ -12,7 +12,6 @@ public class Coltura {
         this.stagione = stagione;
         this.tipoOrtaggio = tipoOrtaggio;
     }
-
 
 
     //GETTERS:
