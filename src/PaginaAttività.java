@@ -173,6 +173,18 @@ public class PaginaAttività extends JFrame {
 		lblDataFine.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		dateChooserFine = new JDateChooser();
+		dateChooserFine.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				if ("date".equals(evt.getPropertyName())) {
+                    // CONTROLLA SE LA NUOVA DATA E' DIVERSA DA NULL:
+                    if (dateChooserFine.getDate() != null) {
+                    	ctrlDate = true; 
+                    } else {
+                    	ctrlDate = false;
+                    }    
+				}
+			}
+		});
 		dateChooserFine.setToolTipText("Questo camapo non può essere vuoto");
 		
 		btnAggiungiColtivatore = new JButton("Seleziona coltivatore");
