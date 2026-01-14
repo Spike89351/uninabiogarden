@@ -86,7 +86,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		
 		JPanel panelTable = new JPanel();
 		
-		JLabel lblSuperfice = new JLabel("La superfice è");
+		JLabel lblSuperfice = new JLabel("La superficie è");
 		lblSuperfice.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JLabel lblTipoTerreno = new JLabel("Il tipo di terreno è ");
