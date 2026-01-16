@@ -90,7 +90,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		
 		JPanel panelTable = new JPanel();
 		
-		JLabel lblSuperfice = new JLabel("Superficie");
+		JLabel lblSuperfice = new JLabel("Superficie (m²)");
 		lblSuperfice.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		txtSuperfice = new JTextField();
@@ -177,16 +177,16 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(45)
 					.addComponent(lblAggiungiTerreno)
-					.addPreferredGap(ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 341, Short.MAX_VALUE)
 					.addComponent(lblVisualizzaTerreni)
 					.addGap(139))
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(lblSuperfice)
-							.addGap(43)
-							.addComponent(txtSuperfice, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(txtSuperfice, 0, 0, Short.MAX_VALUE))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(lblTipoTerreno, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 							.addGap(28)
@@ -201,7 +201,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 								.addComponent(comboBoxFertilità, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtDeposito, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))))
-					.addGap(21)
+					.addGap(53)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addComponent(lblTerrenoSelezionato)
@@ -214,7 +214,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(44)
 					.addComponent(btnAggiungiTerreno)
-					.addPreferredGap(ComponentPlacement.RELATED, 341, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 373, Short.MAX_VALUE)
 					.addComponent(btnVisualizzaTerreno)
 					.addGap(109))
 		);
@@ -227,13 +227,10 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 						.addComponent(lblVisualizzaTerreni, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addGap(17)
-									.addComponent(txtSuperfice, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panelCentral.createSequentialGroup()
-									.addGap(18)
-									.addComponent(lblSuperfice, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)))
+							.addGap(18)
+							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblSuperfice, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtSuperfice, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panelCentral.createSequentialGroup()
