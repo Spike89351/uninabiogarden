@@ -278,7 +278,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		
 		modelTerreno = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "id Terreno", "Indirizzo", "Superficie", "Tipo terreno", "Fertilità"}
+				new String[]{ "id Terreno", "Indirizzo", "Superficie (m²)", "Tipo terreno", "Fertilità"}
 			);
 		
 		table = new JTable(modelTerreno);

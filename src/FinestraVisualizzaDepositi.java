@@ -72,7 +72,7 @@ public class FinestraVisualizzaDepositi extends JDialog {
 				{
 					model = new DefaultTableModel(
 							new Object[][]{},
-							new String[]{ "id deposito", "Indirizzo", "Dimensione", "Raccolto"}
+							new String[]{ "id deposito", "Indirizzo", "Dimensione (m²)", "Raccolto"}
 						);;
 					
 					table = new JTable(model);

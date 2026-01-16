@@ -94,7 +94,7 @@ public class PaginaDettagliDeposito extends JFrame {
 		JMenu menuColtura = new JMenu("Coltura");
 		menuBar.add(menuColtura);
 		
-		JMenuItem menuItemColtiura = new JMenuItem("Visualizza dati coltura");
+		JMenuItem menuItemColtiura = new JMenuItem("Visualizza coltura");
 		menuItemColtiura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//VAI ALLA PAGINA DEDICATA ALLA COLTURA:
@@ -212,7 +212,7 @@ public class PaginaDettagliDeposito extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"Id deposito", "Indirizzo", "Dimensione", "Raccolto"}
+				new String[]{"Id deposito", "Indirizzo", "Dimensione (m²)", "Raccolto"}
 			);
 		
 		table = new JTable(model);
