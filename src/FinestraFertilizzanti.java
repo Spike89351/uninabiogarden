@@ -57,7 +57,7 @@ public class FinestraFertilizzanti extends JDialog {
 		});
 		
 		setTitle("Pagina Fertilizzanti");
-		setSize(500, 334);
+		setSize(600, 346);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -173,7 +173,7 @@ public class FinestraFertilizzanti extends JDialog {
 			
 			model = new DefaultTableModel(
 					new Object[][]{},
-					new String[]{"Letame", "Compost", "Granulari", "Liquidi"}
+					new String[]{"Letame (Kg)", "Compost (kg)", "Granulari (Kg)", "Liquidi (Kg)"}
 				);
 			
 			table = new JTable(model);
