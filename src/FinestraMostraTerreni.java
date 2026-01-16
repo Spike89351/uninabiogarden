@@ -75,7 +75,7 @@ public class FinestraMostraTerreni extends JDialog {
 				{
 					model = new DefaultTableModel(
 							new Object[][]{},
-							new String[]{ "Id terreno", "Indirizzo", "Superficie", "Tipo terreno", "Fertilità"}
+							new String[]{ "Id terreno", "Indirizzo", "Superficie (m²)", "Tipo terreno", "Fertilità"}
 						);;
 					
 					table = new JTable(model);

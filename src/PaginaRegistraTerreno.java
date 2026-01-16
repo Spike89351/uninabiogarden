@@ -50,7 +50,7 @@ public class PaginaRegistraTerreno extends JFrame {
 		JPanel panelCentral = new JPanel();
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		
-		JLabel lblSuperfice = new JLabel("Superfice");
+		JLabel lblSuperfice = new JLabel("Superfice (m²)");
 		lblSuperfice.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JLabel lblTipoTerreno = new JLabel("Tipo terreno");
