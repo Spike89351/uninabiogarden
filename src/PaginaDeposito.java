@@ -83,7 +83,7 @@ public class PaginaDeposito extends JFrame {
 		JLabel lblIndirizzo = new JLabel("Indirizzo");
 		lblIndirizzo.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JLabel lblDimensione = new JLabel("Dimensione");
+		JLabel lblDimensione = new JLabel("Dimensione (m²)");
 		lblDimensione.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		txtDimensione = new JTextField();
@@ -166,7 +166,7 @@ public class PaginaDeposito extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"Id deposito", "Indirizzo", "Dimensione"}
+				new String[]{"Id deposito", "Indirizzo", "Dimensione m²"}
 			);
 		
 		table = new JTable(model);
