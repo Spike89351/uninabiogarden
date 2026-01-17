@@ -78,11 +78,15 @@ public class Controller {
 	public Controller() throws SQLException{
 		homePage = new HomePage(this);
 		homePage.setVisible(true);
-		
-		paginaRegistrati = new PaginaRegistrati(this);
 	}
 	
 //METODI:
+	public void daHomePageToPaginaRegistrati() {
+		homePage.setVisible(false);
+		
+		paginaRegistrati = new PaginaRegistrati(this);
+		paginaRegistrati.setVisible(true);
+	}
 	
 	//INSERIMENTO DEL PROPRIETARIO:
 	public void inserisciPropreitario(Utente u, String email, String partitaIva, Deposito dep, double superfice, TipoTerreno tipoTerreno, Fertilità tipoFertilità, String indirizzo) {

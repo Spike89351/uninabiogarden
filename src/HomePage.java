@@ -86,8 +86,7 @@ public class HomePage extends JFrame {
 		btnRegistrati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//ACCESSO ALLA PAGINA DI REGISTRAZIONE:
-				theController.homePage.setVisible(false);
-				theController.paginaRegistrati.setVisible(true);
+				theController.daHomePageToPaginaRegistrati();
 				//PULIZIA DEI CAMPI DI TESTO:
 				clearFields(txtUsername, txtPassword);
 			}
