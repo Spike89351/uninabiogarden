@@ -27,7 +27,7 @@ public class AttivitàDAO {
                 psmt.setDate(5, dataInizio);
                 psmt.setDate(6, dataFine);
                 
-           int x =  psmt.executeUpdate();
+           int x = psmt.executeUpdate();
            
            return x > 0;
     	}catch(Exception e) {
