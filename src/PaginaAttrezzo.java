@@ -46,13 +46,17 @@ public class PaginaAttrezzo extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu menuAltro;
 	private JMenuItem itemManutenzione;
-	private ArrayList<Attrezzo> elenco;
+	private ArrayList<Attrezzo> elenco = new ArrayList<Attrezzo>();
 	
 	public PaginaAttrezzo(int idDep, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				//POPOLA TABELLA CON TUTTI GLI ATTREZZI:
+				model.setRowCount(0);
+				if(! elenco.isEmpty()) {
+					elenco.clear();
+				}
 				elenco = theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep);
 				for(Attrezzo at : elenco) {
 					model.addRow(new Object[]{at.getNome(), String.valueOf(at.getTipo()), String.valueOf(at.getStatoAttrezzo())});
@@ -121,7 +125,9 @@ public class PaginaAttrezzo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(ctrlTextFields()) {
 					if(theController.creaAttrezzo(idDep, txtNome.getText(), comboBoxTipo.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString())) {
-						//theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
+						model.setRowCount(0);
+						elenco.clear();
+						elenco = theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep);
 						clearTxtField();
 						JOptionPane.showMessageDialog(null, "Hai inserito correttamente l'attrezzo!");
 					}
@@ -233,7 +239,10 @@ public class PaginaAttrezzo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//UNA VOLTA SELEZIONATO UN ATTREZZO TRAMITE TABELLA IL PULSANTE SI SBLOCCA E POSSO ELIMINARLO:
 				if(theController.eliminaAttrezzo(idAttrezzoSelezionato)) {
-					//theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
+					model.setRowCount(0);
+					elenco.clear();
+					elenco = theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep);
+					
 					clearTxtField();
 					btnRimuovi.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "Hai eliminato correttamente l'attrezzo!");
