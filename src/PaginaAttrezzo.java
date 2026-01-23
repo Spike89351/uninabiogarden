@@ -193,13 +193,12 @@ public class PaginaAttrezzo extends JFrame {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int row = table.rowAtPoint(e.getPoint());
+				int row = table.rowAtPoint(e.getPoint()); //MI SERVE PER CAPIRE A QUALE LINEA HA CLICCATO L'UTENTE COSI' LA CONFRONTO CON L'ARRAY NELLA STESSA POSIZIONE;
 				if(row != -1) {
 					try {
 						//PRESA DEL DATO DALLA TABELLA:
-						String idAttrezzoString = String.valueOf(table.getValueAt(row, 0));
-						//CAST DEL DATO DA STRING A INT:
-						idAttrezzoSelezionato = Integer.valueOf(idAttrezzoString);
+						idAttrezzoSelezionato = elenco.get(row).getIdAttrezzo();
+						
 					}catch(ClassCastException x) {
 						JOptionPane.showMessageDialog(scrollPane, "Errore nel cast!");
 					}
