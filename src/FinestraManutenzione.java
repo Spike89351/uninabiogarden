@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
@@ -42,13 +43,21 @@ public class FinestraManutenzione extends JDialog {
 	private String currentStateTool;
 	private JButton btnBack;
 	private JButton btnCambiaStato;
+	private ArrayList<Attrezzo> elenco = new ArrayList<Attrezzo>();
 	
 	public FinestraManutenzione(int idDep, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				//POPOLA LA TABELLA GIA' DI DEFAULT:
-				theController.popolaTabellaTramiteStatoAttrezzo(idDep, "Nessuna", model);
+				model.setRowCount(0);
+				if(! elenco.isEmpty()) {
+					elenco.clear();
+				}
+				elenco = theController.popolaTabellaTramiteStatoAttrezzo(idDep, "Nessuna");
+				for(Attrezzo at : elenco) {
+					model.addRow(new Object[]{at.getNome(), String.valueOf(at.getTipo()), String.valueOf(at.getStatoAttrezzo())});
+				}
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -93,8 +102,13 @@ public class FinestraManutenzione extends JDialog {
 			comboBoxStatoCercato.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent e) {
 					 if (e.getStateChange() == ItemEvent.SELECTED) {
-				            theController.popolaTabellaTramiteStatoAttrezzo(idDep, String.valueOf(e.getItem().toString().trim()), model);
-				     }
+				         model.setRowCount(0);
+				         elenco.clear();
+				         elenco = theController.popolaTabellaTramiteStatoAttrezzo(idDep, String.valueOf(e.getItem().toString().trim()));
+				         for(Attrezzo at : elenco) {
+								model.addRow(new Object[]{at.getNome(), String.valueOf(at.getTipo()), String.valueOf(at.getStatoAttrezzo())});
+				         }
+					 }
 				}
 			});
 			
@@ -151,7 +165,7 @@ public class FinestraManutenzione extends JDialog {
 			
 			model = new DefaultTableModel(
 					new Object[][]{},
-					new String[]{ "Id attrezzo", "Nome", "Stato Manutenzione"}
+					new String[]{"Nome", "Tipo", "Stato Manutenzione"}
 				);
 			
 			table = new JTable(model);
@@ -161,9 +175,10 @@ public class FinestraManutenzione extends JDialog {
 					//POSSO ANCHE CAMBIARE LO STATO DI UN ATTREZZO DIVERSO DA QUELLO CON CUI SONO ENTRATO:
 					int selectedRow = table.rowAtPoint(e.getPoint());
 					if(selectedRow != -1) {
-						idAttrezzoSel = Integer.valueOf(String.valueOf(table.getValueAt(selectedRow, 0)));
+						idAttrezzoSel = elenco.get(selectedRow).getIdAttrezzo();
 						lblAttrezzoScelto.setVisible(true);
 						currentStateTool = String.valueOf(table.getValueAt(selectedRow, 2));
+						
 						if(currentStateTool.equalsIgnoreCase("Completata")) {
 							btnCambiaStato.setEnabled(false);
 						}else {
@@ -198,7 +213,9 @@ public class FinestraManutenzione extends JDialog {
 								if(theController.manutenzioneAttrezzo(idAttrezzoSel, String.valueOf(comboBoxStato.getSelectedItem().toString().trim()), disp)) {
 									JOptionPane.showMessageDialog(null, "Cambio dello stato avvenuto con successo!");
 									//AGGIORNA LA TABELLA:
-									theController.popolaTabellaTramiteStatoAttrezzo(idDep, "Nessuna", model);
+									model.setRowCount(0);
+									elenco.clear();
+									elenco = theController.popolaTabellaTramiteStatoAttrezzo(idDep, "Nessuna");
 									comboBoxStatoCercato.setSelectedItem("Nessuna");
 								}
 							}

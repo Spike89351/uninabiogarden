@@ -104,12 +104,14 @@ public class AttrezzoDAO {
 	}
 	
 	//POPOLA LA TABELLA CON GLI ATTREZZI TRAMITE IL SUO STATO DI MANUTENZIONE E E ID DEPOSITO:
-	public void popolaTabellaConIdDepositoEStatoManutenzione(int idDep, String statoManutenzione, DefaultTableModel model) {
+	public ArrayList<Attrezzo> popolaTabellaConIdDepositoEStatoManutenzione(int idDep, String statoManutenzione) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Deposito AS D "
 				+ "JOIN prguninabiogarden.Attrezzo AS A ON D.id_deposito = A.id_deposito "
 				+ "WHERE D.id_deposito = ? AND A.stato_manutenzione = ? "
 				+ "ORDER BY A.id_attrezzo ASC ";
+		
+		ArrayList<Attrezzo> elenco = new ArrayList();
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -120,10 +122,14 @@ public class AttrezzoDAO {
                 ResultSet rs = psmt.executeQuery();
                 		
 	    		while(rs.next()) {
-	    			model.addRow(new Object[]{rs.getString("id_attrezzo"), rs.getString("nome_attrezzo"), rs.getString("stato_manutenzione")});
+	    			Attrezzo at = new Attrezzo(rs.getString("nome_attrezzo"), TipoAttrezzo.valueOf(rs.getString("tipo")), StatoAttrezzo.valueOf(rs.getString("stato_attrezzo")));
+	    			at.setIdAttrezzo(rs.getInt("id_attrezzo"));
+	    			elenco.add(at);
 	            }
+	    		return elenco;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella con gli attrezzi tramite stato! (CLASSE AttrezzoDAO), funzione: popolaTabellaConIdDepositoEStatoManutenzione" + e);
+    		return null;
     	} 
 	}
 	

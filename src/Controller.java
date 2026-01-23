@@ -527,10 +527,9 @@ public class Controller {
 	}
 	
 	//MI SERVE PER POPOLARE LA TABELLA CON TUTTI GLI ATTREZZI TRAMITE MANUTENZIONE:
-	public void popolaTabellaTramiteStatoAttrezzo(int idDep, String statoMan, DefaultTableModel model) {
-		model.setRowCount(0);
+	public ArrayList<Attrezzo> popolaTabellaTramiteStatoAttrezzo(int idDep, String statoMan) {
 		attrezzoDAO = new AttrezzoDAO();
-		attrezzoDAO.popolaTabellaConIdDepositoEStatoManutenzione(idDep, statoMan, model);
+		return attrezzoDAO.popolaTabellaConIdDepositoEStatoManutenzione(idDep, statoMan);
 	}
 	
 	//MI SERVE PER PASSARE DALLA PAGINA DETTAGLI DEPOSITO ALLA PAGINA FERTILIZZANTI:
