@@ -182,7 +182,7 @@ public class PaginaColtivatore extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"Id attività", "Tipo", "Data inizio", "Data fine", "Stato", "indirizzo"}
+				new String[]{"Tipo", "Data inizio", "Data fine", "Stato", "indirizzo"}
 			);
 		
 		table = new JTable(model);

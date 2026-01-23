@@ -8,15 +8,15 @@ public class Attività {
     private java.sql.Date dataInizio;
     private java.sql.Date dataFine;
     private java.sql.Date dataRaccolto;
-    private Terreno terreno;
+    private String indirizzo;
     private int quantitàRaccolto;
     
-    Attività(CondizioneRaccolto cond, Stato stat, java.sql.Date dataInizio, java.sql.Date dataFine, Terreno ter, int raccolto){
+    Attività(CondizioneRaccolto cond, Stato stat, java.sql.Date dataInizio, java.sql.Date dataFine, String indirizzo, int raccolto){
     	this.condizioneRaccolto = cond;
     	this.statoEsecuzione = stat;
     	this.dataInizio = dataInizio;
     	this.dataFine = dataFine;
-    	this.terreno = ter;
+    	this.indirizzo = indirizzo;
     	this.quantitàRaccolto = raccolto;
     }
 
@@ -39,8 +39,8 @@ public class Attività {
 	public java.sql.Date getDataRaccolto() {
 		return dataRaccolto;
 	}
-	public Terreno getTerreno() {
-		return terreno;
+	public String getIndirizzo() {
+		return indirizzo;
 	}
 	public int getQuantitàRaccolto() {
 		return quantitàRaccolto;
@@ -65,8 +65,8 @@ public class Attività {
 	public void setDataRaccolto(java.sql.Date dataRaccolto) {
 		this.dataRaccolto = dataRaccolto;
 	}
-	public void setTerreno(Terreno terreno) {
-		this.terreno = terreno;
+	public void setIndirizzo(String indir) {
+		this.indirizzo = indir;
 	}
 	public void setQuantitàRaccolto(int quantitàRaccolto) {
 		this.quantitàRaccolto = quantitàRaccolto;
