@@ -30,9 +30,6 @@ public class Attrezzo {
     public StatoAttrezzo getStatoAttrezzo() {
         return statoAttrezzo;
     }
-    public Stato getStatoAtt() {
-    	return statoAtt;
-    }
     public boolean isDisp() {
         return disp;
     }
@@ -49,9 +46,6 @@ public class Attrezzo {
     }
     public void setStatoAttrezzo(StatoAttrezzo statoAttrezzo) {
         this.statoAttrezzo = statoAttrezzo;
-    }
-    public void setStatoAtt(Stato statoAtt) {
-    	this.statoAtt = statoAtt;
     }
     public void setDisp(boolean disp) {
         this.disp = disp;

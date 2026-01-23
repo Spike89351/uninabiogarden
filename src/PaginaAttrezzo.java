@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JMenuBar;
@@ -34,6 +35,7 @@ public class PaginaAttrezzo extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblWelcome;
+	private JButton btnAggiungi;
 	private JTextField txtNome;
 	private JComboBox comboBoxTipo;
 	private JComboBox comboBoxStato;
@@ -44,13 +46,17 @@ public class PaginaAttrezzo extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu menuAltro;
 	private JMenuItem itemManutenzione;
+	private ArrayList<Attrezzo> elenco;
 	
 	public PaginaAttrezzo(int idDep, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				//POPOLA TABELLA CON TUTTI GLI ATTREZZI:
-				theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
+				elenco = theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep);
+				for(Attrezzo at : elenco) {
+					model.addRow(new Object[]{at.getNome(), String.valueOf(at.getTipo()), String.valueOf(at.getStatoAttrezzo())});
+				}
 			}
 		});
 		
@@ -110,12 +116,12 @@ public class PaginaAttrezzo extends JFrame {
 		
 		comboBoxStato = new JComboBox(statoAttrezzo);
 		
-		JButton btnAggiungi = new JButton("Aggiungi");
+		btnAggiungi = new JButton("Aggiungi");
 		btnAggiungi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ctrlTextFields()) {
 					if(theController.creaAttrezzo(idDep, txtNome.getText(), comboBoxTipo.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString())) {
-						theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
+						//theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
 						clearTxtField();
 						JOptionPane.showMessageDialog(null, "Hai inserito correttamente l'attrezzo!");
 					}
@@ -180,7 +186,7 @@ public class PaginaAttrezzo extends JFrame {
 		
 		model = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "Id attrezzo", "Nome", "Tipo", "Stato"}
+				new String[]{"Nome", "Tipo", "Stato"}
 			);
 		
 		table = new JTable(model);
@@ -228,7 +234,7 @@ public class PaginaAttrezzo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//UNA VOLTA SELEZIONATO UN ATTREZZO TRAMITE TABELLA IL PULSANTE SI SBLOCCA E POSSO ELIMINARLO:
 				if(theController.eliminaAttrezzo(idAttrezzoSelezionato)) {
-					theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
+					//theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
 					clearTxtField();
 					btnRimuovi.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "Hai eliminato correttamente l'attrezzo!");

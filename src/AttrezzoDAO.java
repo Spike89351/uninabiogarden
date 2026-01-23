@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -34,11 +35,13 @@ public class AttrezzoDAO {
 	}
 	
 	//MI SERVE PER POPOLARE LA TABELLA CON TUTTI GLI ATTREZZI DI QUEL DEPOSITO:
-	public void popolaTabellaAttrezzoPerDeposito(int idDep, DefaultTableModel model) {
+	public ArrayList<Attrezzo> popolaTabellaAttrezzoPerDeposito(int idDep) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Deposito AS D "
 				+ "JOIN prguninabiogarden.Attrezzo AS A ON D.id_deposito = A.id_deposito "
 				+ "WHERE D.id_deposito = ? ";
+		
+		ArrayList<Attrezzo> elencoAtt = new ArrayList<Attrezzo>();
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -48,10 +51,14 @@ public class AttrezzoDAO {
                 ResultSet rs = psmt.executeQuery();
                 
                 while(rs.next()) {
-                	model.addRow(new Object[]{rs.getString("id_attrezzo"), rs.getString("nome_attrezzo"), rs.getString("tipo"), rs.getString("stato_attrezzo")});
+                	Attrezzo att = new Attrezzo(rs.getString("nome_attrezzo"), TipoAttrezzo.valueOf(rs.getString("tipo")), StatoAttrezzo.valueOf(rs.getString("stato_attrezzo")));
+                	att.setIdAttrezzo(rs.getInt("id_attrezzo"));
+                	elencoAtt.add(att);
                 }
+                return elencoAtt;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella con gli attrezzi del deposito! (CLASSE AttrezzoDAO), funzione: popolaTabellaAttrezzoPerDeposito" + e);
+    		return null;
     	} 
 	}
 	
