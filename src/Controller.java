@@ -162,7 +162,7 @@ public class Controller {
 		paginaRegistrati.setVisible(true);
 	}
 	
-	//PSSAGGIO DA PROPRIETARIO A DEPOSITO:
+	//PASSAGGIO DA PROPRIETARIO A DEPOSITO:
 	public void daPaginaRegistraProprietarioAPaginaRegistraDeposito(Utente u, String email, String pIva) {
 		paginaRegistraProp.setVisible(false);
 		

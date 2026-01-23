@@ -59,7 +59,7 @@ public class PaginaColtivatore extends JFrame {
 		
 		setTitle("Pagina del coltivatore");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(700, 308);
+		setSize(700, 310);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
