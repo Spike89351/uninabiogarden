@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +32,7 @@ public class DepositoDAO {
     }
 	
 	//SERVE A POPOLARE LA TABELLA CON I DEPOSITI:
-	public void popolaTabellaDepositi(int idProp, DefaultTableModel model) {
+	public ArrayList<Deposito> popolaTabellaDepositi(int idProp) {
 		String sql = "SELECT id_deposito, indirizzo_deposito, dim_Deposito "
 				+ "FROM prguninabiogarden.Deposito "
 				+ "WHERE id_Proprietario = ? "

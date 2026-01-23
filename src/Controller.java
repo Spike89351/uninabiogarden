@@ -436,10 +436,9 @@ public class Controller {
 	}
 	
 	//POPOLA TABELLA CON I DEPOSITI:
-	public void popolaTabellaDepositi(int idPropr, DefaultTableModel model) {
-		model.setRowCount(0);
+	public ArrayList<Deposito> popolaTabellaDepositi(int idPropr) {
 		depositoDAO = new DepositoDAO();
-		depositoDAO.popolaTabellaDepositi( idPropr, model);
+		return depositoDAO.popolaTabellaDepositi( idPropr);
 	}
 	
 	//TROVA L'ID DEL DEPOSITO:

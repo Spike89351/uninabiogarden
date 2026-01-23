@@ -23,6 +23,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class PaginaDeposito extends JFrame {
 	private Controller theController;
@@ -35,7 +36,7 @@ public class PaginaDeposito extends JFrame {
 	private JButton btnBack;
 	private JButton btnVisualizzaDettagli;
 	private DefaultTableModel model;
-
+	private ArrayList<Deposito> elenco = new ArrayList();
 	private int idDepositoSelezionato;
 	
 	public PaginaDeposito(Controller c, int idProprietario) {
@@ -44,7 +45,11 @@ public class PaginaDeposito extends JFrame {
 			public void windowActivated(WindowEvent e) {
 				//POPOLA TABELLA CON I DEPOSITI:
 				try {
-					theController.popolaTabellaDepositi(idProprietario, model);
+					model.setRowCount(0);
+					if(! elenco.isEmpty()) {
+						elenco.clear();
+					}
+					elenco = theController.popolaTabellaDepositi(idProprietario);
 				}catch(Exception x) {
 					JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei depositi!");
 				}
@@ -166,7 +171,7 @@ public class PaginaDeposito extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"Id deposito", "Indirizzo", "Dimensione m²"}
+				new String[]{"Indirizzo", "Dimensione m²"}
 			);
 		
 		table = new JTable(model);
