@@ -8,13 +8,13 @@ public class Deposito {
     private Fertilizzante fertilizzante;
     private ArrayList<Coltura> elencoColture = new ArrayList<Coltura>();
     private ArrayList<Attrezzo> elencoAttrezzi = new ArrayList<Attrezzo>();
-    private Proprietario prop;
+    private int idProp;
     
     
-    Deposito(String indirizzo, Double dimensione, Proprietario prop){
+    Deposito(String indirizzo, Double dimensione, int idProp){
     	this.indirizzo = indirizzo;
     	this.dimDeposito = dimensione;
-    	this.prop = prop;
+    	this.idProp = idProp;
     }
 
 //GETTERS:
@@ -38,6 +38,9 @@ public class Deposito {
 	}
 	public ArrayList<Attrezzo> getElencoAttrezzi() {
 		return elencoAttrezzi;
+	}
+	public int getIdProp() {
+		return idProp;
 	}
 
 	
@@ -63,7 +66,9 @@ public class Deposito {
 	public void setElencoAttrezzi(Attrezzo Attrezzo) {
 		this.elencoAttrezzi.add(Attrezzo);
 	}
-    
+    public void setIdProp(int idProp) {
+    	this.idProp = idProp;
+    }
 
 
 }
