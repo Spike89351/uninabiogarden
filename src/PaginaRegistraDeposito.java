@@ -110,8 +110,7 @@ public class PaginaRegistraDeposito extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//VAI AVANTI:
 				if(ctrlText()) {
-					Proprietario prop = null;
-					Deposito dep = new Deposito(txtIndirizzo.getText().trim(), Double.valueOf(txtDimensione.getText().trim()), prop);
+					Deposito dep = new Deposito(txtIndirizzo.getText().trim(), Double.valueOf(txtDimensione.getText().trim()), -1);
 					theController.daPaginaRegistraDepositoARegistraTerreno(u, email, pIva, dep);
 				}
 			}
