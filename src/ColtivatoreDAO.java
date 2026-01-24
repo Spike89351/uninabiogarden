@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -73,11 +74,13 @@ public class ColtivatoreDAO {
 	}
 	
 	//SERVE A POPOLARE LA TABELLA CON TUTTI I COLTIVATORI:
-	public void popolaTabella(DefaultTableModel model) {
+	public ArrayList<Coltivatore> popolaTabella() {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Utente AS U "
 				+ "JOIN prguninabiogarden.Coltivatore AS C ON U.username = C.username "
 				+ "WHERE C.disponibilità = ?";
+		
+		ArrayList<Coltivatore> elenco = new ArrayList<Coltivatore>();
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -87,10 +90,14 @@ public class ColtivatoreDAO {
                 ResultSet rs = psmt.executeQuery();
                 
             while(rs.next()) {
-				model.addRow(new Object[]{rs.getInt("id_coltivatore"), rs.getString("Nome"), rs.getString("Cognome"), rs.getDate("data_nascita"), rs.getString("indirizzo")});
+            	Coltivatore c = new Coltivatore(rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_nascita"), Genere.valueOf(rs.getString("genere")), rs.getString("username"), rs.getString("passwd"), rs.getString("indirizzo"));
+				c.setCodiceId(rs.getInt("id_coltivatore"));
+				elenco.add(c);
             }
+            return elenco;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con le attività del coltivatore! (CLASSE ColtivatoreDAO), funzione: popolaTabella" + e);
+    		return elenco;
     	}
 	}
 	

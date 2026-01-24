@@ -13,6 +13,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
@@ -31,16 +32,20 @@ public class PaginaSceltaColtivatore extends JFrame {
 	private JButton btnBack;
 	private JButton btnAssocia;
 	private int idColtivatoreSelezionato;
+	private ArrayList<Coltivatore> elenco = new ArrayList<Coltivatore>();
 	
 	public PaginaSceltaColtivatore(int idAttività, String statoAttivitàSelezionata, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				//POPOLA TABELLA:
-				try {
-					theController.popolaTabellaConColtivatori(model);
-				}catch(Exception x) {
-					JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella con tutti i coltivatori");
+				model.setRowCount(0);
+				if(! elenco.isEmpty()) {
+					elenco.clear();
+				}
+				elenco = theController.popolaTabellaConColtivatori();
+				for(Coltivatore c : elenco) {
+					model.addRow(new Object[]{c.getNome(), c.getCognome(), c.getDataNascita(), c.getIndirizzo()});
 				}
 			}
 			@Override
@@ -79,7 +84,7 @@ public class PaginaSceltaColtivatore extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"id coltivatore", "Nome", "Cognome", "Data di Nascita", "Indirizzo"}
+				new String[]{"Nome", "Cognome", "Data di Nascita", "Indirizzo"}
 			);
 		
 		table = new JTable(model);
@@ -88,8 +93,7 @@ public class PaginaSceltaColtivatore extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				int selectedRow = table.rowAtPoint(e.getPoint());
 				if(selectedRow != -1) {
-					String idColtivatoreStirng = String.valueOf(table.getValueAt(selectedRow, 0));
-					idColtivatoreSelezionato = Integer.valueOf(idColtivatoreStirng);
+					idColtivatoreSelezionato = elenco.get(selectedRow).getCodiceId();
 					btnAssocia.setEnabled(true);
 				}
 			}
@@ -120,7 +124,11 @@ public class PaginaSceltaColtivatore extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//METODO CHE PRENDE COME INPUT L'ID DELL'ATTIVITA' E COLTIVATORE E LI ASSOCIA + POI METTE IL BOOELAN FALSE DEL COLTIVATORE:
 				if(theController.associaAttivitàAColtivatore(idAttività, idColtivatoreSelezionato)) {
-					theController.popolaTabellaConColtivatori(model);
+					model.setRowCount(0);
+					elenco = theController.popolaTabellaConColtivatori();
+					for(Coltivatore c : elenco) {
+						model.addRow(new Object[]{c.getNome(), c.getCognome(), c.getDataNascita(), c.getIndirizzo()});
+					}
 					//INVIA NOTIFICA:
 					theController.iniviaNotificaPrezaServizio(idColtivatoreSelezionato);
 					JOptionPane.showMessageDialog(null, "Complimenti, hai associato perfettamente il coltivatore all'attività!");

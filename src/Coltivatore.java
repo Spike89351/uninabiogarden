@@ -16,6 +16,7 @@ public class Coltivatore extends Utente{
     //COSTRUTTORE:
     Coltivatore(String nome, String cognome, java.sql.Date dataNascita, Genere gen, String username, String password, String indirizzo){
         super(nome, cognome, dataNascita, gen, username, password);
+        this.indirizzo = indirizzo;
     }
 
     //GETTERS:
