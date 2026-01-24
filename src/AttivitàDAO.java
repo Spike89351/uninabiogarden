@@ -77,8 +77,15 @@ public class AttivitàDAO {
 				
 				ResultSet rs = psmt.executeQuery();
 				
+				String tempStato;
+				
 				while(rs.next()) {
-					Attività at = new Attività(CondizioneRaccolto.valueOf(rs.getString("tipo_attività")), Stato.valueOf(rs.getString("Stato_attività")), rs.getDate("Data_inizio"), rs.getDate("Data_fine"), rs.getString("indirizzo"));
+					if(rs.getString("stato_attività").equalsIgnoreCase("in corso")) {
+						tempStato = String.valueOf(Stato.in_Corso);
+					}else {
+						tempStato = rs.getString("stato_attività");
+					}
+					Attività at = new Attività(CondizioneRaccolto.valueOf(rs.getString("tipo_attività")), Stato.valueOf(tempStato), rs.getDate("Data_inizio"), rs.getDate("Data_fine"), rs.getString("indirizzo"));
 					at.setIdAttività(rs.getInt("Id_attività"));
 					elenco.add(at);
                 }
