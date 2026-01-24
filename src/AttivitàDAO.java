@@ -152,21 +152,23 @@ public class AttivitàDAO {
 	}
 	
 	//MI SERVE A INSERIRE I COLTIVATORI NELLA TABELLA PER VISUALIZZARLI:
-	public void coltivatoreAttività(int idAttività, DefaultTableModel model, String statoAtt) {
+	public ArrayList<Coltivatore> coltivatoreAttività(int idAttività, String statoAtt) {
 		if(statoAtt.equals("Completata")) {
-			popolaTabellaConColtivatoriAttivitàCompleta(idAttività, model);
+			return popolaTabellaConColtivatoriAttivitàCompleta(idAttività);
 		}else {
-			popolaTabellaConColtivatoriAttivitàNonCompleta(idAttività, model);
+			return popolaTabellaConColtivatoriAttivitàNonCompleta(idAttività);
 		}
 	}
 	
 	//MI SERVE PER LA FUNZIONE SOPRA, E SERVE PER INSERIRE NELLA TABELLA I COLTIVATORI CHE STANNO LAVORANDO ALL'ATTIVITA' CHE SI STA SVOLGENDO ORA:
-	private void popolaTabellaConColtivatoriAttivitàNonCompleta(int idAttività, DefaultTableModel model) {
+	private ArrayList<Coltivatore> popolaTabellaConColtivatoriAttivitàNonCompleta(int idAttività) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Attività AS A "
 				+ "JOIN prguninabiogarden.Coltivatore AS C ON A.id_attività = C.id_attività "
 				+ "JOIN prguninabiogarden.Utente AS U ON C.username = U.username "
 				+ "WHERE A.id_attività = ? ";
+		
+		ArrayList<Coltivatore> elenco = new ArrayList<Coltivatore>();
 
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -176,21 +178,27 @@ public class AttivitàDAO {
 				ResultSet rs = psmt.executeQuery();
 				
 				while(rs.next()) {
-					model.addRow(new Object[]{rs.getInt("id_coltivatore"), rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_nascita"), rs.getString("indirizzo")});
+					Coltivatore c = new Coltivatore(rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_nascita"), Genere.valueOf(rs.getString("genere")), rs.getString("username"), rs.getString("passwd"), rs.getString("indirizzo"));
+					c.setCodiceId(rs.getInt("id_coltivatore"));
+					elenco.add(c);
                 }
+				return elenco;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con i coltivatori che lavorano su quel campo, nella CLASSE AttivitàDAO, funzione: popolaTabellaConQuantitàRaccolto" + e);
+    		return null;
     	}
 	}
 	
 	//MI SERVE NELLA FUNZIONE SOPRA, E SERVE PER INSERIRE NELLA TABELLA TUTTI I COLTIVATORI CHE HANNO LAVORATO A QUELL'ATTIVITA' ORAMAI COMPLETATA:
-	private void popolaTabellaConColtivatoriAttivitàCompleta(int idAttività, DefaultTableModel model) {
+	private ArrayList<Coltivatore> popolaTabellaConColtivatoriAttivitàCompleta(int idAttività) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Attività AS A "
 				+ "JOIN prguninabiogarden.logStoricoColtivatore AS STC ON A.id_attività = STC.id_attività "
 				+ "JOIN prguninabiogarden.Coltivatore AS C ON STC.id_coltivatore = C.id_coltivatore "
 				+ "JOIN prguninabiogarden.Utente AS U ON C.username = U.username "
 				+ "WHERE STC.id_attività = ? ";
+		
+		ArrayList<Coltivatore> elenco = new ArrayList<Coltivatore>();
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -200,10 +208,14 @@ public class AttivitàDAO {
 				ResultSet rs = psmt.executeQuery();
 				
 				while(rs.next()) {
-					model.addRow(new Object[]{rs.getInt("id_coltivatore"), rs.getString("username"), rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_nascita"), rs.getString("indirizzo")});
+					Coltivatore c = new Coltivatore(rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_nascita"), Genere.valueOf(rs.getString("genere")), rs.getString("username"), rs.getString("passwd"), rs.getString("indirizzo"));
+					c.setCodiceId(rs.getInt("id_coltivatore"));
+					elenco.add(c);
                 }
+				return elenco;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella con i coltivatori che lavorano su quel campo, nella CLASSE AttivitàDAO, funzione: popolaTabellaConQuantitàRaccolto" + e);
+    		return null;
     	}
 	}
 	

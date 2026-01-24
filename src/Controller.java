@@ -674,10 +674,9 @@ public class Controller {
 		finestraVisualizzaColtivatoriAttività.setVisible(true);
 	}
 	
-	public void popolaTabellaConColtivatoriAssociatiAllAttività(int idAttività, DefaultTableModel model, String statoAtt) {
-		model.setRowCount(0);
+	public ArrayList<Coltivatore> popolaTabellaConColtivatoriAssociatiAllAttività(int idAttività, String statoAtt) {
 		attivitàDAO = new AttivitàDAO();
-		attivitàDAO.coltivatoreAttività(idAttività, model, statoAtt);
+		return attivitàDAO.coltivatoreAttività(idAttività, statoAtt);
 	}
 	
 	//ASSOCIA UN'ATTIVITA' A UN COLTIVATORE E CAMBIA LA SUA DISPONIBILITA':

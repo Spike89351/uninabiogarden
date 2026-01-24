@@ -4,7 +4,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class Coltivatore extends Utente{
-    private String codiceId;
+    private int codiceId;
     private String indirizzo;
     private ArrayList<Attività> elencoAttività = new ArrayList<Attività>();
     private ArrayList<Notifica> elencoNotifiche = new ArrayList<Notifica>();
@@ -19,7 +19,7 @@ public class Coltivatore extends Utente{
     }
 
     //GETTERS:
-    public String getCodiceId() {
+    public int getCodiceId() {
         return codiceId;
     }
     public ArrayList<Attività> getElencoAttività() {
@@ -39,7 +39,7 @@ public class Coltivatore extends Utente{
     }
 
     //SETTERS:
-    public void setCodiceId(String codiceId) {
+    public void setCodiceId(int codiceId) {
         this.codiceId = codiceId;
     }
     public void setElencoAttività(ArrayList<Attività> elencoAttività) {

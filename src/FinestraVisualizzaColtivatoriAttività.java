@@ -19,6 +19,7 @@ import javax.swing.ListSelectionModel;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
@@ -51,12 +52,21 @@ public class FinestraVisualizzaColtivatoriAttività extends JDialog {
 	private JButton btnInvia;
 	private JButton btnInviaATutti;
 	private int idSelected;
+	private ArrayList<Coltivatore> elenco = new ArrayList<Coltivatore>();
+	
 	
 	public FinestraVisualizzaColtivatoriAttività(int idAttività, String statAtt, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				theController.popolaTabellaConColtivatoriAssociatiAllAttività(idAttività, model, statAtt);
+				model.setRowCount(0);
+				if(! elenco.isEmpty()) {
+					elenco.clear();
+				}
+				elenco = theController.popolaTabellaConColtivatoriAssociatiAllAttività(idAttività, statAtt);
+				for(Coltivatore c : elenco) {
+					model.addRow(new Object[]{c.getUsername(), c.getNome(), c.getCognome(), c.getDataNascita(), c.getIndirizzo()});
+				}
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -91,7 +101,7 @@ public class FinestraVisualizzaColtivatoriAttività extends JDialog {
 				{
 					model  = new DefaultTableModel(
 							new Object[][]{},
-							new String[]{"id", "username", "Nome", "Cognome", "Data di Nascita", "Indirizzo"}
+							new String[]{"username", "Nome", "Cognome", "Data di Nascita", "Indirizzo"}
 						);
 					
 					table = new JTable(model);
@@ -100,8 +110,7 @@ public class FinestraVisualizzaColtivatoriAttività extends JDialog {
 						public void mouseClicked(MouseEvent e) {
 							int selectedRow = table.rowAtPoint(e.getPoint());
 							if(selectedRow != -1) {
-								String idStrg = String.valueOf(table.getValueAt(selectedRow, 0));
-								idSelected = Integer.valueOf(idStrg.trim());
+								idSelected = elenco.get(selectedRow).getCodiceId();
 								//IL PULSANTE 'INVIA' VIENE ABILITATO:
 								btnInvia.setEnabled(true);
 								//IL PULSANTE 'INVIA A TUTTI' VIENE DISABILITATO:
@@ -110,7 +119,6 @@ public class FinestraVisualizzaColtivatoriAttività extends JDialog {
 						}
 					});
 					
-								        
 					scrollPane.setColumnHeaderView(table);
 					scrollPane.setViewportView(table);
 				}
