@@ -329,10 +329,9 @@ public class Controller {
 	}
 	
 	//SERVE PER VISUALIZZARE TUTTI I PROGETTI PER UN TERRENO: (DEVI PRIMA POTERLI INSERIRE)
-	public void popolaTabellaProgettiPerTerreno(int idTerreno, DefaultTableModel model) {
-		model.setRowCount(0);
+	public ArrayList<Progetto> popolaTabellaProgettiPerTerreno(int idTerreno) {
 		progettoDAO = new ProgettoDAO();
-		progettoDAO.listaDiProgettiPerTerreno(idTerreno, model);
+		return progettoDAO.listaDiProgettiPerTerreno(idTerreno);
 	}
 	
 	//METODO CHE SERVE PER ANDARE NELLA PAGINA DEDICATA ALLE ATTIVITA':
@@ -386,9 +385,9 @@ public class Controller {
 	}
 	
 	//MI SERVE PER POPOLARE LA TABELLA DEI PROGETTI PER UN TERRENO SPECIFICO:
-	public void popolaTabellaPerTerrenoSpecifico(int idTerreno, DefaultTableModel model) {
+	public ArrayList<Progetto> popolaTabellaPerTerrenoSpecifico(int idTerreno) {
 		progettoDAO = new ProgettoDAO();
-		progettoDAO.listaDiProgettiPerTerreno(idTerreno, model);
+		return progettoDAO.listaDiProgettiPerTerreno(idTerreno);
 	}
 	
 	//MODIFICA DI ALCUNI DATI DEL PROGETTO:
@@ -603,10 +602,9 @@ public class Controller {
 	}
 	
 	//MI SERVE PER POPOLARE LA TABELLA DELLE ATTIVITA':
-	public void popolaTabellaAttività(int idAttività, int idProg, DefaultTableModel model) {
-		model.setRowCount(0);
+	public ArrayList<Attività> popolaTabellaAttività(int idAttività, int idProg) {
 		attivitàDAO = new AttivitàDAO();
-		attivitàDAO.popolaTabella(idAttività, idProg, model);
+		return attivitàDAO.popolaTabella(idAttività, idProg);
 	}
 	
 	//MI SERVE PER PASSARE DALLA PAGINA ATTIVITA' ALLA FINESTRA DETTAGLI:

@@ -25,6 +25,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private Controller theController;
@@ -38,6 +39,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private int idProgettoSelezionato;
 	private JButton btnBack;
 	private String statoPrg;
+	private ArrayList<Progetto> elenco = new ArrayList<Progetto>();
 	
 	public VisualizzaTerrenoInModoSpecifico(String idTerreno, Controller c) {
 		theController = c;
@@ -45,10 +47,13 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				try {
-					theController.popolaTabellaProgettiPerTerreno(Integer.valueOf(idTerreno), modelProgetto);
-				}catch(Exception x) {
-					JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei progetti, nella pagina visualizzaTerrenoInMododSpecifico"+ x);
+				modelProgetto.setRowCount(0);
+				if(! elenco.isEmpty()) {
+					elenco.clear();
+				}
+				elenco = theController.popolaTabellaProgettiPerTerreno(Integer.valueOf(idTerreno));
+				for(Progetto prg : elenco) {
+					modelProgetto.addRow(new Object[]{prg.getNomeProgetto(), prg.getDataInizio(), prg.getStatoProgetto(), prg.getDataFine()});
 				}
 			}
 			@Override
@@ -141,7 +146,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(lblIndirizzoDaMostrare, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 460, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panelCentral.setVerticalGroup(
@@ -171,8 +176,9 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 								.addComponent(lblIndirizzo, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(43, Short.MAX_VALUE))
+							.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+							.addGap(6)))
+					.addGap(43))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
@@ -181,7 +187,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		
 		modelProgetto = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "id Progetto", "Nome progetto", "Data inizio", "Stato progetto"}
+				new String[]{"Nome progetto", "Data inizio", "Stato progetto", "Data fine"}
 			);;
 		
 		table = new JTable(modelProgetto);
@@ -190,9 +196,9 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				int selectedRow = table.rowAtPoint(e.getPoint());
 				if(selectedRow != -1) {
-					String idProgettoStringSel = String.valueOf(table.getValueAt(selectedRow, 0));
+					
 					statoPrg = String.valueOf(table.getValueAt(selectedRow, 3));
-					idProgettoSelezionato = Integer.valueOf(idProgettoStringSel);
+					idProgettoSelezionato = elenco.get(selectedRow).getCodeProgetto();
 					
 					btnVisualizzaAltriDettagli.setEnabled(true);					
 				}

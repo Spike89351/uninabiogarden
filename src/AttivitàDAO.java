@@ -60,12 +60,14 @@ public class AttivitàDAO {
 	}
 
 	//POPOLA TABELLA CON TUTTE LE ATTIVITA' (RICORDA CHE NON TI FARA VEDERE TUTTE LE FASI DI UN'ATTIVITA'!):
-	public void popolaTabella(int idTerreno, int idProg, DefaultTableModel model) {
+	public ArrayList<Attività> popolaTabella(int idTerreno, int idProg) {
 		String sql = "SELECT A.id_attività, A.tipo_attività, A.stato_attività, A.data_inizio, A.data_fine "
 				+ "FROM prguninabiogarden.Terreno AS T "
 				+ "JOIN prguninabiogarden.Progetto AS PRO ON T.id_terreno = PRO.id_terreno "
 				+ "JOIN prguninabiogarden.Attività AS A ON A.codice_prg = PRO.codice_prg "
 				+ "WHERE T.id_terreno = ? AND PRO.codice_prg = ? ";
+		
+		ArrayList<Attività> elenco = new ArrayList<Attività>();
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -76,10 +78,14 @@ public class AttivitàDAO {
 				ResultSet rs = psmt.executeQuery();
 				
 				while(rs.next()) {
-					model.addRow(new Object[]{rs.getInt("Id_attività"), rs.getString("Tipo_attività"), rs.getString("Stato_attività"), rs.getDate("Data_inizio"), rs.getDate("Data_fine")});
+					Attività at = new Attività(CondizioneRaccolto.valueOf(rs.getString("tipo_attività")), Stato.valueOf(rs.getString("Stato_attività")), rs.getDate("Data_inizio"), rs.getDate("Data_fine"), rs.getString("indirizzo"));
+					at.setIdAttività(rs.getInt("Id_attività"));
+					elenco.add(at);
                 }
+				return elenco;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nel popolare la tabella nella CLASSE AttivitàDAO, funzione: popolaTabella" + e);
+    		return null;
     	} 
 	}
 	

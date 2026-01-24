@@ -28,6 +28,7 @@ import java.awt.event.WindowEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.awt.FlowLayout;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
@@ -58,9 +59,26 @@ public class PaginaAttività extends JFrame {
 	private String statoAttivitàSelezionata;
 	private JButton btnCambiaStato;
 	private boolean ctrlDate;
+	private ArrayList<Attività> elenco = new ArrayList<Attività>();
 	
 	public PaginaAttività(int idTerreno, int idProgetto, String statoPrg, Controller c) {
 		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				if(statoPrg.equals("Completato")) {
+					btnAggiungi.setEnabled(false);
+					btnCompleta.setEnabled(false);
+					btnCambiaStato.setEnabled(false);
+				}
+				model.setRowCount(0);
+				if(! elenco.isEmpty()) {
+					elenco.clear();
+				}
+				elenco = theController.popolaTabellaAttività(idTerreno, idProgetto);
+				for(Attività at : elenco) {
+					model.addRow(new Object[]{String.valueOf(at.getCondizioneRaccolto()), String.valueOf(at.getStatoEsecuzione()), at.getDataInizio(), at.getDataFine()});
+				}
+			}
 			@Override
 			public void windowClosing(WindowEvent e) {
 				//PULISCI CAMPI:
@@ -69,15 +87,6 @@ public class PaginaAttività extends JFrame {
 				btnCompleta.setEnabled(false);
 				//LA VARIABILE A CUI PASSO L'ID DELL'ATTIVITA' LA SETTO  A 0:
 				idAttivitàSelezionata = 0;
-			}
-			@Override
-			public void windowActivated(WindowEvent e) {
-				if(statoPrg.equals("Completato")) {
-					btnAggiungi.setEnabled(false);
-					btnCompleta.setEnabled(false);
-					btnCambiaStato.setEnabled(false);
-				}
-				theController.popolaTabellaAttività(idTerreno, idProgetto, model);
 			}
 		});
 		
@@ -228,9 +237,10 @@ public class PaginaAttività extends JFrame {
 					.addGap(37)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addComponent(panelTable, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+							.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnAggiungiColtivatore))
+							.addComponent(btnAggiungiColtivatore)
+							.addGap(12))
 						.addGroup(gl_panelCentral.createSequentialGroup()
 							.addGroup(gl_panelCentral.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblTipoAttività)
@@ -249,7 +259,7 @@ public class PaginaAttività extends JFrame {
 								.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addComponent(btnAggiungi)))
-					.addContainerGap(37, Short.MAX_VALUE))
+					.addGap(37))
 		);
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
@@ -268,8 +278,7 @@ public class PaginaAttività extends JFrame {
 				int selectedRow = table.rowAtPoint(e.getPoint());
 				if(selectedRow != -1) {
 					//TRADUCO CIO' CHE HO SELEZIONATO:
-					String idAttivitàString= String.valueOf(table.getValueAt(selectedRow, 0));
-					idAttivitàSelezionata = Integer.valueOf(idAttivitàString);
+					idAttivitàSelezionata = elenco.get(selectedRow).getIdAttività();
 					tipoAttività = String.valueOf(table.getValueAt(selectedRow, 1));
 					statoAttivitàSelezionata = String.valueOf(table.getValueAt(selectedRow, 2));
 					
@@ -338,7 +347,11 @@ public class PaginaAttività extends JFrame {
 					}else {
 						JOptionPane.showMessageDialog(null, "Errore, non è stato cambiato lo stato dell'attività");
 					}
-					theController.popolaTabellaAttività(idTerreno, idProgetto, model);
+					model.setRowCount(0);
+					elenco = theController.popolaTabellaAttività(idTerreno, idProgetto);
+					for(Attività at : elenco) {
+						model.addRow(new Object[]{String.valueOf(at.getCondizioneRaccolto()), String.valueOf(at.getStatoEsecuzione()), at.getDataInizio(), at.getDataFine()});
+					}
 				}else {
 					//VISUALIZZA DETTAGLI E LI' PUOI AGGIUNGERE ALTRE COSE:
 					theController.daPaginaAttivitàAFinestraDettagliAttività(idTerreno, idAttivitàSelezionata);
