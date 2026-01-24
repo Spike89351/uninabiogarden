@@ -27,6 +27,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.FlowLayout;
@@ -48,8 +49,8 @@ public class PaginaColtura extends JFrame {
 	private int idColturaSelezionata;
 	private JLabel lblAvvisoColturaScelta;
 	private JButton btnCambiaDisponibilità;
-	
-	
+	private ArrayList<Coltura> elenco = new ArrayList<Coltura>();
+ 	
 	public PaginaColtura(int idDep, Controller c) {
 		theController = c;
 		
@@ -57,7 +58,14 @@ public class PaginaColtura extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				//POPOLA LA TABELLA DI DEFAULT CON TUTTE LE COLTURE DISP:
-				theController.popolaTabellaColtureDispONon(idDep, model, true);
+				model.setRowCount(0);
+				if(! elenco.isEmpty()) {
+					elenco.clear();
+				}
+				elenco = theController.popolaTabellaColtureDispONon(idDep, true);
+				for (Coltura coltura : elenco) {
+					model.addRow(new Object[]{coltura.getNome(), coltura.getColore(), coltura.getStagione(), coltura.getTipoOrtaggio(), coltura.isDisp()});
+				}
 			}
 		});
 		
@@ -110,7 +118,7 @@ public class PaginaColtura extends JFrame {
 				//AGGIUNGI:
 				if(ctrlTxtFields()) {
 					if(theController.inserisciColtura(idDep, txtNome.getText(), txtColore.getText(), comboBoxStagione.getSelectedItem().toString(), comboBoxTipoOrtaggio.getSelectedItem().toString())) {
-						theController.popolaTabellaColtureDispONon(idDep, model, true);
+						elenco = theController.popolaTabellaColtureDispONon(idDep, true);
 						clearTxtFields();
 						JOptionPane.showMessageDialog(null, "Hai inserito correttamente la coltura!");
 					}
@@ -132,10 +140,14 @@ public class PaginaColtura extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				//UNA VOLTA CAMBIATO CERCA PER CIO' CHE SI E' CAMBIATO:
 				if(e.getStateChange() == ItemEvent.SELECTED) {
+					model.setRowCount(0);
 					if(String.valueOf(e.getItem().toString()).equals("")) {
-						theController.popolaTabellaColtureDispONon(idDep, model, true);
+						elenco = theController.popolaTabellaColtureDispONon(idDep, true);
 					}else {
-						theController.popolaTabellaColtureDispONon(idDep, model, false);
+						elenco = theController.popolaTabellaColtureDispONon(idDep, false);
+					}
+					for (Coltura coltura : elenco) {
+						model.addRow(new Object[]{coltura.getNome(), coltura.getColore(), coltura.getStagione(), coltura.getTipoOrtaggio(), coltura.isDisp()});
 					}
 				}
 			}
@@ -235,10 +247,7 @@ public class PaginaColtura extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				int selectedRow = table.rowAtPoint(e.getPoint());
 				if(selectedRow != -1) {
-					//PRENDO IL NOME DELLA COLTURA, COLORE E IL TIPO:
-					String idColturaString = String.valueOf(table.getValueAt(selectedRow, 0));
-					
-					idColturaSelezionata = Integer.valueOf(idColturaString);
+					idColturaSelezionata = elenco.get(selectedRow).getIdColtura();
 					
 					lblAvvisoColturaScelta.setText("La coltura che hai scelto ha come id "+idColturaSelezionata);
 					
@@ -277,7 +286,7 @@ public class PaginaColtura extends JFrame {
 				//RIMUOVI:
 				if(theController.eliminaColtura(idDep, idColturaSelezionata)) {
 					//POPOLA LA TABELLA:
-					theController.popolaTabellaColtureDispONon(idDep, model, true);
+					elenco = theController.popolaTabellaColtureDispONon(idDep, true);
 					//PULISCO I CAMPI:
 					clearTxtFields();
 					//L'ID DELLA COLTURA SELEZIONATA LA METTO A 0:

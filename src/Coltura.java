@@ -1,4 +1,5 @@
 public class Coltura {
+	private int idColtura;
     private String nome;
     private String colore;
     private String stagione;
@@ -15,6 +16,9 @@ public class Coltura {
 
 
     //GETTERS:
+    public int getIdColtura() {
+    	return idColtura;
+    }
     public String getNome() {
         return nome;
     }
@@ -31,10 +35,10 @@ public class Coltura {
         return disp;
     }
 
-
-
-
     //SETTER:
+    public void setIdColtura(int idColt) {
+    	this.idColtura = idColt;
+    }
     public void setNome(String nome) {
         this.nome = nome;
     }

@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -34,10 +35,12 @@ public class ColturaDAO {
 	}
 	
 	//MI SERVE PER POPOLARE LA TABELLA SIA CON TUTTE LE COLTURE SIA CON LE COLTURE DISPONIBILI CHE NON:
-	public void popolaTabella(int idDep, DefaultTableModel model, boolean disp) {
+	public ArrayList<Coltura> popolaTabella(int idDep, boolean disp) {
 		String sql = "SELECT * "
 				+ "FROM prguninabiogarden.Coltura "
 				+ "WHERE id_deposito = ? AND disponibilità = ?";
+		
+		ArrayList<Coltura> elenco = new ArrayList<Coltura>();
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -48,10 +51,15 @@ public class ColturaDAO {
 			ResultSet rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				model.addRow(new Object[]{rs.getInt("id_coltura"), rs.getString("nome"), rs.getString("colore"), rs.getString("stagione"), rs.getString("tipo"), rs.getBoolean("disponibilità")});
+				Coltura colt = new Coltura(rs.getString("nome"), rs.getString("colore"), rs.getString("stagione"), rs.getString("tipo"));
+				colt.setIdColtura(rs.getInt("id_coltura"));
+				colt.setDisp(rs.getBoolean("disponibilità"));
+				elenco.add(colt);
 			} 
+			return elenco;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione popolataTabella, nella classe ColturaDAO " + e);
+    		return null;
     	} 
 	}
 	

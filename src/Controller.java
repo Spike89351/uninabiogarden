@@ -574,10 +574,9 @@ public class Controller {
 	}
 	
 	//MI SERVE A POPOLARE LA TABELLA CON LE COLTURE, DISP O NON DISP:
-	public void popolaTabellaColtureDispONon(int idDep, DefaultTableModel model, boolean disp) {
-		model.setRowCount(0);
+	public ArrayList<Coltura> popolaTabellaColtureDispONon(int idDep, boolean disp) {
 		colturaDAO = new ColturaDAO();
-		colturaDAO.popolaTabella(idDep, model, disp);
+		return colturaDAO.popolaTabella(idDep, disp);
 	}
 	
 	//MI SERVE PER ELIMINARE LA COLTURA:
