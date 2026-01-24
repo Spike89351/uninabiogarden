@@ -61,7 +61,7 @@ public class AttivitàDAO {
 
 	//POPOLA TABELLA CON TUTTE LE ATTIVITA' (RICORDA CHE NON TI FARA VEDERE TUTTE LE FASI DI UN'ATTIVITA'!):
 	public ArrayList<Attività> popolaTabella(int idTerreno, int idProg) {
-		String sql = "SELECT * "
+		String sql = "SELECT A.id_attività, A.tipo_attività, A.stato_attività, A.data_inizio, A.data_fine, T.indirizzo "
 				+ "FROM prguninabiogarden.Terreno AS T "
 				+ "JOIN prguninabiogarden.Progetto AS PRO ON T.id_terreno = PRO.id_terreno "
 				+ "JOIN prguninabiogarden.Attività AS A ON A.codice_prg = PRO.codice_prg "
