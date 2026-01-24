@@ -123,18 +123,6 @@ public class PaginaAttività extends JFrame {
 		String[] elecoCondizioni = {"", "Riposo", "Rinnovo", "Preparazione", "Semina", "Germinazione", "Irrigazione", "Nutrizione", "Fioritura", "Crescita", "Maturazione", "Fruttificazione", "Raccolta"};
 		
 		comboBoxTipoAttività = new JComboBox(elecoCondizioni);
-//		comboBoxTipoAttività.addItemListener(new ItemListener() {
-//			public void itemStateChanged(ItemEvent e) {
-//				//UNA VOLTA CAMBIATO STATO E SELEZIONATO 'RACCOLTA':
-//				if(comboBoxTipoAttività.getSelectedItem().toString().equals("Raccolta")) {
-//					ctrlDate = false;
-//					dateChooserFine.setEnabled(false);
-//				}else {
-//					ctrlDate = true;
-//					dateChooserFine.setEnabled(true);
-//				}
-//			}
-//		});
 		comboBoxTipoAttività.setToolTipText("Se lasci vuoto il database inserira il parametro 'Preprazione come default'");
 		
 		String[] elencoStato = {"", "Nessuna", "Pianificata", "In Corso"};
@@ -268,7 +256,7 @@ public class PaginaAttività extends JFrame {
 		
 		model = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "Id attività", "Tipo", "Stato", "Data inizio", "Data fine"}
+				new String[]{"Tipo", "Stato", "Data inizio", "Data fine"}
 			);
 		
 		table = new JTable(model);
@@ -279,8 +267,8 @@ public class PaginaAttività extends JFrame {
 				if(selectedRow != -1) {
 					//TRADUCO CIO' CHE HO SELEZIONATO:
 					idAttivitàSelezionata = elenco.get(selectedRow).getIdAttività();
-					tipoAttività = String.valueOf(table.getValueAt(selectedRow, 1));
-					statoAttivitàSelezionata = String.valueOf(table.getValueAt(selectedRow, 2));
+					tipoAttività = String.valueOf(table.getValueAt(selectedRow, 0));
+					statoAttivitàSelezionata = String.valueOf(table.getValueAt(selectedRow, 1));
 					
 					if(!statoAttivitàSelezionata.equals("Completata")) {
 						//SBLOCCO IL PULSANTE 'DETTAGLI':
