@@ -38,6 +38,8 @@ public class DepositoDAO {
 				+ "WHERE id_Proprietario = ? "
 				+ "ORDER BY id_deposito ";
 		
+		ArrayList<Deposito> elenco = new ArrayList<Deposito>();
+		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
 		
@@ -46,10 +48,14 @@ public class DepositoDAO {
 			ResultSet rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				model.addRow(new Object[]{rs.getString("id_deposito"), rs.getString("indirizzo_deposito"), rs.getString("dim_Deposito")});
+				Deposito dep = new Deposito(rs.getString("indirizzo_deposito"), rs.getDouble("dim_deposito"), idProp);
+				dep.setIdDeposito(rs.getInt("id_deposito"));
+				elenco.add(dep);
 			} 
+			return elenco;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione popolataTabellaDepsoiti, nella classe DepositoDAO " + e);
+    		return null;
     	} 
 	}
 	
@@ -120,7 +126,7 @@ public class DepositoDAO {
 			ResultSet rs = psmt.executeQuery();
 			
 			if(rs.next()) {
-				model.addRow(new Object[]{rs.getString("id_deposito"), rs.getString("indirizzo_deposito"), rs.getString("dim_Deposito"), rs.getDouble("quantità_raccolto")});
+				model.addRow(new Object[]{rs.getString("indirizzo_deposito"), rs.getString("dim_Deposito"), rs.getDouble("quantità_raccolto")});
 			}
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione popolaTabellaConUnDeposito, nella classe DepositoDAO " + e);

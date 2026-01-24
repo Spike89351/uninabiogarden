@@ -16,7 +16,7 @@ public class Deposito {
     	this.dimDeposito = dimensione;
     	this.idProp = idProp;
     }
-
+    
 //GETTERS:
 	public int getIdDeposito() {
 		return idDeposito;

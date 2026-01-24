@@ -50,6 +50,9 @@ public class PaginaDeposito extends JFrame {
 						elenco.clear();
 					}
 					elenco = theController.popolaTabellaDepositi(idProprietario);
+					for(Deposito dep : elenco) {
+						model.addRow(new Object[]{dep.getIndirizzo(), dep.getDimDeposito()});
+					}
 				}catch(Exception x) {
 					JOptionPane.showMessageDialog(null, "Errore nel popolamento della tabella dei depositi!");
 				}
@@ -106,7 +109,7 @@ public class PaginaDeposito extends JFrame {
 					theController.creaDeposito(idProprietario, txtIndirizzo.getText(), Double.valueOf(txtDimensione.getText()));
 					
 					//AGGIORNAMENTO DELLA TABELLA DEI DEPOSITI:
-					theController.popolaTabellaDepositi(idProprietario, model);
+					elenco = theController.popolaTabellaDepositi(idProprietario);
 					
 					//PULIZIA DEI CAMPI:
 					clearFields();
@@ -180,14 +183,7 @@ public class PaginaDeposito extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				int selectedRow = table.rowAtPoint(e.getPoint());
 				if(selectedRow != -1) {
-					try {
-						//PRESA DEL DATO DALLA TABELLA:
-						String idDepositoString = String.valueOf(table.getValueAt(selectedRow, 0));
-						//CAST DEL DATO DA STRING A INT:
-						idDepositoSelezionato = Integer.valueOf(idDepositoString);
-					}catch(ClassCastException x) {
-						JOptionPane.showMessageDialog(scrollPane, "Errore nel cast!");
-					}
+					idDepositoSelezionato = elenco.get(selectedRow).getIdDeposito();
 					//RENDO DISPONIBILE IL PULSANTE PER VISUALIZZARE I DETTAGLI:
 					btnVisualizzaDettagli.setEnabled(true);
 				}

@@ -212,7 +212,7 @@ public class PaginaDettagliDeposito extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"Id deposito", "Indirizzo", "Dimensione (m²)", "Raccolto"}
+				new String[]{"Indirizzo", "Dimensione (m²)", "Raccolto"}
 			);
 		
 		table = new JTable(model);

@@ -226,7 +226,7 @@ public class PaginaColtura extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"id Coltura", "Nome", "Colore", "Stagione", "Tipo", "Disponibile"}
+				new String[]{"Nome", "Colore", "Stagione", "Tipo", "Disponibile"}
 			);
 		
 		table = new JTable(model);
