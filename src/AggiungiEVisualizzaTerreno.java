@@ -65,7 +65,7 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		
 			
 		setTitle("Registra e visualizza terreni");
-		setSize(710, 430);
+		setSize(850, 430);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -173,14 +173,14 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 		txtDeposito.setColumns(10);
 		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
 		gl_panelCentral.setHorizontalGroup(
-			gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+			gl_panelCentral.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(45)
 					.addComponent(lblAggiungiTerreno)
-					.addPreferredGap(ComponentPlacement.RELATED, 341, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 449, Short.MAX_VALUE)
 					.addComponent(lblVisualizzaTerreni)
 					.addGap(139))
-				.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
+				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_panelCentral.createSequentialGroup()
@@ -203,21 +203,18 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 								.addComponent(txtIndirizzo, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))))
 					.addGap(53)
 					.addGroup(gl_panelCentral.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
 						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addComponent(panelTable, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(gl_panelCentral.createSequentialGroup()
-							.addGap(135)
-							.addComponent(lblTerrenoSelezionato, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblTerrenoSelezionato, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblTerrenoId, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-							.addGap(109))))
-				.addGroup(Alignment.LEADING, gl_panelCentral.createSequentialGroup()
+							.addComponent(lblTerrenoId, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
+				.addGroup(gl_panelCentral.createSequentialGroup()
 					.addGap(44)
 					.addComponent(btnAggiungiTerreno)
-					.addPreferredGap(ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 369, Short.MAX_VALUE)
 					.addComponent(btnVisualizzaTerreno)
-					.addGap(172))
+					.addGap(221))
 		);
 		gl_panelCentral.setVerticalGroup(
 			gl_panelCentral.createParallelGroup(Alignment.LEADING)
@@ -280,6 +277,11 @@ public class AggiungiEVisualizzaTerreno extends JFrame {
 			);
 		
 		table = new JTable(modelTerreno);
+		//SERVE A NASCONDERE LA COLONNA DELL'ID:
+		table.getColumnModel().getColumn(0).setMinWidth(0);
+		table.getColumnModel().getColumn(0).setMaxWidth(0);
+		table.getColumnModel().getColumn(0).setWidth(0);
+		table.getColumnModel().getColumn(0).setPreferredWidth(0);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
