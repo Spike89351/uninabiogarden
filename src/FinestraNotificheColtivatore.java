@@ -124,6 +124,10 @@ public class FinestraNotificheColtivatore extends JDialog {
 				);
 			
 			table = new JTable(model);
+			table.getColumnModel().getColumn(0).setMinWidth(0);
+			table.getColumnModel().getColumn(0).setMaxWidth(0);
+			table.getColumnModel().getColumn(0).setWidth(0);
+			table.getColumnModel().getColumn(0).setPreferredWidth(0);
 			table.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
