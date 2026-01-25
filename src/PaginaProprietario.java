@@ -327,7 +327,7 @@ public class PaginaProprietario extends JFrame {
 		
 		elencoAttributiPrg  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{ "Id progetto", "Nome progetto", "Data inizio", "Data fine", "Stato progetto", "Id terreno"}
+				new String[]{ "Id progetto", "Nome progetto", "Data inizio", "Data fine", "Stato progetto", "Terreno"}
 			);
 		
 		table = new JTable(elencoAttributiPrg);
