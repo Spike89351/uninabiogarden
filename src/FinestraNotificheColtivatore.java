@@ -57,7 +57,7 @@ public class FinestraNotificheColtivatore extends JDialog {
 		theController = c;
 		
 		setTitle("Finestra notifiche");
-		setSize(450, 300);
+		setSize(580, 306);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
