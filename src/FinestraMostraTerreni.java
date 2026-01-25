@@ -79,12 +79,16 @@ public class FinestraMostraTerreni extends JDialog {
 						);;
 					
 					table = new JTable(model);
+					table.getColumnModel().getColumn(0).setMinWidth(0);
+					table.getColumnModel().getColumn(0).setMaxWidth(0);
+					table.getColumnModel().getColumn(0).setWidth(0);
+					table.getColumnModel().getColumn(0).setPreferredWidth(0);
 					table.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							int selRow = table.rowAtPoint(e.getPoint());
 							if(selRow != -1) {
-								JOptionPane.showMessageDialog(null, "Il terreno selezionato è: "+String.valueOf(table.getValueAt(selRow, 0)));
+								JOptionPane.showMessageDialog(null, "Il terreno è stato selezioanto");
 								txtField.setText(String.valueOf(table.getValueAt(selRow, 0)));
 								btnOk.setEnabled(true);
 							}
