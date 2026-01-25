@@ -97,7 +97,7 @@ public class ProgettoDAO {
 			ResultSet rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getInt("Id_terreno")});
+				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getString("indirizzo")});
 			} 
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione listaTuttiProgetti, nella classe ProgettoDAO " + e);
@@ -118,7 +118,7 @@ public class ProgettoDAO {
 			
 			ResultSet rs = psmt.executeQuery();
 			while(rs.next()) {
-				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getInt("Id_terreno")});
+				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getString("indirizzo")});
 			} 
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiPianificati, nella classe ProgettoDAO " + e);
@@ -139,7 +139,7 @@ public class ProgettoDAO {
 			
 			ResultSet rs = psmt.executeQuery();
 			while(rs.next()) {
-				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getInt("Id_terreno")});
+				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getString("indirizzo")});
 			} 
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiInCorso, nella classe ProgettoDAO " + e);
@@ -160,7 +160,7 @@ public class ProgettoDAO {
 			
 			ResultSet rs = psmt.executeQuery();
 			while(rs.next()) {
-				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getInt("Id_terreno")});
+				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getDate("data_fine"), rs.getString("stato_prg"), rs.getString("indirizzo")});
 			} 
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione listaProgettiCompletati, nella classe ProgettoDAO " + e);
