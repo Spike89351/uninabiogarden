@@ -37,13 +37,11 @@ public class ProgettoDAO {
 	}
 	
 	//FUNZIONE CHE SERVE PER RISALIRE AI PROGETTI:
-	public ArrayList<Progetto> listaDiProgettiPerTerreno(int idTerreno){
+	public void listaDiProgettiPerTerreno(int idTerreno, DefaultTableModel model){
 		String sql = "SELECT * "
 		           + "FROM prguninabiogarden.Progetto AS P "
 		           + "JOIN prguninabiogarden.Terreno AS T ON P.id_terreno = T.id_terreno "
 		           + "WHERE T.id_terreno = ? ";
-		
-		ArrayList<Progetto> elenco = new ArrayList<Progetto>();
 		
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
     			PreparedStatement psmt = conn.prepareStatement(sql)) {
@@ -52,16 +50,10 @@ public class ProgettoDAO {
 			
 			ResultSet rs = psmt.executeQuery();
 			while(rs.next()) {
-				Progetto prg = new Progetto(rs.getString("Nome_prg"), rs.getDate("data_inizio"), null);
-				prg.setCodeProgetto(rs.getInt("codice_prg"));
-				prg.setStatoProgetto(StatoProgetto.valueOf(rs.getString("stato_prg")));
-				prg.setDataFine(rs.getDate("data_fine"));
-				elenco.add(prg);
+				model.addRow(new Object[]{rs.getInt("codice_prg"), rs.getString("Nome_prg"), rs.getDate("data_inizio"), rs.getString("stato_prg"), rs.getDate("data_fine")});
 			} 
-			return elenco;
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, "Errore nella funzione listaDiPorgettiPerTerreno, nella classe ProgettoDAO " + e);
-    		return null;
     	}  
 	}
 	

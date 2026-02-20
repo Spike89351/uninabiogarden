@@ -47,14 +47,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				modelProgetto.setRowCount(0);
-				if(! elenco.isEmpty()) {
-					elenco.clear();
-				}
-				elenco = theController.popolaTabellaProgettiPerTerreno(Integer.valueOf(idTerreno));
-				for(Progetto prg : elenco) {
-					modelProgetto.addRow(new Object[]{prg.getNomeProgetto(), prg.getDataInizio(), prg.getStatoProgetto(), prg.getDataFine()});
-				}
+				theController.popolaTabellaProgettiPerTerreno(Integer.valueOf(idTerreno), modelProgetto);
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -187,10 +180,14 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		
 		modelProgetto = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"Nome progetto", "Data inizio", "Stato progetto", "Data fine"}
+				new String[]{"Id", "Nome progetto", "Data inizio", "Stato progetto", "Data fine"}
 			);;
 		
 		table = new JTable(modelProgetto);
+		table.getColumnModel().getColumn(0).setMinWidth(0);
+		table.getColumnModel().getColumn(0).setMaxWidth(0);
+		table.getColumnModel().getColumn(0).setWidth(0);
+		table.getColumnModel().getColumn(0).setPreferredWidth(0);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

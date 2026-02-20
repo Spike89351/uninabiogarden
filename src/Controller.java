@@ -329,9 +329,10 @@ public class Controller {
 	}
 	
 	//SERVE PER VISUALIZZARE TUTTI I PROGETTI PER UN TERRENO: (DEVI PRIMA POTERLI INSERIRE)
-	public ArrayList<Progetto> popolaTabellaProgettiPerTerreno(int idTerreno) {
+	public void popolaTabellaProgettiPerTerreno(int idTerreno, DefaultTableModel model) {
+		model.setRowCount(0);
 		progettoDAO = new ProgettoDAO();
-		return progettoDAO.listaDiProgettiPerTerreno(idTerreno);
+		progettoDAO.listaDiProgettiPerTerreno(idTerreno, model);
 	}
 	
 	//METODO CHE SERVE PER ANDARE NELLA PAGINA DEDICATA ALLE ATTIVITA':
@@ -385,9 +386,10 @@ public class Controller {
 	}
 	
 	//MI SERVE PER POPOLARE LA TABELLA DEI PROGETTI PER UN TERRENO SPECIFICO:
-	public ArrayList<Progetto> popolaTabellaPerTerrenoSpecifico(int idTerreno) {
+	public void popolaTabellaPerTerrenoSpecifico(int idTerreno, DefaultTableModel model) {
+		model.setRowCount(0);
 		progettoDAO = new ProgettoDAO();
-		return progettoDAO.listaDiProgettiPerTerreno(idTerreno);
+		progettoDAO.listaDiProgettiPerTerreno(idTerreno, model);
 	}
 	
 	//MODIFICA DI ALCUNI DATI DEL PROGETTO:
