@@ -501,9 +501,10 @@ public class Controller {
 	}
 	
 	//MI SERVE PER POPOLARE LA TABELLA CON GLI ATTREZZI DI QUEL DEPOSITO:
-	public ArrayList<Attrezzo> popolaTabellaConTuttiGliAttrezziDelDeposito(int idDep) {
+	public void popolaTabellaConTuttiGliAttrezziDelDeposito(int idDep, DefaultTableModel model) {
+		model.setRowCount(0);
 		attrezzoDAO = new AttrezzoDAO();
-		return attrezzoDAO.popolaTabellaAttrezzoPerDeposito(idDep);
+		attrezzoDAO.popolaTabellaAttrezzoPerDeposito(idDep, model);
 	}
 	
 	//MI SERVE PER GLI ATTREZZI: (ALTRE FUNZIONI):

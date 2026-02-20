@@ -39,7 +39,6 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 	private int idProgettoSelezionato;
 	private JButton btnBack;
 	private String statoPrg;
-	private ArrayList<Progetto> elenco = new ArrayList<Progetto>();
 	
 	public VisualizzaTerrenoInModoSpecifico(String idTerreno, Controller c) {
 		theController = c;
@@ -56,7 +55,6 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 		});
 		
 		terrSelezionato = theController.trovaTerreno(idTerreno);
-		
 		
 		setTitle("Terreno Selezionato");
 		setSize(800, 300);
@@ -195,7 +193,7 @@ public class VisualizzaTerrenoInModoSpecifico extends JFrame {
 				if(selectedRow != -1) {
 					
 					statoPrg = String.valueOf(table.getValueAt(selectedRow, 3));
-					idProgettoSelezionato = elenco.get(selectedRow).getCodeProgetto();
+					idProgettoSelezionato = Integer.valueOf(String.valueOf(table.getValueAt(selectedRow, 0)));
 					
 					btnVisualizzaAltriDettagli.setEnabled(true);					
 				}

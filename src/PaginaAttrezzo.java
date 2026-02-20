@@ -46,21 +46,13 @@ public class PaginaAttrezzo extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu menuAltro;
 	private JMenuItem itemManutenzione;
-	private ArrayList<Attrezzo> elenco = new ArrayList<Attrezzo>();
 	
 	public PaginaAttrezzo(int idDep, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				//POPOLA TABELLA CON TUTTI GLI ATTREZZI:
-				model.setRowCount(0);
-				if(! elenco.isEmpty()) {
-					elenco.clear();
-				}
-				elenco = theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep);
-				for(Attrezzo at : elenco) {
-					model.addRow(new Object[]{at.getNome(), String.valueOf(at.getTipo()), String.valueOf(at.getStatoAttrezzo())});
-				}
+				theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
 			}
 		});
 		
@@ -125,9 +117,7 @@ public class PaginaAttrezzo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(ctrlTextFields()) {
 					if(theController.creaAttrezzo(idDep, txtNome.getText(), comboBoxTipo.getSelectedItem().toString(), comboBoxStato.getSelectedItem().toString())) {
-						model.setRowCount(0);
-						elenco.clear();
-						elenco = theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep);
+						theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
 						clearTxtField();
 						JOptionPane.showMessageDialog(null, "Hai inserito correttamente l'attrezzo!");
 					}
@@ -192,10 +182,14 @@ public class PaginaAttrezzo extends JFrame {
 		
 		model = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"Nome", "Tipo", "Stato"}
+				new String[]{"Id", "Nome", "Tipo", "Stato"}
 			);
 		
 		table = new JTable(model);
+		table.getColumnModel().getColumn(0).setMinWidth(0);
+		table.getColumnModel().getColumn(0).setMaxWidth(0);
+		table.getColumnModel().getColumn(0).setWidth(0);
+		table.getColumnModel().getColumn(0).setPreferredWidth(0);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -203,7 +197,7 @@ public class PaginaAttrezzo extends JFrame {
 				if(row != -1) {
 					try {
 						//PRESA DEL DATO DALLA TABELLA:
-						idAttrezzoSelezionato = elenco.get(row).getIdAttrezzo();
+						idAttrezzoSelezionato = Integer.valueOf(String.valueOf(table.getValueAt(row, 0)));
 						
 					}catch(ClassCastException x) {
 						JOptionPane.showMessageDialog(scrollPane, "Errore nel cast!");
@@ -239,9 +233,7 @@ public class PaginaAttrezzo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//UNA VOLTA SELEZIONATO UN ATTREZZO TRAMITE TABELLA IL PULSANTE SI SBLOCCA E POSSO ELIMINARLO:
 				if(theController.eliminaAttrezzo(idAttrezzoSelezionato)) {
-					model.setRowCount(0);
-					elenco.clear();
-					elenco = theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep);
+					theController.popolaTabellaConTuttiGliAttrezziDelDeposito(idDep, model);
 					
 					clearTxtField();
 					btnRimuovi.setEnabled(false);
