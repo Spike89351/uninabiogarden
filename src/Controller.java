@@ -661,9 +661,10 @@ public class Controller {
 	}
 	
 	//POPOLA LA TABELLA CON TUTTI I COLTIVATORI:
-	public ArrayList<Coltivatore> popolaTabellaConColtivatori() {
+	public void popolaTabellaConColtivatori(DefaultTableModel model) {
+		model.setRowCount(0);
 		coltivatoreDAO = new ColtivatoreDAO();
-		return coltivatoreDAO.popolaTabella();
+		coltivatoreDAO.popolaTabella(model);
 	}
 	
 	//MI SERVE PER ANDARE NELLA FINESTRA DEI COLTIVATORI CHE STANNO LAVORANO A QUELL'ATTIVITA':

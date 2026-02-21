@@ -32,21 +32,13 @@ public class PaginaSceltaColtivatore extends JFrame {
 	private JButton btnBack;
 	private JButton btnAssocia;
 	private int idColtivatoreSelezionato;
-	private ArrayList<Coltivatore> elenco = new ArrayList<Coltivatore>();
 	
 	public PaginaSceltaColtivatore(int idAttività, String statoAttivitàSelezionata, Controller c) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				//POPOLA TABELLA:
-				model.setRowCount(0);
-				if(! elenco.isEmpty()) {
-					elenco.clear();
-				}
-				elenco = theController.popolaTabellaConColtivatori();
-				for(Coltivatore c : elenco) {
-					model.addRow(new Object[]{c.getNome(), c.getCognome(), c.getDataNascita(), c.getIndirizzo()});
-				}
+				theController.popolaTabellaConColtivatori(model);
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -84,16 +76,20 @@ public class PaginaSceltaColtivatore extends JFrame {
 		
 		model  = new DefaultTableModel(
 				new Object[][]{},
-				new String[]{"Nome", "Cognome", "Data di Nascita", "Indirizzo"}
+				new String[]{"Id", "Nome", "Cognome", "Data di Nascita", "Indirizzo"}
 			);
 		
 		table = new JTable(model);
+		table.getColumnModel().getColumn(0).setMinWidth(0);
+		table.getColumnModel().getColumn(0).setMaxWidth(0);
+		table.getColumnModel().getColumn(0).setWidth(0);
+		table.getColumnModel().getColumn(0).setPreferredWidth(0);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int selectedRow = table.rowAtPoint(e.getPoint());
 				if(selectedRow != -1) {
-					idColtivatoreSelezionato = elenco.get(selectedRow).getCodiceId();
+					idColtivatoreSelezionato = Integer.valueOf(String.valueOf(table.getValueAt(selectedRow, 0)));
 					btnAssocia.setEnabled(true);
 				}
 			}
@@ -124,11 +120,7 @@ public class PaginaSceltaColtivatore extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//METODO CHE PRENDE COME INPUT L'ID DELL'ATTIVITA' E COLTIVATORE E LI ASSOCIA + POI METTE IL BOOELAN FALSE DEL COLTIVATORE:
 				if(theController.associaAttivitàAColtivatore(idAttività, idColtivatoreSelezionato)) {
-					model.setRowCount(0);
-					elenco = theController.popolaTabellaConColtivatori();
-					for(Coltivatore c : elenco) {
-						model.addRow(new Object[]{c.getNome(), c.getCognome(), c.getDataNascita(), c.getIndirizzo()});
-					}
+					theController.popolaTabellaConColtivatori(model);
 					//INVIA NOTIFICA:
 					theController.iniviaNotificaPrezaServizio(idColtivatoreSelezionato);
 					JOptionPane.showMessageDialog(null, "Complimenti, hai associato perfettamente il coltivatore all'attività!");
