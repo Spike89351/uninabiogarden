@@ -6,5 +6,11 @@ public class OperatoreDAO {
 	private static final String PASSWORD = "Informatica1";
 	
 	
+	public boolean inserisci() {
+		
+		
+		return false;
+	}
+	
 	
 }
