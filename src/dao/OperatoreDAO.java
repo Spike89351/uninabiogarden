@@ -1,0 +1,17 @@
+package dao;
+
+public class OperatoreDAO {
+
+	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
+	private static final String USER = "postgres";
+	private static final String PASSWORD = "Informatica1";
+	
+	
+	public boolean inserisci() {
+		
+		
+		return false;
+	}
+	
+	
+}

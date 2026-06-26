@@ -1,0 +1,134 @@
+package dao;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import dto.Coltura;
+
+public class ColturaDAO {
+	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
+	private static final String USER = "postgres";
+	private static final String PASSWORD = "Informatica1";
+	
+	
+	public boolean inserisci(int idDep, String nome, String colore, String stagione, String tipo) {
+		String sql = "INSERT INTO prguninabiogarden.Coltura(id_deposito, nome, colore, stagione, tipo) "
+				+ "VALUES(?, ?, ?, ?, ?) ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+            
+                psmt.setInt(1, idDep);
+                psmt.setString(2, nome);
+                psmt.setString(3,  colore);
+                psmt.setString(4, stagione);
+                psmt.setString(5, tipo);
+                
+            int x  = psmt.executeUpdate();
+            return x > 0;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nell'inserimento della coltura! (CLASSE ColturaDAO), funzione: inserisci" + e);
+    		return false;
+    	} 
+	}
+	
+	//MI SERVE PER POPOLARE LA TABELLA SIA CON TUTTE LE COLTURE SIA CON LE COLTURE DISPONIBILI CHE NON:
+	public ArrayList<Coltura> popolaTabella(int idDep, boolean disp) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Coltura "
+				+ "WHERE id_deposito = ? AND disponibilità = ?";
+		
+		ArrayList<Coltura> elenco = new ArrayList<Coltura>();
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+		
+			psmt.setInt(1, idDep);
+			psmt.setBoolean(2, disp);
+			
+			ResultSet rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				Coltura colt = new Coltura(rs.getString("nome"), rs.getString("colore"), rs.getString("stagione"), rs.getString("tipo"));
+				colt.setIdColtura(rs.getInt("id_coltura"));
+				colt.setDisp(rs.getBoolean("disponibilità"));
+				elenco.add(colt);
+			} 
+			return elenco;
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione popolataTabella, nella classe ColturaDAO " + e);
+    		return null;
+    	} 
+	}
+	
+	//MI SERVE PER ELIMINARE UNA COLTURA:
+	public boolean elimina(int idDep, int idColtura) {
+		String sql = "DELETE FROM prguninabiogarden.Coltura "
+				+ "WHERE id_coltura = ? AND id_deposito = ? ";
+
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+
+			psmt.setInt(1, idColtura);
+			psmt.setInt(2, idDep);
+			
+			int x = psmt.executeUpdate();
+			
+			return x > 0; 
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione elimina, nella classe ColturaDAO " + e);
+    		return false;
+    	} 
+	}
+	
+	//CAMBIA DISPONIBILITA' DI UNA COLTURA:
+	public boolean cambiaDisponibilità(int idColtura) {
+		String sql = "UPDATE prguninabiogarden.Coltura "
+				+ "SET disponibilità = ? "
+				+ "WHERE id_coltura = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+
+			boolean ctrl = prendiDisponibilitàAttuale(idColtura);
+			
+			psmt.setBoolean(1, ! ctrl);
+			psmt.setInt(2, idColtura);
+			
+			int x = psmt.executeUpdate();
+			
+			return x > 0; 
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione cambiaDisponibilità, nella classe ColturaDAO " + e);
+    		return false;
+    	} 
+	}
+	
+	private boolean prendiDisponibilitàAttuale(int idColtura) {
+		String sql = "SELECT * "
+				+ "FROM prguninabiogarden.Coltura "
+				+ "WHERE id_coltura = ? ";
+		
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+    			PreparedStatement psmt = conn.prepareStatement(sql)) {
+
+			psmt.setInt(1, idColtura);
+			
+			ResultSet rs  = psmt.executeQuery();
+
+			if(rs.next()) {
+				return rs.getBoolean("disponibilità");
+			}
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, "Errore nella funzione prendiDisponibilitàAttuale, nella classe ColturaDAO " + e);
+    		return false;
+    	}
+		return false;
+	}
+	
+}
